@@ -8,6 +8,7 @@ class Hermes(CMakePackage):
     git = "https://github.com/hyoklee/hermes.git"
     version('master', branch='master')
     variant('vfd', default=False, description='Enable HDF5 VFD')
+    variant('debug', default=False, description='Enable Debugging')
     depends_on('mochi-thallium~cereal@0.8.3')
     depends_on('catch2@2.13.3')
     depends_on('gortools@7.7')
@@ -21,6 +22,8 @@ class Hermes(CMakePackage):
                 '-DBUILD_TESTING=ON']
         if '+vfd' in self.spec:
             args.append(self.define('HERMES_ENABLE_VFD', 'ON'))        
+        if '+debug' in self.spec:
+            args.append(self.define('CMAKE_BUILD_TYPE', 'Debug'))        
         return args
 
     def set_include(self, env, path):
