@@ -1,4 +1,4 @@
-name: spack ior+vfd
+name: spack ior+vfd +debug
 on:
   push:
     branches: [ master ]
