@@ -1,0 +1,42 @@
+name: spack ior+vfd
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Sources
+      uses: actions/checkout@v2
+    
+    - name: Checkout Spack
+      uses: actions/checkout@v2
+      with:
+        repository: spack/spack
+        path: ./spack
+
+    - name: Checkout Mochi
+      uses: actions/checkout@v2
+      with:
+        repository: mochi-hpc/mochi-spack-packages
+        path: ./mochi-spack-packages
+
+    - name: Run Spack
+      run: |
+        pip install clingo
+        . ./spack/share/spack/setup-env.sh
+        spack compiler find
+        spack repo add ./mochi-spack-packages
+        spack repo add ./ci/hermes
+        spack install ior+hermes+hdf5+vfd ^hermes+debug
+        spack view --verbose symlink install ior+hermes+hdf5+vfd ^hermes+debug
+        ./ci/test_ior_action.sh
+
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: result.zip
+        path: ${{ runner.workspace }}/hermes/result.zip
+        
