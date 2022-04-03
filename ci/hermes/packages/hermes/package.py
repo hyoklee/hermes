@@ -11,7 +11,8 @@ class Hermes(CMakePackage):
     variant('debug', default=False, description='Enable Debugging')
     depends_on('mochi-thallium~cereal@0.8.3')
     depends_on('catch2@2.13.3')
-    depends_on('gortools@7.7')
+    # depends_on('gortools@7.7')
+    depends_on('or-tools')
     depends_on('mpich@3.3.2:')
     depends_on('hdf5@1.13.0:', when='+vfd')    
 

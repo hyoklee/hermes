@@ -1,12 +1,16 @@
 #!/bin/bash
 
 . /scr/hyoklee/src/spack/share/spack/setup-env.sh
-spack load mochi-thallium
-spack load gortools 
-spack load catch2 
-spack load sdl2
-spack load hdf5@develop-1.13
+module load GCC/10.2.0
+spack load cmake
+# spack load gortools 
+# spack load sdl2
+#   spack load hdf5@develop-1.13
 spack load mpich@3.4.2
+spack load mpi
+spack load catch2 
+spack load or-tools
+spack load mochi-thallium
 set -x
 set -e
 set -o pipefail

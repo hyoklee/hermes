@@ -1,7 +1,7 @@
 name: spack ior+vfd +debug
 on:
   push:
-    branches: [ master ]
+    branches: [ gh-pages ]
   workflow_dispatch:
 
 jobs:

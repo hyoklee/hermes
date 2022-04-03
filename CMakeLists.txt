@@ -269,6 +269,25 @@ if(HERMES_RPC_THALLIUM)
     message(STATUS "found thallium at ${thallium_DIR}")
   endif()
 endif()
+# GLOG
+find_package(glog REQUIRED)
+find_path(GLOG_INCLUDE_DIRS NAME glog PATH_SUFFIXES include/)
+include_directories(${GLOG_INCLUDE_DIRS})
+
+# GFLAGS
+find_package(gflags REQUIRED)
+find_path(GFLAG_INCLUDE_DIRS NAME gflags PATH_SUFFIXES include/)
+include_directories(${GFLAG_INCLUDE_DIRS})
+
+# ABSL
+find_package(absl REQUIRED)
+find_path(ABSL_INCLUDE_DIRS NAME absl PATH_SUFFIXES include/)
+include_directories(${ABSL_INCLUDE_DIRS})
+
+# ABSL
+find_package(Protobuf REQUIRED)
+find_path(PROTOBUF_INCLUDE_DIRS NAME Protobuf PATH_SUFFIXES include/)
+include_directories(${PROTOBUF_INCLUDE_DIRS})
 
 # GOTCHA
 if(HERMES_INTERCEPT_IO)

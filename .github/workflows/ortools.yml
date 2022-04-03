@@ -1,0 +1,27 @@
+name: spack or-tools
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Sources
+      uses: actions/checkout@v2
+    
+    - name: Checkout Spack
+      uses: actions/checkout@v2
+      with:
+        repository: hyoklee/spack
+        path: ./spack
+
+    - name: Run Spack
+      run: |
+        pip install clingo
+        . ./spack/share/spack/setup-env.sh
+        spack compiler find
+        spack install or-tools
+        spack repo add ./ci/hermes
+        spack install hermes
