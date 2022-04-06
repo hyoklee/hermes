@@ -435,6 +435,15 @@ install(
     ${HERMES_INSTALL_DATA_DIR}/cmake/hermes
 )
 
+install(
+  FILES
+    test/data/hermes.conf
+  TYPE
+    DATA
+  RENAME
+    hermes_sample.conf
+)
+
 #-----------------------------------------------------------------------------
 # Configure the hermes-config-version .cmake file for the install directory
 #-----------------------------------------------------------------------------
