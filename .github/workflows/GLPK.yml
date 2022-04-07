@@ -65,11 +65,11 @@ jobs:
           spack external find xz
           spack install glpk
           spack load glpk
-          spack install mochi-thallium~cereal
-          spack load mochi-thallium~cereal
-          spack install cereal
-          spack load cereal
           spack install glog
           spack load glog
+          spack install catch2
+          spack load catch2
+          spack install mochi-thallium~cereal
+          spack load mochi-thallium~cereal
           ci/install_hermes_glpk.sh
           pushd ci/cluster && ./multi_node_ci_test.sh
