@@ -71,7 +71,7 @@ jobs:
           spack load catch2
           spack install mochi-thallium@main~cereal
           spack load mochi-thallium@main~cereal
-          spack install hdf5
+          spack install hdf5@devlep-1.13
           spack load hdf5
           ci/install_hermes_glpk.sh
           pushd ci/cluster && ./multi_node_ci_test.sh
