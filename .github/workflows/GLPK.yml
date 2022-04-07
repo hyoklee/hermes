@@ -69,5 +69,7 @@ jobs:
           spack load mochi-thallium~cereal
           spack install cereal
           spack load cereal
+          spack install glog
+          spack load glog
           ci/install_hermes_glpk.sh
           pushd ci/cluster && ./multi_node_ci_test.sh
