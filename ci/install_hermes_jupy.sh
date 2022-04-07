@@ -23,12 +23,13 @@ sudo apt-get install -y libsdl2-dev
 sudo apt-get install -y openssl
 sudo apt-get install -y xz-utils
 sudo apt-get install -y zlib1g-dev
+sudo apt-get install -y libprotobuf-dev
 cd work
 mkdir tmp
 export TMP=~/work/tmp
 export SPACK_LOCAL_DIR=~/work/tmp
-git clone https://github.com/spack/spack
-git clone https://github.com/mochi-hpc/mochi-spack-packages
+git clone https://github.com/hyoklee/spack
+# git clone https://github.com/mochi-hpc/mochi-spack-packages
 git clone https://github.com/hyoklee/hermes
 . ./spack/share/spack/setup-env.sh
 spack external find autoconf
@@ -56,13 +57,13 @@ spack external find xz
 
 spack install mpi ^mpich
 spack compiler find
-spack repo add mochi-spack-packages
+# spack repo add mochi-spack-packages
 spack repo add hermes/ci/hermes
-spack install hdf5 ^mpich
-spack load hdf5
-spack install gortools
-spack load gortools
-spack install ior+hermes+hdf5
-spack load ior+hermes+hdf5
-ior
+# spack install hdf5 ^mpich
+# spack load hdf5
+spack install or-tools
+spack load or-tools
+# spack install ior+hermes+hdf5
+# spack load ior+hermes+hdf5
+# ior
 

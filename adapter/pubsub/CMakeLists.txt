@@ -1,4 +1,4 @@
-project(PubSubAdapter VERSION ${HERMES_PACKAGE_VERSION})
+project(PubSubAdapter VERSION 0.4.0)
 
 set(HERMES_PUBSUB_ADAPTER_DIR ${HERMES_ADAPTER_DIR}/pubsub)
 
@@ -12,7 +12,7 @@ set(PUBSUB_ADAPTER_SRC pubsub.cc metadata_manager.cc)
 add_library(hermes_pubsub SHARED ${PUBSUB_ADAPTER_PRIVATE_HEADER} ${PUBSUB_ADAPTER_PUBLIC_HEADER} ${PUBSUB_ADAPTER_SRC})
 target_include_directories(hermes_pubsub PRIVATE ${HERMES_ADAPTER_DIR})
 add_dependencies(hermes_pubsub hermes)
-target_link_libraries(hermes_pubsub hermes MPI::MPI_CXX)
+target_link_libraries(hermes_pubsub hermes MPI::MPI_CXX glog::glog)
 
 #-----------------------------------------------------------------------------
 # Add Target(s) to CMake Install

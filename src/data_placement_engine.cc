@@ -19,7 +19,11 @@
 #include <random>
 #include <map>
 
+#ifdef ORTOOLS
 #include "ortools/linear_solver/linear_solver.h"
+#endif
+
+#include <glpk.h>
 
 #include "hermes.h"
 #include "hermes_types.h"
@@ -252,10 +256,12 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
                                const std::vector<f32> &bandwidths,
                                const std::vector<TargetID> &targets,
                                std::vector<PlacementSchema> &output) {
+#ifdef ORTOOLS
   using operations_research::MPSolver;
   using operations_research::MPVariable;
   using operations_research::MPConstraint;
   using operations_research::MPObjective;
+#endif
 
   Status result;
   const size_t num_targets = targets.size();
@@ -265,22 +271,33 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   const size_t constraints_per_target = 3;
   const size_t total_constraints =
     num_blobs + (num_targets * constraints_per_target) - 1;
+  glp_prob *lp = glp_create_prob();
+  glp_set_prob_name(lp, "min_io");
+  glp_set_obj_dir(lp, GLP_MIN);
+  // glp_add_rows(lp, 3);
+#ifdef ORTOOLS
   std::vector<MPConstraint*> blob_constrt(total_constraints);
   std::vector<std::vector<MPVariable*>> blob_fraction(num_blobs);
   MPSolver solver("LinearOpt", MPSolver::GLOP_LINEAR_PROGRAMMING);
+#endif
   int num_constrts {0};
 
   // Constraint #1: Sum of fraction of each blob is 1
   for (size_t i {0}; i < num_blobs; ++i) {
+#ifdef OROTOOLS
     blob_constrt[num_constrts+i] = solver.MakeRowConstraint(1, 1);
     blob_fraction[i].resize(num_targets);
+#endif
 
     // TODO(KIMMY): consider remote nodes?
     for (size_t j {0}; j < num_targets; ++j) {
+#ifdef ORTOOLS
       std::string var_name {"blob_dst_" + std::to_string(i) + "_" +
                             std::to_string(j)};
       blob_fraction[i][j] = solver.MakeNumVar(0.0, 1, var_name);
       blob_constrt[num_constrts+i]->SetCoefficient(blob_fraction[i][j], 1);
+#endif
+
     }
   }
   num_constrts += num_blobs;
@@ -291,12 +308,14 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   for (size_t j {0}; j < num_targets; ++j) {
     double remaining_capacity_threshold =
       static_cast<double>(node_state[j]) * minimum_remaining_capacity;
+#ifdef ORTOOLS
     blob_constrt[num_constrts+j] = solver.MakeRowConstraint(
       0, static_cast<double>(node_state[j]) - remaining_capacity_threshold);
     for (size_t i {0}; i < num_blobs; ++i) {
       blob_constrt[num_constrts+j]->SetCoefficient(
         blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
     }
+#endif
   }
   num_constrts += num_targets;
 
@@ -304,17 +323,20 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   // TODO(chogan): Get this number from the api::Context
   const double capacity_change_threshold = 0.2;
   for (size_t j {0}; j < num_targets; ++j) {
+#ifdef ORTOOLS
     blob_constrt[num_constrts+j] =
       solver.MakeRowConstraint(0, capacity_change_threshold * node_state[j]);
     for (size_t i {0}; i < num_blobs; ++i) {
       blob_constrt[num_constrts+j]->SetCoefficient(
         blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
     }
+#endif
   }
   num_constrts += num_targets;
 
   // Placement Ratio
   for (size_t j {0}; j < num_targets-1; ++j) {
+#ifdef ORTOOLS
     blob_constrt[num_constrts+j] =
       solver.MakeRowConstraint(0, solver.infinity());
     for (size_t i {0}; i < num_blobs; ++i) {
@@ -326,9 +348,11 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
         blob_fraction[i][j],
         static_cast<double>(blob_sizes[i])*(0-placement_ratio));
     }
+#endif
   }
 
   // Objective to minimize IO time
+#ifdef ORTOOLS
   MPObjective* const objective = solver.MutableObjective();
   for (size_t i {0}; i < num_blobs; ++i) {
     for (size_t j {0}; j < num_targets; ++j) {
@@ -346,16 +370,20 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     return result;
   }
 
+#endif
   for (size_t i {0}; i < num_blobs; ++i) {
     PlacementSchema schema;
     size_t target_pos {0};  // to track the target with most data
+#ifdef ORTOOLS
     auto largest_bulk{blob_fraction[i][0]->solution_value()*blob_sizes[i]};
     // NOTE: could be inefficient if there are hundreds of targets
     for (size_t j {1}; j < num_targets; ++j) {
       if (blob_fraction[i][j]->solution_value()*blob_sizes[i] > largest_bulk)
         target_pos = j;
     }
+#endif
     size_t blob_partial_sum {0};
+#ifdef ORTOOLS
     for (size_t j {0}; j < num_targets; ++j) {
       if (j == target_pos) {
         continue;
@@ -369,6 +397,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
         blob_partial_sum += frac_size_cast;
       }
     }
+#endif
     // Push the rest data to target at target_pos
     schema.push_back(std::make_pair(blob_sizes[i]-blob_partial_sum,
                                     targets[target_pos]));

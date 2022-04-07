@@ -1,4 +1,4 @@
-project(StdioAdapter VERSION ${HERMES_PACKAGE_VERSION})
+project(StdioAdapter VERSION 0.4.0)
 
 # STDIO src code. We only include stdio.cc as it includes other cc to reduce compilation time.
 set(STDIO_ADAPTER_SRC stdio.cc)
@@ -20,7 +20,7 @@ set(STDIO_ADAPTER_PRIVATE_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/metadata_manager.h
 add_library(hermes_stdio SHARED ${STDIO_ADAPTER_PRIVATE_HEADER} ${STDIO_ADAPTER_PUBLIC_HEADER} ${STDIO_ADAPTER_SRC})
 target_include_directories(hermes_stdio PRIVATE ${HERMES_ADAPTER_DIR})
 add_dependencies(hermes_stdio hermes)
-target_link_libraries(hermes_stdio hermes MPI::MPI_CXX stdc++fs)
+target_link_libraries(hermes_stdio hermes MPI::MPI_CXX glog::glog)
 
 #-----------------------------------------------------------------------------
 # Add Target(s) to CMake Install

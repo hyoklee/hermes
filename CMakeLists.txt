@@ -280,14 +280,14 @@ find_path(GFLAG_INCLUDE_DIRS NAME gflags PATH_SUFFIXES include/)
 include_directories(${GFLAG_INCLUDE_DIRS})
 
 # ABSL
-find_package(absl REQUIRED)
-find_path(ABSL_INCLUDE_DIRS NAME absl PATH_SUFFIXES include/)
-include_directories(${ABSL_INCLUDE_DIRS})
+# find_package(absl REQUIRED)
+# find_path(ABSL_INCLUDE_DIRS NAME absl PATH_SUFFIXES include/)
+# include_directories(${ABSL_INCLUDE_DIRS})
 
 # ABSL
-find_package(Protobuf REQUIRED)
-find_path(PROTOBUF_INCLUDE_DIRS NAME Protobuf PATH_SUFFIXES include/)
-include_directories(${PROTOBUF_INCLUDE_DIRS})
+# find_package(Protobuf REQUIRED)
+# find_path(PROTOBUF_INCLUDE_DIRS NAME Protobuf PATH_SUFFIXES include/)
+# include_directories(${PROTOBUF_INCLUDE_DIRS})
 
 # GOTCHA
 if(HERMES_INTERCEPT_IO)
@@ -319,12 +319,12 @@ if(NOT APPLE)
 endif()
 
 # sdl2
-if(HERMES_BUILD_BUFFER_POOL_VISUALIZER)
-  find_package(SDL2 CONFIG REQUIRED)
-  if(SDL2_FOUND)
-    message(STATUS "found SDL2 at ${SDL2_DIR}")
-  endif()
-endif()
+# if(HERMES_BUILD_BUFFER_POOL_VISUALIZER)
+#   find_package(SDL2 CONFIG REQUIRED)
+#   if(SDL2_FOUND)
+#     message(STATUS "found SDL2 at ${SDL2_DIR}")
+#   endif()
+# endif()
 
 #-----------------------------------------------------------------------------
 # Coverage
