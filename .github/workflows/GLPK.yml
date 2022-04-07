@@ -67,9 +67,5 @@ jobs:
           spack load glpk
           spack install mochi-thallium~cereal
           spack load mochi-thallium~cereal
-
-      - name: Build and Test
-        run: ci/install_hermes_glpk.sh
-
-      - name: Multi-node Test
-        run: pushd ci/cluster && ./multi_node_ci_test.sh
+          ci/install_hermes_glpk.sh
+          pushd ci/cluster && ./multi_node_ci_test.sh
