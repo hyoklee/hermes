@@ -69,7 +69,7 @@ jobs:
           spack load glog
           spack install catch2
           spack load catch2
-          spack install mochi-thallium~cereal
-          spack load mochi-thallium~cereal
+          spack install mochi-thallium@main~cereal
+          spack load mochi-thallium@main~cereal
           ci/install_hermes_glpk.sh
           pushd ci/cluster && ./multi_node_ci_test.sh
