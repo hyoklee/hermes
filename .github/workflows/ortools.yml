@@ -1,7 +1,7 @@
 name: spack or-tools
 on:
   push:
-    branches: [ master ]
+    branches: [ gh-pages ]
   workflow_dispatch:
 
 jobs:
