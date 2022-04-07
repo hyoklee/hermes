@@ -1,4 +1,4 @@
-name: GLPK
+name: GLPK2
 on:
   push:
     branches: [ master ]
@@ -20,7 +20,6 @@ jobs:
           sudo apt update
           sudo apt-get install -y autoconf
           sudo apt-get install -y automake
-          sudo apt-get install -y cmake
           sudo apt-get install -y libtool
           sudo apt-get install -y libtool-bin
           sudo apt-get install -y mpich
@@ -47,7 +46,6 @@ jobs:
           spack external find berkeley-db
           spack external find boost
           spack external find catch2
-          spack external find cmake
           spack external find diffutils
           spack external find libedit
           spack external find libtool
