@@ -74,5 +74,9 @@ jobs:
           spack install hdf5@develop-1.13
           spack load hdf5
           cmake --version
-          ci/install_hermes_glpk.sh
-          pushd ci/cluster && ./multi_node_ci_test.sh
+          mkdir build
+          cd build
+          cmake ..
+          ctest .
+          # ci/install_hermes_glpk.sh
+          # pushd ci/cluster && ./multi_node_ci_test.sh
