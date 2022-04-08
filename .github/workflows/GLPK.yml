@@ -77,6 +77,7 @@ jobs:
           mkdir build
           cd build
           cmake ..
+          make -j2
           ctest .
           # ci/install_hermes_glpk.sh
           # pushd ci/cluster && ./multi_node_ci_test.sh
