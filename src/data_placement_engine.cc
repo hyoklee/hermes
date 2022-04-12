@@ -277,6 +277,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   glp_prob *lp = glp_create_prob();
   int ia[1+1000], ja[1+1000], last = 0;
   double ar[1+1000], z, x1, x2, x3;
+  // double x[num_blobs * num_targets];
 
   glp_set_prob_name(lp, "min_io");
   //glp_set_obj_dir(lp, GLP_MAX);
@@ -465,9 +466,9 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       std::cout << "bandwidths[" << j << "]=" 
                 << bandwidths[j] << std::endl;
 #ifdef ORTOOLS
-    // Equation to solve - for each variable, set coefficient.
+      // Equation to solve - for each variable, set coefficient.
       objective->SetCoefficient(blob_fraction[i][j],
-                                static_cast<double>(blob_sizes[i])/bandwidths[j]);
+                              static_cast<double>(blob_sizes[i])/bandwidths[j]);
 #endif
       glp_set_obj_coef(lp, ij, static_cast<double>(blob_sizes[i])/bandwidths[j]);
     }
@@ -486,24 +487,31 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   glp_simplex(lp, NULL);
   z = glp_get_obj_val(lp);
 
+#if 0
   x1 = glp_get_col_prim(lp, 1);
   x2 = glp_get_col_prim(lp, 2);
   x3 = glp_get_col_prim(lp, 3);
   printf("\nz = %g; x1 = %g; x2 = %g; x3 = %g\n",
          z, x1, x2, x3);
-  glp_delete_prob(lp);
+#endif
 
   for (size_t i {0}; i < num_blobs; ++i) {
     PlacementSchema schema;
     size_t target_pos {0};  // to track the target with most data
 #ifdef ORTOOLS
     auto largest_bulk{blob_fraction[i][0]->solution_value()*blob_sizes[i]};
+#endif
+    auto largest_bulk{glp_get_col_prim(lp, i*num_targets+1) *blob_sizes[i]};
     // NOTE: could be inefficient if there are hundreds of targets
     for (size_t j {1}; j < num_targets; ++j) {
+#ifdef ORTOOLS
       if (blob_fraction[i][j]->solution_value()*blob_sizes[i] > largest_bulk)
-        target_pos = j;
-    }
 #endif
+      if (glp_get_col_prim(lp, i*num_targets+j+1)*blob_sizes[i] > largest_bulk)
+        target_pos = j;
+
+    }
+
     size_t blob_partial_sum {0};
 
     for (size_t j {0}; j < num_targets; ++j) {
@@ -513,13 +521,17 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #ifdef ORTOOLS
       double check_frac_size {blob_fraction[i][j]->solution_value()*
                               blob_sizes[i]};  // blob fraction size
+#endif
+      double check_frac_size {glp_get_col_prim(lp, i*num_targets+j+1)*
+                              blob_sizes[i]};  // blob fraction size
+
       size_t frac_size_cast = static_cast<size_t>(check_frac_size);
       // If size to this destination is not 0, push to result
       if (frac_size_cast != 0) {
         schema.push_back(std::make_pair(frac_size_cast, targets[j]));
         blob_partial_sum += frac_size_cast;
       }
-#endif
+
     }
 
     // Push the rest data to target at target_pos
@@ -527,7 +539,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
                                     targets[target_pos]));
     output.push_back(schema);
   }
-
+  glp_delete_prob(lp);
   return result;
 }
 
