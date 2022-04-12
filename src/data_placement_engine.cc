@@ -485,6 +485,12 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
   glp_load_matrix(lp, total_constraints, ia, ja, ar);
   glp_simplex(lp, NULL);
+  if (glp_get_status(lp) != GLP_OPT) {
+    result = DPE_ORTOOLS_NO_SOLUTION;
+    LOG(ERROR) << result.Msg();
+    glp_delete_prob(lp);
+    return result;
+  }
   z = glp_get_obj_val(lp);
 
 #if 0
