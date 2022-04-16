@@ -276,7 +276,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   std::cout << "total_constraints = " << total_constraints << std::endl;
   glp_prob *lp = glp_create_prob();
   int ia[1+1000], ja[1+1000], last = 0;
-  double ar[1+1000], z, x1, x2, x3;
+  double ar[1+1000];
   // double x[num_blobs * num_targets];
 
   glp_set_prob_name(lp, "min_io");
