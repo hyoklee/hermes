@@ -31,7 +31,7 @@ cmake                                                      \
     -DHERMES_USE_THREAD_SANITIZER=OFF                      \
     -DHERMES_RPC_THALLIUM=ON                               \
     -DHERMES_DEBUG_HEAP=OFF                                \
-    -DHERMES_ENABLE_VFD=ON                                 \
+    -DHERMES_ENABLE_VFD=OFF                                 \
     -DBUILD_TESTING=ON                                     \
     ..
 
