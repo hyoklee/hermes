@@ -276,7 +276,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   std::cout << "total_constraints = " << total_constraints << std::endl;
   glp_prob *lp = glp_create_prob();
   int ia[1+1000], ja[1+1000], last = 0;
-  double ar[1+1000], z;
+  double ar[1+1000];
   // double x[num_blobs * num_targets];
 
   glp_set_prob_name(lp, "min_io");
@@ -491,8 +491,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     glp_delete_prob(lp);
     return result;
   }
-  z = glp_get_obj_val(lp);
-  printf("\nz = %g\n");
+  glp_get_obj_val(lp);
   
 #if 0
   x1 = glp_get_col_prim(lp, 1);
