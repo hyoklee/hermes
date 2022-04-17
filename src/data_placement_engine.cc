@@ -492,7 +492,8 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     return result;
   }
   z = glp_get_obj_val(lp);
-
+  printf("\nz = %g\n");
+  
 #if 0
   x1 = glp_get_col_prim(lp, 1);
   x2 = glp_get_col_prim(lp, 2);
