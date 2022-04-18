@@ -67,7 +67,8 @@ jobs:
           spack load glog
           spack install catch2
           spack load catch2
-          spack install mpi
+          spack install mpi ^mpich
+          spack load mpi
           spack install mochi-thallium@main~cereal
           spack load mochi-thallium@main~cereal
           spack install hdf5@develop-1.13
