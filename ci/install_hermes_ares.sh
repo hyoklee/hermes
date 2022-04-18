@@ -1,8 +1,8 @@
 #!/bin/bash
 rm -rf ~/.spack
 rm -rf /tmp/${USER}
-git clone https://github.com/spack/spack
-git clone https://github.com/mochi-hpc/mochi-spack-packages
+git clone https://github.com/hyoklee/spack
+# git clone https://github.com/mochi-hpc/mochi-spack-packages
 git clone https://github.com/hyoklee/hermes
 . ./spack/share/spack/setup-env.sh
 spack compiler find
