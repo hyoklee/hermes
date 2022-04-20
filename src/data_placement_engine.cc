@@ -266,54 +266,23 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   Status result;
   const size_t num_targets = targets.size();
   const size_t num_blobs = blob_sizes.size();
+#ifdef DEBUG:
   std::cout << "num_blobs=" << num_blobs << std::endl;
   std::cout << "num_targets=" << num_targets << std::endl;
+#endif
   // TODO(KIMMY): size of constraints should be from context
   const size_t constraints_per_target = 3;
-  // -1 is for Placement Ratio constraint, which iterates 1 less than num_targets.
   const size_t total_constraints =
-      num_blobs + (num_targets * constraints_per_target) - 1; 
-  std::cout << "total_constraints = " << total_constraints << std::endl;
+      num_blobs + (num_targets * constraints_per_target) - 1;
   glp_prob *lp = glp_create_prob();
   int ia[1+1000], ja[1+1000], last = 0;
   double ar[1+1000];
   // double x[num_blobs * num_targets];
 
   glp_set_prob_name(lp, "min_io");
-  //glp_set_obj_dir(lp, GLP_MAX);
   glp_set_obj_dir(lp, GLP_MIN);
   glp_add_rows(lp, total_constraints);
   glp_add_cols(lp, num_blobs * num_targets);
-#if 0
-  glp_set_row_name(lp, 1, "p");
-  glp_set_row_bnds(lp, 1, GLP_UP, 0.0, 100.0); //  GLP_UP means UPPER bound.
-  glp_set_row_name(lp, 2, "q");
-  glp_set_row_bnds(lp, 2, GLP_UP, 0.0, 600.0);
-  glp_set_row_name(lp, 3, "r");
-  glp_set_row_bnds(lp, 3, GLP_UP, 0.0, 300.0);
-  // Objecttive function.
-  glp_add_cols(lp, 3);
-  glp_set_col_name(lp, 1, "x1");
-  glp_set_col_bnds(lp, 1, GLP_LO, 0.0, 0.0);
-  glp_set_obj_coef(lp, 1, 10.0);
-  glp_set_col_name(lp, 2, "x2");
-  glp_set_col_bnds(lp, 2, GLP_LO, 0.0, 0.0);
-  glp_set_obj_coef(lp, 2, 6.0);
-  glp_set_col_name(lp, 3, "x3");
-  glp_set_col_bnds(lp, 3, GLP_LO, 0.0, 0.0);
-  glp_set_obj_coef(lp, 3, 4.0);
-  // Coefficients for contraint rows. r value is coefficient. i,j are row,col.
-  ia[1] = 1, ja[1] = 1, ar[1] =  1.0; /* a[1,1] =  1 */
-  ia[2] = 1, ja[2] = 2, ar[2] =  1.0; /* a[1,2] =  1 */
-  ia[3] = 1, ja[3] = 3, ar[3] =  1.0; /* a[1,3] =  1 */
-  // 3 index per 1 row constraint.
-  ia[4] = 2, ja[4] = 1, ar[4] = 10.0; /* a[2,1] = 10 */
-  ia[5] = 3, ja[5] = 1, ar[5] =  2.0; /* a[3,1] =  2 */
-  ia[6] = 2, ja[6] = 2, ar[6] =  4.0; /* a[2,2] =  4 */
-  ia[7] = 3, ja[7] = 2, ar[7] =  2.0; /* a[3,2] =  2 */
-  ia[8] = 2, ja[8] = 3, ar[8] =  5.0; /* a[2,3] =  5 */
-  ia[9] = 3, ja[9] = 3, ar[9] =  6.0; /* a[3,3] =  6 */
-#endif
 
 #ifdef ORTOOLS
   std::vector<MPConstraint*> blob_constrt(total_constraints);
@@ -322,7 +291,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
   int num_constrts {0};   // counter that increase to 1) blobs 2) targets X 3
 
-  // Constraint #1: Sum of fraction of each blob is 1. 
+  // Constraint #1: Sum of fraction of each blob is 1.
   // (i.e., f_1 + f_2, ... + f_n = 1)
   for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef OROTOOLS
@@ -332,15 +301,19 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     // Use GLP_FX for the fixed contraint of 1.
     std::string row_name {"blob_row_" + std::to_string(i)};
     glp_set_row_name(lp, i+1, row_name.c_str());
+#ifdef DEBUG:
     std::cout << row_name << std::endl;
+#endif
     glp_set_row_bnds(lp, i+1, GLP_FX, 1.0, 1.0);
 
     // TODO(KIMMY): consider remote nodes?
     for (size_t j {0}; j < num_targets; ++j) {
       int ij = i * num_targets + j + 1;
-      std::cout << "ij = " << ij << std::endl;      
+#ifdef DEBUG
+      std::cout << "ij = " << ij << std::endl;
       std::string var_name {"blob_dst_" + std::to_string(i) + "_" +
                             std::to_string(j)};
+#endif
 #ifdef ORTOOLS
       // blob_dst_i_j variable's range will be 0.0 to 1.
       blob_fraction[i][j] = solver.MakeNumVar(0.0, 1, var_name);
@@ -362,7 +335,10 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   for (size_t j {0}; j < num_targets; ++j) {
     double remaining_capacity_threshold =
       static_cast<double>(node_state[j]) * minimum_remaining_capacity;
-    std::cout << "remaining cap. threshold:" << remaining_capacity_threshold << std::endl;
+#ifdef DEBUG
+      std::cout << "remaining cap. threshold:" << remaining_capacity_threshold
+	      << std::endl;
+#endif
 #ifdef ORTOOLS
     // Minimum is 0, max is state - remaining cap.
     blob_constrt[num_constrts+j] = solver.MakeRowConstraint(
@@ -370,8 +346,10 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
     std::string row_name {"mrc_row_" + std::to_string(j)};
     glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
+#ifdef DEBUG
     std::cout << row_name << std::endl;
-    glp_set_row_bnds(lp, num_constrts+j+1, GLP_UP, 0, 
+#endif
+    glp_set_row_bnds(lp, num_constrts+j+1, GLP_UP, 0,
           static_cast<double>(node_state[j]) - remaining_capacity_threshold);
     for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
@@ -380,47 +358,63 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
         blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
 #endif
       // Starting row of contraint array is (blob * target)*num_constrts.
+#ifdef DEBUG
       std::cout << "last = " << last << std::endl;
+#endif
       int ij = j * num_blobs + i + 1 + last;
+#ifdef DEBUG
       std::cout << "ij = " << ij << std::endl;
-      ia[ij] = num_constrts+j+1, ja[ij] = j+1, 
+#endif
+      ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
       last2 = ij;
     }
   }
   num_constrts += num_targets;
+#ifdef DEBUG
   std::cout << "num_constrts = " << num_constrts << std::endl;
+#endif
   // Constraint #3: Remaining Capacity Change Threshold
   // TODO(chogan): Get this number from the api::Context
   const double capacity_change_threshold = 0.2;
   int last3 = 0;
   for (size_t j {0}; j < num_targets; ++j) {
-      std::cout << "node_state[" << j << "]" << node_state[j] << std::endl;
+#ifdef DEBUG
+    std::cout << "node_state[" << j << "]" << node_state[j] << std::endl;
+#endif
 #ifdef ORTOOLS
     blob_constrt[num_constrts+j] =
       solver.MakeRowConstraint(0, capacity_change_threshold * node_state[j]);
 #endif
     std::string row_name {"rcct_row_" + std::to_string(j)};
     glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
+#ifdef DEBUG
     std::cout << row_name << std::endl;
-    glp_set_row_bnds(lp, num_constrts+j+1, GLP_UP, 0, 
+#endif
+    glp_set_row_bnds(lp, num_constrts+j+1, GLP_UP, 0,
           capacity_change_threshold * node_state[j]);
     for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
       blob_constrt[num_constrts+j]->SetCoefficient(
         blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
 #endif
+#ifdef DEBUG
       std::cout << "last2 = " << last2 << std::endl;
+#endif
       int ij = j * num_blobs + i + 1 + last2;
+#ifdef DEBUG
       std::cout << "ij = " << ij << std::endl;
-      ia[ij] = num_constrts+j+1, ja[ij] = j+1, 
+#endif
+      ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
       last3 = ij;
     }
 
   }
   num_constrts += num_targets;
+#ifdef DEBUG
   std::cout << "num_constrts = " << num_constrts << std::endl;
+#endif
   // Placement Ratio
   for (size_t j {0}; j < num_targets-1; ++j) {
 #ifdef ORTOOLS
@@ -429,9 +423,11 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
     std::string row_name {"pr_row_" + std::to_string(j)};
     glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
+#ifdef DEBUG
     std::cout << row_name << std::endl;
+#endif
     glp_set_row_bnds(lp, num_constrts+j+1, GLP_LO, 0.0, 0.0);
-    
+
     for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
       blob_constrt[num_constrts+j]->SetCoefficient(
@@ -444,10 +440,14 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
         blob_fraction[i][j],
         static_cast<double>(blob_sizes[i])*(0-placement_ratio));
 #endif
+#ifdef DEBUG
       std::cout << "last3 = " << last3 << std::endl;
+#endif
       int ij = j * num_blobs + i + 1 + last3;
+#ifdef DEBUG
       std::cout << "ij = " << ij << std::endl;
-      ia[ij] = num_constrts+j+1, ja[ij] = j+1, 
+#endif
+      ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i])*(0-placement_ratio);
     }
   }
@@ -457,20 +457,25 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   MPObjective* const objective = solver.MutableObjective();
 #endif
   for (size_t i {0}; i < num_blobs; ++i) {
-    std::cout << "blob_sizes[" << i << "]=" 
+#ifdef DEBUG
+    std::cout << "blob_sizes[" << i << "]="
               << blob_sizes[i] << std::endl;
+#endif
     for (size_t j {0}; j < num_targets; ++j) {
       int ij = i * num_targets + j + 1;
-      std::cout << ">blob_sizes[" << i << "]=" 
+#ifdef DEBUG
+      std::cout << ">blob_sizes[" << i << "]="
                 << blob_sizes[i] << std::endl;
-      std::cout << "bandwidths[" << j << "]=" 
+      std::cout << "bandwidths[" << j << "]="
                 << bandwidths[j] << std::endl;
+#endif
 #ifdef ORTOOLS
       // Equation to solve - for each variable, set coefficient.
       objective->SetCoefficient(blob_fraction[i][j],
                               static_cast<double>(blob_sizes[i])/bandwidths[j]);
 #endif
-      glp_set_obj_coef(lp, ij, static_cast<double>(blob_sizes[i])/bandwidths[j]);
+      glp_set_obj_coef(lp, ij,
+		       static_cast<double>(blob_sizes[i])/bandwidths[j]);
     }
   }
 #ifdef ORTOOLS
@@ -492,8 +497,8 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     return result;
   }
   glp_get_obj_val(lp);
-  
-#if 0
+
+#if DEBUG
   x1 = glp_get_col_prim(lp, 1);
   x2 = glp_get_col_prim(lp, 2);
   x3 = glp_get_col_prim(lp, 3);
@@ -581,8 +586,8 @@ Status CalculatePlacement(SharedMemoryContext *context, RpcContext *rpc,
   std::vector<PlacementSchema> output_tmp;
   Status result;
 
-  // NOTE(chogan): Start with local targets and gradually expand the target list
-  // until the placement succeeds
+  // NOTE(chogan): Start with local targets and gradually expand the target
+  // list until the placement succeeds.
   for (int i = 0; i < Topology_Count; ++i) {
     std::vector<TargetID> targets;
 

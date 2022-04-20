@@ -30,7 +30,7 @@
 #endif
 
 #ifdef __APPLE__
-#define O_TMPFILE O_CREAT 
+#define O_TMPFILE O_CREAT
 #endif
 
 namespace fs = std::experimental::filesystem;
@@ -334,7 +334,7 @@ int fh_cmp;
 int status_orig;
 size_t size_read_orig;
 size_t size_written_orig;
-    
+
 void test_open(const char* path, int flags, ...) {
   int mode = 0;
   if (flags & O_CREAT || flags & O_TMPFILE) {

@@ -817,7 +817,7 @@ std::string GetServerName(RpcContext *rpc, u32 node_id,
     LOG(FATAL) << hstrerror(h_errno);
   }
   in_addr **addr_list = (struct in_addr **)hostname_info.h_addr_list;
-#endif                                                 
+#endif
   if (!addr_list[0]) {
     LOG(FATAL) << hstrerror(h_errno);
   }
