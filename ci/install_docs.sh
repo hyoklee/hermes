@@ -1,5 +1,5 @@
 #!/bin/bash
-
+spack install glog
 set -x
 set -e
 set -o pipefail
