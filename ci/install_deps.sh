@@ -59,11 +59,12 @@ spack repo add ./ci/hermes
 
 THALLIUM_SPEC="mochi-thallium@${THALLIUM_VERSION} ^mercury~boostsys"
 CATCH2_SPEC="catch2@${CATCH2_VERSION}"
-ORTOOLS_SPEC="gortools@${ORTOOLS_VERSION}"
+# ORTOOLS_SPEC="gortools@${ORTOOLS_VERSION}"
+ORTOOLS_SPEC="glog"
 
-spack install ${THALLIUM_SPEC} ${CATCH2_SPEC} ${ORTOOLS_SPEC} glog
+spack install ${THALLIUM_SPEC} ${CATCH2_SPEC} ${ORTOOLS_SPEC}
 SPACK_STAGING_DIR=~/spack_staging
 mkdir -p ${SPACK_STAGING_DIR}
-spack view --verbose symlink ${SPACK_STAGING_DIR} ${THALLIUM_SPEC} ${CATCH2_SPEC} ${ORTOOLS_SPEC} glog
+spack view --verbose symlink ${SPACK_STAGING_DIR} ${THALLIUM_SPEC} ${CATCH2_SPEC} ${ORTOOLS_SPEC}
 
 cp -LRnv ${SPACK_STAGING_DIR}/* ${INSTALL_DIR}
