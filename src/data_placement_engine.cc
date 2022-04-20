@@ -266,7 +266,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   Status result;
   const size_t num_targets = targets.size();
   const size_t num_blobs = blob_sizes.size();
-#ifdef DEBUG:
+#ifdef DEBUG
   std::cout << "num_blobs=" << num_blobs << std::endl;
   std::cout << "num_targets=" << num_targets << std::endl;
 #endif
@@ -301,7 +301,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     // Use GLP_FX for the fixed contraint of 1.
     std::string row_name {"blob_row_" + std::to_string(i)};
     glp_set_row_name(lp, i+1, row_name.c_str());
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << row_name << std::endl;
 #endif
     glp_set_row_bnds(lp, i+1, GLP_FX, 1.0, 1.0);
