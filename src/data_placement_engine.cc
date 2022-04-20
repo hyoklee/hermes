@@ -322,7 +322,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
       glp_set_col_name(lp, ij, var_name.c_str());
       glp_set_col_bnds(lp, ij, GLP_DB, 0.0, 1.0);
-      ia[ij] = i+1, ja[ij] = j+1, ar[ij] = 1.0; // [i][j] = 1.0
+      ia[ij] = i+1, ja[ij] = j+1, ar[ij] = 1.0;  // [i][j] = 1.0
       last = ij;
     }
   }
@@ -337,7 +337,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       static_cast<double>(node_state[j]) * minimum_remaining_capacity;
 #ifdef DEBUG
       std::cout << "remaining cap. threshold:" << remaining_capacity_threshold
-	      << std::endl;
+      << std::endl;
 #endif
 #ifdef ORTOOLS
     // Minimum is 0, max is state - remaining cap.
@@ -409,7 +409,6 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
           ar[ij] = static_cast<double>(blob_sizes[i]);
       last3 = ij;
     }
-
   }
   num_constrts += num_targets;
 #ifdef DEBUG
@@ -475,7 +474,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
                               static_cast<double>(blob_sizes[i])/bandwidths[j]);
 #endif
       glp_set_obj_coef(lp, ij,
-		       static_cast<double>(blob_sizes[i])/bandwidths[j]);
+                       static_cast<double>(blob_sizes[i])/bandwidths[j]);
     }
   }
 #ifdef ORTOOLS
@@ -520,7 +519,6 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
       if (glp_get_col_prim(lp, i*num_targets+j+1)*blob_sizes[i] > largest_bulk)
         target_pos = j;
-
     }
 
     size_t blob_partial_sum {0};
@@ -542,9 +540,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
         schema.push_back(std::make_pair(frac_size_cast, targets[j]));
         blob_partial_sum += frac_size_cast;
       }
-
     }
-
     // Push the rest data to target at target_pos
     schema.push_back(std::make_pair(blob_sizes[i]-blob_partial_sum,
                                     targets[target_pos]));
