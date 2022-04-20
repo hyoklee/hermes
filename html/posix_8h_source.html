@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.4.0-beta</span>
+   &#160;<span id="projectnumber">0.5.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('posix_8h_source.html',''); initResizab
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;stdarg.h&gt;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;glog/logging.h&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;glog/logging.h&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;hermes.h&gt;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;bucket.h&gt;</span></div>
@@ -124,36 +124,40 @@ $(document).ready(function(){initNavTree('posix_8h_source.html',''); initResizab
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;posix/mapper/mapper_factory.h&quot;</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &quot;posix/metadata_manager.h&quot;</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;HERMES_FORWARD_DECL(open, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, <span class="keywordtype">int</span> flags, ...));</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;HERMES_FORWARD_DECL(open64, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, <span class="keywordtype">int</span> flags, ...));</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;HERMES_FORWARD_DECL(__open_2, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, <span class="keywordtype">int</span> oflag));</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;HERMES_FORWARD_DECL(creat, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, mode_t mode));</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;HERMES_FORWARD_DECL(creat64, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, mode_t mode));</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;HERMES_FORWARD_DECL(read, ssize_t, (<span class="keywordtype">int</span> fd, <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count));</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;HERMES_FORWARD_DECL(write, ssize_t, (<span class="keywordtype">int</span> fd, <span class="keyword">const</span> <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;HERMES_FORWARD_DECL(pread, ssize_t,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    (<span class="keywordtype">int</span> fd, <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count, off_t offset));</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;HERMES_FORWARD_DECL(pwrite, ssize_t,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    (<span class="keywordtype">int</span> fd, <span class="keyword">const</span> <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count, off_t offset));</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;HERMES_FORWARD_DECL(pread64, ssize_t,</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    (<span class="keywordtype">int</span> fd, <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count, off64_t offset));</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;HERMES_FORWARD_DECL(pwrite64, ssize_t,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    (<span class="keywordtype">int</span> fd, <span class="keyword">const</span> <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count, off64_t offset));</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;HERMES_FORWARD_DECL(lseek, off_t, (<span class="keywordtype">int</span> fd, off_t offset, <span class="keywordtype">int</span> whence));</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;HERMES_FORWARD_DECL(lseek64, off64_t, (<span class="keywordtype">int</span> fd, off64_t offset, <span class="keywordtype">int</span> whence));</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;HERMES_FORWARD_DECL(__fxstat, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> version, <span class="keywordtype">int</span> fd, <span class="keyword">struct</span> stat *buf));</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;HERMES_FORWARD_DECL(fsync, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> fd));</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;HERMES_FORWARD_DECL(fdatasync, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> fd));</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;HERMES_FORWARD_DECL(close, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> fd));</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;HERMES_FORWARD_DECL(MPI_Init, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> *argc, <span class="keywordtype">char</span> ***argv));</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;HERMES_FORWARD_DECL(MPI_Finalize, <span class="keywordtype">int</span>, (<span class="keywordtype">void</span>));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif  // HERMES_ADAPTER_POSIX_H</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#ifndef O_TMPFILE</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define O_TMPFILE 0</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;HERMES_FORWARD_DECL(open, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, <span class="keywordtype">int</span> flags, ...));</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;HERMES_FORWARD_DECL(open64, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, <span class="keywordtype">int</span> flags, ...));</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;HERMES_FORWARD_DECL(__open_2, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, <span class="keywordtype">int</span> oflag));</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;HERMES_FORWARD_DECL(creat, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, mode_t mode));</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;HERMES_FORWARD_DECL(creat64, <span class="keywordtype">int</span>, (<span class="keyword">const</span> <span class="keywordtype">char</span> *path, mode_t mode));</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;HERMES_FORWARD_DECL(read, ssize_t, (<span class="keywordtype">int</span> fd, <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count));</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;HERMES_FORWARD_DECL(write, ssize_t, (<span class="keywordtype">int</span> fd, <span class="keyword">const</span> <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count));</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;HERMES_FORWARD_DECL(pread, ssize_t,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    (<span class="keywordtype">int</span> fd, <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count, off_t offset));</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;HERMES_FORWARD_DECL(pwrite, ssize_t,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    (<span class="keywordtype">int</span> fd, <span class="keyword">const</span> <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count, off_t offset));</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;HERMES_FORWARD_DECL(pread64, ssize_t,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    (<span class="keywordtype">int</span> fd, <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count, off64_t offset));</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;HERMES_FORWARD_DECL(pwrite64, ssize_t,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    (<span class="keywordtype">int</span> fd, <span class="keyword">const</span> <span class="keywordtype">void</span> *buf, <span class="keywordtype">size_t</span> count, off64_t offset));</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;HERMES_FORWARD_DECL(lseek, off_t, (<span class="keywordtype">int</span> fd, off_t offset, <span class="keywordtype">int</span> whence));</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;HERMES_FORWARD_DECL(lseek64, off64_t, (<span class="keywordtype">int</span> fd, off64_t offset, <span class="keywordtype">int</span> whence));</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;HERMES_FORWARD_DECL(__fxstat, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> version, <span class="keywordtype">int</span> fd, <span class="keyword">struct</span> stat *buf));</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;HERMES_FORWARD_DECL(fsync, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> fd));</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;HERMES_FORWARD_DECL(fdatasync, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> fd));</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;HERMES_FORWARD_DECL(close, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> fd));</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;HERMES_FORWARD_DECL(MPI_Init, <span class="keywordtype">int</span>, (<span class="keywordtype">int</span> *argc, <span class="keywordtype">char</span> ***argv));</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;HERMES_FORWARD_DECL(MPI_Finalize, <span class="keywordtype">int</span>, (<span class="keywordtype">void</span>));</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif  // HERMES_ADAPTER_POSIX_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructhermes_1_1api_1_1_context_html_aed2ef93f184aa1873370016eb641905b"><div class="ttname"><a href="structhermes_1_1api_1_1_context.html#aed2ef93f184aa1873370016eb641905b">hermes::api::Context::rr_retry</a></div><div class="ttdeci">bool rr_retry</div><div class="ttdef"><b>Definition:</b> hermes_types.h:75</div></div>
+<div class="ttc" id="astructhermes_1_1api_1_1_context_html_aed2ef93f184aa1873370016eb641905b"><div class="ttname"><a href="structhermes_1_1api_1_1_context.html#aed2ef93f184aa1873370016eb641905b">hermes::api::Context::rr_retry</a></div><div class="ttdeci">bool rr_retry</div><div class="ttdef"><b>Definition:</b> hermes_types.h:77</div></div>
 <div class="ttc" id="aclasshermes_1_1api_1_1_v_bucket_html"><div class="ttname"><a href="classhermes_1_1api_1_1_v_bucket.html">hermes::api::VBucket</a></div><div class="ttdef"><b>Definition:</b> vbucket.h:34</div></div>
-<div class="ttc" id="astructhermes_1_1api_1_1_context_html_ab0ce61062b93b9d46b3ebd7296b03bcb"><div class="ttname"><a href="structhermes_1_1api_1_1_context.html#ab0ce61062b93b9d46b3ebd7296b03bcb">hermes::api::Context::disable_swap</a></div><div class="ttdeci">bool disable_swap</div><div class="ttdef"><b>Definition:</b> hermes_types.h:78</div></div>
-<div class="ttc" id="astructhermes_1_1api_1_1_context_html"><div class="ttname"><a href="structhermes_1_1api_1_1_context.html">hermes::api::Context</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:55</div></div>
+<div class="ttc" id="astructhermes_1_1api_1_1_context_html_ab0ce61062b93b9d46b3ebd7296b03bcb"><div class="ttname"><a href="structhermes_1_1api_1_1_context.html#ab0ce61062b93b9d46b3ebd7296b03bcb">hermes::api::Context::disable_swap</a></div><div class="ttdeci">bool disable_swap</div><div class="ttdef"><b>Definition:</b> hermes_types.h:80</div></div>
+<div class="ttc" id="astructhermes_1_1api_1_1_context_html"><div class="ttname"><a href="structhermes_1_1api_1_1_context.html">hermes::api::Context</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:57</div></div>
 <div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_metadata_manager_html"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html">hermes::adapter::posix::MetadataManager</a></div><div class="ttdef"><b>Definition:</b> metadata_manager.h:32</div></div>
 <div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_mapper_factory_html_a9054045e55f3344d3011411fa3e76bb6"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">hermes::adapter::posix::MapperFactory::Get</a></div><div class="ttdeci">std::shared_ptr&lt; AbstractMapper &gt; Get(const MapperType &amp;type)</div><div class="ttdef"><b>Definition:</b> mapper_factory.h:31</div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_adapter_stat_html_a81b602c19adcb9016dad1f22d9d48636"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html#a81b602c19adcb9016dad1f22d9d48636">hermes::adapter::posix::AdapterStat::st_bkid</a></div><div class="ttdeci">std::shared_ptr&lt; hapi::Bucket &gt; st_bkid</div><div class="ttdef"><b>Definition:</b> datastructures.h:160</div></div>
