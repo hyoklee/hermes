@@ -311,9 +311,9 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       int ij = i * num_targets + j + 1;
 #ifdef DEBUG
       std::cout << "ij = " << ij << std::endl;
+#endif
       std::string var_name {"blob_dst_" + std::to_string(i) + "_" +
                             std::to_string(j)};
-#endif
 #ifdef ORTOOLS
       // blob_dst_i_j variable's range will be 0.0 to 1.
       blob_fraction[i][j] = solver.MakeNumVar(0.0, 1, var_name);
