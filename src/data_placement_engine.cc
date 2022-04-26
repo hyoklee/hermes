@@ -9,7 +9,7 @@
  * the COPYING file, which can be found at the top directory. If you do not  *
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+#define DEBUG 1
 #include "data_placement_engine.h"
 
 #include <assert.h>
@@ -320,12 +320,14 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       // Coefficient for blob_dst_i_j variable is 1. (i.e.,  1 * blob_dst_i_j)
       blob_constrt[num_constrts+i]->SetCoefficient(blob_fraction[i][j], 1);
 #endif
+      // total umber of variables = number of blobs * number of targets.
       glp_set_col_name(lp, ij, var_name.c_str());
       glp_set_col_bnds(lp, ij, GLP_DB, 0.0, 1.0);
-      ia[ij] = i+1, ja[ij] = j+1, ar[ij] = 1.0;  // [i][j] = 1.0
+      ia[ij] = i+1, ja[ij] = j+1, ar[ij] = 1.0;  // var[i][j] = 1.0
       last = ij;
     }
   }
+  std::cout << "last = " << last << std::endl;
   num_constrts += num_blobs;
 
   // Constraint #2: Minimum Remaining Capacity Constraint
@@ -336,8 +338,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     double remaining_capacity_threshold =
       static_cast<double>(node_state[j]) * minimum_remaining_capacity;
 #ifdef DEBUG
-      std::cout << "remaining cap. threshold:" << remaining_capacity_threshold
-      << std::endl;
+      std::cout << "blob_constraint:" << static_cast<double>(node_state[j]) - remaining_capacity_threshold << std::endl;
 #endif
 #ifdef ORTOOLS
     // Minimum is 0, max is state - remaining cap.
@@ -349,8 +350,9 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #ifdef DEBUG
     std::cout << row_name << std::endl;
 #endif
-    glp_set_row_bnds(lp, num_constrts+j+1, GLP_UP, 0,
+    glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
           static_cast<double>(node_state[j]) - remaining_capacity_threshold);
+
     for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
       // Set blob size as cofefficient for each variable.
@@ -365,6 +367,10 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #ifdef DEBUG
       std::cout << "ij = " << ij << std::endl;
 #endif
+      std::cout << "row = " << num_constrts+j+1 << std::endl;
+      std::cout << "col = " << j+1 << std::endl;
+      std::cout << "blob_sizes = " << blob_sizes[i] << std::endl;
+
       ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
       last2 = ij;
@@ -374,13 +380,14 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #ifdef DEBUG
   std::cout << "num_constrts = " << num_constrts << std::endl;
 #endif
+
   // Constraint #3: Remaining Capacity Change Threshold
   // TODO(chogan): Get this number from the api::Context
   const double capacity_change_threshold = 0.2;
   int last3 = 0;
   for (size_t j {0}; j < num_targets; ++j) {
 #ifdef DEBUG
-    std::cout << "node_state[" << j << "]" << node_state[j] << std::endl;
+    std::cout << "node_state[" << j << "]=" << node_state[j] << std::endl;
 #endif
 #ifdef ORTOOLS
     blob_constrt[num_constrts+j] =
@@ -390,8 +397,9 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
 #ifdef DEBUG
     std::cout << row_name << std::endl;
+    std::cout << "UP=" << capacity_change_threshold * node_state[j] << std::endl;
 #endif
-    glp_set_row_bnds(lp, num_constrts+j+1, GLP_UP, 0,
+    glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
           capacity_change_threshold * node_state[j]);
     for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
@@ -405,6 +413,8 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #ifdef DEBUG
       std::cout << "ij = " << ij << std::endl;
 #endif
+      std::cout << "row = " << num_constrts+j+1 << std::endl;
+      std::cout << "col = " << j+1 << std::endl;
       ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
       last3 = ij;
@@ -414,8 +424,13 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #ifdef DEBUG
   std::cout << "num_constrts = " << num_constrts << std::endl;
 #endif
+  int last4 = 0;
   // Placement Ratio
   for (size_t j {0}; j < num_targets-1; ++j) {
+#ifdef DEBUG
+    std::cout << "j=" << j << std::endl;
+#endif
+
 #ifdef ORTOOLS
     blob_constrt[num_constrts+j] =
       solver.MakeRowConstraint(0, solver.infinity());
@@ -432,6 +447,17 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       blob_constrt[num_constrts+j]->SetCoefficient(
         blob_fraction[i][j+1], static_cast<double>(blob_sizes[i]));
 #endif
+      int ij = j * num_blobs + i + 1 + last3 + j;
+
+#ifdef DEBUG
+      std::cout << "ij = " << ij << std::endl;
+      std::cout << "row = " << num_constrts+j+1 << std::endl;
+      std::cout << "col = " << j+2 << std::endl;
+      std::cout << "bob_sizes = " << blob_sizes[i] << std::endl;
+#endif
+      ia[ij] = num_constrts+j+1, ja[ij] = j+2,
+          ar[ij] = static_cast<double>(blob_sizes[i]);
+
       double placement_ratio = static_cast<double>(node_state[j+1])/
                                                    node_state[j];
 #ifdef ORTOOLS
@@ -441,13 +467,17 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
 #ifdef DEBUG
       std::cout << "last3 = " << last3 << std::endl;
+      std::cout << "coeff = " << static_cast<double>(blob_sizes[i])*(0-placement_ratio) << std::endl;
 #endif
-      int ij = j * num_blobs + i + 1 + last3;
+      ij = ij + 1;
 #ifdef DEBUG
       std::cout << "ij = " << ij << std::endl;
+      std::cout << "row = " << num_constrts+j+1 << std::endl;
+      std::cout << "col = " << j+1 << std::endl;
 #endif
       ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i])*(0-placement_ratio);
+      last4 = ij;
     }
   }
 
@@ -461,12 +491,13 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
               << blob_sizes[i] << std::endl;
 #endif
     for (size_t j {0}; j < num_targets; ++j) {
-      int ij = i * num_targets + j + 1;
+        int ij = i * num_targets + j + 1;
 #ifdef DEBUG
       std::cout << ">blob_sizes[" << i << "]="
                 << blob_sizes[i] << std::endl;
       std::cout << "bandwidths[" << j << "]="
                 << bandwidths[j] << std::endl;
+      std::cout << "ce=" << static_cast<double>(blob_sizes[i])/bandwidths[j] << std::endl;
 #endif
 #ifdef ORTOOLS
       // Equation to solve - for each variable, set coefficient.
@@ -487,8 +518,17 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     return result;
   }
 #endif
-  glp_load_matrix(lp, total_constraints, ia, ja, ar);
+#ifdef DEBUG
+  std::cout << "last4=" << last4 << std::endl;
+#endif  
+  glp_load_matrix(lp, last4, ia, ja, ar);
+  // glp_smcp parm;
+  // glp_init_smcp(&parm);
+  // parm.msg_lev = GLP_MSG_OFF;
+  // parm.meth = GLP_DUAL;
+
   glp_simplex(lp, NULL);
+  // glp_simplex(lp, &parm);
   if (glp_get_status(lp) != GLP_OPT) {
     result = DPE_ORTOOLS_NO_SOLUTION;
     LOG(ERROR) << result.Msg();
@@ -496,13 +536,16 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     return result;
   }
   glp_get_obj_val(lp);
+  glp_print_sol(lp, "25fv47.txt");
 
 #if DEBUG
+  double z, x1, x2, x3, x4;
   x1 = glp_get_col_prim(lp, 1);
   x2 = glp_get_col_prim(lp, 2);
   x3 = glp_get_col_prim(lp, 3);
-  printf("\nz = %g; x1 = %g; x2 = %g; x3 = %g\n",
-         z, x1, x2, x3);
+  x4 = glp_get_col_prim(lp, 4);
+  printf("\nz = %g; x1 = %g; x2 = %g; x3 = %g; x4 = %g\n",
+         z, x1, x2, x3, x4);
 #endif
 
   for (size_t i {0}; i < num_blobs; ++i) {
@@ -517,6 +560,8 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #ifdef ORTOOLS
       if (blob_fraction[i][j]->solution_value()*blob_sizes[i] > largest_bulk)
 #endif
+      std::cout << "ind=" <<  i*num_targets+j << std::endl;
+      std::cout << "val=" << glp_get_col_prim(lp, i*num_targets+j+1) << std::endl;
       if (glp_get_col_prim(lp, i*num_targets+j+1)*blob_sizes[i] > largest_bulk)
         target_pos = j;
     }
@@ -533,8 +578,8 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
       double check_frac_size {glp_get_col_prim(lp, i*num_targets+j+1)*
                               blob_sizes[i]};  // blob fraction size
-
       size_t frac_size_cast = static_cast<size_t>(check_frac_size);
+      std::cout << "fract_size_cast=" << frac_size_cast << std::endl;
       // If size to this destination is not 0, push to result
       if (frac_size_cast != 0) {
         schema.push_back(std::make_pair(frac_size_cast, targets[j]));
