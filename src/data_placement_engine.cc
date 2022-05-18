@@ -360,13 +360,15 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       std::cout << row_name << std::endl;
 #endif
       glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
-               static_cast<double>(node_state[j]) - remaining_capacity_threshold);
+               static_cast<double>(node_state[j]) -
+               remaining_capacity_threshold);
 
       for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
     // Set blob size as cofefficient for each variable.
     blob_constrt[num_constrts+j]->SetCoefficient(
-                             blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
+                             blob_fraction[i][j],
+                 static_cast<double>(blob_sizes[i]));
 #endif
     // Starting row of contraint array is (blob * target)*num_constrts.
 #ifdef DEBUG
@@ -393,8 +395,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   // Constraint #3: Remaining Capacity Change Threshold
   // const double capacity_change_threshold = 0.2;
   int last3 = 0;
-  if (capacity_change_threshold != 0) {  
-
+  if (capacity_change_threshold != 0) {
     for (size_t j {0}; j < num_targets; ++j) {
 #ifdef DEBUG
       std::cout << "node_state[" << j << "]=" << node_state[j] << std::endl;
@@ -416,7 +417,8 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
     blob_constrt[num_constrts+j]->SetCoefficient(
-                             blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
+                             blob_fraction[i][j],
+                 static_cast<double>(blob_sizes[i]));
 #endif
 #ifdef DEBUG
     std::cout << "last2 = " << last2 << std::endl;
