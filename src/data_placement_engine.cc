@@ -9,6 +9,7 @@
  * the COPYING file, which can be found at the top directory. If you do not  *
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 #include "data_placement_engine.h"
 
 #include <assert.h>
@@ -160,8 +161,6 @@ Status RoundRobinPlacement(const std::vector<size_t> &blob_sizes,
   std::vector<u64> ns_local(node_state.begin(), node_state.end());
 
   for (size_t i {0}; i < blob_sizes.size(); ++i) {
-    std::random_device dev;
-    std::mt19937 rng(dev());
     PlacementSchema schema;
 
     if (split) {
@@ -221,8 +220,6 @@ Status RandomPlacement(const std::vector<size_t> &blob_sizes,
 
   for (size_t i {0}; i < blob_sizes.size(); ++i) {
     PlacementSchema schema;
-    std::random_device dev;
-    std::mt19937 rng(dev());
 
     // Split the blob
     if (SplitBlob(blob_sizes[i])) {
@@ -254,8 +251,9 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
                                const std::vector<u64> &node_state,
                                const std::vector<f32> &bandwidths,
                                const std::vector<TargetID> &targets,
-                               std::vector<PlacementSchema> &output) {
-#ifdef ORTOOLS
+                               std::vector<PlacementSchema> &output,
+                               const api::Context &ctx) {
+#ifdef ORTOOLS    
   using operations_research::MPSolver;
   using operations_research::MPVariable;
   using operations_research::MPConstraint;
@@ -265,12 +263,20 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   Status result;
   const size_t num_targets = targets.size();
   const size_t num_blobs = blob_sizes.size();
-#ifdef DEBUG
-  std::cout << "num_blobs=" << num_blobs << std::endl;
-  std::cout << "num_targets=" << num_targets << std::endl;
-#endif
-  // TODO(KIMMY): size of constraints should be from context
-  const size_t constraints_per_target = 3;
+
+  const double minimum_remaining_capacity =
+    ctx.minimize_io_time_options.minimum_remaining_capacity;
+  const double capacity_change_threshold =
+    ctx.minimize_io_time_options.capacity_change_threshold;
+
+  size_t constraints_per_target = 1;
+  if (minimum_remaining_capacity != 0) {
+    constraints_per_target++;
+  }
+  if (capacity_change_threshold != 0) {
+    constraints_per_target++;
+  }
+
   const size_t total_constraints =
       num_blobs + (num_targets * constraints_per_target) - 1;
   glp_prob *lp = glp_create_prob();
@@ -332,103 +338,105 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   num_constrts += num_blobs;
 
   // Constraint #2: Minimum Remaining Capacity Constraint
-  // TODO(chogan): Get this number from the api::Context
-  const double minimum_remaining_capacity = 0.1;
   int last2 = 0;
-  for (size_t j {0}; j < num_targets; ++j) {
-    double remaining_capacity_threshold =
-      static_cast<double>(node_state[j]) * minimum_remaining_capacity;
+  if (minimum_remaining_capacity != 0) {
+    for (size_t j {0}; j < num_targets; ++j) {
+      double remaining_capacity_threshold =
+	static_cast<double>(node_state[j]) * minimum_remaining_capacity;
 #ifdef DEBUG
       std::cout << "blob_constraint:" <<
-          static_cast<double>(node_state[j]) -
-          remaining_capacity_threshold << std::endl;
+	static_cast<double>(node_state[j]) -
+	remaining_capacity_threshold << std::endl;
 #endif
 #ifdef ORTOOLS
-    // Minimum is 0, max is state - remaining cap.
-    blob_constrt[num_constrts+j] = solver.MakeRowConstraint(
-      0, static_cast<double>(node_state[j]) - remaining_capacity_threshold);
+      // Minimum is 0, max is state - remaining cap.
+      blob_constrt[num_constrts+j] = solver.MakeRowConstraint(
+							      0, static_cast<double>(node_state[j]) - remaining_capacity_threshold);
 #endif
-    std::string row_name {"mrc_row_" + std::to_string(j)};
-    glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
+      std::string row_name {"mrc_row_" + std::to_string(j)};
+      glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
 #ifdef DEBUG
-    std::cout << row_name << std::endl;
+      std::cout << row_name << std::endl;
 #endif
-    glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
-          static_cast<double>(node_state[j]) - remaining_capacity_threshold);
+      glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
+		       static_cast<double>(node_state[j]) - remaining_capacity_threshold);
 
-    for (size_t i {0}; i < num_blobs; ++i) {
+      for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
-      // Set blob size as cofefficient for each variable.
-      blob_constrt[num_constrts+j]->SetCoefficient(
-        blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
+	// Set blob size as cofefficient for each variable.
+	blob_constrt[num_constrts+j]->SetCoefficient(
+						     blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
 #endif
-      // Starting row of contraint array is (blob * target)*num_constrts.
+	// Starting row of contraint array is (blob * target)*num_constrts.
 #ifdef DEBUG
-      std::cout << "last = " << last << std::endl;
+	std::cout << "last = " << last << std::endl;
 #endif
-      int ij = j * num_blobs + i + 1 + last;
+	int ij = j * num_blobs + i + 1 + last;
 #ifdef DEBUG
-      std::cout << "ij = " << ij << std::endl;
-      std::cout << "row = " << num_constrts+j+1 << std::endl;
-      std::cout << "col = " << j+1 << std::endl;
-      std::cout << "blob_sizes = " << blob_sizes[i] << std::endl;
+	std::cout << "ij = " << ij << std::endl;
+	std::cout << "row = " << num_constrts+j+1 << std::endl;
+	std::cout << "col = " << j+1 << std::endl;
+	std::cout << "blob_sizes = " << blob_sizes[i] << std::endl;
 #endif
-      ia[ij] = num_constrts+j+1, ja[ij] = j+1,
+	ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
-      last2 = ij;
+	last2 = ij;
+      }
     }
-  }
-  num_constrts += num_targets;
+    num_constrts += num_targets;
 #ifdef DEBUG
-  std::cout << "num_constrts = " << num_constrts << std::endl;
+    std::cout << "num_constrts = " << num_constrts << std::endl;
 #endif
+  }
 
   // Constraint #3: Remaining Capacity Change Threshold
-  // TODO(chogan): Get this number from the api::Context
-  const double capacity_change_threshold = 0.2;
-  int last3 = 0;
-  for (size_t j {0}; j < num_targets; ++j) {
+  // const double capacity_change_threshold = 0.2;
+  if (capacity_change_threshold != 0) {  
+    int last3 = 0;
+    for (size_t j {0}; j < num_targets; ++j) {
 #ifdef DEBUG
-    std::cout << "node_state[" << j << "]=" << node_state[j] << std::endl;
+      std::cout << "node_state[" << j << "]=" << node_state[j] << std::endl;
 #endif
 #ifdef ORTOOLS
-    blob_constrt[num_constrts+j] =
-      solver.MakeRowConstraint(0, capacity_change_threshold * node_state[j]);
+      blob_constrt[num_constrts+j] =
+	solver.MakeRowConstraint(0, capacity_change_threshold * node_state[j]);
 #endif
 
-    std::string row_name {"rcct_row_" + std::to_string(j)};
-    glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
+      std::string row_name {"rcct_row_" + std::to_string(j)};
+      glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
 #ifdef DEBUG
-    std::cout << row_name << std::endl;
-    std::cout << "UP=" << capacity_change_threshold * node_state[j]
-    << std::endl;
+      std::cout << row_name << std::endl;
+      std::cout << "UP=" << capacity_change_threshold * node_state[j]
+		<< std::endl;
 #endif
-    glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
-          capacity_change_threshold * node_state[j]);
-    for (size_t i {0}; i < num_blobs; ++i) {
+      glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
+		       capacity_change_threshold * node_state[j]);
+      for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
-      blob_constrt[num_constrts+j]->SetCoefficient(
-        blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
+	blob_constrt[num_constrts+j]->SetCoefficient(
+						     blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
 #endif
 #ifdef DEBUG
-      std::cout << "last2 = " << last2 << std::endl;
+	std::cout << "last2 = " << last2 << std::endl;
 #endif
-      int ij = j * num_blobs + i + 1 + last2;
+	int ij = j * num_blobs + i + 1 + last2;
 #ifdef DEBUG
-      std::cout << "ij = " << ij << std::endl;
-      std::cout << "row = " << num_constrts+j+1 << std::endl;
-      std::cout << "col = " << j+1 << std::endl;
+	std::cout << "ij = " << ij << std::endl;
+	std::cout << "row = " << num_constrts+j+1 << std::endl;
+	std::cout << "col = " << j+1 << std::endl;
 #endif
-      ia[ij] = num_constrts+j+1, ja[ij] = j+1,
+	ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
-      last3 = ij;
+	last3 = ij;
+      }
     }
-  }
-  num_constrts += num_targets;
+    num_constrts += num_targets;
 #ifdef DEBUG
-  std::cout << "num_constrts = " << num_constrts << std::endl;
+    std::cout << "num_constrts = " << num_constrts << std::endl;
 #endif
+  }
   int last4 = 0;
+
   // Placement Ratio
   for (size_t j {0}; j < num_targets-1; ++j) {
 #ifdef DEBUG
@@ -516,6 +524,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   }
 #ifdef ORTOOLS
   objective->SetMinimization();
+
   const MPSolver::ResultStatus result_status = solver.Solve();
   // Check if the problem has an optimal solution.
   if (result_status != MPSolver::OPTIMAL) {
@@ -689,7 +698,7 @@ Status CalculatePlacement(SharedMemoryContext *context, RpcContext *rpc,
         std::vector<f32> bandwidths = GetBandwidths(context, targets);
 
         result = MinimizeIoTimePlacement(blob_sizes, node_state, bandwidths,
-                                         targets, output_tmp);
+                                         targets, output_tmp, api_context);
         break;
       }
     }

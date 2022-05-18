@@ -18,7 +18,7 @@ project(HERMES)
 # Version information
 #------------------------------------------------------------------------------
 set(HERMES_VERSION_MAJOR "0")
-set(HERMES_VERSION_MINOR "5")
+set(HERMES_VERSION_MINOR "6")
 set(HERMES_VERSION_PATCH "0")
 set(HERMES_PACKAGE "hermes")
 set(HERMES_PACKAGE_NAME "HERMES")
@@ -312,7 +312,7 @@ if(HERMES_INTERCEPT_IO)
 endif()
 
 if(HERMES_COMMUNICATION_MPI)
-  find_package(MPI REQUIRED COMPONENTS CXX)
+  find_package(MPI REQUIRED COMPONENTS C CXX)
   message(STATUS "found mpi.h at ${MPI_CXX_INCLUDE_DIRS}")
 endif()
 
