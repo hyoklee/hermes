@@ -17,8 +17,8 @@
 #include <experimental/filesystem>
 #include <iostream>
 
-#include "catch_config.h"
 #include "adapter_test_utils.h"
+#include "catch_config.h"
 #if HERMES_INTERCEPT == 1
 #include "stdio/stdio.h"
 #endif

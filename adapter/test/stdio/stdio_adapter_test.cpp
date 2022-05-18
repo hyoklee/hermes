@@ -17,8 +17,8 @@
 #include <experimental/filesystem>
 #include <iostream>
 
-#include "catch_config.h"
 #include "adapter_test_utils.h"
+#include "catch_config.h"
 #if HERMES_INTERCEPT == 1
 #include "stdio/stdio.h"
 #endif
@@ -75,10 +75,10 @@ int pretest() {
   fullpath /= args.filename;
   info.new_file = fullpath.string() + "_new_" + std::to_string(getpid());
   info.existing_file = fullpath.string() + "_ext_" + std::to_string(getpid());
-  info.new_file_cmp = fullpath.string() + "_new_cmp" + "_" +
-                      std::to_string(getpid());
-  info.existing_file_cmp = fullpath.string() + "_ext_cmp" + "_" +
-                           std::to_string(getpid());
+  info.new_file_cmp =
+      fullpath.string() + "_new_cmp" + "_" + std::to_string(getpid());
+  info.existing_file_cmp =
+      fullpath.string() + "_ext_cmp" + "_" + std::to_string(getpid());
   if (fs::exists(info.new_file)) fs::remove(info.new_file);
   if (fs::exists(info.new_file_cmp)) fs::remove(info.new_file_cmp);
   if (fs::exists(info.existing_file)) fs::remove(info.existing_file);

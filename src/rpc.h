@@ -26,8 +26,8 @@ struct RpcContext;
 const int kMaxServerNameSize = 128;
 const int kMaxServerSuffixSize = 16;
 
-typedef void (*StartFunc)(SharedMemoryContext*, RpcContext*, Arena*,
-                          const char*, int);
+typedef void (*StartFunc)(SharedMemoryContext *, RpcContext *, Arena *,
+                          const char *, int);
 
 struct ClientRpcContext {
   void *state;

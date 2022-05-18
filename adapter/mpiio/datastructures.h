@@ -163,7 +163,6 @@ struct AdapterStat {
   }
 };
 
-
 struct HermesRequest {
   std::future<int> return_future;
   MPI_Status status;

@@ -15,9 +15,8 @@
 
 #include <vector>
 
-#include "posix/constants.h"
-
 #include "abstract_mapper.h"
+#include "posix/constants.h"
 
 namespace hermes::adapter::posix {
 /**

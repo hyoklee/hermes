@@ -40,8 +40,8 @@ struct ClientMetadata {
    * attributes
    */
   std::shared_ptr<hapi::Bucket> st_bkid; /* bucket associated with the topic */
-  u64 last_subscribed_blob; /* Current blob being used */
-  timespec st_atim;     /* time of last access */
+  u64 last_subscribed_blob;              /* Current blob being used */
+  timespec st_atim;                      /* time of last access */
   /**
    * Constructor
    */

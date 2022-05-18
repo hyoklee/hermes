@@ -15,8 +15,8 @@
 
 #include <vector>
 
-#include "mpiio/constants.h"
 #include "abstract_mapper.h"
+#include "mpiio/constants.h"
 
 namespace hermes::adapter::mpiio {
 /**

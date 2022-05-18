@@ -23,7 +23,7 @@ bool IsNullBlobId(BlobID id);
 bool IsNullTargetId(TargetID id);
 TicketMutex *GetMapMutex(MetadataManager *mdm, MapType map_type);
 VBucketID GetVBucketId(SharedMemoryContext *context, RpcContext *rpc,
-                             const char *name);
+                       const char *name);
 u32 HashString(MetadataManager *mdm, RpcContext *rpc, const char *str);
 MetadataManager *GetMetadataManagerFromContext(SharedMemoryContext *context);
 BucketInfo *LocalGetBucketInfoByIndex(MetadataManager *mdm, u32 index);
@@ -46,7 +46,7 @@ void LocalGetBufferIdList(Arena *arena, MetadataManager *mdm, BlobID blob_id,
                           BufferIdArray *buffer_ids);
 void LocalFreeBufferIdList(SharedMemoryContext *context, BlobID blob_id);
 bool LocalDestroyBucket(SharedMemoryContext *context, RpcContext *rpc,
-                               const char *bucket_name, BucketID bucket_id);
+                        const char *bucket_name, BucketID bucket_id);
 bool LocalDestroyVBucket(SharedMemoryContext *context, const char *vbucket_name,
                          VBucketID vbucket_id);
 void LocalDestroyBlobById(SharedMemoryContext *context, RpcContext *rpc,
@@ -81,8 +81,7 @@ SystemViewState *GetGlobalSystemViewState(SharedMemoryContext *context);
 std::vector<u64> LocalGetGlobalDeviceCapacities(SharedMemoryContext *context);
 std::vector<u64> GetGlobalDeviceCapacities(SharedMemoryContext *context,
                                            RpcContext *rpc);
-void UpdateGlobalSystemViewState(SharedMemoryContext *context,
-                                 RpcContext *rpc);
+void UpdateGlobalSystemViewState(SharedMemoryContext *context, RpcContext *rpc);
 
 void StartGlobalSystemViewStateUpdateThread(SharedMemoryContext *context,
                                             RpcContext *rpc, Arena *arena,
@@ -133,7 +132,6 @@ std::vector<BlobID> LocalGetBlobsFromVBucketInfo(SharedMemoryContext *context,
                                                  VBucketID vbucket_id);
 std::string LocalGetBucketNameById(SharedMemoryContext *context,
                                    BucketID blob_id);
-
 
 int LocalGetNumOutstandingFlushingTasks(SharedMemoryContext *context,
                                         VBucketID id);

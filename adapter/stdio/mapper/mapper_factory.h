@@ -24,11 +24,10 @@
 /**
  * Internal header
  */
-#include "singleton.h"
-#include "stdio/enumerations.h"
-
 #include "abstract_mapper.h"
 #include "balanced_mapper.h"
+#include "singleton.h"
+#include "stdio/enumerations.h"
 
 namespace hermes::adapter::stdio {
 class MapperFactory {

@@ -14,10 +14,10 @@
 #define HERMES_ADAPTER_METADATA_MANAGER_H
 
 #include <ftw.h>
+#include <mpi.h>
+
 #include <cstdio>
 #include <unordered_map>
-
-#include <mpi.h>
 
 #include "constants.h"
 #include "enumerations.h"
@@ -58,16 +58,11 @@ class MetadataManager {
    * Constructor
    */
   MetadataManager()
-      : metadata(),
-        ref(0),
-        is_mpi(false),
-        rank(0),
-        comm_size(1) {}
+      : metadata(), ref(0), is_mpi(false), rank(0), comm_size(1) {}
   /**
    * Get the instance of hermes.
    */
   std::shared_ptr<hapi::Hermes>& GetHermes() { return hermes; }
-
 
   /**
    * Initialize hermes. Get the kHermesConf from environment else get_env
@@ -105,7 +100,7 @@ class MetadataManager {
     if (ref == 1) {
       if (this->is_mpi) {
         MPI_Barrier(MPI_COMM_WORLD);
-        char *stop_daemon = getenv(kStopDaemon);
+        char* stop_daemon = getenv(kStopDaemon);
         bool shutdown_daemon = true;
 
         if (stop_daemon && stop_daemon[0] == '0') {

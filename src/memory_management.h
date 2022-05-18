@@ -27,7 +27,7 @@
 
 namespace hermes {
 
-typedef void (ArenaErrorFunc)();
+typedef void(ArenaErrorFunc)();
 
 /**
  * Implements a ticket lock as described at
@@ -145,7 +145,7 @@ struct ScopedTemporaryMemory {
 
   ScopedTemporaryMemory() = delete;
   ScopedTemporaryMemory(const ScopedTemporaryMemory &) = delete;
-  ScopedTemporaryMemory& operator=(const ScopedTemporaryMemory &) = delete;
+  ScopedTemporaryMemory &operator=(const ScopedTemporaryMemory &) = delete;
 
   /**
    * Creates a ScopedTemporaryMemory from an existing, backing Arena.
@@ -176,9 +176,7 @@ struct ScopedTemporaryMemory {
    * Allows passing a ScopedTemporaryMemory to functions that take an Arena
    * without an explicit cast.
    */
-  operator Arena*() {
-    return arena;
-  }
+  operator Arena *() { return arena; }
 };
 
 /**
@@ -283,7 +281,7 @@ u8 *PushSizeAndClear(Arena *arena, size_t size, size_t alignment = 8);
  *
  * @return A pointer to an uninitialized `T` instance.
  */
-template<typename T>
+template <typename T>
 inline T *PushStruct(Arena *arena, size_t alignment = 8) {
   T *result = reinterpret_cast<T *>(PushSize(arena, sizeof(T), alignment));
 
@@ -301,10 +299,10 @@ inline T *PushStruct(Arena *arena, size_t alignment = 8) {
  *
  * @return A pointer to a `T` instance with all members initialized to zero.
  */
-template<typename T>
+template <typename T>
 inline T *PushClearedStruct(Arena *arena, size_t alignment = 8) {
-  T *result = reinterpret_cast<T *>(PushSizeAndClear(arena, sizeof(T),
-                                                     alignment));
+  T *result =
+      reinterpret_cast<T *>(PushSizeAndClear(arena, sizeof(T), alignment));
 
   return result;
 }
@@ -321,10 +319,10 @@ inline T *PushClearedStruct(Arena *arena, size_t alignment = 8) {
  *
  * @return A pointer to the first `T` instance in the uninitialized array.
  */
-template<typename T>
+template <typename T>
 inline T *PushArray(Arena *arena, int count, size_t alignment = 8) {
-  T *result = reinterpret_cast<T *>(PushSize(arena, sizeof(T) * count,
-                                             alignment));
+  T *result =
+      reinterpret_cast<T *>(PushSize(arena, sizeof(T) * count, alignment));
 
   return result;
 }
@@ -339,23 +337,23 @@ inline T *PushArray(Arena *arena, int count, size_t alignment = 8) {
  *
  * @return A pointer to the first `T` instance in the array.
  */
-template<typename T>
+template <typename T>
 inline T *PushClearedArray(Arena *arena, int count, size_t alignment = 8) {
-  T *result = reinterpret_cast<T *>(PushSizeAndClear(arena, sizeof(T) * count,
-                                                     alignment));
+  T *result = reinterpret_cast<T *>(
+      PushSizeAndClear(arena, sizeof(T) * count, alignment));
 
   return result;
 }
 u8 *HeapPushSize(Heap *heap, u32 size);
 
-template<typename T>
+template <typename T>
 inline T *HeapPushStruct(Heap *heap) {
   T *result = reinterpret_cast<T *>(HeapPushSize(heap, sizeof(T)));
 
   return result;
 }
 
-template<typename T>
+template <typename T>
 inline T *HeapPushArray(Heap *heap, u32 count) {
   T *result = reinterpret_cast<T *>(HeapPushSize(heap, count * sizeof(T)));
 

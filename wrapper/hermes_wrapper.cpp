@@ -12,8 +12,8 @@
 
 #include "hermes_wrapper.h"
 
-#include "hermes.h"
 #include "bucket.h"
+#include "hermes.h"
 #include "vbucket.h"
 
 extern "C" {
@@ -30,9 +30,7 @@ int HermesInitHermes(char *hermes_config) {
   return result;
 }
 
-void HermesFinalize() {
-  hermes_ptr->Finalize(true);
-}
+void HermesFinalize() { hermes_ptr->Finalize(true); }
 
 void HermesVBucketLink(VBucketClass *vbkt, char *blob_name) {
   hermes::api::VBucket *vbucket = (hermes::api::VBucket *)vbkt;
@@ -41,7 +39,7 @@ void HermesVBucketLink(VBucketClass *vbkt, char *blob_name) {
           << vbucket->GetName() << '\n';
 
   hermes::api::Status status =
-    vbucket->Link(std::string(blob_name), vbucket->GetName());
+      vbucket->Link(std::string(blob_name), vbucket->GetName());
 
   if (status.Failed())
     LOG(ERROR) << "Hermes Wrapper: HermesVBucketLink failed\n";
@@ -60,15 +58,13 @@ BucketClass *HermesBucketCreate(const char *name) {
 
   try {
     hermes::api::Bucket *new_bucket =
-      new hermes::api::Bucket(std::string(name), hermes_ptr);
+        new hermes::api::Bucket(std::string(name), hermes_ptr);
 
     return (BucketClass *)new_bucket;
-  }
-  catch (const std::runtime_error& e) {
+  } catch (const std::runtime_error &e) {
     LOG(ERROR) << "Blob runtime error\n";
     return NULL;
-  }
-  catch (const std::length_error& e) {
+  } catch (const std::length_error &e) {
     LOG(ERROR) << "Blob length error\n";
     return NULL;
   }
@@ -95,8 +91,7 @@ void HermesBucketDestroy(BucketClass *bkt) {
 bool HermesBucketContainsBlob(BucketClass *bkt, char *name) {
   hermes::api::Bucket *bucket = (hermes::api::Bucket *)bkt;
 
-  VLOG(1) << "Hermes Wrapper: Checking if Bucket "
-          << bucket->GetName()
+  VLOG(1) << "Hermes Wrapper: Checking if Bucket " << bucket->GetName()
           << " contains Blob " << name << '\n';
 
   return bucket->ContainsBlob(name);
@@ -111,8 +106,7 @@ void HermesBucketPut(BucketClass *bkt, char *name,
 
   hermes::api::Status status = bucket->Put(name, put_data, size);
 
-  if (status.Failed())
-    LOG(ERROR) << "Hermes Wrapper: HermesBucketPut failed\n";
+  if (status.Failed()) LOG(ERROR) << "Hermes Wrapper: HermesBucketPut failed\n";
 }
 
 void HermesBucketGet(BucketClass *bkt, char *blob_name, size_t page_size,

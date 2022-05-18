@@ -23,7 +23,7 @@
 #include <dlfcn.h>
 #include <stdio.h>
 
-#define H5FD_HERMES_NAME  "hermes"
+#define H5FD_HERMES_NAME "hermes"
 #define H5FD_HERMES_VALUE ((H5FD_class_value_t)(513))
 
 #define HERMES_FORWARD_DECL(func_, ret_, args_) \

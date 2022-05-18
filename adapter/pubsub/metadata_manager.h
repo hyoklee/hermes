@@ -16,8 +16,9 @@
 /**
  * Standard headers
  */
-#include <unordered_map>
 #include <mpi.h>
+
+#include <unordered_map>
 
 /**
  * Internal headers
@@ -50,9 +51,7 @@ class MetadataManager {
   /**
    * Constructor
    */
-  explicit MetadataManager(bool is_mpi = true)
-      : metadata(),
-        ref(0) {
+  explicit MetadataManager(bool is_mpi = true) : metadata(), ref(0) {
     if (is_mpi) {
       MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
     } else {
@@ -65,11 +64,10 @@ class MetadataManager {
    */
   std::shared_ptr<hapi::Hermes>& GetHermes() { return hermes; }
 
-
   /**
    * Initialize hermes.
    */
-  void InitializeHermes(const char *config_file) {
+  void InitializeHermes(const char* config_file) {
     if (ref == 0) {
       hermes = hapi::InitHermes(config_file, false, true);
     }
@@ -87,9 +85,7 @@ class MetadataManager {
     ref--;
   }
 
-  bool isClient() {
-    return hermes->IsApplicationCore();
-  }
+  bool isClient() { return hermes->IsApplicationCore(); }
 
   /**
    * \brief Create a metadata entry for pubsub adapter for a given topic.
@@ -101,28 +97,27 @@ class MetadataManager {
   bool Create(const std::string& topic, const ClientMetadata& stat);
 
   /**
-   * \brief Update existing metadata entry for pubsub adapter for a given file handler.
-   * \param topic, std::string&, name of the managed topic.
-   * \param stat, ClientMetadata&, current metadata of the topic to replace previous one.
-   * \return true, if operation was successful.
-   *         false, if operation was unsuccessful or entry doesn't exist.
-   * \remark Update call will not degenerate into a create call if topic is not being tracked.
+   * \brief Update existing metadata entry for pubsub adapter for a given file
+   * handler. \param topic, std::string&, name of the managed topic. \param
+   * stat, ClientMetadata&, current metadata of the topic to replace previous
+   * one. \return true, if operation was successful. false, if operation was
+   * unsuccessful or entry doesn't exist. \remark Update call will not
+   * degenerate into a create call if topic is not being tracked.
    */
   bool Update(const std::string& topic, const ClientMetadata& stat);
 
   /**
-   * \brief Delete existing metadata entry for pubsub adapter for a given file handler.
-   * \param topic, std::string&, name of the managed topic.
-   * \return    true, if operation was successful.
-   *            false, if operation was unsuccessful.
+   * \brief Delete existing metadata entry for pubsub adapter for a given file
+   * handler. \param topic, std::string&, name of the managed topic. \return
+   * true, if operation was successful. false, if operation was unsuccessful.
    */
   bool Delete(const std::string& topic);
 
   /**
-   * \brief Find existing metadata entry for pubsub adapter for a given file handler.
-   * \param topic, std::string&, name of the managed topic.
-   * \return The metadata entry if exist.
-   *         The bool in pair indicated whether metadata entry exists.
+   * \brief Find existing metadata entry for pubsub adapter for a given file
+   * handler. \param topic, std::string&, name of the managed topic. \return The
+   * metadata entry if exist. The bool in pair indicated whether metadata entry
+   * exists.
    */
   std::pair<ClientMetadata, bool> Find(const std::string& topic);
 };

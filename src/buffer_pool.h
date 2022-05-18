@@ -22,10 +22,10 @@
 #include <utility>
 #include <vector>
 
-#include "hermes_types.h"
-#include "hermes_status.h"
-#include "memory_management.h"
 #include "communication.h"
+#include "hermes_status.h"
+#include "hermes_types.h"
+#include "memory_management.h"
 
 /** @file buffer_pool.h
  *
@@ -51,8 +51,8 @@ struct Device {
   f32 bandwidth_mbps;
   /** The device's theoretical latency in nanoseconds. */
   f32 latency_ns;
-  /** The Device's identifier. This is an index into the array of Devices stored in
-   * the BufferPool.
+  /** The Device's identifier. This is an index into the array of Devices stored
+   * in the BufferPool.
    */
   DeviceID id;
   /** True if the Device is a RAM Device (or other byte addressable, local or
@@ -347,8 +347,8 @@ void UnmapSharedMemory(SharedMemoryContext *context);
  *
  * If a request cannot be fulfilled, an empty list is returned. GetBuffers will
  * never partially satisfy a request. It is all or nothing. If @p schema
- * includes a remote Device, this function will make an RPC call to get BufferIDs
- * from a remote node.
+ * includes a remote Device, this function will make an RPC call to get
+ * BufferIDs from a remote node.
  *
  * @param context The shared memory context for the BufferPool.
  * @param schema A description of the amount and Device of storage requested.
@@ -474,18 +474,17 @@ SwapBlob PutToSwap(SharedMemoryContext *context, RpcContext *rpc,
                    const std::string &name, BucketID bucket_id, const u8 *data,
                    size_t size);
 
-template<typename T>
+template <typename T>
 std::vector<SwapBlob> PutToSwap(SharedMemoryContext *context, RpcContext *rpc,
-                                BucketID id,
-                                std::vector<std::vector<T>> &blobs,
+                                BucketID id, std::vector<std::vector<T>> &blobs,
                                 std::vector<std::string> &names) {
   size_t num_blobs = blobs.size();
   std::vector<SwapBlob> result(num_blobs);
 
   for (size_t i = 0; i < num_blobs; ++i) {
-    SwapBlob swap_blob = PutToSwap(context, rpc, names[i], id,
-                                   (const u8*)blobs[i].data(),
-                                   blobs[i].size() * sizeof(T));
+    SwapBlob swap_blob =
+        PutToSwap(context, rpc, names[i], id, (const u8 *)blobs[i].data(),
+                  blobs[i].size() * sizeof(T));
     result.push_back(swap_blob);
   }
 
