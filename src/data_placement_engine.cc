@@ -360,28 +360,28 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       std::cout << row_name << std::endl;
 #endif
       glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
-		       static_cast<double>(node_state[j]) - remaining_capacity_threshold);
+               static_cast<double>(node_state[j]) - remaining_capacity_threshold);
 
       for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
-	// Set blob size as cofefficient for each variable.
-	blob_constrt[num_constrts+j]->SetCoefficient(
-						     blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
+    // Set blob size as cofefficient for each variable.
+    blob_constrt[num_constrts+j]->SetCoefficient(
+                             blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
 #endif
-	// Starting row of contraint array is (blob * target)*num_constrts.
+    // Starting row of contraint array is (blob * target)*num_constrts.
 #ifdef DEBUG
-	std::cout << "last = " << last << std::endl;
+    std::cout << "last = " << last << std::endl;
 #endif
-	int ij = j * num_blobs + i + 1 + last;
+    int ij = j * num_blobs + i + 1 + last;
 #ifdef DEBUG
-	std::cout << "ij = " << ij << std::endl;
-	std::cout << "row = " << num_constrts+j+1 << std::endl;
-	std::cout << "col = " << j+1 << std::endl;
-	std::cout << "blob_sizes = " << blob_sizes[i] << std::endl;
+    std::cout << "ij = " << ij << std::endl;
+    std::cout << "row = " << num_constrts+j+1 << std::endl;
+    std::cout << "col = " << j+1 << std::endl;
+    std::cout << "blob_sizes = " << blob_sizes[i] << std::endl;
 #endif
-	ia[ij] = num_constrts+j+1, ja[ij] = j+1,
+    ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
-	last2 = ij;
+    last2 = ij;
       }
     }
     num_constrts += num_targets;
@@ -401,7 +401,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #endif
 #ifdef ORTOOLS
       blob_constrt[num_constrts+j] =
-	solver.MakeRowConstraint(0, capacity_change_threshold * node_state[j]);
+    solver.MakeRowConstraint(0, capacity_change_threshold * node_state[j]);
 #endif
 
       std::string row_name {"rcct_row_" + std::to_string(j)};
@@ -409,27 +409,27 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 #ifdef DEBUG
       std::cout << row_name << std::endl;
       std::cout << "UP=" << capacity_change_threshold * node_state[j]
-		<< std::endl;
+        << std::endl;
 #endif
       glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
-		       capacity_change_threshold * node_state[j]);
+               capacity_change_threshold * node_state[j]);
       for (size_t i {0}; i < num_blobs; ++i) {
 #ifdef ORTOOLS
-	blob_constrt[num_constrts+j]->SetCoefficient(
-						     blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
+    blob_constrt[num_constrts+j]->SetCoefficient(
+                             blob_fraction[i][j], static_cast<double>(blob_sizes[i]));
 #endif
 #ifdef DEBUG
-	std::cout << "last2 = " << last2 << std::endl;
+    std::cout << "last2 = " << last2 << std::endl;
 #endif
-	int ij = j * num_blobs + i + 1 + last2;
+    int ij = j * num_blobs + i + 1 + last2;
 #ifdef DEBUG
-	std::cout << "ij = " << ij << std::endl;
-	std::cout << "row = " << num_constrts+j+1 << std::endl;
-	std::cout << "col = " << j+1 << std::endl;
+    std::cout << "ij = " << ij << std::endl;
+    std::cout << "row = " << num_constrts+j+1 << std::endl;
+    std::cout << "col = " << j+1 << std::endl;
 #endif
-	ia[ij] = num_constrts+j+1, ja[ij] = j+1,
+    ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
-	last3 = ij;
+    last3 = ij;
       }
     }
     num_constrts += num_targets;
