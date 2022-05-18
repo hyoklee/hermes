@@ -4,5 +4,6 @@ var namespaces_dup =
       [ "adapter", "namespacehermes_1_1adapter.html", "namespacehermes_1_1adapter" ],
       [ "pubsub", "namespacehermes_1_1pubsub.html", null ]
     ] ],
-    [ "std", "namespacestd.html", null ]
+    [ "std", "namespacestd.html", null ],
+    [ "test", "namespacetest.html", null ]
 ];

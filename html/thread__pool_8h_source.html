@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.5.0-beta</span>
+   &#160;<span id="projectnumber">0.6.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -121,8 +121,8 @@ $(document).ready(function(){initNavTree('thread__pool_8h_source.html',''); init
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">return</span> !queue_high.empty() || !queue_low.empty();</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;          });</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;          <span class="keywordtype">bool</span> high_priority = !queue_high.empty();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;          <span class="keyword">auto</span> task = high_priority ? std::move(queue_high.front()) :</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            std::move(queue_low.front());</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;          <span class="keyword">auto</span> task = high_priority ? std::move(queue_high.front())</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                    : std::move(queue_low.front());</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;          <span class="keywordflow">if</span> (task.valid()) {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">if</span> (high_priority) {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;              queue_high.pop();</div>

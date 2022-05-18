@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.5.0-beta</span>
+   &#160;<span id="projectnumber">0.6.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -102,36 +102,35 @@ $(document).ready(function(){initNavTree('stdio_2mapper_2mapper__factory_8h_sour
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#ifndef HERMES_ADAPTER_FACTORY_H</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define HERMES_ADAPTER_FACTORY_H</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;singleton.h&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;stdio/enumerations.h&quot;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;abstract_mapper.h&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;balanced_mapper.h&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehermes_1_1adapter_1_1stdio.html">hermes::adapter::stdio</a> {</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html">   34</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html">MapperFactory</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html#a18dc570603d6d7e583cd66950198d09b">   42</a></span>&#160;  std::shared_ptr&lt;AbstractMapper&gt; <a class="code" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html#a18dc570603d6d7e583cd66950198d09b">Get</a>(<span class="keyword">const</span> <a class="code" href="namespacehermes_1_1adapter_1_1stdio.html#a3362b03a94ff0115f2d3465907261968">MapperType</a> &amp;type) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">switch</span> (type) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">case</span> MapperType::BALANCED: {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6">hermes::adapter::Singleton&lt;BalancedMapper&gt;::GetInstance</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordflow">default</span>: {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="comment">// TODO(hari): @errorhandling Mapper not implemented</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}  <span class="comment">// namespace hermes::adapter::stdio</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif  // HERMES_ADAPTER_FACTORY_H</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;abstract_mapper.h&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;balanced_mapper.h&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;singleton.h&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;stdio/enumerations.h&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehermes_1_1adapter_1_1stdio.html">hermes::adapter::stdio</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html">   33</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html">MapperFactory</a> {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html#a18dc570603d6d7e583cd66950198d09b">   41</a></span>&#160;  std::shared_ptr&lt;AbstractMapper&gt; <a class="code" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html#a18dc570603d6d7e583cd66950198d09b">Get</a>(<span class="keyword">const</span> <a class="code" href="namespacehermes_1_1adapter_1_1stdio.html#a3362b03a94ff0115f2d3465907261968">MapperType</a> &amp;type) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">switch</span> (type) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">case</span> MapperType::BALANCED: {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6">hermes::adapter::Singleton&lt;BalancedMapper&gt;::GetInstance</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordflow">default</span>: {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="comment">// TODO(hari): @errorhandling Mapper not implemented</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}  <span class="comment">// namespace hermes::adapter::stdio</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif  // HERMES_ADAPTER_FACTORY_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclasshermes_1_1adapter_1_1stdio_1_1_mapper_factory_html"><div class="ttname"><a href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html">hermes::adapter::stdio::MapperFactory</a></div><div class="ttdef"><b>Definition:</b> mapper_factory.h:34</div></div>
+<div class="ttc" id="aclasshermes_1_1adapter_1_1stdio_1_1_mapper_factory_html"><div class="ttname"><a href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html">hermes::adapter::stdio::MapperFactory</a></div><div class="ttdef"><b>Definition:</b> mapper_factory.h:33</div></div>
 <div class="ttc" id="anamespacehermes_1_1adapter_1_1stdio_html"><div class="ttname"><a href="namespacehermes_1_1adapter_1_1stdio.html">hermes::adapter::stdio</a></div><div class="ttdef"><b>Definition:</b> datastructures.h:40</div></div>
 <div class="ttc" id="aclasshermes_1_1adapter_1_1_singleton_html_a7628ad540d84a0e62635e0e3f2f71ad6"><div class="ttname"><a href="classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6">hermes::adapter::Singleton::GetInstance</a></div><div class="ttdeci">static std::shared_ptr&lt; T &gt; GetInstance(Args... args)</div><div class="ttdef"><b>Definition:</b> singleton.h:34</div></div>
 <div class="ttc" id="anamespacehermes_1_1adapter_1_1stdio_html_a3362b03a94ff0115f2d3465907261968"><div class="ttname"><a href="namespacehermes_1_1adapter_1_1stdio.html#a3362b03a94ff0115f2d3465907261968">hermes::adapter::stdio::MapperType</a></div><div class="ttdeci">MapperType</div><div class="ttdef"><b>Definition:</b> enumerations.h:23</div></div>
-<div class="ttc" id="aclasshermes_1_1adapter_1_1stdio_1_1_mapper_factory_html_a18dc570603d6d7e583cd66950198d09b"><div class="ttname"><a href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html#a18dc570603d6d7e583cd66950198d09b">hermes::adapter::stdio::MapperFactory::Get</a></div><div class="ttdeci">std::shared_ptr&lt; AbstractMapper &gt; Get(const MapperType &amp;type)</div><div class="ttdef"><b>Definition:</b> mapper_factory.h:42</div></div>
+<div class="ttc" id="aclasshermes_1_1adapter_1_1stdio_1_1_mapper_factory_html_a18dc570603d6d7e583cd66950198d09b"><div class="ttname"><a href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html#a18dc570603d6d7e583cd66950198d09b">hermes::adapter::stdio::MapperFactory::Get</a></div><div class="ttdeci">std::shared_ptr&lt; AbstractMapper &gt; Get(const MapperType &amp;type)</div><div class="ttdef"><b>Definition:</b> mapper_factory.h:41</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

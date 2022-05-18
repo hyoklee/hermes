@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.5.0-beta</span>
+   &#160;<span id="projectnumber">0.6.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -104,21 +104,20 @@ $(document).ready(function(){initNavTree('posix_2mapper_2balanced__mapper_8h_sou
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;posix/constants.h&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;abstract_mapper.h&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehermes_1_1adapter_1_1posix.html">hermes::adapter::posix</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html">BalancedMapper</a> : <span class="keyword">public</span> <a class="code" href="classhermes_1_1adapter_1_1posix_1_1_abstract_mapper.html">AbstractMapper</a> {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  MapperReturnType <a class="code" href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html#af53ddd972ba1848c27f005af0079cd07">map</a>(<span class="keyword">const</span> <a class="code" href="structhermes_1_1adapter_1_1posix_1_1_file_struct.html">FileStruct</a>&amp; file_op) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}  <span class="comment">// namespace hermes::adapter::posix</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif  // HERMES_BALANCED_MAPPER_H</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;abstract_mapper.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;posix/constants.h&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehermes_1_1adapter_1_1posix.html">hermes::adapter::posix</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html">BalancedMapper</a> : <span class="keyword">public</span> <a class="code" href="classhermes_1_1adapter_1_1posix_1_1_abstract_mapper.html">AbstractMapper</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  MapperReturnType <a class="code" href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html#af53ddd972ba1848c27f005af0079cd07">map</a>(<span class="keyword">const</span> <a class="code" href="structhermes_1_1adapter_1_1posix_1_1_file_struct.html">FileStruct</a>&amp; file_op) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}  <span class="comment">// namespace hermes::adapter::posix</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif  // HERMES_BALANCED_MAPPER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_balanced_mapper_html"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html">hermes::adapter::posix::BalancedMapper</a></div><div class="ttdef"><b>Definition:</b> balanced_mapper.h:26</div></div>
+<div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_balanced_mapper_html"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html">hermes::adapter::posix::BalancedMapper</a></div><div class="ttdef"><b>Definition:</b> balanced_mapper.h:25</div></div>
 <div class="ttc" id="anamespacehermes_1_1adapter_1_1posix_html"><div class="ttname"><a href="namespacehermes_1_1adapter_1_1posix.html">hermes::adapter::posix</a></div><div class="ttdef"><b>Definition:</b> datastructures.h:39</div></div>
 <div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_balanced_mapper_html_af53ddd972ba1848c27f005af0079cd07"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html#af53ddd972ba1848c27f005af0079cd07">hermes::adapter::posix::BalancedMapper::map</a></div><div class="ttdeci">MapperReturnType map(const FileStruct &amp;file_op) override</div><div class="ttdef"><b>Definition:</b> balanced_mapper.cc:22</div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_file_struct_html"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_file_struct.html">hermes::adapter::posix::FileStruct</a></div><div class="ttdef"><b>Definition:</b> datastructures.h:83</div></div>
