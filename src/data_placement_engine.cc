@@ -392,8 +392,9 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
 
   // Constraint #3: Remaining Capacity Change Threshold
   // const double capacity_change_threshold = 0.2;
+  int last3 = 0;
   if (capacity_change_threshold != 0) {  
-    int last3 = 0;
+
     for (size_t j {0}; j < num_targets; ++j) {
 #ifdef DEBUG
       std::cout << "node_state[" << j << "]=" << node_state[j] << std::endl;
