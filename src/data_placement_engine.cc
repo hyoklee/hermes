@@ -253,7 +253,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
                                const std::vector<TargetID> &targets,
                                std::vector<PlacementSchema> &output,
                                const api::Context &ctx) {
-#ifdef ORTOOLS    
+#ifdef ORTOOLS
   using operations_research::MPSolver;
   using operations_research::MPVariable;
   using operations_research::MPConstraint;
@@ -342,16 +342,17 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   if (minimum_remaining_capacity != 0) {
     for (size_t j {0}; j < num_targets; ++j) {
       double remaining_capacity_threshold =
-	static_cast<double>(node_state[j]) * minimum_remaining_capacity;
+       static_cast<double>(node_state[j]) * minimum_remaining_capacity;
 #ifdef DEBUG
       std::cout << "blob_constraint:" <<
-	static_cast<double>(node_state[j]) -
-	remaining_capacity_threshold << std::endl;
+        static_cast<double>(node_state[j]) -
+        remaining_capacity_threshold << std::endl;
 #endif
 #ifdef ORTOOLS
       // Minimum is 0, max is state - remaining cap.
-      blob_constrt[num_constrts+j] = solver.MakeRowConstraint(
-							      0, static_cast<double>(node_state[j]) - remaining_capacity_threshold);
+      blob_constrt[num_constrts+j] =
+        solver.MakeRowConstraint(0, static_cast<double>(node_state[j])
+                                 - remaining_capacity_threshold);
 #endif
       std::string row_name {"mrc_row_" + std::to_string(j)};
       glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
