@@ -1037,7 +1037,7 @@ static stbds_hash_index *stbds_make_hash_index(size_t slot_count,
 
   {
     size_t i, j;
-    for (i = 0; i<slot_count> > STBDS_BUCKET_SHIFT; ++i) {
+    for (i = 0; i < (slot_count >> STBDS_BUCKET_SHIFT) ; ++i) {
       stbds_hash_bucket *b = &stbds_table_storage(t)[i];
       for (j = 0; j < STBDS_BUCKET_LENGTH; ++j) b->hash[j] = STBDS_HASH_EMPTY;
       for (j = 0; j < STBDS_BUCKET_LENGTH; ++j) b->index[j] = STBDS_INDEX_EMPTY;
@@ -1048,7 +1048,7 @@ static stbds_hash_index *stbds_make_hash_index(size_t slot_count,
   if (ot) {
     size_t i, j;
     t->used_count = ot->used_count;
-    for (i = 0; i<ot->slot_count> > STBDS_BUCKET_SHIFT; ++i) {
+    for (i = 0; i < (ot->slot_count >> STBDS_BUCKET_SHIFT) ; ++i) {
       stbds_hash_bucket *ob = &stbds_table_storage(ot)[i];
       for (j = 0; j < STBDS_BUCKET_LENGTH; ++j) {
         if (STBDS_INDEX_IN_USE(ob->index[j])) {
