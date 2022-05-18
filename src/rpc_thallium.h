@@ -13,15 +13,15 @@
 #ifndef HERMES_RPC_THALLIUM_H_
 #define HERMES_RPC_THALLIUM_H_
 
+#include <arpa/inet.h>
 #include <netdb.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 #include <sys/socket.h>
 
 #include <thallium.hpp>
-#include <thallium/serialization/stl/vector.hpp>
 #include <thallium/serialization/stl/pair.hpp>
 #include <thallium/serialization/stl/string.hpp>
+#include <thallium/serialization/stl/vector.hpp>
 
 #include "buffer_organizer.h"
 
@@ -56,9 +56,9 @@ struct ClientThalliumState {
  * @param ar An archive provided by Thallium.
  * @param buffer_id The BufferID to serialize.
  */
-template<typename A>
+template <typename A>
 void serialize(A &ar, BufferID &buffer_id) {
-  ar & buffer_id.as_int;
+  ar &buffer_id.as_int;
 }
 
 /**
@@ -69,9 +69,9 @@ void serialize(A &ar, BufferID &buffer_id) {
  * @param ar An archive provided by Thallium.
  * @param bucket_id The BucketID to serialize.
  */
-template<typename A>
+template <typename A>
 void serialize(A &ar, BucketID &bucket_id) {
-  ar & bucket_id.as_int;
+  ar &bucket_id.as_int;
 }
 
 /**
@@ -95,9 +95,9 @@ void serialize(A &ar, VBucketID &vbucket_id) {
  * @param ar An archive provided by Thallium.
  * @param blob_id The BlobID to serialize.
  */
-template<typename A>
+template <typename A>
 void serialize(A &ar, BlobID &blob_id) {
-  ar & blob_id.as_int;
+  ar &blob_id.as_int;
 }
 
 /**
@@ -108,24 +108,24 @@ void serialize(A &ar, BlobID &blob_id) {
  * @param ar An archive provided by Thallium.
  * @param target_id The TargetID to serialize.
  */
-template<typename A>
+template <typename A>
 void serialize(A &ar, TargetID &target_id) {
-  ar & target_id.as_int;
+  ar &target_id.as_int;
 }
 
-template<typename A>
+template <typename A>
 void serialize(A &ar, SwapBlob &swap_blob) {
-  ar & swap_blob.node_id;
-  ar & swap_blob.offset;
-  ar & swap_blob.size;
-  ar & swap_blob.bucket_id;
+  ar &swap_blob.node_id;
+  ar &swap_blob.offset;
+  ar &swap_blob.size;
+  ar &swap_blob.bucket_id;
 }
 
-template<typename A>
+template <typename A>
 void serialize(A &ar, BufferInfo &info) {
-  ar & info.id;
-  ar & info.bandwidth_mbps;
-  ar & info.size;
+  ar &info.id;
+  ar &info.bandwidth_mbps;
+  ar &info.size;
 }
 
 #ifndef THALLIUM_USE_CEREAL
@@ -137,7 +137,7 @@ void serialize(A &ar, BufferInfo &info) {
  * @param ar An archive provided by Thallium.
  * @param map_type The MapType to serialize.
  */
-template<typename A>
+template <typename A>
 void save(A &ar, MapType &map_type) {
   int val = (int)map_type;
   ar.write(&val, 1);
@@ -151,20 +151,20 @@ void save(A &ar, MapType &map_type) {
  * @param ar An archive provided by Thallium.
  * @param map_type The MapType to serialize.
  */
-template<typename A>
+template <typename A>
 void load(A &ar, MapType &map_type) {
   int val = 0;
   ar.read(&val, 1);
   map_type = (MapType)val;
 }
 
-template<typename A>
+template <typename A>
 void save(A &ar, BoPriority &priority) {
   int val = (int)priority;
   ar.write(&val, 1);
 }
 
-template<typename A>
+template <typename A>
 void load(A &ar, BoPriority &priority) {
   int val = 0;
   ar.read(&val, 1);
@@ -172,34 +172,33 @@ void load(A &ar, BoPriority &priority) {
 }
 #endif  // #ifndef THALLIUM_USE_CEREAL
 
-
-template<typename A>
+template <typename A>
 void save(A &ar, BoOperation &op) {
   int val = (int)op;
   ar.write(&val, 1);
 }
 
-template<typename A>
+template <typename A>
 void load(A &ar, BoOperation &op) {
   int val = 0;
   ar.read(&val, 1);
   op = (BoOperation)val;
 }
 
-template<typename A>
+template <typename A>
 void serialize(A &ar, BoArgs &bo_args) {
-  ar & bo_args.move_args.src;
-  ar & bo_args.move_args.dest;
+  ar &bo_args.move_args.src;
+  ar &bo_args.move_args.dest;
 }
 
-template<typename A>
+template <typename A>
 void serialize(A &ar, BoTask &bo_task) {
-  ar & bo_task.op;
-  ar & bo_task.args;
+  ar &bo_task.op;
+  ar &bo_task.args;
 }
 
 namespace api {
-template<typename A>
+template <typename A>
 #ifndef THALLIUM_USE_CEREAL
 void save(A &ar, api::Context &ctx) {
 #else
@@ -209,7 +208,7 @@ void save(A &ar, const api::Context &ctx) {
   int val = (int)ctx.policy;
   ar.write(&val, 1);
 }
-template<typename A>
+template <typename A>
 void load(A &ar, api::Context &ctx) {
   int val = 0;
   ar.read(&ctx.buffer_organizer_retries, 1);
@@ -227,14 +226,13 @@ static inline ThalliumState *GetThalliumState(RpcContext *rpc) {
   return result;
 }
 
-static inline
-ClientThalliumState *GetClientThalliumState(RpcContext *rpc) {
+static inline ClientThalliumState *GetClientThalliumState(RpcContext *rpc) {
   ClientThalliumState *result = (ClientThalliumState *)rpc->client_rpc.state;
 
   return result;
 }
 
-static bool IsBoFunction(const char * func_name) {
+static bool IsBoFunction(const char *func_name) {
   bool result = false;
   int i = 0;
 
@@ -252,11 +250,11 @@ static bool IsBoFunction(const char * func_name) {
   return result;
 }
 
-template<typename ReturnType, typename... Ts>
+template <typename ReturnType, typename... Ts>
 ReturnType RpcCall(RpcContext *rpc, u32 node_id, const char *func_name,
                    Ts... args) {
-  VLOG(1) << "Calling " << func_name << " on node " << node_id
-          << " from node " << rpc->node_id << std::endl;
+  VLOG(1) << "Calling " << func_name << " on node " << node_id << " from node "
+          << rpc->node_id << std::endl;
   ClientThalliumState *state = GetClientThalliumState(rpc);
   bool is_bo_func = IsBoFunction(func_name);
   std::string server_name = GetServerName(rpc, node_id, is_bo_func);
@@ -270,7 +268,7 @@ ReturnType RpcCall(RpcContext *rpc, u32 node_id, const char *func_name,
   // endpoint instead of looking it up on every call
   tl::endpoint server = state->engine->lookup(server_name);
 
-  if constexpr(std::is_same<ReturnType, void>::value) {
+  if constexpr (std::is_same<ReturnType, void>::value) {
     remote_proc.disable_response();
     remote_proc.on(server)(std::forward<Ts>(args)...);
   } else {

@@ -20,4 +20,3 @@ fs::path WeaklyCanonical(const fs::path& p);
 fs::path WeaklyCanonical(const fs::path& p, std::error_code& ec);
 
 }  // namespace hermes::adapter
-

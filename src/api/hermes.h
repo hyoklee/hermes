@@ -22,19 +22,19 @@
 #ifndef HERMES_H_
 #define HERMES_H_
 
-#include <cstdint>
-#include <string>
-#include <set>
-#include <iostream>
-#include <vector>
-
 #include <glog/logging.h>
 
-#include "hermes_types.h"
+#include <cstdint>
+#include <iostream>
+#include <set>
+#include <string>
+#include <vector>
+
 #include "buffer_pool.h"
+#include "hermes_types.h"
+#include "id.h"
 #include "metadata_management.h"
 #include "rpc.h"
-#include "id.h"
 
 namespace hermes {
 namespace api {
@@ -115,15 +115,12 @@ class VBucket;
 class Bucket;
 
 /** Renames a bucket referred to by name only */
-Status RenameBucket(const std::string &old_name,
-                    const std::string &new_name,
+Status RenameBucket(const std::string &old_name, const std::string &new_name,
                     Context &ctx);
 
 /** Transfers a blob between buckets */
-Status TransferBlob(const Bucket &src_bkt,
-                    const std::string &src_blob_name,
-                    Bucket &dst_bkt,
-                    const std::string &dst_blob_name,
+Status TransferBlob(const Bucket &src_bkt, const std::string &src_blob_name,
+                    Bucket &dst_bkt, const std::string &dst_blob_name,
                     Context &ctx);
 
 /** \todo InitHermes */

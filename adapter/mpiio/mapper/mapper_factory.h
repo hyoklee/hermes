@@ -13,11 +13,10 @@
 #ifndef HERMES_MPIIO_ADAPTER_ADAPTER_FACTORY_H
 #define HERMES_MPIIO_ADAPTER_ADAPTER_FACTORY_H
 
-#include "singleton.h"
-#include "mpiio/enumerations.h"
-
 #include "abstract_mapper.h"
 #include "balanced_mapper.h"
+#include "mpiio/enumerations.h"
+#include "singleton.h"
 
 namespace hermes::adapter::mpiio {
 class MapperFactory {

@@ -14,9 +14,9 @@
 #define HERMES_MPIIO_ADAPTER_METADATA_MANAGER_H
 
 #include <ftw.h>
-#include <unordered_map>
-
 #include <mpi.h>
+
+#include <unordered_map>
 
 #include "constants.h"
 #include "enumerations.h"

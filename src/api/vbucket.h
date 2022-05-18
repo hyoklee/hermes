@@ -13,13 +13,14 @@
 #ifndef VBUCKET_H_
 #define VBUCKET_H_
 
+#include <glog/logging.h>
+
 #include <list>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include <glog/logging.h>
 #include "hermes.h"
 #include "traits.h"
 

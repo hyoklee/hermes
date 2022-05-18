@@ -259,8 +259,7 @@ TEST_CASE("BatchedWriteSequentialPersistent",
               "[pattern=sequential][file=1]") {
   char* adapter_mode = getenv(kAdapterMode);
   REQUIRE(adapter_mode != nullptr);
-  bool is_same =
-      strcmp(kAdapterDefaultMode, adapter_mode) == 0;
+  bool is_same = strcmp(kAdapterDefaultMode, adapter_mode) == 0;
   REQUIRE(is_same);
   pretest();
   SECTION("write to new file always at end") {

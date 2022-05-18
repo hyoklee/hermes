@@ -18,8 +18,8 @@
 #include <atomic>
 #include <string>
 
-#include "memory_management.h"
 #include "buffer_pool.h"
+#include "memory_management.h"
 
 namespace hermes {
 
@@ -50,8 +50,8 @@ struct ShmemString {
 
   ShmemString(const ShmemString &) = delete;
   ShmemString(const ShmemString &&) = delete;
-  ShmemString& operator=(const ShmemString &) = delete;
-  ShmemString& operator=(const ShmemString &&) = delete;
+  ShmemString &operator=(const ShmemString &) = delete;
+  ShmemString &operator=(const ShmemString &&) = delete;
 };
 
 enum MapType {
@@ -99,7 +99,7 @@ struct BlobInfo {
     lock.serving.store(0);
   }
 
-  BlobInfo& operator=(const BlobInfo &other) {
+  BlobInfo &operator=(const BlobInfo &other) {
     stats = other.stats;
     lock.ticket.store(other.lock.ticket.load());
     lock.serving.store(other.lock.serving.load());
@@ -244,8 +244,7 @@ bool ContainsBlob(SharedMemoryContext *context, RpcContext *rpc,
 /**
  *
  */
-BufferIdArray GetBufferIdsFromBlobId(Arena *arena,
-                                     SharedMemoryContext *context,
+BufferIdArray GetBufferIdsFromBlobId(Arena *arena, SharedMemoryContext *context,
                                      RpcContext *rpc, BlobID blob_id,
                                      u32 **sizes);
 
@@ -255,8 +254,6 @@ BufferIdArray GetBufferIdsFromBlobId(Arena *arena,
 BlobID GetBlobId(SharedMemoryContext *context, RpcContext *rpc,
                  const std::string &name, BucketID bucket_id,
                  bool track_stats = true);
-
-
 
 /**
  *
@@ -340,9 +337,9 @@ std::vector<TargetID> GetNeighborhoodTargets(SharedMemoryContext *context,
 /**
  *
  */
-std::vector<u64>
-GetRemainingTargetCapacities(SharedMemoryContext *context, RpcContext *rpc,
-                             const std::vector<TargetID> &targets);
+std::vector<u64> GetRemainingTargetCapacities(
+    SharedMemoryContext *context, RpcContext *rpc,
+    const std::vector<TargetID> &targets);
 /**
  *
  */
@@ -353,7 +350,7 @@ std::vector<BlobID> GetBlobIds(SharedMemoryContext *context, RpcContext *rpc,
  *
  */
 BucketID GetBucketId(SharedMemoryContext *context, RpcContext *rpc,
-                           const char *name);
+                     const char *name);
 
 /**
  *

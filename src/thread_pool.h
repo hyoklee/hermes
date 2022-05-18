@@ -32,8 +32,8 @@ class ThreadPool {
             return !queue_high.empty() || !queue_low.empty();
           });
           bool high_priority = !queue_high.empty();
-          auto task = high_priority ? std::move(queue_high.front()) :
-            std::move(queue_low.front());
+          auto task = high_priority ? std::move(queue_high.front())
+                                    : std::move(queue_low.front());
           if (task.valid()) {
             if (high_priority) {
               queue_high.pop();

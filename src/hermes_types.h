@@ -13,20 +13,19 @@
 #ifndef HERMES_TYPES_H_
 #define HERMES_TYPES_H_
 
+#include <glog/logging.h>
 #include <stdint.h>
 
+#include <functional>
 #include <string>
 #include <utility>
 #include <vector>
-#include <functional>
-
-#include <glog/logging.h>
 
 #include "hermes_version.h"
 
-#define KILOBYTES(n) ((n) * 1024)
-#define MEGABYTES(n) ((n) * 1024 * 1024)
-#define GIGABYTES(n) ((n) * 1024UL * 1024UL * 1024UL)
+#define KILOBYTES(n) ((n)*1024)
+#define MEGABYTES(n) ((n)*1024 * 1024)
+#define GIGABYTES(n) ((n)*1024UL * 1024UL * 1024UL)
 
 namespace hermes {
 
@@ -48,9 +47,9 @@ typedef std::vector<unsigned char> Blob;
 
 /** Supported data placement policies */
 enum class PlacementPolicy {
-  kRandom,          /**< Random blob placement */
-  kRoundRobin,      /**< Round-Robin (around devices) blob placement */
-  kMinimizeIoTime,  /**< LP-based blob placement, minimize I/O time */
+  kRandom,         /**< Random blob placement */
+  kRoundRobin,     /**< Round-Robin (around devices) blob placement */
+  kMinimizeIoTime, /**< LP-based blob placement, minimize I/O time */
 };
 
 struct MinimizeIoTimeOptions {
@@ -60,8 +59,7 @@ struct MinimizeIoTimeOptions {
   MinimizeIoTimeOptions(double minimum_remaining_capacity = 0.1,
                         double capacity_change_threshold = 0.2)
       : minimum_remaining_capacity(minimum_remaining_capacity),
-        capacity_change_threshold(capacity_change_threshold) {
-  }
+        capacity_change_threshold(capacity_change_threshold) {}
 };
 
 /** Hermes API call context */
@@ -95,11 +93,12 @@ struct Context {
   /** Whether swapping is disabled */
   bool disable_swap;
 
-  Context() : policy(default_placement_policy),
-              buffer_organizer_retries(default_buffer_organizer_retries),
-              rr_split(default_rr_split),
-              rr_retry(false),
-              disable_swap(false) {}
+  Context()
+      : policy(default_placement_policy),
+        buffer_organizer_retries(default_buffer_organizer_retries),
+        rr_split(default_rr_split),
+        rr_retry(false),
+        disable_swap(false) {}
 };
 
 }  // namespace api
@@ -116,11 +115,10 @@ constexpr int kMaxVBucketNameSize = 256;
 
 constexpr char kPlaceInHierarchy[] = "PlaceInHierarchy";
 
-#define HERMES_NOT_IMPLEMENTED_YET                      \
+#define HERMES_NOT_IMPLEMENTED_YET \
   LOG(FATAL) << __func__ << " not implemented yet\n"
 
-#define HERMES_INVALID_CODE_PATH                    \
-  LOG(FATAL) << "Invalid code path." << std::endl
+#define HERMES_INVALID_CODE_PATH LOG(FATAL) << "Invalid code path." << std::endl
 
 /** A TargetID uniquely identifies a buffering target within the system. */
 union TargetID {
@@ -153,19 +151,19 @@ using PlacementSchema = std::vector<std::pair<size_t, TargetID>>;
  * or the Hermes core(s).
  */
 enum class ProcessKind {
-  kApp,     /**< Application process */
-  kHermes,  /**< Hermes core process */
+  kApp,    /**< Application process */
+  kHermes, /**< Hermes core process */
 
-  kCount    /**< Sentinel value */
+  kCount /**< Sentinel value */
 };
 
 /** Arena types */
 enum ArenaType {
-  kArenaType_BufferPool,      /**< Buffer pool: This must always be first! */
-  kArenaType_MetaData,        /**< Metadata                                */
-  kArenaType_Transient,       /**< Scratch space                           */
+  kArenaType_BufferPool, /**< Buffer pool: This must always be first! */
+  kArenaType_MetaData,   /**< Metadata                                */
+  kArenaType_Transient,  /**< Scratch space                           */
 
-  kArenaType_Count            /**< Sentinel value                          */
+  kArenaType_Count /**< Sentinel value                          */
 };
 
 /**

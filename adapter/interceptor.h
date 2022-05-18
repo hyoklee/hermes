@@ -17,16 +17,16 @@
 #include <stdlib.h>
 
 #include <fstream>
+#include <regex>
 #include <string>
 #include <unordered_set>
 #include <vector>
-#include <regex>
 
+#include "adapter_utils.h"
 #include "buffer_pool_internal.h"
 #include "constants.h"
 #include "enumerations.h"
 #include "singleton.h"
-#include "adapter_utils.h"
 
 /**
  * Define Interceptor list for adapter.
@@ -40,10 +40,10 @@ namespace hermes::adapter {
  * Exclusion list used by darshan at
  * darshan/darshan-runtime/lib/darshan-core.c
  */
-const char* kPathExclusions[] = {"/bin/", "/boot/", "/dev/",  "/etc/",
-                                 "/lib/", "/opt/",  "/proc/", "/sbin/",
-                                 "/sys/", "/usr/",  "/var/",  "/run/",
-                                 "pipe", "socket:", "anon_inode:"};
+const char* kPathExclusions[] = {"/bin/", "/boot/",  "/dev/",      "/etc/",
+                                 "/lib/", "/opt/",   "/proc/",     "/sbin/",
+                                 "/sys/", "/usr/",   "/var/",      "/run/",
+                                 "pipe",  "socket:", "anon_inode:"};
 /**
  * Paths prefixed with the following directories are tracked by Hermes even if
  * they share a root with a path listed in path_exclusions

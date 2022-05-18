@@ -25,26 +25,24 @@
 /**
  * Dependent library headers
  */
+#include <glog/logging.h>
 #include <mpi.h>
 #include <mpio.h>
-
-#include <glog/logging.h>
 
 /**
  * Internal headers
  */
-#include <hermes.h>
 #include <bucket.h>
+#include <hermes.h>
 #include <vbucket.h>
 
 #include "adapter_utils.h"
 #include "constants.h"
-#include "singleton.h"
+#include "interceptor.cc"
 #include "interceptor.h"
 #include "mpiio/mapper/mapper_factory.h"
-
-#include "interceptor.cc"
 #include "mpiio/metadata_manager.cc"
+#include "singleton.h"
 
 /**
  * Function declaration
@@ -122,7 +120,7 @@ HERMES_FORWARD_DECL(MPI_File_get_position, int,
  */
 HERMES_FORWARD_DECL(MPI_Init, int, (int *argc, char ***argv));
 HERMES_FORWARD_DECL(MPI_Finalize, int, (void));
-HERMES_FORWARD_DECL(MPI_Wait, int, (MPI_Request*, MPI_Status*));
-HERMES_FORWARD_DECL(MPI_Waitall, int, (int, MPI_Request*, MPI_Status*))
+HERMES_FORWARD_DECL(MPI_Wait, int, (MPI_Request *, MPI_Status *));
+HERMES_FORWARD_DECL(MPI_Waitall, int, (int, MPI_Request *, MPI_Status *))
 
 #endif  // HERMES_MPIIO_H

@@ -96,8 +96,8 @@ void LocalOrganizeBlob(SharedMemoryContext *context, RpcContext *rpc,
                        f32 explicit_importance_score);
 
 void OrganizeBlob(SharedMemoryContext *context, RpcContext *rpc,
-                  BucketID bucket_id, const std::string &blob_name,
-                  f32 epsilon, f32 importance_score = -1);
+                  BucketID bucket_id, const std::string &blob_name, f32 epsilon,
+                  f32 importance_score = -1);
 std::vector<BufferInfo> GetBufferInfo(SharedMemoryContext *context,
                                       RpcContext *rpc,
                                       const std::vector<BufferID> &buffer_ids);

@@ -13,8 +13,8 @@
 #ifndef HERMES_C_WRAPPER_H
 #define HERMES_C_WRAPPER_H
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
 
 #ifdef __cplusplus

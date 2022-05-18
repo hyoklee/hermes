@@ -13,15 +13,15 @@
 #ifndef BUCKET_H_
 #define BUCKET_H_
 
+#include <glog/logging.h>
+
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-#include <glog/logging.h>
-
-#include "hermes.h"
 #include "data_placement_engine.h"
+#include "hermes.h"
 #include "metadata_management.h"
 #include "utils.h"
 
@@ -69,11 +69,11 @@ class Bucket {
   size_t GetTotalBlobSize();
 
   /** Put a blob in this bucket with context */
-  template<typename T>
+  template <typename T>
   Status Put(const std::string &name, const std::vector<T> &data, Context &ctx);
 
   /** Put a blob in this bucket \todo Why isn't this a context-free case?  */
-  template<typename T>
+  template <typename T>
   Status Put(const std::string &name, const std::vector<T> &data);
 
   /**
@@ -87,9 +87,9 @@ class Bucket {
    * \return The return code/status
    *
    * \pre The bucket must be valid.
-   * \pre The blob name \p name length (as byte array) must not exceed #kMaxBlobName.
-   * \pre The blob buffer \p data must not be \c nullptr unless \p size is 0.
-   * \pre If \p size is positive \p data must not be \c nullptr.
+   * \pre The blob name \p name length (as byte array) must not exceed
+   * #kMaxBlobName. \pre The blob buffer \p data must not be \c nullptr unless
+   * \p size is 0. \pre If \p size is positive \p data must not be \c nullptr.
    *
    */
   Status Put(const std::string &name, const u8 *data, size_t size,
@@ -103,21 +103,21 @@ class Bucket {
   /**
    * \todo Put
    */
-  template<typename T>
+  template <typename T>
   Status Put(const std::vector<std::string> &names,
              const std::vector<std::vector<T>> &blobs, const Context &ctx);
 
   /**
    * \todo Put
    */
-  template<typename T>
+  template <typename T>
   Status Put(const std::vector<std::string> &names,
              const std::vector<std::vector<T>> &blobs);
 
   /**
    * \todo PutInternal
    */
-  template<typename T>
+  template <typename T>
   Status PutInternal(const std::vector<std::string> &names,
                      const std::vector<size_t> &sizes,
                      const std::vector<std::vector<T>> &blobs,
@@ -125,7 +125,7 @@ class Bucket {
   /**
    * \todo PlaceBlobs
    */
-  template<typename T>
+  template <typename T>
   Status PlaceBlobs(std::vector<PlacementSchema> &schemas,
                     const std::vector<std::vector<T>> &blobs,
                     const std::vector<std::string> &names, const Context &ctx);
@@ -138,8 +138,8 @@ class Bucket {
   /** - if user_blob.size() > 0 => copy user_blob.size() bytes */
   /** to user_blob and return user_blob.size() */
   /** use provides buffer */
-  size_t Get(const std::string &name, Blob& user_blob, const Context &ctx);
-  size_t Get(const std::string &name, Blob& user_blob);
+  size_t Get(const std::string &name, Blob &user_blob, const Context &ctx);
+  size_t Get(const std::string &name, Blob &user_blob);
 
   /**
    * \brief Retrieve multiple Blobs in one call.
@@ -153,32 +153,32 @@ class Bucket {
   size_t Get(const std::string &name, void *user_blob, size_t blob_size,
              const Context &ctx);
   /**
-  * \brief Retrieves a blob from the Bucket. The Blob retrieved is the next
+   * \brief Retrieves a blob from the Bucket. The Blob retrieved is the next
    * one from the passed blob_index
-  *
-  * \pre if user_blob.size() == 0 => return the minimum buffer size needed
-  * \pre if user_blob.size() > 0 => copy user_blob.size() bytes to user_blob
+   *
+   * \pre if user_blob.size() == 0 => return the minimum buffer size needed
+   * \pre if user_blob.size() > 0 => copy user_blob.size() bytes to user_blob
    * and return user_blob.size()
-  */
-  size_t GetNext(u64 blob_index, Blob& user_blob, const Context &ctx);
-  size_t GetNext(u64 blob_index, Blob& user_blob);
+   */
+  size_t GetNext(u64 blob_index, Blob &user_blob, const Context &ctx);
+  size_t GetNext(u64 blob_index, Blob &user_blob);
 
   /**
-  * \brief Retrieves a blob from the Bucket into a user buffer. The Blob
+   * \brief Retrieves a blob from the Bucket into a user buffer. The Blob
    * retrieved is the next one from the passed blob_index
-  */
+   */
   size_t GetNext(u64 blob_index, void *user_blob, size_t blob_size,
                  const Context &ctx);
 
   /**
-  * \brief Retrieves multiple blobs from the Bucket. The Blobs retrieved are
+   * \brief Retrieves multiple blobs from the Bucket. The Blobs retrieved are
    * the next ones from the passed blob_index
-  */
+   */
   std::vector<size_t> GetNext(u64 blob_index, u64 count,
                               std::vector<Blob> &blobs, const Context &ctx);
   /** get blob(s) on this bucket according to predicate */
   /** use provides buffer */
-  template<class Predicate>
+  template <class Predicate>
   Status GetV(void *user_blob, Predicate pred, Context &ctx);
 
   /** delete a blob from this bucket */
@@ -197,12 +197,12 @@ class Bucket {
   bool BlobIsInSwap(const std::string &name);
 
   /** get a list of blob names filtered by pred */
-  template<class Predicate>
+  template <class Predicate>
   std::vector<std::string> GetBlobNames(Predicate pred, Context &ctx);
 
   /** rename this bucket */
-  Status Rename(const std::string& new_name, const Context &ctx);
-  Status Rename(const std::string& new_name);
+  Status Rename(const std::string &new_name, const Context &ctx);
+  Status Rename(const std::string &new_name);
 
   /** Save this bucket's blobs to persistent storage.
    *
@@ -243,7 +243,7 @@ class Bucket {
   Status Destroy();
 };
 
-template<typename T>
+template <typename T>
 Status Bucket::Put(const std::string &name, const std::vector<T> &data,
                    Context &ctx) {
   Status result = Put(name, (u8 *)data.data(), data.size() * sizeof(T), ctx);
@@ -251,14 +251,14 @@ Status Bucket::Put(const std::string &name, const std::vector<T> &data,
   return result;
 }
 
-template<typename T>
+template <typename T>
 Status Bucket::Put(const std::string &name, const std::vector<T> &data) {
   Status result = Put(name, data, ctx_);
 
   return result;
 }
 
-template<typename T>
+template <typename T>
 Status Bucket::PlaceBlobs(std::vector<PlacementSchema> &schemas,
                           const std::vector<std::vector<T>> &blobs,
                           const std::vector<std::string> &names,
@@ -283,7 +283,7 @@ Status Bucket::PlaceBlobs(std::vector<PlacementSchema> &schemas,
   return result;
 }
 
-template<typename T>
+template <typename T>
 Status Bucket::Put(const std::vector<std::string> &names,
                    const std::vector<std::vector<T>> &blobs) {
   Status result = Put(names, blobs, ctx_);
@@ -291,7 +291,7 @@ Status Bucket::Put(const std::vector<std::string> &names,
   return result;
 }
 
-template<typename T>
+template <typename T>
 Status Bucket::PutInternal(const std::vector<std::string> &names,
                            const std::vector<size_t> &sizes,
                            const std::vector<std::vector<T>> &blobs,
@@ -311,7 +311,7 @@ Status Bucket::PutInternal(const std::vector<std::string> &names,
   return result;
 }
 
-template<typename T>
+template <typename T>
 Status Bucket::Put(const std::vector<std::string> &names,
                    const std::vector<std::vector<T>> &blobs,
                    const Context &ctx) {
@@ -340,7 +340,7 @@ Status Bucket::Put(const std::vector<std::string> &names,
 
     if (ctx.rr_retry) {
       int num_devices =
-        GetLocalSystemViewState(&hermes_->context_)->num_devices;
+          GetLocalSystemViewState(&hermes_->context_)->num_devices;
 
       for (int i = 0; i < num_devices; ++i) {
         ret = PutInternal(names, sizes_in_bytes, blobs, ctx);

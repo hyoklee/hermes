@@ -29,9 +29,10 @@
  */
 #include <bucket.h>
 #include <hermes.h>
-#include "metadata_manager.h"
+
 #include "../constants.h"
 #include "../singleton.h"
+#include "metadata_manager.h"
 
 namespace hermes::pubsub {
 
@@ -41,7 +42,7 @@ namespace hermes::pubsub {
  * \return The return code/status
  *
  */
-hapi::Status mpiInit(int argc, char **argv);
+hapi::Status mpiInit(int argc, char** argv);
 
 /**
  * \brief Connects to the Hermes instance
@@ -51,7 +52,7 @@ hapi::Status mpiInit(int argc, char **argv);
  * \return The return code/status
  *
  */
-hapi::Status connect(const std::string &config_file);
+hapi::Status connect(const std::string& config_file);
 
 /**
  * \brief Connects to the Hermes instance

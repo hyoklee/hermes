@@ -31,17 +31,17 @@
 /**
  * Internal headers
  */
-#include <hermes.h>
 #include <bucket.h>
+#include <hermes.h>
 #include <vbucket.h>
 
 #include "constants.h"
 #include "interceptor.h"
-#include "singleton.h"
 #include "posix/constants.h"
 #include "posix/datastructures.h"
 #include "posix/mapper/mapper_factory.h"
 #include "posix/metadata_manager.h"
+#include "singleton.h"
 
 #ifndef O_TMPFILE
 #define O_TMPFILE 0

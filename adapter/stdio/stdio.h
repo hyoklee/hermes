@@ -31,8 +31,8 @@
 /**
  * Internal headers
  */
-#include "api/hermes.h"
 #include "api/bucket.h"
+#include "api/hermes.h"
 #include "api/vbucket.h"
 #include "constants.h"
 #include "interceptor.h"
