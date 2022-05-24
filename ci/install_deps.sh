@@ -61,7 +61,7 @@ CATCH2_SPEC="catch2@${CATCH2_VERSION}"
 GLPK_SPEC="glpk"
 GLOG_SPEC="glog"
 
-spack install ${THALLIUM_SPEC} ${CATCH2_SPEC} ${ORTOOLS_SPEC}
+spack install ${THALLIUM_SPEC} ${CATCH2_SPEC} ${GLPK_SPEC} ${GLOG_SPEC}
 SPACK_STAGING_DIR=~/spack_staging
 mkdir -p ${SPACK_STAGING_DIR}
 spack view --verbose symlink ${SPACK_STAGING_DIR} ${THALLIUM_SPEC} ${CATCH2_SPEC} ${GLPK_SPEC} ${GLOG_SPEC}
