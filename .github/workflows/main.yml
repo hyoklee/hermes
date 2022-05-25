@@ -36,12 +36,12 @@ jobs:
       - name: Run cpplint
         run: pip install cpplint==1.5.4 && cpplint --recursive --exclude=src/stb_ds.h   --exclude=adapter/vfd/H5FDhermes.c .
 
-      - name: Cache Spack packages
-        uses: actions/cache@v2
-        id: spack-cache
-        with:
-          path: ~/${{ env.LOCAL }}
-          key: ${{ runner.os }}-${{ hashFiles('ci/**') }}
+      # - name: Cache Spack packages
+      #   uses: actions/cache@v2
+      #   id: spack-cache
+      #   with:
+      #     path: ~/${{ env.LOCAL }}
+      #     key: ${{ runner.os }}-${{ hashFiles('ci/**') }}
 
       - name: Install APT Dependencies
         run: |
