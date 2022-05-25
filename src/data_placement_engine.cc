@@ -13,17 +13,12 @@
 #include "data_placement_engine.h"
 
 #include <assert.h>
+#include <glpk.h>
 #include <math.h>
 
 #include <utility>
 #include <random>
 #include <map>
-
-#ifdef ORTOOLS
-#include "ortools/linear_solver/linear_solver.h"
-#endif
-
-#include <glpk.h>
 
 #include "hermes.h"
 #include "hermes_types.h"
@@ -253,12 +248,6 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
                                const std::vector<TargetID> &targets,
                                std::vector<PlacementSchema> &output,
                                const api::Context &ctx) {
-#ifdef ORTOOLS
-  using operations_research::MPSolver;
-  using operations_research::MPVariable;
-  using operations_research::MPConstraint;
-  using operations_research::MPObjective;
-#endif
 
   Status result;
   const size_t num_targets = targets.size();
@@ -289,42 +278,20 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   glp_add_rows(lp, total_constraints);
   glp_add_cols(lp, num_blobs * num_targets);
 
-#ifdef ORTOOLS
-  std::vector<MPConstraint*> blob_constrt(total_constraints);
-  std::vector<std::vector<MPVariable*>> blob_fraction(num_blobs);
-  MPSolver solver("LinearOpt", MPSolver::GLOP_LINEAR_PROGRAMMING);
-#endif
   int num_constrts {0};   // counter that increase to 1) blobs 2) targets X 3
 
   // Constraint #1: Sum of fraction of each blob is 1.
-  // (i.e., f_1 + f_2, ... + f_n = 1)
   for (size_t i {0}; i < num_blobs; ++i) {
-#ifdef OROTOOLS
-    blob_constrt[num_constrts+i] = solver.MakeRowConstraint(1, 1);
-    blob_fraction[i].resize(num_targets);
-#endif
     // Use GLP_FX for the fixed contraint of 1.
     std::string row_name {"blob_row_" + std::to_string(i)};
     glp_set_row_name(lp, i+1, row_name.c_str());
-#ifdef DEBUG
-    std::cout << row_name << std::endl;
-#endif
     glp_set_row_bnds(lp, i+1, GLP_FX, 1.0, 1.0);
 
     // TODO(KIMMY): consider remote nodes?
     for (size_t j {0}; j < num_targets; ++j) {
       int ij = i * num_targets + j + 1;
-#ifdef DEBUG
-      std::cout << "ij = " << ij << std::endl;
-#endif
       std::string var_name {"blob_dst_" + std::to_string(i) + "_" +
                             std::to_string(j)};
-#ifdef ORTOOLS
-      // blob_dst_i_j variable's range will be 0.0 to 1.
-      blob_fraction[i][j] = solver.MakeNumVar(0.0, 1, var_name);
-      // Coefficient for blob_dst_i_j variable is 1. (i.e.,  1 * blob_dst_i_j)
-      blob_constrt[num_constrts+i]->SetCoefficient(blob_fraction[i][j], 1);
-#endif
       // total umber of variables = number of blobs * number of targets.
       glp_set_col_name(lp, ij, var_name.c_str());
       glp_set_col_bnds(lp, ij, GLP_DB, 0.0, 1.0);
@@ -332,9 +299,6 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       last = ij;
     }
   }
-#ifdef DEBUG
-  std::cout << "last = " << last << std::endl;
-#endif
   num_constrts += num_blobs;
 
   // Constraint #2: Minimum Remaining Capacity Constraint
@@ -343,155 +307,56 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     for (size_t j {0}; j < num_targets; ++j) {
       double remaining_capacity_threshold =
        static_cast<double>(node_state[j]) * minimum_remaining_capacity;
-#ifdef DEBUG
-      std::cout << "blob_constraint:" <<
-        static_cast<double>(node_state[j]) -
-        remaining_capacity_threshold << std::endl;
-#endif
-#ifdef ORTOOLS
-      // Minimum is 0, max is state - remaining cap.
-      blob_constrt[num_constrts+j] =
-        solver.MakeRowConstraint(0, static_cast<double>(node_state[j])
-                                 - remaining_capacity_threshold);
-#endif
       std::string row_name {"mrc_row_" + std::to_string(j)};
       glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
-#ifdef DEBUG
-      std::cout << row_name << std::endl;
-#endif
       glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
                static_cast<double>(node_state[j]) -
                remaining_capacity_threshold);
 
       for (size_t i {0}; i < num_blobs; ++i) {
-#ifdef ORTOOLS
-    // Set blob size as cofefficient for each variable.
-    blob_constrt[num_constrts+j]->SetCoefficient(
-                             blob_fraction[i][j],
-                 static_cast<double>(blob_sizes[i]));
-#endif
     // Starting row of contraint array is (blob * target)*num_constrts.
-#ifdef DEBUG
-    std::cout << "last = " << last << std::endl;
-#endif
     int ij = j * num_blobs + i + 1 + last;
-#ifdef DEBUG
-    std::cout << "ij = " << ij << std::endl;
-    std::cout << "row = " << num_constrts+j+1 << std::endl;
-    std::cout << "col = " << j+1 << std::endl;
-    std::cout << "blob_sizes = " << blob_sizes[i] << std::endl;
-#endif
     ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
     last2 = ij;
       }
     }
     num_constrts += num_targets;
-#ifdef DEBUG
-    std::cout << "num_constrts = " << num_constrts << std::endl;
-#endif
   }
 
   // Constraint #3: Remaining Capacity Change Threshold
-  // const double capacity_change_threshold = 0.2;
   int last3 = 0;
   if (capacity_change_threshold != 0) {
     for (size_t j {0}; j < num_targets; ++j) {
-#ifdef DEBUG
-      std::cout << "node_state[" << j << "]=" << node_state[j] << std::endl;
-#endif
-#ifdef ORTOOLS
-      blob_constrt[num_constrts+j] =
-    solver.MakeRowConstraint(0, capacity_change_threshold * node_state[j]);
-#endif
-
       std::string row_name {"rcct_row_" + std::to_string(j)};
       glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
-#ifdef DEBUG
-      std::cout << row_name << std::endl;
-      std::cout << "UP=" << capacity_change_threshold * node_state[j]
-        << std::endl;
-#endif
       glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
                capacity_change_threshold * node_state[j]);
       for (size_t i {0}; i < num_blobs; ++i) {
-#ifdef ORTOOLS
-    blob_constrt[num_constrts+j]->SetCoefficient(
-                             blob_fraction[i][j],
-                 static_cast<double>(blob_sizes[i]));
-#endif
-#ifdef DEBUG
-    std::cout << "last2 = " << last2 << std::endl;
-#endif
     int ij = j * num_blobs + i + 1 + last2;
-#ifdef DEBUG
-    std::cout << "ij = " << ij << std::endl;
-    std::cout << "row = " << num_constrts+j+1 << std::endl;
-    std::cout << "col = " << j+1 << std::endl;
-#endif
     ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i]);
     last3 = ij;
       }
     }
     num_constrts += num_targets;
-#ifdef DEBUG
-    std::cout << "num_constrts = " << num_constrts << std::endl;
-#endif
   }
   int last4 = 0;
 
   // Placement Ratio
   for (size_t j {0}; j < num_targets-1; ++j) {
-#ifdef DEBUG
-    std::cout << "j=" << j << std::endl;
-#endif
-
-#ifdef ORTOOLS
-    blob_constrt[num_constrts+j] =
-      solver.MakeRowConstraint(0, solver.infinity());
-#endif
     std::string row_name {"pr_row_" + std::to_string(j)};
     glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
-#ifdef DEBUG
-    std::cout << row_name << std::endl;
-#endif
     glp_set_row_bnds(lp, num_constrts+j+1, GLP_LO, 0.0, 0.0);
 
     for (size_t i {0}; i < num_blobs; ++i) {
-#ifdef ORTOOLS
-      blob_constrt[num_constrts+j]->SetCoefficient(
-        blob_fraction[i][j+1], static_cast<double>(blob_sizes[i]));
-#endif
       int ij = j * num_blobs + i + 1 + last3 + j;
-
-#ifdef DEBUG
-      std::cout << "ij = " << ij << std::endl;
-      std::cout << "row = " << num_constrts+j+1 << std::endl;
-      std::cout << "col = " << j+2 << std::endl;
-      std::cout << "bob_sizes = " << blob_sizes[i] << std::endl;
-#endif
       ia[ij] = num_constrts+j+1, ja[ij] = j+2,
           ar[ij] = static_cast<double>(blob_sizes[i]);
 
       double placement_ratio = static_cast<double>(node_state[j+1])/
                                                    node_state[j];
-#ifdef ORTOOLS
-      blob_constrt[num_constrts+j]->SetCoefficient(
-        blob_fraction[i][j],
-        static_cast<double>(blob_sizes[i])*(0-placement_ratio));
-#endif
-#ifdef DEBUG
-      std::cout << "last3 = " << last3 << std::endl;
-      std::cout << "coeff = " <<
-          static_cast<double>(blob_sizes[i])*(0-placement_ratio) << std::endl;
-#endif
       ij = ij + 1;
-#ifdef DEBUG
-      std::cout << "ij = " << ij << std::endl;
-      std::cout << "row = " << num_constrts+j+1 << std::endl;
-      std::cout << "col = " << j+1 << std::endl;
-#endif
       ia[ij] = num_constrts+j+1, ja[ij] = j+1,
           ar[ij] = static_cast<double>(blob_sizes[i])*(0-placement_ratio);
       last4 = ij;
@@ -499,52 +364,19 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   }
 
   // Objective to minimize IO time
-#ifdef ORTOOLS
-  MPObjective* const objective = solver.MutableObjective();
-#endif
   for (size_t i {0}; i < num_blobs; ++i) {
-#ifdef DEBUG
-    std::cout << "blob_sizes[" << i << "]="
-              << blob_sizes[i] << std::endl;
-#endif
     for (size_t j {0}; j < num_targets; ++j) {
         int ij = i * num_targets + j + 1;
-#ifdef DEBUG
-      std::cout << ">blob_sizes[" << i << "]="
-                << blob_sizes[i] << std::endl;
-      std::cout << "bandwidths[" << j << "]="
-                << bandwidths[j] << std::endl;
-      std::cout << "ce=" <<
-          static_cast<double>(blob_sizes[i])/bandwidths[j] << std::endl;
-#endif
-#ifdef ORTOOLS
-      // Equation to solve - for each variable, set coefficient.
-      objective->SetCoefficient(blob_fraction[i][j],
-                              static_cast<double>(blob_sizes[i])/bandwidths[j]);
-#endif
       glp_set_obj_coef(lp, ij,
                        static_cast<double>(blob_sizes[i])/bandwidths[j]);
     }
   }
-#ifdef ORTOOLS
-  objective->SetMinimization();
-
-  const MPSolver::ResultStatus result_status = solver.Solve();
-  // Check if the problem has an optimal solution.
-  if (result_status != MPSolver::OPTIMAL) {
-    result = DPE_ORTOOLS_NO_SOLUTION;
-    LOG(ERROR) << result.Msg();
-    return result;
-  }
-#endif
-#ifdef DEBUG
-  std::cout << "last4=" << last4 << std::endl;
-#endif
   glp_load_matrix(lp, last4, ia, ja, ar);
   glp_smcp parm;
   glp_init_smcp(&parm);
   parm.msg_lev = GLP_MSG_OFF;
   glp_simplex(lp, &parm);
+  // Check if the problem has an optimal solution.
   if (glp_get_status(lp) != GLP_OPT) {
     result = DPE_ORTOOLS_NO_SOLUTION;
     LOG(ERROR) << result.Msg();
@@ -553,37 +385,12 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   }
   glp_get_obj_val(lp);
 
-#ifdef DEBUG
-  glp_print_sol(lp, "25fv47.txt");
-#endif
-
-#if DEBUG
-  double z, x1, x2, x3, x4;
-  x1 = glp_get_col_prim(lp, 1);
-  x2 = glp_get_col_prim(lp, 2);
-  x3 = glp_get_col_prim(lp, 3);
-  x4 = glp_get_col_prim(lp, 4);
-  printf("\nz = %g; x1 = %g; x2 = %g; x3 = %g; x4 = %g\n",
-         z, x1, x2, x3, x4);
-#endif
-
   for (size_t i {0}; i < num_blobs; ++i) {
     PlacementSchema schema;
     size_t target_pos {0};  // to track the target with most data
-#ifdef ORTOOLS
-    auto largest_bulk{blob_fraction[i][0]->solution_value()*blob_sizes[i]};
-#endif
     auto largest_bulk{glp_get_col_prim(lp, i*num_targets+1) *blob_sizes[i]};
     // NOTE: could be inefficient if there are hundreds of targets
     for (size_t j {1}; j < num_targets; ++j) {
-#ifdef ORTOOLS
-      if (blob_fraction[i][j]->solution_value()*blob_sizes[i] > largest_bulk)
-#endif
-#ifdef DEBUG
-      std::cout << "ind=" <<  i*num_targets+j << std::endl;
-      std::cout << "val=" << glp_get_col_prim(lp, i*num_targets+j+1)
-      << std::endl;
-#endif
       if (glp_get_col_prim(lp, i*num_targets+j+1)*blob_sizes[i] > largest_bulk)
         target_pos = j;
     }
@@ -594,16 +401,9 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       if (j == target_pos) {
         continue;
       }
-#ifdef ORTOOLS
-      double check_frac_size {blob_fraction[i][j]->solution_value()*
-                              blob_sizes[i]};  // blob fraction size
-#endif
       double check_frac_size {glp_get_col_prim(lp, i*num_targets+j+1)*
                               blob_sizes[i]};  // blob fraction size
       size_t frac_size_cast = static_cast<size_t>(check_frac_size);
-#ifdef DEBUG
-      std::cout << "fract_size_cast=" << frac_size_cast << std::endl;
-#endif
       // If size to this destination is not 0, push to result
       if (frac_size_cast != 0) {
         schema.push_back(std::make_pair(frac_size_cast, targets[j]));
