@@ -4,7 +4,7 @@ configure_file(hermes_version.h.in hermes_version.h)
 #------------------------------------------------------------------------------
 # External dependencies
 #------------------------------------------------------------------------------
-# google ortools
+# GNU Linear Programming Kit
 find_package(GLPK REQUIRED)
 if(GLPK_FOUND)
   include_directories(${GLPK_INCLUDE_DIRS})
@@ -17,19 +17,6 @@ if(GLPK_FOUND)
 else()
   message(STATUS "GLPK not found")
 endif()
-
-# find_package(ortools REQUIRED)
-# if(ORTOOLS_FOUND)
-#   include_directories(${ORTOOLS_INCLUDE_DIRS})
-#   message(STATUS "Found ortools")
-#   set(HERMES_EXT_INCLUDE_DEPENDENCIES ${ORTOOLS_INCLUDE_DIRS}
-#      ${HERMES_EXT_INCLUDE_DEPENDENCIES}
-#   )
-#   set(HERMES_EXT_LIB_DEPENDENCIES
-#       ${ORTOOLS_LIBRARIES} ${HERMES_EXT_LIB_DEPENDENCIES})
-# else()
-#   message(STATUS "ortools not found")
-# endif()
 
 #------------------------------------------------------------------------------
 # Set sources
