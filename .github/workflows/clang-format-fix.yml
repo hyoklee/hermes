@@ -2,7 +2,7 @@ name: clang-format Check
 on: 
   workflow_dispatch:
   push:
-    branches: [ gh-pages ]
+    branches: [ master ]
 jobs:
   formatting-check:
     name: Formatting Check
