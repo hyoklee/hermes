@@ -248,7 +248,6 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
                                const std::vector<TargetID> &targets,
                                std::vector<PlacementSchema> &output,
                                const api::Context &ctx) {
-
   Status result;
   const size_t num_targets = targets.size();
   const size_t num_blobs = blob_sizes.size();
