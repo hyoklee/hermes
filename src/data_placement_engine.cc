@@ -291,7 +291,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       int ij = i * num_targets + j + 1;
       std::string var_name {"blob_dst_" + std::to_string(i) + "_" +
                             std::to_string(j)};
-      // total umber of variables = number of blobs * number of targets.
+      // total number of variables = number of blobs * number of targets.
       glp_set_col_name(lp, ij, var_name.c_str());
       glp_set_col_bnds(lp, ij, GLP_DB, 0.0, 1.0);
       ia[ij] = i+1, ja[ij] = j+1, ar[ij] = 1.0;  // var[i][j] = 1.0
@@ -303,21 +303,21 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   // Constraint #2: Minimum Remaining Capacity Constraint
   int last2 = 0;
   if (minimum_remaining_capacity != 0) {
-    for (size_t j {0}; j < num_targets; ++j) {
+    for (size_t j{0}; j < num_targets; ++j) {
       double remaining_capacity_threshold =
-       static_cast<double>(node_state[j]) * minimum_remaining_capacity;
-      std::string row_name {"mrc_row_" + std::to_string(j)};
-      glp_set_row_name(lp, num_constrts+j+1, row_name.c_str());
-      glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
-               static_cast<double>(node_state[j]) -
-               remaining_capacity_threshold);
+          static_cast<double>(node_state[j]) * minimum_remaining_capacity;
+      std::string row_name{"mrc_row_" + std::to_string(j)};
+      glp_set_row_name(lp, num_constrts + j + 1, row_name.c_str());
+      glp_set_row_bnds(
+          lp, num_constrts + j + 1, GLP_DB, 0.0,
+          static_cast<double>(node_state[j]) - remaining_capacity_threshold);
 
-      for (size_t i {0}; i < num_blobs; ++i) {
-    // Starting row of contraint array is (blob * target)*num_constrts.
-    int ij = j * num_blobs + i + 1 + last;
-    ia[ij] = num_constrts+j+1, ja[ij] = j+1,
-          ar[ij] = static_cast<double>(blob_sizes[i]);
-    last2 = ij;
+      for (size_t i{0}; i < num_blobs; ++i) {
+        // Starting row of contraint array is (blob * target)*num_constrts.
+        int ij = j * num_blobs + i + 1 + last;
+        ia[ij] = num_constrts + j + 1, ja[ij] = j + 1,
+        ar[ij] = static_cast<double>(blob_sizes[i]);
+        last2 = ij;
       }
     }
     num_constrts += num_targets;
