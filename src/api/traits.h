@@ -38,7 +38,8 @@ typedef std::function<void(HermesPtr, TraitInput &, Trait *)> OnLinkCallback;
 /** Callback for trait->vbucket attach events */
 typedef std::function<void(HermesPtr, VBucketID, Trait *)> OnAttachCallback;
 typedef std::function<bool(HermesPtr, std::pair<std::string, std::string>,
-                      std::pair<std::string, std::string>)> TraitOrder;
+                           std::pair<std::string, std::string>)>
+    TraitOrder;
 /** Traits represent vbucket behavior */
 struct Trait {
   /** The trait's ID */
@@ -87,8 +88,8 @@ struct OrderingTrait : public Trait {
   HermesPtr hermes_;
   std::vector<std::pair<std::string, std::string>> blobs_order_;
   std::vector<int> blobs_customerized_order_;
-  void GetNextN(HermesPtr hermes, std::string blob_name,
-                std::string bkt_name, u8 num_blob_prefetch);
+  void GetNextN(HermesPtr hermes, std::string blob_name, std::string bkt_name,
+                u8 num_blob_prefetch);
   void Sort(HermesPtr hermes);
 
  public:

@@ -125,7 +125,7 @@ class VBucket {
   /** - if user_blob.size() > 0 => copy user_blob.size() bytes */
   /** to user_blob and return user_blob.size() */
   /** use provides buffer */
-  size_t Get(const std::string &name, Bucket *bkt, Blob& user_blob,
+  size_t Get(const std::string &name, Bucket *bkt, Blob &user_blob,
              const Context &ctx);
   size_t Get(const std::string &name, Bucket *bkt, Blob &user_blob);
 
