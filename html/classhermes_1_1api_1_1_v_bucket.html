@@ -129,6 +129,15 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsValid</b> () const<
 <tr class="separator:a5e89b46dc3aca4f5bcf780c81c7850e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88a67553fcfced48aa03c7a7b20c19fc"><td class="memItemLeft" align="right" valign="top">Blob &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a88a67553fcfced48aa03c7a7b20c19fc">GetBlob</a> (std::string blob_name, std::string bucket_name)</td></tr>
 <tr class="separator:a88a67553fcfced48aa03c7a7b20c19fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e62ff1ac018534ee4a2badc9036e9f1"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a7e62ff1ac018534ee4a2badc9036e9f1">Get</a> (const std::string &amp;name, <a class="el" href="classhermes_1_1api_1_1_bucket.html">Bucket</a> *bkt, Blob &amp;user_blob, const <a class="el" href="structhermes_1_1api_1_1_context.html">Context</a> &amp;ctx)</td></tr>
+<tr class="separator:a7e62ff1ac018534ee4a2badc9036e9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1c82a59afefa0d7a9d8c445a30f1a58"><td class="memItemLeft" align="right" valign="top"><a id="ab1c82a59afefa0d7a9d8c445a30f1a58"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> (const std::string &amp;name, <a class="el" href="classhermes_1_1api_1_1_bucket.html">Bucket</a> *bkt, Blob &amp;user_blob)</td></tr>
+<tr class="separator:ab1c82a59afefa0d7a9d8c445a30f1a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08edad6964cf4a455ef6b35e19050a28"><td class="memItemLeft" align="right" valign="top"><a id="a08edad6964cf4a455ef6b35e19050a28"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a08edad6964cf4a455ef6b35e19050a28">Get</a> (const std::string &amp;name, <a class="el" href="classhermes_1_1api_1_1_bucket.html">Bucket</a> *bkt, void *user_blob, size_t blob_size, const <a class="el" href="structhermes_1_1api_1_1_context.html">Context</a> &amp;ctx)</td></tr>
+<tr class="memdesc:a08edad6964cf4a455ef6b35e19050a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a <a class="el" href="structhermes_1_1_blob.html">Blob</a> into a user buffer. <br /></td></tr>
+<tr class="separator:a08edad6964cf4a455ef6b35e19050a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a279a396e728307fa96e0103d480b0aa7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a279a396e728307fa96e0103d480b0aa7">GetLinks</a> (<a class="el" href="structhermes_1_1api_1_1_context.html">Context</a> &amp;ctx)</td></tr>
 <tr class="separator:a279a396e728307fa96e0103d480b0aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82eaa7e8e2c25c96bf9aef5f6f8914ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a82eaa7e8e2c25c96bf9aef5f6f8914ee">Attach</a> (<a class="el" href="structhermes_1_1api_1_1_trait.html">Trait</a> *trait, <a class="el" href="structhermes_1_1api_1_1_context.html">Context</a> &amp;ctx)</td></tr>
@@ -349,6 +358,50 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classapi_1_1_status.html#ac896de1ec4175376237ca1088e901f23" title=" " alt="" coords="213,13,340,39"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a7e62ff1ac018534ee4a2badc9036e9f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e62ff1ac018534ee4a2badc9036e9f1">&#9670;&nbsp;</a></span>Get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t hermes::api::VBucket::Get </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhermes_1_1api_1_1_bucket.html">Bucket</a> *&#160;</td>
+          <td class="paramname"><em>bkt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Blob &amp;&#160;</td>
+          <td class="paramname"><em>user_blob</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhermes_1_1api_1_1_context.html">Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>get a blob on this bucket</p><ul>
+<li>if user_blob.size() == 0 =&gt; return the minimum buffer size needed</li>
+<li>if user_blob.size() &gt; 0 =&gt; copy user_blob.size() bytes to user_blob and return user_blob.size() use provides buffer </li>
+</ul>
 
 </div>
 </div>

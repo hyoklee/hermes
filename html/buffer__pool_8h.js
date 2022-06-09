@@ -20,6 +20,7 @@ var buffer__pool_8h =
     [ "BufferIsByteAddressable", "buffer__pool_8h.html#a119acdbc67271182db4d36ebe76c07bc", null ],
     [ "Finalize", "buffer__pool_8h.html#aba276e3158ce278c8b895b936678b255", null ],
     [ "GetBandwidths", "buffer__pool_8h.html#a02a03c2aa41e4113f2ef9e0d877c15b2", null ],
+    [ "GetBlobImportanceScore", "buffer__pool_8h.html#a8e6bb22eee573b7ba2436b6bddd79c91", null ],
     [ "GetBlobSize", "buffer__pool_8h.html#ab48b9ac0695e2cdf1ae998d40e64d86f", null ],
     [ "GetBlobSizeById", "buffer__pool_8h.html#af1bf3c14edcfd90fa50cbe61cd50b07a", null ],
     [ "GetBuffers", "buffer__pool_8h.html#ae3789d75221354e09f43fe8d1520b988", null ],

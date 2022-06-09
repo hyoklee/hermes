@@ -3,11 +3,11 @@ var hierarchy =
     [ "hermes::adapter::mpiio::AbstractMapper", "classhermes_1_1adapter_1_1mpiio_1_1_abstract_mapper.html", [
       [ "hermes::adapter::mpiio::BalancedMapper", "classhermes_1_1adapter_1_1mpiio_1_1_balanced_mapper.html", null ]
     ] ],
-    [ "hermes::adapter::posix::AbstractMapper", "classhermes_1_1adapter_1_1posix_1_1_abstract_mapper.html", [
-      [ "hermes::adapter::posix::BalancedMapper", "classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html", null ]
-    ] ],
     [ "hermes::adapter::stdio::AbstractMapper", "classhermes_1_1adapter_1_1stdio_1_1_abstract_mapper.html", [
       [ "hermes::adapter::stdio::BalancedMapper", "classhermes_1_1adapter_1_1stdio_1_1_balanced_mapper.html", null ]
+    ] ],
+    [ "hermes::adapter::posix::AbstractMapper", "classhermes_1_1adapter_1_1posix_1_1_abstract_mapper.html", [
+      [ "hermes::adapter::posix::BalancedMapper", "classhermes_1_1adapter_1_1posix_1_1_balanced_mapper.html", null ]
     ] ],
     [ "hermes::adapter::stdio::AdapterStat", "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html", null ],
     [ "hermes::adapter::posix::AdapterStat", "structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html", null ],
@@ -105,6 +105,7 @@ var hierarchy =
     [ "hermes::Token", "structhermes_1_1_token.html", null ],
     [ "hermes::TokenList", "structhermes_1_1_token_list.html", null ],
     [ "hermes::api::Trait", "structhermes_1_1api_1_1_trait.html", [
+      [ "hermes::api::OrderingTrait", "structhermes_1_1api_1_1_ordering_trait.html", null ],
       [ "hermes::api::PersistTrait", "structhermes_1_1api_1_1_persist_trait.html", null ]
     ] ],
     [ "hermes::TraitIdArray", "structhermes_1_1_trait_id_array.html", null ],

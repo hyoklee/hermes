@@ -12,6 +12,7 @@ var annotated_dup =
         [ "Hermes", "classhermes_1_1api_1_1_hermes.html", "classhermes_1_1api_1_1_hermes" ],
         [ "ID", "classhermes_1_1api_1_1_i_d.html", "classhermes_1_1api_1_1_i_d" ],
         [ "MinimizeIoTimeOptions", "structhermes_1_1api_1_1_minimize_io_time_options.html", "structhermes_1_1api_1_1_minimize_io_time_options" ],
+        [ "OrderingTrait", "structhermes_1_1api_1_1_ordering_trait.html", "structhermes_1_1api_1_1_ordering_trait" ],
         [ "PersistTrait", "structhermes_1_1api_1_1_persist_trait.html", "structhermes_1_1api_1_1_persist_trait" ],
         [ "Trait", "structhermes_1_1api_1_1_trait.html", "structhermes_1_1api_1_1_trait" ],
         [ "VBucket", "classhermes_1_1api_1_1_v_bucket.html", "classhermes_1_1api_1_1_v_bucket" ]

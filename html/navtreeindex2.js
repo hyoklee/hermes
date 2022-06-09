@@ -1,5 +1,9 @@
 var NAVTREEINDEX2 =
 {
+"memory__management_8h.html":[4,0,2,13],
+"memory__management_8h.html#a0b920cd44bd75f39129699a69ebcf15d":[4,0,2,13,32],
+"memory__management_8h.html#a1ef28877549d5c7c061d0b606ed38cd0":[4,0,2,13,17],
+"memory__management_8h.html#a23fd55610762e661d6b776a88c7b5587":[4,0,2,13,29],
 "memory__management_8h.html#a2495a1bc4ebfd54caa37ddf4f9069010":[4,0,2,13,21],
 "memory__management_8h.html#a2f56931d73753b610d2948068fcbc5e5":[4,0,2,13,28],
 "memory__management_8h.html#a3af04b76abe44434f1648c42fca15794":[4,0,2,13,34],
@@ -245,9 +249,5 @@ var NAVTREEINDEX2 =
 "structhermes_1_1_entire_file.html#a5e404f896f65374e47ecf9601611f389":[3,0,1,28,1],
 "structhermes_1_1_entire_file.html#ac05b5b5ea97f30c74951c8c088383957":[3,0,1,28,0],
 "structhermes_1_1_free_block.html":[3,0,1,29],
-"structhermes_1_1_free_block.html#a1cbe3df5f6a8c5f50bdb0145ae7cb591":[3,0,1,29,1],
-"structhermes_1_1_free_block.html#a2f0abc73bddffb7f0086b8ca78e399b7":[3,0,1,29,0],
-"structhermes_1_1_free_block_header.html":[3,0,1,30],
-"structhermes_1_1_free_block_header.html#a1f8534ddab5c91fba4c8a05e965194f5":[3,0,1,30,0],
-"structhermes_1_1_heap.html":[3,0,1,31]
+"structhermes_1_1_free_block.html#a1cbe3df5f6a8c5f50bdb0145ae7cb591":[3,0,1,29,1]
 };
