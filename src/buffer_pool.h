@@ -281,6 +281,8 @@ size_t GetBlobSize(SharedMemoryContext *context, RpcContext *rpc,
 size_t GetBlobSizeById(SharedMemoryContext *context, RpcContext *rpc,
                        Arena *arena, BlobID blob_id);
 
+f32 GetBlobImportanceScore(SharedMemoryContext *context, RpcContext *rpc,
+                           BlobID blob_id);
 /**
  * Constructs a unique (among users) shared memory name from a base name.
  *

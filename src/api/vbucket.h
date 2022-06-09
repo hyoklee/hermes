@@ -120,6 +120,21 @@ class VBucket {
   /** get a blob linked to this vbucket */
   Blob &GetBlob(std::string blob_name, std::string bucket_name);
 
+  /** get a blob on this bucket */
+  /** - if user_blob.size() == 0 => return the minimum buffer size needed */
+  /** - if user_blob.size() > 0 => copy user_blob.size() bytes */
+  /** to user_blob and return user_blob.size() */
+  /** use provides buffer */
+  size_t Get(const std::string &name, Bucket *bkt, Blob& user_blob,
+             const Context &ctx);
+  size_t Get(const std::string &name, Bucket *bkt, Blob &user_blob);
+
+  /**
+   *\brief Retrieve a Blob into a user buffer.
+   */
+  size_t Get(const std::string &name, Bucket *bkt, void *user_blob,
+             size_t blob_size, const Context &ctx);
+
   /** retrieves the subset of blob links satisfying pred */
   /** could return iterator */
   std::vector<std::string> GetLinks(Context &ctx);
