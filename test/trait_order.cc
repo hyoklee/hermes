@@ -27,6 +27,7 @@ std::shared_ptr<hermes::api::Hermes> hermes_app;
 
 int main(int argc, char **argv) {
   int mpi_threads_provided;
+ std::cout << "starting" << std::endl;
   MPI_Init_thread(&argc, &argv, MPI_THREAD_MULTIPLE, &mpi_threads_provided);
   if (mpi_threads_provided < MPI_THREAD_MULTIPLE) {
     fprintf(stderr, "Didn't receive appropriate MPI threading specification\n");
@@ -37,13 +38,17 @@ int main(int argc, char **argv) {
   if (argc == 2) {
     config_file = argv[1];
   }
-
+  std::cout << ">InitHermes" << std::endl;
   std::shared_ptr<hapi::Hermes> hermes = hapi::InitHermes(config_file);
-
+  std::cout << "<InitHermes" << std::endl;
   int data_size = 8 * 1024;
+  std::cout << ">put_data" << std::endl;
   hapi::Blob put_data(data_size, rand() % 255);
+  std::cout << ">get_data" << std::endl;
   hapi::Blob get_data(data_size, 255);
+  std::cout << "<get_data" << std::endl;
   if (hermes->IsApplicationCore()) {
+    std::cout << ">hermes->GetProcessRank()" << std::endl;
     int app_rank = hermes->GetProcessRank();
 
     hapi::Status status;
@@ -72,6 +77,7 @@ int main(int argc, char **argv) {
     const std::string bucket_name = "order_bucket";
     hapi::Bucket bkt(bucket_name, hermes, ctx);
     LOG(INFO) << "bucket id = " << bkt.GetId();
+    std::cout << ">bk.Put()" << std::endl;
     status = bkt.Put(bloba_name, bloba, ctx);
     Assert(status.Succeeded());
     status = bkt.Put(blobb_name, blobb, ctx);
@@ -97,6 +103,7 @@ int main(int argc, char **argv) {
     Assert(status.Succeeded());
 */
     LOG(INFO) << "trait.cc Link";
+    std::cout << ">vb.Link()" << std::endl;
     vb.Link(blobx_name, bucket_name);
     vb.Link(blobb_name, bucket_name);
     vb.Link(bloba_name, bucket_name);
@@ -151,10 +158,11 @@ int main(int argc, char **argv) {
     hermes->AppBarrier();
   } else {
     // Hermes core. No user code here.
+      std::cout << "else{}" << std::endl;
   }
-
-  hermes->Finalize();
-
+  std::cout << ">Finalize()" << std::endl;
+  hermes->Finalize(true);
+  std::cout << ">MPI_Finalize()" << std::endl;
   MPI_Finalize();
 
   return 0;
