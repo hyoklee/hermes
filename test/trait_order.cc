@@ -23,11 +23,12 @@
 #include "test_utils.h"
 
 namespace hapi = hermes::api;
-std::shared_ptr<hermes::api::Hermes> hermes_app;
+// std::shared_ptr<hermes::api::Hermes> hermes_app;
 
 int main(int argc, char **argv) {
+    // using namespace hermes;
   int mpi_threads_provided;
- std::cout << "starting" << std::endl;
+  std::cout << "starting" << std::endl;
   MPI_Init_thread(&argc, &argv, MPI_THREAD_MULTIPLE, &mpi_threads_provided);
   if (mpi_threads_provided < MPI_THREAD_MULTIPLE) {
     fprintf(stderr, "Didn't receive appropriate MPI threading specification\n");
@@ -38,7 +39,7 @@ int main(int argc, char **argv) {
   if (argc == 2) {
     config_file = argv[1];
   }
-  std::cout << ">InitHermes" << std::endl;
+  std::cout << ">InitHermes - config file=" << config_file << std::endl;
   std::shared_ptr<hapi::Hermes> hermes = hapi::InitHermes(config_file);
   std::cout << "<InitHermes" << std::endl;
   int data_size = 8 * 1024;
@@ -162,6 +163,7 @@ int main(int argc, char **argv) {
   }
   std::cout << ">Finalize()" << std::endl;
   hermes->Finalize(true);
+
   std::cout << ">MPI_Finalize()" << std::endl;
   MPI_Finalize();
 
