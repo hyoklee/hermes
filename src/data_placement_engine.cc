@@ -325,7 +325,7 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
     }
     num_constrts += num_targets;
   } else {
-     last2 = last;
+    last2 = last;
   }
 
   // Constraint #3: Remaining Capacity Change Threshold
@@ -337,15 +337,15 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
       glp_set_row_bnds(lp, num_constrts+j+1, GLP_DB, 0.0,
                capacity_change_threshold * node_state[j]);
       for (size_t i {0}; i < num_blobs; ++i) {
-          int ij = j * num_blobs + i + 1 + last2;
-          ia[ij] = num_constrts+j+1, ja[ij] = j+1,
-              ar[ij] = static_cast<double>(blob_sizes[i]);
-          last3 = ij;
+        int ij = j * num_blobs + i + 1 + last2;
+        ia[ij] = num_constrts+j+1, ja[ij] = j+1,
+            ar[ij] = static_cast<double>(blob_sizes[i]);
+        last3 = ij;
       }
     }
     num_constrts += num_targets;
   } else {
-      last3 = last2;
+    last3 = last2;
   }
 
   int last4 = 0;
@@ -373,9 +373,9 @@ Status MinimizeIoTimePlacement(const std::vector<size_t> &blob_sizes,
   // Objective to minimize IO time
   for (size_t i {0}; i < num_blobs; ++i) {
     for (size_t j {0}; j < num_targets; ++j) {
-        int ij = i * num_targets + j + 1;
-        glp_set_obj_coef(lp, ij,
-                         static_cast<double>(blob_sizes[i])/bandwidths[j]);
+      int ij = i * num_targets + j + 1;
+      glp_set_obj_coef(lp, ij,
+                       static_cast<double>(blob_sizes[i])/bandwidths[j]);
     }
   }
   DLOG(INFO) << "MinimizeIoTimePlacement()::last4=" << last4;
