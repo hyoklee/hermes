@@ -43,8 +43,7 @@ namespace hermes {
     "space for blob.")                                                     \
   X(-14, DPE_GET_INVALID_TGT, "DPE got an invalid target ID.")             \
   X(-15, DPE_ORTOOLS_NO_SOLUTION,                                          \
-    "DPE or-tools does not find a solution"                                \
-    "with provided constraints.")                                          \
+    "DPE GLPK does not find a solution with provided constraints.")        \
   X(-16, DPE_PLACEMENTSCHEMA_EMPTY, "DPE PlacementSchema is empty.")       \
   X(-17, READ_BLOB_FAILED, "Read blob from its id failed.")                \
   X(-18, STDIO_OFFSET_ERROR, "Offset invalid or fseek() failed.")          \
