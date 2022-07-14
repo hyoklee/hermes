@@ -18,7 +18,7 @@ project(HERMES)
 # Version information
 #------------------------------------------------------------------------------
 set(HERMES_VERSION_MAJOR "0")
-set(HERMES_VERSION_MINOR "6")
+set(HERMES_VERSION_MINOR "7")
 set(HERMES_VERSION_PATCH "0")
 set(HERMES_PACKAGE "hermes")
 set(HERMES_PACKAGE_NAME "HERMES")
@@ -152,6 +152,7 @@ option(HERMES_ENABLE_MPIIO_ADAPTER "Build the Hermes MPI-IO adapter." ON)
 option(HERMES_ENABLE_PUBSUB_ADAPTER "Build the Hermes pub/sub adapter." ON)
 option(HERMES_ENABLE_VFD "Build the Hermes HDF5 Virtual File Driver" OFF)
 option(HERMES_ENABLE_WRAPPER "Enable hermes C API wrapper." ON)
+option(HERMES_ENABLE_GFLAGS "Enable GFLAGS support." ON)
 option(HERMES_INSTALL_TESTS "Enable installation of tests." OFF)
 # Calculate code coverage with debug mode
 if(HERMES_ENABLE_COVERAGE)
@@ -279,12 +280,14 @@ find_path(GLOG_INCLUDE_DIRS NAME glog PATH_SUFFIXES include/)
 include_directories(${GLOG_INCLUDE_DIRS})
 
 # GFLAGS
-find_package(gflags REQUIRED)
-if(gflags_FOUND)
-  message(STATUS "found GFLAGS at ${gflags_DIR}")
+if(HERMES_ENABLE_GFLAGS)
+  find_package(gflags REQUIRED)
+  if(gflags_FOUND)
+    message(STATUS "found GFLAGS at ${gflags_DIR}")
+    find_path(GFLAG_INCLUDE_DIRS NAME gflags PATH_SUFFIXES include/)
+    include_directories(${GFLAG_INCLUDE_DIRS})
+  endif()
 endif()
-find_path(GFLAG_INCLUDE_DIRS NAME gflags PATH_SUFFIXES include/)
-include_directories(${GFLAG_INCLUDE_DIRS})
 
 # GOTCHA
 if(HERMES_INTERCEPT_IO)
@@ -320,6 +323,37 @@ if(HERMES_BUILD_BUFFER_POOL_VISUALIZER)
   find_package(SDL2 CONFIG REQUIRED)
   if(SDL2_FOUND)
     message(STATUS "found SDL2 at ${SDL2_DIR}")
+  endif()
+endif()
+
+# HDF5
+if(HERMES_ENABLE_VFD)
+  set(HERMES_REQUIRED_HDF5_VERSION 1.13.0)
+  set(HERMES_REQUIRED_HDF5_COMPONENTS C)
+  find_package(HDF5 ${HERMES_REQUIRED_HDF5_VERSION} CONFIG NAMES hdf5
+    COMPONENTS ${HERMES_REQUIRED_HDF5_COMPONENTS} shared)
+  if(HDF5_FOUND)
+    message(STATUS "found HDF5 ${HDF5_VERSION} at ${HDF5_INCLUDE_DIR}")
+    set(HDF5_HERMES_VFD_EXT_INCLUDE_DEPENDENCIES
+      ${HDF5_HERMES_VFD_EXT_INCLUDE_DEPENDENCIES}
+      ${HDF5_INCLUDE_DIR})
+    set(HDF5_HERMES_VFD_EXT_LIB_DEPENDENCIES
+      ${HDF5_HERMES_VFD_EXT_LIB_DEPENDENCIES}
+      ${HDF5_C_SHARED_LIBRARY})
+  else()
+    # Allow for HDF5 autotools builds
+    find_package(HDF5 ${HERMES_REQUIRED_HDF5_VERSION} MODULE REQUIRED
+      COMPONENTS ${HERMES_REQUIRED_HDF5_COMPONENTS})
+    if(HDF5_FOUND)
+      set(HDF5_HERMES_VFD_EXT_INCLUDE_DEPENDENCIES
+        ${HDF5_HERMES_VFD_EXT_INCLUDE_DEPENDENCIES}
+        ${HDF5_INCLUDE_DIRS})
+      set(HDF5_HERMES_VFD_EXT_LIB_DEPENDENCIES
+        ${HDF5_HERMES_VFD_EXT_LIB_DEPENDENCIES}
+        ${HDF5_LIBRARIES})
+    else()
+      message(FATAL_ERROR "Could not find HDF5, please set HDF5_DIR (1.13.0) or HDF5_ROOT (1.13.1).")
+    endif()
   endif()
 endif()
 
@@ -458,6 +492,5 @@ install(
 
 add_custom_target(lint
   COMMAND cpplint --recursive --exclude=${CMAKE_CURRENT_SOURCE_DIR}/src/stb_ds.h
-  --exclude=${CMAKE_CURRENT_SOURCE_DIR}/adapter/vfd/H5FDhermes.c
   --exclude=${CMAKE_CURRENT_SOURCE_DIR}/build ${CMAKE_CURRENT_SOURCE_DIR}
 )
