@@ -16,7 +16,7 @@
 #define CATCH_CONFIG_RUNNER
 #include <mpi.h>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 namespace cl = Catch::clara;
 
