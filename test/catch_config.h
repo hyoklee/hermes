@@ -18,7 +18,7 @@
 
 #include <catch2/catch_all.hpp>
 
-namespace cl = Catch::clara;
+namespace cl = Catch::Clara;
 
 cl::Parser define_options();
 
