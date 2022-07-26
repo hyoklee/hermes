@@ -138,12 +138,14 @@ $<$<BOOL:${HERMES_RPC_THALLIUM}>:thallium> glog::glog -lstdc++fs)
 target_compile_definitions(prefetching
 PRIVATE $<$<BOOL:${HERMES_RPC_THALLIUM}>:HERMES_RPC_THALLIUM>)
 # add_test(NAME "TestPrefetching" COMMAND prefetching "${CMAKE_CURRENT_SOURCE_DIR}/data/bucket_test.conf")
+
 # add_test(NAME "TestPrefetching" 
 #   COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} 2
 #   "${CMAKE_BINARY_DIR}/bin/prefetching"
 #   "${CMAKE_CURRENT_SOURCE_DIR}/data/bucket_test.conf")
-set_tests_properties("TestPrefetching" PROPERTIES ENVIRONMENT
-  LSAN_OPTIONS=suppressions=${CMAKE_CURRENT_SOURCE_DIR}/data/asan.supp)
+
+# set_tests_properties("TestPrefetching" PROPERTIES ENVIRONMENT
+#  LSAN_OPTIONS=suppressions=${CMAKE_CURRENT_SOURCE_DIR}/data/asan.supp)
 
 
 #------------------------------------------------------------------------------
