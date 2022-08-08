@@ -14,9 +14,8 @@
 #define HERMES_CATCH_CONFIG_H
 
 #define CATCH_CONFIG_RUNNER
-#include <mpi.h>
-
 #include <catch2/catch_all.hpp>
+#include <mpi.h>
 
 namespace cl = Catch::Clara;
 
