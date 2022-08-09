@@ -32,6 +32,10 @@ bool exit = false;
 
 void PopulateBufferingPath() {
   char* hermes_config = getenv(kHermesConf);
+  if (hermes_config == NULL) {
+    LOG(ERROR) << "HERMES_CONF is not set.";
+    return;
+  }
 
   hermes::Config config = {};
   const size_t kConfigMemorySize = KILOBYTES(16);
