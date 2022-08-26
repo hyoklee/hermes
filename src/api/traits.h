@@ -15,8 +15,8 @@
 
 #include <unordered_map>
 
-#include "hermes_types.h"
 #include "hermes.h"
+#include "hermes_types.h"
 
 namespace hermes {
 namespace api {

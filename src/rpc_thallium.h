@@ -176,13 +176,13 @@ void load(A &ar, BoPriority &priority) {
   priority = (BoPriority)val;
 }
 
-template<typename A>
+template <typename A>
 void save(A &ar, ThresholdViolation &violation) {
   int val = (int)violation;
   ar.write(&val, 1);
 }
 
-template<typename A>
+template <typename A>
 void load(A &ar, ThresholdViolation &violation) {
   int val = 0;
   ar.read(&val, 1);
@@ -215,11 +215,11 @@ void serialize(A &ar, BoTask &bo_task) {
   ar &bo_task.args;
 }
 
-template<typename A>
+template <typename A>
 void serialize(A &ar, ViolationInfo &info) {
-  ar & info.target_id;
-  ar & info.violation;
-  ar & info.violation_size;
+  ar &info.target_id;
+  ar &info.violation;
+  ar &info.violation_size;
 }
 
 namespace api {

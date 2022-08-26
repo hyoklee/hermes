@@ -63,10 +63,7 @@ enum MapType {
   kMapType_Count
 };
 
-enum class ThresholdViolation {
-  kMin,
-  kMax
-};
+enum class ThresholdViolation { kMin, kMax };
 
 struct ViolationInfo {
   TargetID target_id;
