@@ -1,8 +1,8 @@
 var structhermes_1_1api_1_1_trait =
 [
     [ "Trait", "structhermes_1_1api_1_1_trait.html#ad9d8db7946ca59dda5fc44894693ad3c", null ],
-    [ "Trait", "structhermes_1_1api_1_1_trait.html#ad3e7dce7fd42556cad58c7deb78228a6", null ],
-    [ "conflict_traits", "structhermes_1_1api_1_1_trait.html#a71c7b87dafd7e024fbafba7928c20602", null ],
+    [ "Trait", "structhermes_1_1api_1_1_trait.html#a5844cec76e08b696edc28b9176483f81", null ],
+    [ "conflict_traits", "structhermes_1_1api_1_1_trait.html#aea0060d306735bf86e5924932fb3301b", null ],
     [ "id", "structhermes_1_1api_1_1_trait.html#ab0e13fe834bba47d6f69451305117a6b", null ],
     [ "onAttachFn", "structhermes_1_1api_1_1_trait.html#a6fa98dc6045501b210d1a57a4539115c", null ],
     [ "onDetachFn", "structhermes_1_1api_1_1_trait.html#a4137bf5d6efdae82a894d020efda38c4", null ],

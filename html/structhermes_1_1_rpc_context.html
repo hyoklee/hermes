@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.7.0-beta</span>
+   &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -116,6 +116,8 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>state</b></td></tr>
 <tr class="separator:aaa5705eac3bc8fc7224dae3308caa31d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a376b9ae54db1360bb613bb015c8cc5c0"><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_rpc_context.html#a376b9ae54db1360bb613bb015c8cc5c0">host_numbers</a></td></tr>
 <tr class="separator:a376b9ae54db1360bb613bb015c8cc5c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abae8ef8bc4fb69600593bcaaa42a9ee3"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_rpc_context.html#abae8ef8bc4fb69600593bcaaa42a9ee3">num_host_numbers</a></td></tr>
+<tr class="separator:abae8ef8bc4fb69600593bcaaa42a9ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acea9588d66540597a933623c17d0ce32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhermes_1_1_shmem_string.html">ShmemString</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_rpc_context.html#acea9588d66540597a933623c17d0ce32">host_names</a></td></tr>
 <tr class="separator:acea9588d66540597a933623c17d0ce32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac081cced6265ed2d8638ccb35a6be801"><td class="memItemLeft" align="right" valign="top"><a id="ac081cced6265ed2d8638ccb35a6be801"></a>
@@ -182,6 +184,21 @@ StartFunc&#160;</td><td class="memItemRight" valign="bottom"><b>start_server</b>
       </table>
 </div><div class="memdoc">
 <p>Array of host numbers in shared memory. This size is RpcContext::num_nodes </p>
+
+</div>
+</div>
+<a id="abae8ef8bc4fb69600593bcaaa42a9ee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abae8ef8bc4fb69600593bcaaa42a9ee3">&#9670;&nbsp;</a></span>num_host_numbers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t hermes::RpcContext::num_host_numbers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The number of host numbers that were present in the rpc_host_number_range entry in the config file </p>
 
 </div>
 </div>

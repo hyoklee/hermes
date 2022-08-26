@@ -9,10 +9,12 @@ var classhermes_1_1api_1_1_v_bucket =
     [ "Destroy", "classhermes_1_1api_1_1_v_bucket.html#a8b392b4d30c1118a80e41f37e58ebc0a", null ],
     [ "Detach", "classhermes_1_1api_1_1_v_bucket.html#a4cc7da678a88a47c6860f5eb5a55ac9f", null ],
     [ "Detach", "classhermes_1_1api_1_1_v_bucket.html#ae257c6f39661bbd9fce0655cf4fb49ed", null ],
+    [ "Get", "classhermes_1_1api_1_1_v_bucket.html#ae95ad5701d55ec47bff9eec20ba15a6b", null ],
+    [ "Get", "classhermes_1_1api_1_1_v_bucket.html#a09fb36f4994f0c7613073e187c113491", null ],
+    [ "Get", "classhermes_1_1api_1_1_v_bucket.html#ab78f48f981b799ee68e5e9507a27ec66", null ],
     [ "Get", "classhermes_1_1api_1_1_v_bucket.html#ab1c82a59afefa0d7a9d8c445a30f1a58", null ],
     [ "Get", "classhermes_1_1api_1_1_v_bucket.html#a7e62ff1ac018534ee4a2badc9036e9f1", null ],
     [ "Get", "classhermes_1_1api_1_1_v_bucket.html#a08edad6964cf4a455ef6b35e19050a28", null ],
-    [ "GetBlob", "classhermes_1_1api_1_1_v_bucket.html#a88a67553fcfced48aa03c7a7b20c19fc", null ],
     [ "GetLinks", "classhermes_1_1api_1_1_v_bucket.html#a279a396e728307fa96e0103d480b0aa7", null ],
     [ "GetName", "classhermes_1_1api_1_1_v_bucket.html#af520851d6c4382ebc470e99beb1e49ea", null ],
     [ "GetTrait", "classhermes_1_1api_1_1_v_bucket.html#ad63013be0dc6ac50d161a271c6f5dafa", null ],
@@ -29,6 +31,5 @@ var classhermes_1_1api_1_1_v_bucket =
     [ "ctx_", "classhermes_1_1api_1_1_v_bucket.html#a2e7781519d81a04d5ad5ef168b8d6c74", null ],
     [ "hermes_", "classhermes_1_1api_1_1_v_bucket.html#a0b7d75ad4d2e0792b65370ae764d1127", null ],
     [ "id_", "classhermes_1_1api_1_1_v_bucket.html#a631f7fc174732eb7694689d57b29049b", null ],
-    [ "local_blob", "classhermes_1_1api_1_1_v_bucket.html#a3de1bb7252962e190e412c206c01593e", null ],
     [ "name_", "classhermes_1_1api_1_1_v_bucket.html#a517416726168bfe3a38d9978c04daa27", null ]
 ];

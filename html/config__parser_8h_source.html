@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.7.0-beta</span>
+   &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -158,39 +158,40 @@ $(document).ready(function(){initNavTree('config__parser_8h_source.html',''); in
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  ConfigVariable_IsSharedDevice,</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  ConfigVariable_BoNumThreads,</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  ConfigVariable_RRSplit,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  ConfigVariable_Count</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="structhermes_1_1_token.html">   76</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_token.html">Token</a> {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <a class="code" href="structhermes_1_1_token.html">Token</a> *next;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">char</span> *data;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  u32 size;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  u32 line;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  TokenType type;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="structhermes_1_1_token_list.html">   84</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_token_list.html">TokenList</a> {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <a class="code" href="structhermes_1_1_token.html">Token</a> *head;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordtype">int</span> count;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="structhermes_1_1_entire_file.html">   89</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_entire_file.html">EntireFile</a> {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  u8 *data;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  u64 size;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<a class="code" href="structhermes_1_1_token_list.html">TokenList</a> Tokenize(<a class="code" href="structhermes_1_1_arena.html">Arena</a> *arena, <a class="code" href="structhermes_1_1_entire_file.html">EntireFile</a> entire_file);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keywordtype">void</span> ParseTokens(<a class="code" href="structhermes_1_1_token_list.html">TokenList</a> *tokens, <a class="code" href="structhermes_1_1_config.html">Config</a> *config);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}  <span class="comment">// namespace hermes</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#endif  // HERMES_CONFIG_PARSER_H_</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  ConfigVariable_BOCapacityThresholds,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  ConfigVariable_Count</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structhermes_1_1_token.html">   77</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_token.html">Token</a> {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <a class="code" href="structhermes_1_1_token.html">Token</a> *next;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">char</span> *data;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  u32 size;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  u32 line;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  TokenType type;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="structhermes_1_1_token_list.html">   85</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_token_list.html">TokenList</a> {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <a class="code" href="structhermes_1_1_token.html">Token</a> *head;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordtype">int</span> count;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="structhermes_1_1_entire_file.html">   90</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_entire_file.html">EntireFile</a> {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  u8 *data;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  u64 size;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<a class="code" href="structhermes_1_1_token_list.html">TokenList</a> Tokenize(<a class="code" href="structhermes_1_1_arena.html">Arena</a> *arena, <a class="code" href="structhermes_1_1_entire_file.html">EntireFile</a> entire_file);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keywordtype">void</span> ParseTokens(<a class="code" href="structhermes_1_1_token_list.html">TokenList</a> *tokens, <a class="code" href="structhermes_1_1_config.html">Config</a> *config);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}  <span class="comment">// namespace hermes</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif  // HERMES_CONFIG_PARSER_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructhermes_1_1_arena_html"><div class="ttname"><a href="structhermes_1_1_arena.html">hermes::Arena</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:68</div></div>
+<div class="ttc" id="astructhermes_1_1_arena_html"><div class="ttname"><a href="structhermes_1_1_arena.html">hermes::Arena</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:74</div></div>
 <div class="ttc" id="amemory__management_8h_html"><div class="ttname"><a href="memory__management_8h.html">memory_management.h</a></div></div>
 <div class="ttc" id="astructhermes_1_1_communication_context_html_a55f196e759240784800fcf9c3ef39395"><div class="ttname"><a href="structhermes_1_1_communication_context.html#a55f196e759240784800fcf9c3ef39395">hermes::CommunicationContext::world_proc_id</a></div><div class="ttdeci">i32 world_proc_id</div><div class="ttdef"><b>Definition:</b> communication.h:40</div></div>
-<div class="ttc" id="astructhermes_1_1_token_html"><div class="ttname"><a href="structhermes_1_1_token.html">hermes::Token</a></div><div class="ttdef"><b>Definition:</b> config_parser.h:76</div></div>
+<div class="ttc" id="astructhermes_1_1_token_html"><div class="ttname"><a href="structhermes_1_1_token.html">hermes::Token</a></div><div class="ttdef"><b>Definition:</b> config_parser.h:77</div></div>
 <div class="ttc" id="amemory__management_8cc_html_ac64963cdb2aef85ac002f4b8634cd2fc"><div class="ttname"><a href="memory__management_8cc.html#ac64963cdb2aef85ac002f4b8634cd2fc">hermes::DestroyArena</a></div><div class="ttdeci">void DestroyArena(Arena *arena)</div><div class="ttdef"><b>Definition:</b> memory_management.cc:74</div></div>
 <div class="ttc" id="astructhermes_1_1_m_p_i_state_html"><div class="ttname"><a href="structhermes_1_1_m_p_i_state.html">hermes::MPIState</a></div><div class="ttdef"><b>Definition:</b> communication_mpi.cc:24</div></div>
 <div class="ttc" id="astructhermes_1_1_communication_context_html_a41de3edded73879fbf8a750761c9111c"><div class="ttname"><a href="structhermes_1_1_communication_context.html#a41de3edded73879fbf8a750761c9111c">hermes::CommunicationContext::proc_kind</a></div><div class="ttdeci">ProcessKind proc_kind</div><div class="ttdef"><b>Definition:</b> communication.h:56</div></div>
@@ -205,10 +206,10 @@ $(document).ready(function(){initNavTree('config__parser_8h_source.html',''); in
 <div class="ttc" id="acommunication__mpi_8cc_html_ac08b6a0677f8d21fae9fe6614c77a601"><div class="ttname"><a href="communication__mpi_8cc.html#ac08b6a0677f8d21fae9fe6614c77a601">hermes::MpiAssignIDsToNodes</a></div><div class="ttdeci">size_t MpiAssignIDsToNodes(CommunicationContext *comm, size_t trans_arena_size_per_node)</div><div class="ttdef"><b>Definition:</b> communication_mpi.cc:133</div></div>
 <div class="ttc" id="acommunication_8h_html"><div class="ttname"><a href="communication_8h.html">communication.h</a></div></div>
 <div class="ttc" id="astructhermes_1_1_communication_context_html_a6ee75c70b8c29ae4ac38ad80d111766b"><div class="ttname"><a href="structhermes_1_1_communication_context.html#a6ee75c70b8c29ae4ac38ad80d111766b">hermes::CommunicationContext::node_id</a></div><div class="ttdeci">i32 node_id</div><div class="ttdef"><b>Definition:</b> communication.h:54</div></div>
-<div class="ttc" id="astructhermes_1_1_token_list_html"><div class="ttname"><a href="structhermes_1_1_token_list.html">hermes::TokenList</a></div><div class="ttdef"><b>Definition:</b> config_parser.h:84</div></div>
-<div class="ttc" id="astructhermes_1_1_entire_file_html"><div class="ttname"><a href="structhermes_1_1_entire_file.html">hermes::EntireFile</a></div><div class="ttdef"><b>Definition:</b> config_parser.h:89</div></div>
+<div class="ttc" id="astructhermes_1_1_token_list_html"><div class="ttname"><a href="structhermes_1_1_token_list.html">hermes::TokenList</a></div><div class="ttdef"><b>Definition:</b> config_parser.h:85</div></div>
+<div class="ttc" id="astructhermes_1_1_entire_file_html"><div class="ttname"><a href="structhermes_1_1_entire_file.html">hermes::EntireFile</a></div><div class="ttdef"><b>Definition:</b> config_parser.h:90</div></div>
 <div class="ttc" id="acommunication__mpi_8cc_html_a59b5a1ff74a0ab24cdec9207b2ee0b24"><div class="ttname"><a href="communication__mpi_8cc.html#a59b5a1ff74a0ab24cdec9207b2ee0b24">hermes::MpiFirstOnNode</a></div><div class="ttdeci">bool MpiFirstOnNode(MPI_Comm comm)</div><div class="ttdef"><b>Definition:</b> communication_mpi.cc:91</div></div>
-<div class="ttc" id="astructhermes_1_1_config_html"><div class="ttname"><a href="structhermes_1_1_config.html">hermes::Config</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:172</div></div>
+<div class="ttc" id="astructhermes_1_1_config_html"><div class="ttname"><a href="structhermes_1_1_config.html">hermes::Config</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:190</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

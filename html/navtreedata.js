@@ -57,9 +57,9 @@ var NAVTREEINDEX =
 [
 ".html",
 "classhermes_1_1adapter_1_1stdio_1_1_abstract_mapper.html",
-"memory__management_8h.html",
-"structhermes_1_1_free_block.html#a2f0abc73bddffb7f0086b8ca78e399b7",
-"structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html#a68ca35d2faeeaaa77a902747392888a3"
+"memory__management_8cc.html#ac8ad1fb5ff77abde100740fc94e29e8c",
+"structhermes_1_1_device.html",
+"structhermes_1_1adapter_1_1posix_1_1_file_i_d.html#a553c499bd9c90ad580f06ddc2440d325"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

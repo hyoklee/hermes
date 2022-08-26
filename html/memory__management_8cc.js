@@ -2,13 +2,18 @@ var memory__management_8cc =
 [
     [ "AlignBackward", "memory__management_8cc.html#a44f5b611f252c397974f44ebb7989a54", null ],
     [ "AlignForward", "memory__management_8cc.html#a5a5721855c1dc4e386f401611a746ad2", null ],
+    [ "BeginReaderLock", "memory__management_8cc.html#a2352149f1ac54de1b466fb13e679c162", null ],
     [ "BeginTemporaryMemory", "memory__management_8cc.html#a455f4bde497798667e412e71bb9ddd06", null ],
     [ "BeginTicketMutex", "memory__management_8cc.html#aa154212f668ee2159c0b51ad134c7ffb", null ],
+    [ "BeginTicketMutexIfNoWait", "memory__management_8cc.html#af0eb934a0429adfeac04160e6c8422b3", null ],
+    [ "BeginWriterLock", "memory__management_8cc.html#a310025cf1d6ee849b8ed1e67ce1009bb", null ],
     [ "CoalesceFreeBlocks", "memory__management_8cc.html#ae052341ccabc4140f40abf6c68b4d909", null ],
     [ "ComputeHeapExtent", "memory__management_8cc.html#aa44f8ab98867ac74e7705adc105ccaef", null ],
     [ "DestroyArena", "memory__management_8cc.html#ac64963cdb2aef85ac002f4b8634cd2fc", null ],
+    [ "EndReaderLock", "memory__management_8cc.html#a4511450a0d58c689c6907407ab1c69c4", null ],
     [ "EndTemporaryMemory", "memory__management_8cc.html#aa4c5b3d89d8359249a1422f855f57435", null ],
     [ "EndTicketMutex", "memory__management_8cc.html#a5a908f5a281483a42a19d4587eebc4da", null ],
+    [ "EndWriterLock", "memory__management_8cc.html#a10258b4d035dea156e8d6eb733ea9f52", null ],
     [ "FindFirstFit", "memory__management_8cc.html#aab47e4c683b84e8386dbdd31a0f8d47c", null ],
     [ "GetHeapFreeList", "memory__management_8cc.html#ac8ad1fb5ff77abde100740fc94e29e8c", null ],
     [ "GetHeapMemory", "memory__management_8cc.html#a0d2fceb70714bf22335312486e62991d", null ],
@@ -28,5 +33,6 @@ var memory__management_8cc =
     [ "NextFreeBlock", "memory__management_8cc.html#a23fd55610762e661d6b776a88c7b5587", null ],
     [ "PushSize", "memory__management_8cc.html#abc4a3f05d273d7eacbd2cd8e1ad5e9ce", null ],
     [ "PushSizeAndClear", "memory__management_8cc.html#a3af04b76abe44434f1648c42fca15794", null ],
-    [ "TryBeginTicketMutex", "memory__management_8cc.html#a47b33a3c8b790c22e0b05cf2d78a064c", null ]
+    [ "TryBeginTicketMutex", "memory__management_8cc.html#a47b33a3c8b790c22e0b05cf2d78a064c", null ],
+    [ "kAttemptsBeforeYield", "memory__management_8cc.html#a7f559ab10b6188ad77f37e4c89af62fc", null ]
 ];

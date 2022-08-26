@@ -12,10 +12,10 @@ var annotated_dup =
         [ "Hermes", "classhermes_1_1api_1_1_hermes.html", "classhermes_1_1api_1_1_hermes" ],
         [ "ID", "classhermes_1_1api_1_1_i_d.html", "classhermes_1_1api_1_1_i_d" ],
         [ "MinimizeIoTimeOptions", "structhermes_1_1api_1_1_minimize_io_time_options.html", "structhermes_1_1api_1_1_minimize_io_time_options" ],
-        [ "OrderingTrait", "structhermes_1_1api_1_1_ordering_trait.html", "structhermes_1_1api_1_1_ordering_trait" ],
         [ "PersistTrait", "structhermes_1_1api_1_1_persist_trait.html", "structhermes_1_1api_1_1_persist_trait" ],
         [ "Trait", "structhermes_1_1api_1_1_trait.html", "structhermes_1_1api_1_1_trait" ],
-        [ "VBucket", "classhermes_1_1api_1_1_v_bucket.html", "classhermes_1_1api_1_1_v_bucket" ]
+        [ "VBucket", "classhermes_1_1api_1_1_v_bucket.html", "classhermes_1_1api_1_1_v_bucket" ],
+        [ "WriteOnlyTrait", "structhermes_1_1api_1_1_write_only_trait.html", "structhermes_1_1api_1_1_write_only_trait" ]
       ] ],
       [ "testing", null, [
         [ "TargetViewState", "structhermes_1_1testing_1_1_target_view_state.html", "structhermes_1_1testing_1_1_target_view_state" ]
@@ -48,6 +48,7 @@ var annotated_dup =
       [ "EntireFile", "structhermes_1_1_entire_file.html", "structhermes_1_1_entire_file" ],
       [ "FreeBlock", "structhermes_1_1_free_block.html", "structhermes_1_1_free_block" ],
       [ "FreeBlockHeader", "structhermes_1_1_free_block_header.html", "structhermes_1_1_free_block_header" ],
+      [ "GlobalSystemViewState", "structhermes_1_1_global_system_view_state.html", "structhermes_1_1_global_system_view_state" ],
       [ "Heap", "structhermes_1_1_heap.html", "structhermes_1_1_heap" ],
       [ "IdList", "structhermes_1_1_id_list.html", "structhermes_1_1_id_list" ],
       [ "IdMap", "structhermes_1_1_id_map.html", "structhermes_1_1_id_map" ],
@@ -55,6 +56,7 @@ var annotated_dup =
       [ "MPIState", "structhermes_1_1_m_p_i_state.html", "structhermes_1_1_m_p_i_state" ],
       [ "RoundRobinState", "classhermes_1_1_round_robin_state.html", "classhermes_1_1_round_robin_state" ],
       [ "RpcContext", "structhermes_1_1_rpc_context.html", "structhermes_1_1_rpc_context" ],
+      [ "RwLock", "structhermes_1_1_rw_lock.html", "structhermes_1_1_rw_lock" ],
       [ "ScopedTemporaryMemory", "structhermes_1_1_scoped_temporary_memory.html", "structhermes_1_1_scoped_temporary_memory" ],
       [ "SharedMemoryContext", "structhermes_1_1_shared_memory_context.html", "structhermes_1_1_shared_memory_context" ],
       [ "ShmemClientInfo", "structhermes_1_1_shmem_client_info.html", "structhermes_1_1_shmem_client_info" ],
@@ -68,13 +70,14 @@ var annotated_dup =
       [ "TemporaryMemory", "structhermes_1_1_temporary_memory.html", "structhermes_1_1_temporary_memory" ],
       [ "ThalliumState", "structhermes_1_1_thallium_state.html", "structhermes_1_1_thallium_state" ],
       [ "ThreadPool", "classhermes_1_1_thread_pool.html", "classhermes_1_1_thread_pool" ],
+      [ "Thresholds", "structhermes_1_1_thresholds.html", "structhermes_1_1_thresholds" ],
       [ "Ticket", "structhermes_1_1_ticket.html", "structhermes_1_1_ticket" ],
       [ "TicketMutex", "structhermes_1_1_ticket_mutex.html", "structhermes_1_1_ticket_mutex" ],
       [ "Token", "structhermes_1_1_token.html", "structhermes_1_1_token" ],
       [ "TokenList", "structhermes_1_1_token_list.html", "structhermes_1_1_token_list" ],
-      [ "TraitIdArray", "structhermes_1_1_trait_id_array.html", "structhermes_1_1_trait_id_array" ],
       [ "VBucketID", "unionhermes_1_1_v_bucket_i_d.html", "unionhermes_1_1_v_bucket_i_d" ],
-      [ "VBucketInfo", "structhermes_1_1_v_bucket_info.html", "structhermes_1_1_v_bucket_info" ]
+      [ "VBucketInfo", "structhermes_1_1_v_bucket_info.html", "structhermes_1_1_v_bucket_info" ],
+      [ "ViolationInfo", "structhermes_1_1_violation_info.html", "structhermes_1_1_violation_info" ]
     ] ],
     [ "std", "namespacestd.html", "namespacestd" ],
     [ "HeapMetadata", "struct_heap_metadata.html", "struct_heap_metadata" ],

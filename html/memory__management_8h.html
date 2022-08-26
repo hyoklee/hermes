@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.7.0-beta</span>
+   &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -99,17 +99,17 @@ Include dependency graph for memory_management.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="memory__management_8h__incl.png" border="0" usemap="#_2home_2runner_2work_2hermes_2hermes_2src_2memory__management_8h" alt=""/></div>
 <map name="_2home_2runner_2work_2hermes_2hermes_2src_2memory__management_8h" id="_2home_2runner_2work_2hermes_2hermes_2src_2memory__management_8h">
-<area shape="rect" title=" " alt="" coords="127,5,390,47"/>
-<area shape="rect" title=" " alt="" coords="127,95,201,121"/>
-<area shape="rect" title=" " alt="" coords="225,95,292,121"/>
-<area shape="rect" href="hermes__types_8h_source.html" title=" " alt="" coords="317,95,443,121"/>
-<area shape="rect" title=" " alt="" coords="5,169,120,196"/>
-<area shape="rect" title=" " alt="" coords="145,169,215,196"/>
-<area shape="rect" title=" " alt="" coords="239,169,326,196"/>
-<area shape="rect" title=" " alt="" coords="351,169,409,196"/>
-<area shape="rect" title=" " alt="" coords="434,169,494,196"/>
-<area shape="rect" title=" " alt="" coords="518,169,581,196"/>
-<area shape="rect" title=" " alt="" coords="605,169,744,196"/>
+<area shape="rect" title=" " alt="" coords="47,5,309,47"/>
+<area shape="rect" title=" " alt="" coords="46,95,121,121"/>
+<area shape="rect" title=" " alt="" coords="145,95,211,121"/>
+<area shape="rect" href="hermes__types_8h_source.html" title=" " alt="" coords="236,95,363,121"/>
+<area shape="rect" title=" " alt="" coords="5,169,76,196"/>
+<area shape="rect" title=" " alt="" coords="101,169,159,196"/>
+<area shape="rect" title=" " alt="" coords="184,169,244,196"/>
+<area shape="rect" title=" " alt="" coords="268,169,331,196"/>
+<area shape="rect" title=" " alt="" coords="355,169,441,196"/>
+<area shape="rect" title=" " alt="" coords="466,169,581,196"/>
+<area shape="rect" title=" " alt="" coords="605,169,743,196"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -164,6 +164,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_ticket_mutex.html">hermes::TicketMutex</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_ticket.html">hermes::Ticket</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_rw_lock.html">hermes::RwLock</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_arena_info.html">hermes::ArenaInfo</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -262,6 +264,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::BeginTicketMu
 <tr class="memitem:a5a908f5a281483a42a19d4587eebc4da"><td class="memItemLeft" align="right" valign="top"><a id="a5a908f5a281483a42a19d4587eebc4da"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::EndTicketMutex</b> (TicketMutex *mutex)</td></tr>
 <tr class="separator:a5a908f5a281483a42a19d4587eebc4da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2352149f1ac54de1b466fb13e679c162"><td class="memItemLeft" align="right" valign="top"><a id="a2352149f1ac54de1b466fb13e679c162"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::BeginReaderLock</b> (RwLock *lock)</td></tr>
+<tr class="separator:a2352149f1ac54de1b466fb13e679c162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4511450a0d58c689c6907407ab1c69c4"><td class="memItemLeft" align="right" valign="top"><a id="a4511450a0d58c689c6907407ab1c69c4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::EndReaderLock</b> (RwLock *lock)</td></tr>
+<tr class="separator:a4511450a0d58c689c6907407ab1c69c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a310025cf1d6ee849b8ed1e67ce1009bb"><td class="memItemLeft" align="right" valign="top"><a id="a310025cf1d6ee849b8ed1e67ce1009bb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::BeginWriterLock</b> (RwLock *lock)</td></tr>
+<tr class="separator:a310025cf1d6ee849b8ed1e67ce1009bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10258b4d035dea156e8d6eb733ea9f52"><td class="memItemLeft" align="right" valign="top"><a id="a10258b4d035dea156e8d6eb733ea9f52"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::EndWriterLock</b> (RwLock *lock)</td></tr>
+<tr class="separator:a10258b4d035dea156e8d6eb733ea9f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Structures for memory management. </p>

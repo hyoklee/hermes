@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.7.0-beta</span>
+   &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -135,309 +135,346 @@ $(document).ready(function(){initNavTree('metadata__management_8h_source.html','
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  kMapType_Count</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structhermes_1_1_stats.html">   66</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_stats.html">Stats</a> {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  u32 recency;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  u32 frequency;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">enum class</span> ThresholdViolation {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  kMin,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  kMax</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> kIdListChunkSize = 10;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="structhermes_1_1_chunked_id_list.html">   73</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_chunked_id_list.html">ChunkedIdList</a> {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  u32 head_offset;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  u32 length;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  u32 capacity;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="structhermes_1_1_id_list.html">   79</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_id_list.html">IdList</a> {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  u32 head_offset;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  u32 length;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structhermes_1_1_violation_info.html">   71</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_violation_info.html">ViolationInfo</a> {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <a class="code" href="unionhermes_1_1_target_i_d.html">TargetID</a> target_id;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  ThresholdViolation violation;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">size_t</span> violation_size;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structhermes_1_1_stats.html">   77</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_stats.html">Stats</a> {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  u32 recency;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  u32 frequency;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> kIdListChunkSize = 10;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="structhermes_1_1_buffer_id_array.html">   84</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_buffer_id_array.html">BufferIdArray</a> {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <a class="code" href="unionhermes_1_1_buffer_i_d.html">BufferID</a> *ids;</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="structhermes_1_1_id_list.html">   84</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_id_list.html">IdList</a> {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  u32 head_offset;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  u32 length;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="structhermes_1_1_blob_info.html">   89</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_blob_info.html">BlobInfo</a> {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <a class="code" href="structhermes_1_1_stats.html">Stats</a> stats;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> lock;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  u32 last;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">bool</span> stop;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <a class="code" href="structhermes_1_1_blob_info.html">BlobInfo</a>() : last(0), stop(<span class="keyword">false</span>) {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    stats.recency = 0;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    stats.frequency = 0;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    lock.ticket.store(0);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    lock.serving.store(0);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <a class="code" href="structhermes_1_1_blob_info.html">BlobInfo</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="structhermes_1_1_blob_info.html">BlobInfo</a> &amp;other) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    stats = other.stats;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    lock.ticket.store(other.lock.ticket.load());</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    lock.serving.store(other.lock.serving.load());</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;};</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="structhermes_1_1_bucket_info.html">  111</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_bucket_info.html">BucketInfo</a> {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> next_free;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <a class="code" href="structhermes_1_1_chunked_id_list.html">ChunkedIdList</a> blobs;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  std::atomic&lt;int&gt; ref_count;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keywordtype">bool</span> active;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;};</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">static</span> constexpr <span class="keywordtype">int</span> kMaxTraitsPerVBucket = 8;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="structhermes_1_1_v_bucket_info.html">  120</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_v_bucket_info.html">VBucketInfo</a> {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> next_free;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <a class="code" href="structhermes_1_1_chunked_id_list.html">ChunkedIdList</a> blobs;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  std::atomic&lt;int&gt; ref_count;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  std::atomic&lt;int&gt; async_flush_count;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  TraitID traits[kMaxTraitsPerVBucket];</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keywordtype">bool</span> active;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;};</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="structhermes_1_1_system_view_state.html">  129</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_system_view_state.html">SystemViewState</a> {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  std::atomic&lt;u64&gt; bytes_available[kMaxDevices];</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keywordtype">int</span> num_devices;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;};</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html">  134</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> {</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="comment">// All offsets are relative to the beginning of the MDM</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  ptrdiff_t bucket_info_offset;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> first_free_bucket;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  ptrdiff_t vbucket_info_offset;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> first_free_vbucket;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  ptrdiff_t rpc_state_offset;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  ptrdiff_t host_names_offset;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  ptrdiff_t host_numbers_offset;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  ptrdiff_t system_view_state_offset;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  ptrdiff_t global_system_view_state_offset;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  ptrdiff_t id_heap_offset;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  ptrdiff_t map_heap_offset;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  ptrdiff_t bucket_map_offset;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  ptrdiff_t vbucket_map_offset;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  ptrdiff_t blob_id_map_offset;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  ptrdiff_t blob_info_map_offset;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  ptrdiff_t swap_filename_prefix_offset;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  ptrdiff_t swap_filename_suffix_offset;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <span class="comment">// TODO(chogan): @optimization Should the TicketMutexes here be reader/writer</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <span class="comment">// locks?</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92">  164</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92">bucket_mutex</a>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2">  167</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2">vbucket_mutex</a>;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#a92b6c199ce50c2c3cebf134071947ad2">  170</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#a92b6c199ce50c2c3cebf134071947ad2">bucket_map_mutex</a>;</div>
-<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#ad1b87dc2dbacbbf77fbb1c91ab13a788">  172</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#ad1b87dc2dbacbbf77fbb1c91ab13a788">vbucket_map_mutex</a>;</div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#a3bfcd6b5727d06bf5bd693a5c366b9ad">  174</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#a3bfcd6b5727d06bf5bd693a5c366b9ad">blob_id_map_mutex</a>;</div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#aa92d6b1ac07d02465aecc89ef5c78213">  176</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#aa92d6b1ac07d02465aecc89ef5c78213">blob_info_map_mutex</a>;</div>
-<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#a8baf9fdbfbee778df7f40d26189ae41c">  178</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#a8baf9fdbfbee778df7f40d26189ae41c">id_mutex</a>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="structhermes_1_1_buffer_id_array.html">   89</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_buffer_id_array.html">BufferIdArray</a> {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <a class="code" href="unionhermes_1_1_buffer_i_d.html">BufferID</a> *ids;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  u32 length;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="structhermes_1_1_blob_info.html">   94</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_blob_info.html">BlobInfo</a> {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <a class="code" href="structhermes_1_1_stats.html">Stats</a> stats;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> lock;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <a class="code" href="unionhermes_1_1_target_i_d.html">TargetID</a> effective_target;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  u32 last;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordtype">bool</span> stop;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <a class="code" href="structhermes_1_1_blob_info.html">BlobInfo</a>() : last(0), stop(<span class="keyword">false</span>) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    stats.recency = 0;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    stats.frequency = 0;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    lock.ticket.store(0);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    lock.serving.store(0);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    effective_target.<a class="code" href="unionhermes_1_1_target_i_d.html#af514498f4d6aea7792d89a8c60f8b999">as_int</a> = 0;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <a class="code" href="structhermes_1_1_blob_info.html">BlobInfo</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="structhermes_1_1_blob_info.html">BlobInfo</a> &amp;other) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    stats = other.stats;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    lock.ticket.store(other.lock.ticket.load());</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    lock.serving.store(other.lock.serving.load());</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    effective_target = other.effective_target;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    last = other.last;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    stop = other.stop;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;};</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="structhermes_1_1_bucket_info.html">  121</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_bucket_info.html">BucketInfo</a> {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> next_free;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <a class="code" href="structhermes_1_1_chunked_id_list.html">ChunkedIdList</a> blobs;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  std::atomic&lt;int&gt; ref_count;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordtype">bool</span> active;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;};</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword">static</span> constexpr <span class="keywordtype">int</span> kMaxTraitsPerVBucket = 8;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="structhermes_1_1_v_bucket_info.html">  130</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_v_bucket_info.html">VBucketInfo</a> {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> next_free;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <a class="code" href="structhermes_1_1_chunked_id_list.html">ChunkedIdList</a> blobs;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  std::atomic&lt;int&gt; ref_count;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  std::atomic&lt;int&gt; async_flush_count;</div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="structhermes_1_1_v_bucket_info.html#a4155c89ca04af63b97af2bcdcc9eb8ac">  136</a></span>&#160;  TraitID <a class="code" href="structhermes_1_1_v_bucket_info.html#a4155c89ca04af63b97af2bcdcc9eb8ac">traits</a>[kMaxTraitsPerVBucket];</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keywordtype">bool</span> active;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;};</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="structhermes_1_1_system_view_state.html">  140</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_system_view_state.html">SystemViewState</a> {</div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="structhermes_1_1_system_view_state.html#a448a6046ac7d3b05ef8468c253b4f216">  142</a></span>&#160;  u64 <a class="code" href="structhermes_1_1_system_view_state.html#a448a6046ac7d3b05ef8468c253b4f216">capacities</a>[kMaxDevices];</div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="structhermes_1_1_system_view_state.html#ab9859fb1b37b1d833fe087b5a736c32e">  144</a></span>&#160;  std::atomic&lt;u64&gt; <a class="code" href="structhermes_1_1_system_view_state.html#ab9859fb1b37b1d833fe087b5a736c32e">bytes_available</a>[kMaxDevices];</div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="structhermes_1_1_system_view_state.html#ac09c39304dc6765073aa8fada9826555">  147</a></span>&#160;  <a class="code" href="structhermes_1_1_thresholds.html">Thresholds</a> <a class="code" href="structhermes_1_1_system_view_state.html#ac09c39304dc6765073aa8fada9826555">bo_capacity_thresholds</a>[kMaxDevices];</div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="structhermes_1_1_system_view_state.html#a1e048fb07236cac24578dbd9f9847c5e">  149</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structhermes_1_1_system_view_state.html#a1e048fb07236cac24578dbd9f9847c5e">num_devices</a>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;};</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">// TODO(chogan):</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="structhermes_1_1_global_system_view_state.html">  167</a></span>&#160;<span class="comment"></span><span class="keyword">struct </span><a class="code" href="structhermes_1_1_global_system_view_state.html">GlobalSystemViewState</a> {</div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="structhermes_1_1_global_system_view_state.html#ae749e5178abb720bf0da460026ca0dfc">  169</a></span>&#160;  u64 <a class="code" href="structhermes_1_1_global_system_view_state.html#ae749e5178abb720bf0da460026ca0dfc">num_targets</a>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="structhermes_1_1_global_system_view_state.html#a3fd1f56ab7953b7dc82fd6018151449e">  171</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structhermes_1_1_global_system_view_state.html#a3fd1f56ab7953b7dc82fd6018151449e">num_devices</a>;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  u64 capacities[kMaxDevices];</div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="structhermes_1_1_global_system_view_state.html#a6a1669389d616566c8f9efbc903ae369">  174</a></span>&#160;  std::atomic&lt;u64&gt; *<a class="code" href="structhermes_1_1_global_system_view_state.html#a6a1669389d616566c8f9efbc903ae369">bytes_available</a>;</div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="structhermes_1_1_global_system_view_state.html#a270e9f046c930850f483bca5d3e14c31">  177</a></span>&#160;  <a class="code" href="structhermes_1_1_thresholds.html">Thresholds</a> <a class="code" href="structhermes_1_1_global_system_view_state.html#a270e9f046c930850f483bca5d3e14c31">bo_capacity_thresholds</a>[kMaxDevices];</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;};</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="keywordtype">size_t</span> map_seed;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <a class="code" href="structhermes_1_1_id_list.html">IdList</a> node_targets;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <a class="code" href="structhermes_1_1_id_list.html">IdList</a> neighborhood_targets;</div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html">  180</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <span class="comment">// All offsets are relative to the beginning of the MDM</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  ptrdiff_t bucket_info_offset;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> first_free_bucket;</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  u32 system_view_state_update_interval_ms;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  u32 global_system_view_state_node_id;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  u32 num_buckets;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  u32 max_buckets;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  u32 num_vbuckets;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  u32 max_vbuckets;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  std::atomic&lt;u32&gt; clock;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;};</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  ptrdiff_t vbucket_info_offset;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> first_free_vbucket;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  ptrdiff_t rpc_state_offset;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  ptrdiff_t host_names_offset;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  ptrdiff_t host_numbers_offset;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  ptrdiff_t system_view_state_offset;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  ptrdiff_t global_system_view_state_offset;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a>;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keywordtype">void</span> InitMetadataManager(<a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> *mdm, <a class="code" href="structhermes_1_1_arena.html">Arena</a> *arena, <a class="code" href="structhermes_1_1_config.html">Config</a> *config,</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                         <span class="keywordtype">int</span> node_id);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  ptrdiff_t id_heap_offset;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  ptrdiff_t map_heap_offset;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  ptrdiff_t bucket_map_offset;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  ptrdiff_t vbucket_map_offset;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  ptrdiff_t blob_id_map_offset;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  ptrdiff_t blob_info_map_offset;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="keywordtype">void</span> InitNeighborhoodTargets(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc);</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keywordtype">bool</span> DestroyBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                   <span class="keyword">const</span> <span class="keywordtype">char</span> *name, <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  ptrdiff_t swap_filename_prefix_offset;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  ptrdiff_t swap_filename_suffix_offset;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  <span class="comment">// TODO(chogan): @optimization Should the TicketMutexes here be reader/writer</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <span class="comment">// locks?</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92">  210</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92">bucket_mutex</a>;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  <a class="code" href="structhermes_1_1_rw_lock.html">RwLock</a> bucket_delete_lock;</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="keywordtype">bool</span> DestroyVBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                    <span class="keyword">const</span> <span class="keywordtype">char</span> *name, <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> vbucket_id);</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="keywordtype">void</span> DestroyBlobByName(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                       <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <span class="keyword">const</span> std::string &amp;blob_name);</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="keywordtype">void</span> RenameBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                <span class="keyword">const</span> std::string &amp;old_name, <span class="keyword">const</span> std::string &amp;new_name,</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id);</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="keywordtype">void</span> RenameBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> <span class="keywordtype">id</span>,</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                  <span class="keyword">const</span> std::string &amp;old_name, <span class="keyword">const</span> std::string &amp;new_name);</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keywordtype">bool</span> ContainsBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                  <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <span class="keyword">const</span> std::string &amp;blob_name);</div>
+<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2">  215</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2">vbucket_mutex</a>;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#a92b6c199ce50c2c3cebf134071947ad2">  218</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#a92b6c199ce50c2c3cebf134071947ad2">bucket_map_mutex</a>;</div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#ad1b87dc2dbacbbf77fbb1c91ab13a788">  220</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#ad1b87dc2dbacbbf77fbb1c91ab13a788">vbucket_map_mutex</a>;</div>
+<div class="line"><a name="l00222"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#a3bfcd6b5727d06bf5bd693a5c366b9ad">  222</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#a3bfcd6b5727d06bf5bd693a5c366b9ad">blob_id_map_mutex</a>;</div>
+<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#aa92d6b1ac07d02465aecc89ef5c78213">  224</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#aa92d6b1ac07d02465aecc89ef5c78213">blob_info_map_mutex</a>;</div>
+<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="structhermes_1_1_metadata_manager.html#a8baf9fdbfbee778df7f40d26189ae41c">  226</a></span>&#160;  <a class="code" href="structhermes_1_1_ticket_mutex.html">TicketMutex</a> <a class="code" href="structhermes_1_1_metadata_manager.html#a8baf9fdbfbee778df7f40d26189ae41c">id_mutex</a>;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  <span class="keywordtype">size_t</span> map_seed;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <a class="code" href="structhermes_1_1_id_list.html">IdList</a> node_targets;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  <a class="code" href="structhermes_1_1_id_list.html">IdList</a> neighborhood_targets;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  u32 system_view_state_update_interval_ms;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;  u32 global_system_view_state_node_id;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  u32 num_buckets;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  u32 max_buckets;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  u32 num_vbuckets;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  u32 max_vbuckets;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  std::atomic&lt;u32&gt; clock;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;};</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a>;</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<a class="code" href="structhermes_1_1_buffer_id_array.html">BufferIdArray</a> GetBufferIdsFromBlobId(<a class="code" href="structhermes_1_1_arena.html">Arena</a> *arena, <a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                                     <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id,</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                                     u32 **sizes);</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> GetBlobId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                 <span class="keyword">const</span> std::string &amp;name, <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id,</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                 <span class="keywordtype">bool</span> track_stats = <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;std::string GetBlobNameFromId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                              <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="keywordtype">bool</span> BlobIsInSwap(<a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> GetOrCreateBucketId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                             <span class="keyword">const</span> std::string &amp;name);</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> GetOrCreateVBucketId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                               <span class="keyword">const</span> std::string &amp;name);</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="keywordtype">void</span> AttachBlobToBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                        <span class="keyword">const</span> <span class="keywordtype">char</span> *blob_name, <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id,</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                        <span class="keyword">const</span> std::vector&lt;BufferID&gt; &amp;buffer_ids,</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                        <span class="keywordtype">bool</span> is_swap_blob = <span class="keyword">false</span>,</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;                        <span class="keywordtype">bool</span> called_from_buffer_organizer = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="keywordtype">void</span> DecrementRefcount(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                       <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;std::vector&lt;BufferID&gt; SwapBlobToVec(<a class="code" href="structhermes_1_1_swap_blob.html">SwapBlob</a> swap_blob);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<a class="code" href="structhermes_1_1_swap_blob.html">SwapBlob</a> VecToSwapBlob(std::vector&lt;BufferID&gt; &amp;vec);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="keywordtype">void</span> InitMetadataManager(<a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> *mdm, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="structhermes_1_1_arena.html">Arena</a> *arena,</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                         <a class="code" href="structhermes_1_1_config.html">Config</a> *config);</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="keywordtype">void</span> InitNeighborhoodTargets(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc);</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="keywordtype">bool</span> DestroyBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                   <span class="keyword">const</span> <span class="keywordtype">char</span> *name, <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id);</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="keywordtype">bool</span> DestroyVBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                    <span class="keyword">const</span> <span class="keywordtype">char</span> *name, <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> vbucket_id);</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="keywordtype">void</span> DestroyBlobByName(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                       <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <span class="keyword">const</span> std::string &amp;blob_name);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="keywordtype">void</span> RenameBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                <span class="keyword">const</span> std::string &amp;old_name, <span class="keyword">const</span> std::string &amp;new_name,</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id);</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="keywordtype">void</span> RenameBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> <span class="keywordtype">id</span>,</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                  <span class="keyword">const</span> std::string &amp;old_name, <span class="keyword">const</span> std::string &amp;new_name);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="keywordtype">bool</span> ContainsBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                  <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <span class="keyword">const</span> std::string &amp;blob_name);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<a class="code" href="structhermes_1_1_buffer_id_array.html">BufferIdArray</a> GetBufferIdsFromBlobId(<a class="code" href="structhermes_1_1_arena.html">Arena</a> *arena, <a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;                                     <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id,</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                                     u32 **sizes);</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> GetBlobId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                 <span class="keyword">const</span> std::string &amp;name, <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id,</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                 <span class="keywordtype">bool</span> track_stats = <span class="keyword">true</span>);</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<a class="code" href="structhermes_1_1_swap_blob.html">SwapBlob</a> IdArrayToSwapBlob(<a class="code" href="structhermes_1_1_buffer_id_array.html">BufferIdArray</a> ids);</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160; </div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="keywordtype">bool</span> IsBlobNameTooLong(<span class="keyword">const</span> std::string &amp;name);</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="keywordtype">bool</span> IsBucketNameTooLong(<span class="keyword">const</span> std::string &amp;name);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="keywordtype">bool</span> IsVBucketNameTooLong(<span class="keyword">const</span> std::string &amp;name);</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<a class="code" href="unionhermes_1_1_target_i_d.html">TargetID</a> FindTargetIdFromDeviceId(<span class="keyword">const</span> std::vector&lt;TargetID&gt; &amp;targets,</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                                  DeviceID device_id);</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;std::vector&lt;TargetID&gt; GetNeighborhoodTargets(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                                             <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;std::vector&lt;u64&gt; GetRemainingTargetCapacities(</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keyword">const</span> std::vector&lt;TargetID&gt; &amp;targets);</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;std::vector&lt;BlobID&gt; GetBlobIds(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                               <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id);</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;std::string GetBlobNameFromId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                              <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="keywordtype">bool</span> BlobIsInSwap(<a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> GetOrCreateBucketId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                             <span class="keyword">const</span> std::string &amp;name);</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> GetOrCreateVBucketId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                               <span class="keyword">const</span> std::string &amp;name);</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="keywordtype">void</span> AttachBlobToBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                        <span class="keyword">const</span> <span class="keywordtype">char</span> *blob_name, <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id,</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                        <span class="keyword">const</span> std::vector&lt;BufferID&gt; &amp;buffer_ids,</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                        <a class="code" href="unionhermes_1_1_target_i_d.html">TargetID</a> effective_target, <span class="keywordtype">bool</span> is_swap_blob = <span class="keyword">false</span>,</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                        <span class="keywordtype">bool</span> called_from_buffer_organizer = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160; </div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="keywordtype">void</span> DecrementRefcount(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                       <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;std::vector&lt;BufferID&gt; SwapBlobToVec(<a class="code" href="structhermes_1_1_swap_blob.html">SwapBlob</a> swap_blob);</div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> GetBucketId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                     <span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> GetBucketIdFromBlobId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                               <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="keywordtype">void</span> DecrementRefcount(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                       <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="keywordtype">bool</span> IsNullBucketId(<a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="keywordtype">bool</span> IsNullVBucketId(<a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="keywordtype">bool</span> IsNullBlobId(<a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="keywordtype">void</span> BeginGlobalTicketMutex(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc);</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keywordtype">void</span> EndGlobalTicketMutex(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc);</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="keywordtype">void</span> LocalBeginGlobalTicketMutex(<a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> *mdm);</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="keywordtype">void</span> LocalEndGlobalTicketMutex(<a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> *mdm);</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="keywordtype">void</span> AttachBlobToVBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                         <span class="keyword">const</span> <span class="keywordtype">char</span> *blob_name, <span class="keyword">const</span> <span class="keywordtype">char</span> *bucket_name,</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                         <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> vbucket_id);</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="keywordtype">void</span> RemoveBlobFromBucketInfo(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                              <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="keywordtype">void</span> RemoveBlobFromVBucketInfo(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                               <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> vbucket_id, <span class="keyword">const</span> <span class="keywordtype">char</span> *blob_name,</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;                               <span class="keyword">const</span> <span class="keywordtype">char</span> *bucket_name);</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;std::vector&lt;BlobID&gt; GetBlobsFromVBucketInfo(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;                                            <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;                                            <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> vbucket_id);</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160; </div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;std::string GetBucketNameById(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;                              <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="keywordtype">void</span> IncrementBlobStats(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;                        <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<a class="code" href="structhermes_1_1_swap_blob.html">SwapBlob</a> VecToSwapBlob(std::vector&lt;BufferID&gt; &amp;vec);</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<a class="code" href="structhermes_1_1_swap_blob.html">SwapBlob</a> IdArrayToSwapBlob(<a class="code" href="structhermes_1_1_buffer_id_array.html">BufferIdArray</a> ids);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="keywordtype">bool</span> IsBlobNameTooLong(<span class="keyword">const</span> std::string &amp;name);</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="keywordtype">bool</span> IsBucketNameTooLong(<span class="keyword">const</span> std::string &amp;name);</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="keywordtype">bool</span> IsVBucketNameTooLong(<span class="keyword">const</span> std::string &amp;name);</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<a class="code" href="unionhermes_1_1_target_i_d.html">TargetID</a> FindTargetIdFromDeviceId(<span class="keyword">const</span> std::vector&lt;TargetID&gt; &amp;targets,</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;                                  DeviceID device_id);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;std::vector&lt;TargetID&gt; GetNeighborhoodTargets(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;                                             <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc);</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;std::vector&lt;u64&gt; GetRemainingTargetCapacities(</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keyword">const</span> std::vector&lt;TargetID&gt; &amp;targets);</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;std::vector&lt;BlobID&gt; GetBlobIds(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;                               <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id);</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> GetBucketId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                     <span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> GetBucketIdFromBlobId(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                               <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160; </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="keywordtype">void</span> DecrementRefcount(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;                       <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="keywordtype">bool</span> IsNullBucketId(<a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160; </div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="keywordtype">bool</span> IsNullVBucketId(<a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160; </div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="keywordtype">bool</span> IsNullBlobId(<a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160; </div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="keywordtype">void</span> BeginGlobalTicketMutex(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc);</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="keywordtype">void</span> EndGlobalTicketMutex(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc);</div>
 <div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160; </div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;<span class="keywordtype">void</span> LocalIncrementBlobStats(<a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> *mdm, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;<span class="keywordtype">void</span> LocalBeginGlobalTicketMutex(<a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> *mdm);</div>
 <div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; </div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="keywordtype">bool</span> LockBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="keywordtype">void</span> LocalEndGlobalTicketMutex(<a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> *mdm);</div>
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160; </div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="keywordtype">bool</span> UnlockBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160; </div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="keywordtype">bool</span> LocalLockBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="keywordtype">bool</span> LocalUnlockBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160; </div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<a class="code" href="structhermes_1_1_system_view_state.html">SystemViewState</a> *GetLocalSystemViewState(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context);</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="keywordtype">void</span> AttachBlobToVBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;                         <span class="keyword">const</span> <span class="keywordtype">char</span> *blob_name, <span class="keyword">const</span> <span class="keywordtype">char</span> *bucket_name,</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;                         <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> vbucket_id);</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160; </div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="keywordtype">void</span> RemoveBlobFromBucketInfo(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;                              <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160; </div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="keywordtype">void</span> RemoveBlobFromVBucketInfo(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;                               <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> vbucket_id, <span class="keyword">const</span> <span class="keywordtype">char</span> *blob_name,</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                               <span class="keyword">const</span> <span class="keywordtype">char</span> *bucket_name);</div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160; </div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="keywordtype">void</span> LocalReplaceBlobIdInBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                                <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> old_blob_id,</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                                <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> new_blob_id);</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;<span class="keywordtype">void</span> ReplaceBlobIdInBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;                           <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> old_blob_id,</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;                           <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> new_blob_id);</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160; </div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="keywordtype">void</span> MakeShmemString(<a class="code" href="structhermes_1_1_shmem_string.html">ShmemString</a> *sms, u8 *memory, <span class="keyword">const</span> std::string &amp;val);</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;std::string GetShmemString(<a class="code" href="structhermes_1_1_shmem_string.html">ShmemString</a> *sms);</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;}  <span class="comment">// namespace hermes</span></div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;std::vector&lt;BlobID&gt; GetBlobsFromVBucketInfo(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                                            <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                                            <a class="code" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> vbucket_id);</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160; </div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;std::string GetBucketNameById(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;                              <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;<span class="keywordtype">void</span> IncrementBlobStats(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;                        <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160; </div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;<span class="keywordtype">void</span> LocalIncrementBlobStats(<a class="code" href="structhermes_1_1_metadata_manager.html">MetadataManager</a> *mdm, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160; </div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="keywordtype">bool</span> LockBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160; </div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="keywordtype">bool</span> UnlockBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160; </div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="keywordtype">bool</span> LocalLockBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160; </div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;<span class="preprocessor">#endif  // HERMES_METADATA_MANAGEMENT_H_</span></div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;<span class="keywordtype">bool</span> LocalUnlockBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id);</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<a class="code" href="structhermes_1_1_system_view_state.html">SystemViewState</a> *GetLocalSystemViewState(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context);</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160; </div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="keywordtype">void</span> LocalReplaceBlobIdInBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;                                <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> old_blob_id,</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;                                <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> new_blob_id);</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;<span class="keywordtype">void</span> ReplaceBlobIdInBucket(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;                           <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> old_blob_id,</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;                           <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> new_blob_id);</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160; </div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;<span class="keywordtype">void</span> MakeShmemString(<a class="code" href="structhermes_1_1_shmem_string.html">ShmemString</a> *sms, u8 *memory, <span class="keyword">const</span> std::string &amp;val);</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160; </div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;std::string GetShmemString(<a class="code" href="structhermes_1_1_shmem_string.html">ShmemString</a> *sms);</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160; </div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;}  <span class="comment">// namespace hermes</span></div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160; </div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="preprocessor">#endif  // HERMES_METADATA_MANAGEMENT_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructhermes_1_1_arena_html"><div class="ttname"><a href="structhermes_1_1_arena.html">hermes::Arena</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:68</div></div>
+<div class="ttc" id="astructhermes_1_1_v_bucket_info_html_a4155c89ca04af63b97af2bcdcc9eb8ac"><div class="ttname"><a href="structhermes_1_1_v_bucket_info.html#a4155c89ca04af63b97af2bcdcc9eb8ac">hermes::VBucketInfo::traits</a></div><div class="ttdeci">TraitID traits[kMaxTraitsPerVBucket]</div><div class="ttdef"><b>Definition:</b> metadata_management.h:136</div></div>
+<div class="ttc" id="astructhermes_1_1_arena_html"><div class="ttname"><a href="structhermes_1_1_arena.html">hermes::Arena</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:74</div></div>
+<div class="ttc" id="astructhermes_1_1_violation_info_html"><div class="ttname"><a href="structhermes_1_1_violation_info.html">hermes::ViolationInfo</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:71</div></div>
 <div class="ttc" id="amemory__management_8h_html"><div class="ttname"><a href="memory__management_8h.html">memory_management.h</a></div></div>
 <div class="ttc" id="astructhermes_1_1_rpc_context_html"><div class="ttname"><a href="structhermes_1_1_rpc_context.html">hermes::RpcContext</a></div><div class="ttdef"><b>Definition:</b> rpc.h:37</div></div>
-<div class="ttc" id="astructhermes_1_1_metadata_manager_html_a3bfcd6b5727d06bf5bd693a5c366b9ad"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#a3bfcd6b5727d06bf5bd693a5c366b9ad">hermes::MetadataManager::blob_id_map_mutex</a></div><div class="ttdeci">TicketMutex blob_id_map_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:174</div></div>
+<div class="ttc" id="astructhermes_1_1_global_system_view_state_html"><div class="ttname"><a href="structhermes_1_1_global_system_view_state.html">hermes::GlobalSystemViewState</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:167</div></div>
+<div class="ttc" id="astructhermes_1_1_metadata_manager_html_a3bfcd6b5727d06bf5bd693a5c366b9ad"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#a3bfcd6b5727d06bf5bd693a5c366b9ad">hermes::MetadataManager::blob_id_map_mutex</a></div><div class="ttdeci">TicketMutex blob_id_map_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:222</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a3a16d19dbc6aa057e14961538cd3d933"><div class="ttname"><a href="buffer__pool_8cc.html#a3a16d19dbc6aa057e14961538cd3d933">hermes::GetBufferPoolFromContext</a></div><div class="ttdeci">BufferPool * GetBufferPoolFromContext(SharedMemoryContext *context)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:133</div></div>
+<div class="ttc" id="astructhermes_1_1_rw_lock_html"><div class="ttname"><a href="structhermes_1_1_rw_lock.html">hermes::RwLock</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:46</div></div>
+<div class="ttc" id="astructhermes_1_1_system_view_state_html_ac09c39304dc6765073aa8fada9826555"><div class="ttname"><a href="structhermes_1_1_system_view_state.html#ac09c39304dc6765073aa8fada9826555">hermes::SystemViewState::bo_capacity_thresholds</a></div><div class="ttdeci">Thresholds bo_capacity_thresholds[kMaxDevices]</div><div class="ttdef"><b>Definition:</b> metadata_management.h:147</div></div>
+<div class="ttc" id="astructhermes_1_1_global_system_view_state_html_a270e9f046c930850f483bca5d3e14c31"><div class="ttname"><a href="structhermes_1_1_global_system_view_state.html#a270e9f046c930850f483bca5d3e14c31">hermes::GlobalSystemViewState::bo_capacity_thresholds</a></div><div class="ttdeci">Thresholds bo_capacity_thresholds[kMaxDevices]</div><div class="ttdef"><b>Definition:</b> metadata_management.h:177</div></div>
 <div class="ttc" id="abuffer__pool__internal_8h_html"><div class="ttname"><a href="buffer__pool__internal_8h.html">buffer_pool_internal.h</a></div></div>
-<div class="ttc" id="astructhermes_1_1_buffer_id_array_html"><div class="ttname"><a href="structhermes_1_1_buffer_id_array.html">hermes::BufferIdArray</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:84</div></div>
+<div class="ttc" id="astructhermes_1_1_buffer_id_array_html"><div class="ttname"><a href="structhermes_1_1_buffer_id_array.html">hermes::BufferIdArray</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:89</div></div>
 <div class="ttc" id="astructhermes_1_1_shmem_string_html"><div class="ttname"><a href="structhermes_1_1_shmem_string.html">hermes::ShmemString</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:45</div></div>
-<div class="ttc" id="aunionhermes_1_1_bucket_i_d_html"><div class="ttname"><a href="unionhermes_1_1_bucket_i_d.html">hermes::BucketID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:253</div></div>
+<div class="ttc" id="aunionhermes_1_1_bucket_i_d_html"><div class="ttname"><a href="unionhermes_1_1_bucket_i_d.html">hermes::BucketID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:273</div></div>
+<div class="ttc" id="astructhermes_1_1_global_system_view_state_html_ae749e5178abb720bf0da460026ca0dfc"><div class="ttname"><a href="structhermes_1_1_global_system_view_state.html#ae749e5178abb720bf0da460026ca0dfc">hermes::GlobalSystemViewState::num_targets</a></div><div class="ttdeci">u64 num_targets</div><div class="ttdef"><b>Definition:</b> metadata_management.h:169</div></div>
 <div class="ttc" id="abuffer__pool_8h_html"><div class="ttname"><a href="buffer__pool_8h.html">buffer_pool.h</a></div></div>
-<div class="ttc" id="astructhermes_1_1_id_list_html"><div class="ttname"><a href="structhermes_1_1_id_list.html">hermes::IdList</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:79</div></div>
-<div class="ttc" id="astructhermes_1_1_chunked_id_list_html"><div class="ttname"><a href="structhermes_1_1_chunked_id_list.html">hermes::ChunkedIdList</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:73</div></div>
-<div class="ttc" id="astructhermes_1_1_metadata_manager_html_a8baf9fdbfbee778df7f40d26189ae41c"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#a8baf9fdbfbee778df7f40d26189ae41c">hermes::MetadataManager::id_mutex</a></div><div class="ttdeci">TicketMutex id_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:178</div></div>
+<div class="ttc" id="astructhermes_1_1_id_list_html"><div class="ttname"><a href="structhermes_1_1_id_list.html">hermes::IdList</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:84</div></div>
+<div class="ttc" id="astructhermes_1_1_chunked_id_list_html"><div class="ttname"><a href="structhermes_1_1_chunked_id_list.html">hermes::ChunkedIdList</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:46</div></div>
+<div class="ttc" id="astructhermes_1_1_metadata_manager_html_a8baf9fdbfbee778df7f40d26189ae41c"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#a8baf9fdbfbee778df7f40d26189ae41c">hermes::MetadataManager::id_mutex</a></div><div class="ttdeci">TicketMutex id_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:226</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a4fdaa605948d7982a2b0e046c452f84f"><div class="ttname"><a href="buffer__pool_8cc.html#a4fdaa605948d7982a2b0e046c452f84f">hermes::ReleaseBuffers</a></div><div class="ttdeci">void ReleaseBuffers(SharedMemoryContext *context, RpcContext *rpc, const std::vector&lt; BufferID &gt; &amp;buffer_ids)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:531</div></div>
-<div class="ttc" id="astructhermes_1_1_system_view_state_html"><div class="ttname"><a href="structhermes_1_1_system_view_state.html">hermes::SystemViewState</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:129</div></div>
-<div class="ttc" id="aunionhermes_1_1_bucket_i_d_html_a8e781d003afe8f8afa1ff031d72bf326"><div class="ttname"><a href="unionhermes_1_1_bucket_i_d.html#a8e781d003afe8f8afa1ff031d72bf326">hermes::BucketID::as_int</a></div><div class="ttdeci">u64 as_int</div><div class="ttdef"><b>Definition:</b> hermes_types.h:264</div></div>
-<div class="ttc" id="astructhermes_1_1_shared_memory_context_html"><div class="ttname"><a href="structhermes_1_1_shared_memory_context.html">hermes::SharedMemoryContext</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:252</div></div>
-<div class="ttc" id="aunionhermes_1_1_v_bucket_i_d_html_abc9943d77a9d3eea9a01bf60084c4f6b"><div class="ttname"><a href="unionhermes_1_1_v_bucket_i_d.html#abc9943d77a9d3eea9a01bf60084c4f6b">hermes::VBucketID::as_int</a></div><div class="ttdeci">u64 as_int</div><div class="ttdef"><b>Definition:</b> hermes_types.h:284</div></div>
+<div class="ttc" id="astructhermes_1_1_system_view_state_html_a448a6046ac7d3b05ef8468c253b4f216"><div class="ttname"><a href="structhermes_1_1_system_view_state.html#a448a6046ac7d3b05ef8468c253b4f216">hermes::SystemViewState::capacities</a></div><div class="ttdeci">u64 capacities[kMaxDevices]</div><div class="ttdef"><b>Definition:</b> metadata_management.h:142</div></div>
+<div class="ttc" id="astructhermes_1_1_system_view_state_html"><div class="ttname"><a href="structhermes_1_1_system_view_state.html">hermes::SystemViewState</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:140</div></div>
+<div class="ttc" id="aunionhermes_1_1_bucket_i_d_html_a8e781d003afe8f8afa1ff031d72bf326"><div class="ttname"><a href="unionhermes_1_1_bucket_i_d.html#a8e781d003afe8f8afa1ff031d72bf326">hermes::BucketID::as_int</a></div><div class="ttdeci">u64 as_int</div><div class="ttdef"><b>Definition:</b> hermes_types.h:284</div></div>
+<div class="ttc" id="astructhermes_1_1_shared_memory_context_html"><div class="ttname"><a href="structhermes_1_1_shared_memory_context.html">hermes::SharedMemoryContext</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:254</div></div>
+<div class="ttc" id="aunionhermes_1_1_v_bucket_i_d_html_abc9943d77a9d3eea9a01bf60084c4f6b"><div class="ttname"><a href="unionhermes_1_1_v_bucket_i_d.html#abc9943d77a9d3eea9a01bf60084c4f6b">hermes::VBucketID::as_int</a></div><div class="ttdeci">u64 as_int</div><div class="ttdef"><b>Definition:</b> hermes_types.h:304</div></div>
 <div class="ttc" id="astructhermes_1_1_ticket_mutex_html"><div class="ttname"><a href="structhermes_1_1_ticket_mutex.html">hermes::TicketMutex</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:36</div></div>
-<div class="ttc" id="astructhermes_1_1_metadata_manager_html_a92b6c199ce50c2c3cebf134071947ad2"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#a92b6c199ce50c2c3cebf134071947ad2">hermes::MetadataManager::bucket_map_mutex</a></div><div class="ttdeci">TicketMutex bucket_map_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:170</div></div>
-<div class="ttc" id="astructhermes_1_1_swap_blob_html"><div class="ttname"><a href="structhermes_1_1_swap_blob.html">hermes::SwapBlob</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:412</div></div>
-<div class="ttc" id="astructhermes_1_1_metadata_manager_html_ad1b87dc2dbacbbf77fbb1c91ab13a788"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#ad1b87dc2dbacbbf77fbb1c91ab13a788">hermes::MetadataManager::vbucket_map_mutex</a></div><div class="ttdeci">TicketMutex vbucket_map_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:172</div></div>
-<div class="ttc" id="astructhermes_1_1_metadata_manager_html_aa92d6b1ac07d02465aecc89ef5c78213"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#aa92d6b1ac07d02465aecc89ef5c78213">hermes::MetadataManager::blob_info_map_mutex</a></div><div class="ttdeci">TicketMutex blob_info_map_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:176</div></div>
-<div class="ttc" id="aunionhermes_1_1_buffer_i_d_html"><div class="ttname"><a href="unionhermes_1_1_buffer_i_d.html">hermes::BufferID</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:88</div></div>
-<div class="ttc" id="aunionhermes_1_1_v_bucket_i_d_html"><div class="ttname"><a href="unionhermes_1_1_v_bucket_i_d.html">hermes::VBucketID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:273</div></div>
-<div class="ttc" id="aunionhermes_1_1_blob_i_d_html"><div class="ttname"><a href="unionhermes_1_1_blob_i_d.html">hermes::BlobID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:287</div></div>
+<div class="ttc" id="astructhermes_1_1_metadata_manager_html_a92b6c199ce50c2c3cebf134071947ad2"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#a92b6c199ce50c2c3cebf134071947ad2">hermes::MetadataManager::bucket_map_mutex</a></div><div class="ttdeci">TicketMutex bucket_map_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:218</div></div>
+<div class="ttc" id="astructhermes_1_1_swap_blob_html"><div class="ttname"><a href="structhermes_1_1_swap_blob.html">hermes::SwapBlob</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:414</div></div>
+<div class="ttc" id="astructhermes_1_1_metadata_manager_html_ad1b87dc2dbacbbf77fbb1c91ab13a788"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#ad1b87dc2dbacbbf77fbb1c91ab13a788">hermes::MetadataManager::vbucket_map_mutex</a></div><div class="ttdeci">TicketMutex vbucket_map_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:220</div></div>
+<div class="ttc" id="astructhermes_1_1_metadata_manager_html_aa92d6b1ac07d02465aecc89ef5c78213"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#aa92d6b1ac07d02465aecc89ef5c78213">hermes::MetadataManager::blob_info_map_mutex</a></div><div class="ttdeci">TicketMutex blob_info_map_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:224</div></div>
+<div class="ttc" id="aunionhermes_1_1_buffer_i_d_html"><div class="ttname"><a href="unionhermes_1_1_buffer_i_d.html">hermes::BufferID</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:90</div></div>
+<div class="ttc" id="aunionhermes_1_1_v_bucket_i_d_html"><div class="ttname"><a href="unionhermes_1_1_v_bucket_i_d.html">hermes::VBucketID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:293</div></div>
+<div class="ttc" id="astructhermes_1_1_system_view_state_html_ab9859fb1b37b1d833fe087b5a736c32e"><div class="ttname"><a href="structhermes_1_1_system_view_state.html#ab9859fb1b37b1d833fe087b5a736c32e">hermes::SystemViewState::bytes_available</a></div><div class="ttdeci">std::atomic&lt; u64 &gt; bytes_available[kMaxDevices]</div><div class="ttdef"><b>Definition:</b> metadata_management.h:144</div></div>
+<div class="ttc" id="aunionhermes_1_1_blob_i_d_html"><div class="ttname"><a href="unionhermes_1_1_blob_i_d.html">hermes::BlobID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:307</div></div>
 <div class="ttc" id="astructhermes_1_1_shmem_string_html_a49536f8d0b1e75a1e23362bdf62bade8"><div class="ttname"><a href="structhermes_1_1_shmem_string.html#a49536f8d0b1e75a1e23362bdf62bade8">hermes::ShmemString::size</a></div><div class="ttdeci">u32 size</div><div class="ttdef"><b>Definition:</b> metadata_management.h:49</div></div>
-<div class="ttc" id="aunionhermes_1_1_target_i_d_html"><div class="ttname"><a href="unionhermes_1_1_target_i_d.html">hermes::TargetID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:124</div></div>
-<div class="ttc" id="astructhermes_1_1_blob_info_html"><div class="ttname"><a href="structhermes_1_1_blob_info.html">hermes::BlobInfo</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:89</div></div>
-<div class="ttc" id="astructhermes_1_1_stats_html"><div class="ttname"><a href="structhermes_1_1_stats.html">hermes::Stats</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:66</div></div>
-<div class="ttc" id="astructhermes_1_1_bucket_info_html"><div class="ttname"><a href="structhermes_1_1_bucket_info.html">hermes::BucketInfo</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:111</div></div>
-<div class="ttc" id="astructhermes_1_1_metadata_manager_html_adf620aa8b1533f943a4fdfba19dab1b2"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2">hermes::MetadataManager::vbucket_mutex</a></div><div class="ttdeci">TicketMutex vbucket_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:167</div></div>
-<div class="ttc" id="astructhermes_1_1_v_bucket_info_html"><div class="ttname"><a href="structhermes_1_1_v_bucket_info.html">hermes::VBucketInfo</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:120</div></div>
-<div class="ttc" id="astructhermes_1_1_metadata_manager_html_a15fa4432060507a039f4684ca4172d92"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92">hermes::MetadataManager::bucket_mutex</a></div><div class="ttdeci">TicketMutex bucket_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:164</div></div>
-<div class="ttc" id="astructhermes_1_1_metadata_manager_html"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html">hermes::MetadataManager</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:134</div></div>
+<div class="ttc" id="aunionhermes_1_1_target_i_d_html_af514498f4d6aea7792d89a8c60f8b999"><div class="ttname"><a href="unionhermes_1_1_target_i_d.html#af514498f4d6aea7792d89a8c60f8b999">hermes::TargetID::as_int</a></div><div class="ttdeci">u64 as_int</div><div class="ttdef"><b>Definition:</b> hermes_types.h:150</div></div>
+<div class="ttc" id="aunionhermes_1_1_target_i_d_html"><div class="ttname"><a href="unionhermes_1_1_target_i_d.html">hermes::TargetID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:135</div></div>
+<div class="ttc" id="astructhermes_1_1_global_system_view_state_html_a6a1669389d616566c8f9efbc903ae369"><div class="ttname"><a href="structhermes_1_1_global_system_view_state.html#a6a1669389d616566c8f9efbc903ae369">hermes::GlobalSystemViewState::bytes_available</a></div><div class="ttdeci">std::atomic&lt; u64 &gt; * bytes_available</div><div class="ttdef"><b>Definition:</b> metadata_management.h:174</div></div>
+<div class="ttc" id="astructhermes_1_1_blob_info_html"><div class="ttname"><a href="structhermes_1_1_blob_info.html">hermes::BlobInfo</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:94</div></div>
+<div class="ttc" id="astructhermes_1_1_stats_html"><div class="ttname"><a href="structhermes_1_1_stats.html">hermes::Stats</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:77</div></div>
+<div class="ttc" id="astructhermes_1_1_system_view_state_html_a1e048fb07236cac24578dbd9f9847c5e"><div class="ttname"><a href="structhermes_1_1_system_view_state.html#a1e048fb07236cac24578dbd9f9847c5e">hermes::SystemViewState::num_devices</a></div><div class="ttdeci">int num_devices</div><div class="ttdef"><b>Definition:</b> metadata_management.h:149</div></div>
+<div class="ttc" id="astructhermes_1_1_bucket_info_html"><div class="ttname"><a href="structhermes_1_1_bucket_info.html">hermes::BucketInfo</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:121</div></div>
+<div class="ttc" id="astructhermes_1_1_global_system_view_state_html_a3fd1f56ab7953b7dc82fd6018151449e"><div class="ttname"><a href="structhermes_1_1_global_system_view_state.html#a3fd1f56ab7953b7dc82fd6018151449e">hermes::GlobalSystemViewState::num_devices</a></div><div class="ttdeci">int num_devices</div><div class="ttdef"><b>Definition:</b> metadata_management.h:171</div></div>
+<div class="ttc" id="astructhermes_1_1_metadata_manager_html_adf620aa8b1533f943a4fdfba19dab1b2"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2">hermes::MetadataManager::vbucket_mutex</a></div><div class="ttdeci">TicketMutex vbucket_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:215</div></div>
+<div class="ttc" id="astructhermes_1_1_v_bucket_info_html"><div class="ttname"><a href="structhermes_1_1_v_bucket_info.html">hermes::VBucketInfo</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:130</div></div>
+<div class="ttc" id="astructhermes_1_1_metadata_manager_html_a15fa4432060507a039f4684ca4172d92"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92">hermes::MetadataManager::bucket_mutex</a></div><div class="ttdeci">TicketMutex bucket_mutex</div><div class="ttdef"><b>Definition:</b> metadata_management.h:210</div></div>
+<div class="ttc" id="astructhermes_1_1_metadata_manager_html"><div class="ttname"><a href="structhermes_1_1_metadata_manager.html">hermes::MetadataManager</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:180</div></div>
 <div class="ttc" id="astructhermes_1_1_shmem_string_html_a0196d57c69696a5a7d350a396b608363"><div class="ttname"><a href="structhermes_1_1_shmem_string.html#a0196d57c69696a5a7d350a396b608363">hermes::ShmemString::offset</a></div><div class="ttdeci">u32 offset</div><div class="ttdef"><b>Definition:</b> metadata_management.h:47</div></div>
-<div class="ttc" id="astructhermes_1_1_config_html"><div class="ttname"><a href="structhermes_1_1_config.html">hermes::Config</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:172</div></div>
+<div class="ttc" id="astructhermes_1_1_thresholds_html"><div class="ttname"><a href="structhermes_1_1_thresholds.html">hermes::Thresholds</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:182</div></div>
+<div class="ttc" id="astructhermes_1_1_config_html"><div class="ttname"><a href="structhermes_1_1_config.html">hermes::Config</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:190</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

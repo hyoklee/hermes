@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.7.0-beta</span>
+   &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -92,6 +92,15 @@ $(document).ready(function(){initNavTree('structhermes_1_1_config.html',''); ini
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="hermes__types_8h_source.html">hermes_types.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for hermes::Config:</div>
+<div class="dyncontent">
+<div class="center"><img src="structhermes_1_1_config__coll__graph.png" border="0" usemap="#hermes_1_1_config_coll__map" alt="Collaboration graph"/></div>
+<map name="hermes_1_1_config_coll__map" id="hermes_1_1_config_coll__map">
+<area shape="rect" title=" " alt="" coords="21,95,141,121"/>
+<area shape="rect" href="structhermes_1_1_thresholds.html" title=" " alt="" coords="5,5,156,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -153,6 +162,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a68111ffd2be14d48aa83478d437ecb9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3d93544ed949e0256fe03131ec8831c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_config.html#ae3d93544ed949e0256fe03131ec8831c">default_rr_split</a></td></tr>
 <tr class="separator:ae3d93544ed949e0256fe03131ec8831c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23ac3652efd83091f820405b9edc7e01"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhermes_1_1_thresholds.html">Thresholds</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_config.html#a23ac3652efd83091f820405b9edc7e01">bo_capacity_thresholds</a> [kMaxDevices]</td></tr>
+<tr class="separator:a23ac3652efd83091f820405b9edc7e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8be1aaa735d468b1df3041a8c9367ed9"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_config.html#a8be1aaa735d468b1df3041a8c9367ed9">buffer_pool_shmem_name</a> [kMaxBufferPoolShmemNameLength]</td></tr>
 <tr class="separator:a8be1aaa735d468b1df3041a8c9367ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -201,6 +212,21 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The block sizes of each <a class="el" href="structhermes_1_1_device.html">Device</a> </p>
+
+</div>
+</div>
+<a id="a23ac3652efd83091f820405b9edc7e01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23ac3652efd83091f820405b9edc7e01">&#9670;&nbsp;</a></span>bo_capacity_thresholds</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhermes_1_1_thresholds.html">Thresholds</a> hermes::Config::bo_capacity_thresholds[kMaxDevices]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The min and max capacity threshold in MiB for each device at which the <a class="el" href="structhermes_1_1_buffer_organizer.html">BufferOrganizer</a> will trigger. </p>
 
 </div>
 </div>

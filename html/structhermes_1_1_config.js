@@ -3,6 +3,7 @@ var structhermes_1_1_config =
     [ "arena_percentages", "structhermes_1_1_config.html#a5fc3ed59ffae768749fabce3351a4bb4", null ],
     [ "bandwidths", "structhermes_1_1_config.html#afa952d94dcbfc37afb714e754585342f", null ],
     [ "block_sizes", "structhermes_1_1_config.html#a7a19d3289477423ab62958bc56f9b535", null ],
+    [ "bo_capacity_thresholds", "structhermes_1_1_config.html#a23ac3652efd83091f820405b9edc7e01", null ],
     [ "bo_num_threads", "structhermes_1_1_config.html#a9fb4ccb10ce4dd4e3a4887dbb41b61ea", null ],
     [ "buffer_organizer_port", "structhermes_1_1_config.html#a99c1ce065340327294612c9fc80e8453", null ],
     [ "buffer_pool_shmem_name", "structhermes_1_1_config.html#a8be1aaa735d468b1df3041a8c9367ed9", null ],

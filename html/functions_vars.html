@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.7.0-beta</span>
+   &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -160,6 +160,11 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>bo
 : <a class="el" href="structhermes_1_1_shared_memory_context.html#a208255f7280483907b22916106abb0e4">hermes::SharedMemoryContext</a>
 </li>
+<li>bo_capacity_thresholds
+: <a class="el" href="structhermes_1_1_config.html#a23ac3652efd83091f820405b9edc7e01">hermes::Config</a>
+, <a class="el" href="structhermes_1_1_global_system_view_state.html#a270e9f046c930850f483bca5d3e14c31">hermes::GlobalSystemViewState</a>
+, <a class="el" href="structhermes_1_1_system_view_state.html#ac09c39304dc6765073aa8fada9826555">hermes::SystemViewState</a>
+</li>
 <li>bo_num_threads
 : <a class="el" href="structhermes_1_1_config.html#a9fb4ccb10ce4dd4e3a4887dbb41b61ea">hermes::Config</a>
 </li>
@@ -190,12 +195,17 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>buffers_available_offsets
 : <a class="el" href="structhermes_1_1_buffer_pool.html#ad5a9de4b6c9eaa049ac7d10aee570e1c">hermes::BufferPool</a>
 </li>
+<li>bytes_available
+: <a class="el" href="structhermes_1_1_global_system_view_state.html#a6a1669389d616566c8f9efbc903ae369">hermes::GlobalSystemViewState</a>
+, <a class="el" href="structhermes_1_1_system_view_state.html#ab9859fb1b37b1d833fe087b5a736c32e">hermes::SystemViewState</a>
+</li>
 </ul>
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>capacities
 : <a class="el" href="structhermes_1_1_config.html#abfd5eff09385a7ac6bb537ac15f0861a">hermes::Config</a>
+, <a class="el" href="structhermes_1_1_system_view_state.html#a448a6046ac7d3b05ef8468c253b4f216">hermes::SystemViewState</a>
 </li>
 <li>capacity
 : <a class="el" href="structhermes_1_1_arena.html#a6793b3b25e00ea97866add6170bca6e3">hermes::Arena</a>
@@ -203,7 +213,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 , <a class="el" href="structhermes_1_1_target.html#a7de90e529e6100402251c9440248509a">hermes::Target</a>
 </li>
 <li>conflict_traits
-: <a class="el" href="structhermes_1_1api_1_1_trait.html#a71c7b87dafd7e024fbafba7928c20602">hermes::api::Trait</a>
+: <a class="el" href="structhermes_1_1api_1_1_trait.html#aea0060d306735bf86e5924932fb3301b">hermes::api::Trait</a>
 </li>
 <li>ctx_
 : <a class="el" href="classhermes_1_1api_1_1_bucket.html#ab4672afc313bb81fdc71189d10f4b29f">hermes::api::Bucket</a>
@@ -383,9 +393,6 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>latency_ns
 : <a class="el" href="structhermes_1_1_device.html#a436057d76f6e0c415e60d6dfa9950931">hermes::Device</a>
 </li>
-<li>local_blob
-: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a3de1bb7252962e190e412c206c01593e">hermes::api::VBucket</a>
-</li>
 <li>locked
 : <a class="el" href="structhermes_1_1_buffer_header.html#a25cd12581305b74a0d4164e98650e5a0">hermes::BufferHeader</a>
 </li>
@@ -444,9 +451,14 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 <li>num_devices
 : <a class="el" href="structhermes_1_1_buffer_pool.html#a3a8573cd2348aa2b39d4a678e22eca11">hermes::BufferPool</a>
 , <a class="el" href="structhermes_1_1_config.html#a84f4ed233fb630c7e3fb844f5491d040">hermes::Config</a>
+, <a class="el" href="structhermes_1_1_global_system_view_state.html#a3fd1f56ab7953b7dc82fd6018151449e">hermes::GlobalSystemViewState</a>
+, <a class="el" href="structhermes_1_1_system_view_state.html#a1e048fb07236cac24578dbd9f9847c5e">hermes::SystemViewState</a>
 </li>
 <li>num_headers
 : <a class="el" href="structhermes_1_1_buffer_pool.html#aad9ef89dd11da05ed9c543898f8ee52e">hermes::BufferPool</a>
+</li>
+<li>num_host_numbers
+: <a class="el" href="structhermes_1_1_rpc_context.html#abae8ef8bc4fb69600593bcaaa42a9ee3">hermes::RpcContext</a>
 </li>
 <li>num_nodes
 : <a class="el" href="structhermes_1_1_communication_context.html#ae731641f4776f27ebf22bcfb6e812fa5">hermes::CommunicationContext</a>
@@ -457,6 +469,7 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>num_targets
 : <a class="el" href="structhermes_1_1_config.html#a512abea6d6878bf2335a0e07ac6b5bd7">hermes::Config</a>
+, <a class="el" href="structhermes_1_1_global_system_view_state.html#ae749e5178abb720bf0da460026ca0dfc">hermes::GlobalSystemViewState</a>
 </li>
 </ul>
 
@@ -601,6 +614,9 @@ $(document).ready(function(){initNavTree('functions_vars.html',''); initResizabl
 </li>
 <li>total_headers
 : <a class="el" href="structhermes_1_1_buffer_pool.html#aab01646b253e1e9523c397293c520b43">hermes::BufferPool</a>
+</li>
+<li>traits
+: <a class="el" href="structhermes_1_1_v_bucket_info.html#a4155c89ca04af63b97af2bcdcc9eb8ac">hermes::VBucketInfo</a>
 </li>
 <li>type
 : <a class="el" href="structhermes_1_1api_1_1_trait.html#a83cc4d203a5a2c1f076dd996b80e1461">hermes::api::Trait</a>

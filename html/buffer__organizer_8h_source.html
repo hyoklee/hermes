@@ -26,7 +26,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Hermes
-   &#160;<span id="projectnumber">0.7.0-beta</span>
+   &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
    <div id="projectbrief">I/O Buffering System</div>
   </td>
@@ -185,44 +185,50 @@ $(document).ready(function(){initNavTree('buffer__organizer_8h_source.html','');
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                       f32 explicit_importance_score);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keywordtype">void</span> OrganizeBlob(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                  <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <span class="keyword">const</span> std::string &amp;blob_name, f32 epsilon,</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                  f32 importance_score = -1);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;std::vector&lt;BufferInfo&gt; GetBufferInfo(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                      <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                      <span class="keyword">const</span> std::vector&lt;BufferID&gt; &amp;buffer_ids);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;f32 ComputeBlobAccessScore(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                           <span class="keyword">const</span> std::vector&lt;BufferInfo&gt; &amp;buffer_info);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">void</span> LocalEnqueueBoMove(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                        <span class="keyword">const</span> BoMoveList &amp;moves, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                        <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id,</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                        <span class="keyword">const</span> std::string &amp;internal_blob_name,</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                        BoPriority priority);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keywordtype">void</span> EnqueueBoMove(<a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <span class="keyword">const</span> BoMoveList &amp;moves, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                   <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <span class="keyword">const</span> std::string &amp;internal_name,</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                   BoPriority priority);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}  <span class="comment">// namespace hermes</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#endif  // HERMES_BUFFER_ORGANIZER_H_</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                  <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <span class="keyword">const</span> std::string &amp;blob_name,</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                  f32 epsilon, f32 importance_score = -1);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keywordtype">void</span> OrganizeDevice(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    DeviceID devices_id);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;std::vector&lt;BufferInfo&gt; GetBufferInfo(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                                      <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                                      <span class="keyword">const</span> std::vector&lt;BufferID&gt; &amp;buffer_ids);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;f32 ComputeBlobAccessScore(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                           <span class="keyword">const</span> std::vector&lt;BufferInfo&gt; &amp;buffer_info);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keywordtype">void</span> LocalEnqueueBoMove(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                        <span class="keyword">const</span> BoMoveList &amp;moves, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                        <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                        <span class="keyword">const</span> std::string &amp;internal_blob_name,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                        BoPriority priority);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keywordtype">void</span> EnqueueBoMove(<a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <span class="keyword">const</span> BoMoveList &amp;moves, <a class="code" href="unionhermes_1_1_blob_i_d.html">BlobID</a> blob_id,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                   <a class="code" href="unionhermes_1_1_bucket_i_d.html">BucketID</a> bucket_id, <span class="keyword">const</span> std::string &amp;internal_name,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                   BoPriority priority);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordtype">void</span> EnforceCapacityThresholds(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                               <a class="code" href="structhermes_1_1_violation_info.html">ViolationInfo</a> info);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keywordtype">void</span> LocalEnforceCapacityThresholds(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                                    <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc, <a class="code" href="structhermes_1_1_violation_info.html">ViolationInfo</a> info);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}  <span class="comment">// namespace hermes</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#endif  // HERMES_BUFFER_ORGANIZER_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="astructhermes_1_1_violation_info_html"><div class="ttname"><a href="structhermes_1_1_violation_info.html">hermes::ViolationInfo</a></div><div class="ttdef"><b>Definition:</b> metadata_management.h:71</div></div>
 <div class="ttc" id="astructhermes_1_1_rpc_context_html"><div class="ttname"><a href="structhermes_1_1_rpc_context.html">hermes::RpcContext</a></div><div class="ttdef"><b>Definition:</b> rpc.h:37</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a3a16d19dbc6aa057e14961538cd3d933"><div class="ttname"><a href="buffer__pool_8cc.html#a3a16d19dbc6aa057e14961538cd3d933">hermes::GetBufferPoolFromContext</a></div><div class="ttdeci">BufferPool * GetBufferPoolFromContext(SharedMemoryContext *context)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:133</div></div>
-<div class="ttc" id="aunionhermes_1_1_bucket_i_d_html"><div class="ttname"><a href="unionhermes_1_1_bucket_i_d.html">hermes::BucketID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:253</div></div>
+<div class="ttc" id="aunionhermes_1_1_bucket_i_d_html"><div class="ttname"><a href="unionhermes_1_1_bucket_i_d.html">hermes::BucketID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:273</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a42d7d04421227f822bdaa0344654409f"><div class="ttname"><a href="buffer__pool_8cc.html#a42d7d04421227f822bdaa0344654409f">hermes::GetHeaderByBufferId</a></div><div class="ttdeci">BufferHeader * GetHeaderByBufferId(SharedMemoryContext *context, BufferID id)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:206</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a4fdaa605948d7982a2b0e046c452f84f"><div class="ttname"><a href="buffer__pool_8cc.html#a4fdaa605948d7982a2b0e046c452f84f">hermes::ReleaseBuffers</a></div><div class="ttdeci">void ReleaseBuffers(SharedMemoryContext *context, RpcContext *rpc, const std::vector&lt; BufferID &gt; &amp;buffer_ids)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:531</div></div>
-<div class="ttc" id="astructhermes_1_1_target_info_html"><div class="ttname"><a href="structhermes_1_1_target_info.html">hermes::TargetInfo</a></div><div class="ttdef"><b>Definition:</b> buffer_organizer.cc:31</div></div>
-<div class="ttc" id="astructhermes_1_1_shared_memory_context_html"><div class="ttname"><a href="structhermes_1_1_shared_memory_context.html">hermes::SharedMemoryContext</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:252</div></div>
+<div class="ttc" id="astructhermes_1_1_target_info_html"><div class="ttname"><a href="structhermes_1_1_target_info.html">hermes::TargetInfo</a></div><div class="ttdef"><b>Definition:</b> buffer_organizer.cc:32</div></div>
+<div class="ttc" id="astructhermes_1_1_shared_memory_context_html"><div class="ttname"><a href="structhermes_1_1_shared_memory_context.html">hermes::SharedMemoryContext</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:254</div></div>
 <div class="ttc" id="aclasshermes_1_1_thread_pool_html"><div class="ttname"><a href="classhermes_1_1_thread_pool.html">hermes::ThreadPool</a></div><div class="ttdef"><b>Definition:</b> thread_pool.h:23</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_ae3789d75221354e09f43fe8d1520b988"><div class="ttname"><a href="buffer__pool_8cc.html#ae3789d75221354e09f43fe8d1520b988">hermes::GetBuffers</a></div><div class="ttdeci">std::vector&lt; BufferID &gt; GetBuffers(SharedMemoryContext *context, const PlacementSchema &amp;schema)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:568</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a02a03c2aa41e4113f2ef9e0d877c15b2"><div class="ttname"><a href="buffer__pool_8cc.html#a02a03c2aa41e4113f2ef9e0d877c15b2">hermes::GetBandwidths</a></div><div class="ttdeci">std::vector&lt; f32 &gt; GetBandwidths(SharedMemoryContext *context, const std::vector&lt; TargetID &gt; &amp;targets)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:163</div></div>
 <div class="ttc" id="amemory__management_8cc_html_af5d3174c5dc80367ddfa913d7685e666"><div class="ttname"><a href="memory__management_8cc.html#af5d3174c5dc80367ddfa913d7685e666">hermes::InitArena</a></div><div class="ttdeci">void InitArena(Arena *arena, size_t bytes, u8 *base)</div><div class="ttdef"><b>Definition:</b> memory_management.cc:59</div></div>
-<div class="ttc" id="aunionhermes_1_1_buffer_i_d_html"><div class="ttname"><a href="unionhermes_1_1_buffer_i_d.html">hermes::BufferID</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:88</div></div>
-<div class="ttc" id="aunionhermes_1_1_v_bucket_i_d_html"><div class="ttname"><a href="unionhermes_1_1_v_bucket_i_d.html">hermes::VBucketID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:273</div></div>
-<div class="ttc" id="aunionhermes_1_1_blob_i_d_html"><div class="ttname"><a href="unionhermes_1_1_blob_i_d.html">hermes::BlobID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:287</div></div>
+<div class="ttc" id="aunionhermes_1_1_buffer_i_d_html"><div class="ttname"><a href="unionhermes_1_1_buffer_i_d.html">hermes::BufferID</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:90</div></div>
+<div class="ttc" id="aunionhermes_1_1_v_bucket_i_d_html"><div class="ttname"><a href="unionhermes_1_1_v_bucket_i_d.html">hermes::VBucketID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:293</div></div>
+<div class="ttc" id="aunionhermes_1_1_blob_i_d_html"><div class="ttname"><a href="unionhermes_1_1_blob_i_d.html">hermes::BlobID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:307</div></div>
 <div class="ttc" id="astructhermes_1_1_buffer_info_html"><div class="ttname"><a href="structhermes_1_1_buffer_info.html">hermes::BufferInfo</a></div><div class="ttdef"><b>Definition:</b> buffer_organizer.h:56</div></div>
 <div class="ttc" id="aunionhermes_1_1_bo_args_html"><div class="ttname"><a href="unionhermes_1_1_bo_args.html">hermes::BoArgs</a></div><div class="ttdef"><b>Definition:</b> buffer_organizer.h:37</div></div>
-<div class="ttc" id="aunionhermes_1_1_target_i_d_html"><div class="ttname"><a href="unionhermes_1_1_target_i_d.html">hermes::TargetID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:124</div></div>
+<div class="ttc" id="aunionhermes_1_1_target_i_d_html"><div class="ttname"><a href="unionhermes_1_1_target_i_d.html">hermes::TargetID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:135</div></div>
 <div class="ttc" id="astructhermes_1_1_bo_task_html"><div class="ttname"><a href="structhermes_1_1_bo_task.html">hermes::BoTask</a></div><div class="ttdef"><b>Definition:</b> buffer_organizer.h:51</div></div>
 <div class="ttc" id="astructhermes_1_1_buffer_organizer_html"><div class="ttname"><a href="structhermes_1_1_buffer_organizer.html">hermes::BufferOrganizer</a></div><div class="ttdef"><b>Definition:</b> buffer_organizer.h:64</div></div>
 <!-- start footer part -->

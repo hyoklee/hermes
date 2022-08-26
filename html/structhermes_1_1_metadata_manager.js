@@ -4,6 +4,7 @@ var structhermes_1_1_metadata_manager =
     [ "blob_id_map_offset", "structhermes_1_1_metadata_manager.html#a10641a015787d90d7dfe649c3fe21353", null ],
     [ "blob_info_map_mutex", "structhermes_1_1_metadata_manager.html#aa92d6b1ac07d02465aecc89ef5c78213", null ],
     [ "blob_info_map_offset", "structhermes_1_1_metadata_manager.html#a1a47a5e02eb0e47e80565f45aa9b047e", null ],
+    [ "bucket_delete_lock", "structhermes_1_1_metadata_manager.html#a24e288f6d69abe94b81ad24bbc80d095", null ],
     [ "bucket_info_offset", "structhermes_1_1_metadata_manager.html#a64d343b9844cfa183fe30c0da407642a", null ],
     [ "bucket_map_mutex", "structhermes_1_1_metadata_manager.html#a92b6c199ce50c2c3cebf134071947ad2", null ],
     [ "bucket_map_offset", "structhermes_1_1_metadata_manager.html#a2aa797aea104198e507d959b2c7848b9", null ],
