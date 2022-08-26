@@ -15,11 +15,14 @@
 
 #include <unordered_map>
 
-#include "hermes.h"
 #include "hermes_types.h"
+#include "hermes.h"
 
 namespace hermes {
 namespace api {
+
+#define HERMES_PERSIST_TRAIT 11
+#define HERMES_WRITE_ONLY_TRAIT 12
 
 /** A blob's hosting bucket and blob names */
 struct BlobInfo {
@@ -37,15 +40,13 @@ using HermesPtr = std::shared_ptr<Hermes>;
 typedef std::function<void(HermesPtr, TraitInput &, Trait *)> OnLinkCallback;
 /** Callback for trait->vbucket attach events */
 typedef std::function<void(HermesPtr, VBucketID, Trait *)> OnAttachCallback;
-typedef std::function<bool(HermesPtr, std::pair<std::string, std::string>,
-                           std::pair<std::string, std::string>)>
-    TraitOrder;
+
 /** Traits represent vbucket behavior */
 struct Trait {
   /** The trait's ID */
   TraitID id;
   /** \todo ??? */
-  TraitIdArray conflict_traits;
+  std::vector<TraitID> conflict_traits;
   /** The trait's type */
   TraitType type;
   /** Callback for trait->vbucket attach events */
@@ -60,11 +61,9 @@ struct Trait {
   OnLinkCallback onGetFn;
 
   Trait() {}
-  Trait(TraitID id, TraitIdArray conflict_traits, TraitType type);
+  Trait(TraitID id, const std::vector<TraitID> &conflict_traits,
+        TraitType type);
 };
-
-#define HERMES_PERSIST_TRAIT 11
-#define HERMES_ORDER_TRAIT 12
 
 /** (File) Persistence trait */
 struct PersistTrait : public Trait {
@@ -79,48 +78,20 @@ struct PersistTrait : public Trait {
 
   void onAttach(HermesPtr hermes, VBucketID id, Trait *trait);
   void onDetach(HermesPtr hermes, VBucketID id, Trait *trait);
-  void onLink(HermesPtr hermes, TraitInput &blob, Trait *trait);
-  void onUnlink(HermesPtr hermes, TraitInput &blob, Trait *trait);
+  void onLink(HermesPtr hermes, TraitInput &input, Trait *trait);
+  void onUnlink(HermesPtr hermes, TraitInput &input, Trait *trait);
 };
 
-struct OrderingTrait : public Trait {
- private:
-  HermesPtr hermes_;
-  std::vector<std::pair<std::string, std::string>> blobs_order_;
-  std::vector<int> blobs_customerized_order_;
-  void GetNextN(HermesPtr hermes, std::string blob_name, std::string bkt_name,
-                u8 num_blob_prefetch);
-  void Sort(HermesPtr hermes);
+struct WriteOnlyTrait : public Trait {
+  WriteOnlyTrait();
 
- public:
-  u8 num_blob_prefetch_;
-  TraitOrder order_func_;
-  OrderingTrait(u8 num_blob_prefetch, TraitOrder order_func = nullptr,
-                const std::vector<int> &vect = std::vector<int>());
   void onAttach(HermesPtr hermes, VBucketID id, Trait *trait);
   void onDetach(HermesPtr hermes, VBucketID id, Trait *trait);
-  void onLink(HermesPtr hermes, TraitInput &blob, Trait *trait);
-  void onUnlink(HermesPtr hermes, TraitInput &blob, Trait *trait);
-  void onGet(HermesPtr hermes, TraitInput &blob, Trait *trait);
-  static bool NameAscend(HermesPtr hermes,
-                         const std::pair<std::string, std::string>,
-                         const std::pair<std::string, std::string>);
-  static bool NameDescend(HermesPtr hermes,
-                          const std::pair<std::string, std::string>,
-                          const std::pair<std::string, std::string>);
-
-  static bool SizeGreater(HermesPtr hermes,
-                          const std::pair<std::string, std::string>,
-                          const std::pair<std::string, std::string>);
-
-  static bool SizeLess(HermesPtr hermes,
-                       const std::pair<std::string, std::string>,
-                       const std::pair<std::string, std::string>);
-
-  static bool Importance(HermesPtr hermes,
-                         const std::pair<std::string, std::string>,
-                         const std::pair<std::string, std::string>);
+  void onLink(HermesPtr hermes, TraitInput &input, Trait *trait);
+  void onUnlink(HermesPtr hermes, TraitInput &input, Trait *trait);
+  void onGet(HermesPtr hermes, TraitInput &input, Trait *trait);
 };
+
 }  // namespace api
 }  // namespace hermes
 
