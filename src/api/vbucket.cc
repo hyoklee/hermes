@@ -365,55 +365,5 @@ Status VBucket::Destroy(Context& ctx) {
   return result;
 }
 
-size_t VBucket::Get(const std::string &name, Bucket *bkt, Blob &user_blob,
-                   const Context &ctx) {
-  size_t ret = Get(name, bkt, user_blob.data(), user_blob.size(), ctx);
-
-  return ret;
-}
-
-size_t VBucket::Get(const std::string &name, Bucket *bkt, Blob &user_blob) {
-  size_t result = Get(name, bkt, user_blob, ctx_);
-
-  return result;
-}
-
-size_t VBucket::Get(const std::string &name, Bucket *bkt, void *user_blob,
-                    size_t blob_size, const Context &ctx) {
-  bool do_prefetching = false;
-
-  if (user_blob && blob_size != 0)
-    do_prefetching = true;
-
-  size_t result = bkt->Get(name, user_blob, blob_size, ctx);
-
-  if (!do_prefetching)
-    return result;
-
-  LOG(INFO) << "HERMES_ORDER_TRAIT = " << HERMES_ORDER_TRAIT;
-  // prefetching
-  Trait* selected_trait = NULL;
-  for (const auto& t : attached_traits_) {
-    LOG(INFO) << "iterate trait " << t->id;
-    if (t->id == HERMES_ORDER_TRAIT) {
-      selected_trait = t;
-      break;
-    }
-  }
-
-  if (selected_trait) {
-    LOG(INFO) << "found prefetching trait";
-    OrderingTrait *prefetching_trait = (OrderingTrait *)selected_trait;
-    TraitInput input;
-    input.blob_name = name;
-    input.bucket_name = bkt->GetName();
-    if (prefetching_trait->onGetFn != nullptr) {
-      LOG(INFO) << "start onGetFn prefetching";
-      prefetching_trait->onGetFn(hermes_, input, prefetching_trait);
-    }
-  }
-  return result;
-}
-
 }  // namespace api
 }  // namespace hermes
