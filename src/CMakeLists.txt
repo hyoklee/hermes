@@ -26,7 +26,11 @@ set(HERMES_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/api/hermes.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/api/vbucket.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/buffer_pool.cc
-  ${CMAKE_CURRENT_SOURCE_DIR}/data_placement_engine.cc)
+  ${CMAKE_CURRENT_SOURCE_DIR}/data_placement_engine.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/dpe/random.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/dpe/round_robin.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/dpe/minimize_io_time.cc
+        )
 
 #------------------------------------------------------------------------------
 # Libraries
@@ -53,6 +57,7 @@ target_link_libraries(hermes
   PUBLIC ${GLPK_LIBRARIES}
   PUBLIC thallium
   PUBLIC glog::glog
+  PUBLIC yaml-cpp
   PUBLIC "$<$<BOOL:${HERMES_INTERCEPT_IO}>:${GOTCHA_MODULE_LIBS}>"
   PRIVATE $<$<BOOL:${HERMES_COMMUNICATION_MPI}>:MPI::MPI_CXX>
 )
@@ -79,7 +84,6 @@ set(HERMES_EXPORTED_LIBS hermes ${HERMES_EXPORTED_LIBS})
 set(HERMES_HEADERS
   ${CMAKE_CURRENT_SOURCE_DIR}/api/bucket.h
   ${CMAKE_CURRENT_SOURCE_DIR}/api/hermes.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/api/id.h
   ${CMAKE_CURRENT_SOURCE_DIR}/api/vbucket.h
   ${CMAKE_CURRENT_SOURCE_DIR}/buffer_pool.h
   ${CMAKE_CURRENT_SOURCE_DIR}/buffer_pool_internal.h

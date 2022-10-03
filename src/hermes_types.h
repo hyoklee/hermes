@@ -23,10 +23,18 @@
 
 #include "hermes_version.h"
 
-#define KILOBYTES(n) ((n)*1024)
-#define MEGABYTES(n) ((n)*1024 * 1024)
-#define GIGABYTES(n) ((n)*1024UL * 1024UL * 1024UL)
+/**
+ * \file hermes_types.h
+ * Types used in Hermes.
+ */
 
+#define KILOBYTES(n) (((size_t)n) * 1024)
+#define MEGABYTES(n) (((size_t)n) * 1024 * 1024)
+#define GIGABYTES(n) (((size_t)n) * 1024UL * 1024UL * 1024UL)
+
+/**
+ * \namespace hermes
+ */
 namespace hermes {
 
 typedef uint8_t u8;
@@ -48,7 +56,14 @@ struct ChunkedIdList {
   u32 capacity;
 };
 
+/**
+ * \namespace api
+ */
 namespace api {
+
+/**
+ * A Blob is simply an uninterpreted vector of bytes.
+ */
 typedef std::vector<unsigned char> Blob;
 
 /** Supported data placement policies */
@@ -57,6 +72,25 @@ enum class PlacementPolicy {
   kRoundRobin,     /**< Round-Robin (around devices) blob placement */
   kMinimizeIoTime, /**< LP-based blob placement, minimize I/O time */
 };
+
+class PlacementPolicyConv {
+ public:
+  static std::string str(PlacementPolicy policy) {
+    switch (policy) {
+      case PlacementPolicy::kRandom: {
+        return "PlacementPolicy::kRandom";
+      }
+      case PlacementPolicy::kRoundRobin: {
+        return "PlacementPolicy::kRoundRobin";
+      }
+      case PlacementPolicy::kMinimizeIoTime: {
+        return "PlacementPolicy::kMinimizeIoTime";
+      }
+    }
+    return "PlacementPolicy::Invalid";
+  }
+};
+
 
 struct MinimizeIoTimeOptions {
   double minimum_remaining_capacity;
@@ -233,13 +267,17 @@ struct Config {
 
   /** The name of a file that contains host names, 1 per line */
   std::string rpc_server_host_file;
-
   /** The hostname of the RPC server, minus any numbers that Hermes may
    * auto-generate when the rpc_hostNumber_range is specified. */
   std::string rpc_server_base_name;
+  /** The list of numbers from all server names. E.g., '{1, 3}' if your servers
+   * are named ares-comp-1 and ares-comp-3 */
+  std::vector<std::string> host_numbers;
   /** The RPC server name suffix. This is appended to the base name plus host
       number. */
   std::string rpc_server_suffix;
+  /** The parsed hostnames from the hermes conf */
+  std::vector<std::string> host_names;
   /** The RPC protocol to be used. */
   std::string rpc_protocol;
   /** The RPC domain name for verbs transport. */
@@ -248,9 +286,6 @@ struct Config {
   int rpc_port;
   /** The RPC port number for the buffer organizer. */
   int buffer_organizer_port;
-  /** The list of numbers from all server names. E.g., '{1, 3}' if your servers
-   * are named ares-comp-1 and ares-comp-3 */
-  std::vector<int> host_numbers;
   /** The number of handler threads per RPC server. */
   int rpc_num_threads;
   /** The number of buffer organizer threads. */
@@ -266,6 +301,19 @@ struct Config {
    * value of the USER environment variable to this string.
    */
   char buffer_pool_shmem_name[kMaxBufferPoolShmemNameLength];
+
+  /**
+   * Paths prefixed with the following directories are not tracked in Hermes
+   * Exclusion list used by darshan at
+   * darshan/darshan-runtime/lib/darshan-core.c
+   */
+  std::vector<std::string> path_exclusions;
+
+  /**
+   * Paths prefixed with the following directories are tracked by Hermes even if
+   * they share a root with a path listed in path_exclusions
+   */
+  std::vector<std::string> path_inclusions;
 };
 
 union BucketID {
@@ -286,6 +334,9 @@ union BucketID {
 // BucketID into the Blob name. See MakeInternalBlobName() for a description of
 // why we need double the bytes of a BucketID.
 constexpr int kBucketIdStringSize = sizeof(BucketID) * 2;
+/**
+ * The maximum size in bytes allowed for Blob names.
+ */
 constexpr int kMaxBlobNameSize = 64 - kBucketIdStringSize;
 
 union VBucketID {
@@ -322,10 +373,12 @@ typedef u64 TraitID;
 
 namespace api {
 
-/** Trait types */
+/** \brief Trait types.
+ *
+ */
 enum class TraitType : u8 {
-  META = 0,
-  DATA = 1,
+  META = 0, /**< The Trait only modifies metadata. */
+  DATA = 1, /**< The Trait modifies raw data (Blob%s). */
   PERSIST = 2,
 };
 

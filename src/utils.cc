@@ -94,6 +94,8 @@ void InitDefaultConfig(Config *config) {
   config->rpc_server_host_file = "";
   config->rpc_server_base_name = "localhost";
   config->rpc_server_suffix = "";
+  config->host_numbers = std::vector<std::string>();
+  config->host_names.emplace_back("localhost");
   config->rpc_protocol = "ofi+sockets";
   config->rpc_domain = "";
   config->rpc_port = 8080;
@@ -104,12 +106,10 @@ void InitDefaultConfig(Config *config) {
   config->max_vbuckets_per_node = 8;
   config->system_view_state_update_interval_ms = 100;
 
-  const char buffer_pool_shmem_name[] = "/hermes_buffer_pool_";
-  size_t shmem_name_size = strlen(buffer_pool_shmem_name);
-  for (size_t i = 0; i < shmem_name_size; ++i) {
-    config->buffer_pool_shmem_name[i] = buffer_pool_shmem_name[i];
-  }
-  config->buffer_pool_shmem_name[shmem_name_size] = '\0';
+  const std::string buffer_pool_shmem_name = "/hermes_buffer_pool_";
+  std::snprintf(config->buffer_pool_shmem_name,
+                kMaxBufferPoolShmemNameLength,
+                "%s", buffer_pool_shmem_name.c_str());
 
   config->default_placement_policy = api::PlacementPolicy::kMinimizeIoTime;
 
@@ -163,16 +163,12 @@ TargetViewState InitDeviceState(u64 total_target, bool homo_dist) {
   using hermes::TargetID;
   std::vector<TargetID> targets = GetDefaultTargets(total_target);
 
-  u64 target_position {0};
   for (size_t i {0}; i < tgt_num_per_type.size(); ++i) {
     for (size_t j {0}; j < tgt_num_per_type[i]; ++j) {
       result.bandwidth.push_back(device_bandwidth[i]);
 
       result.bytes_available.push_back(MEGABYTES(device_size[i]));
       result.bytes_capacity.push_back(MEGABYTES(device_size[i]));
-      result.ordered_cap.insert(std::pair<hermes::u64, TargetID>(
-                                MEGABYTES(device_size[i]),
-                                targets[target_position]));
     }
   }
 
@@ -182,24 +178,18 @@ TargetViewState InitDeviceState(u64 total_target, bool homo_dist) {
 u64 UpdateDeviceState(PlacementSchema &schema,
                       TargetViewState &node_state) {
   u64 result {0};
-  node_state.ordered_cap.clear();
-
   for (auto [size, target] : schema) {
     result += size;
     node_state.bytes_available[target.bits.device_id] -= size;
-    node_state.ordered_cap.insert(
-      std::pair<u64, TargetID>(
-        node_state.bytes_available[target.bits.device_id], target));
   }
-
   return result;
 }
 
 void PrintNodeState(TargetViewState &node_state) {
   for (int i {0}; i < node_state.num_devices; ++i) {
     std::cout << "  capacity of device[" << i << "]: "
-              << node_state.bytes_available[i]
-              << '\n' << std::flush;
+              << node_state.bytes_available[i] / MEGABYTES(1)
+              << " MB\n" << std::flush;
     std::cout << "  available ratio of device["<< i << "]: "
               << static_cast<double>(node_state.bytes_available[i])/
                  node_state.bytes_capacity[i]

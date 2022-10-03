@@ -3,7 +3,7 @@ function(gcc_hermes exec tag_name tags conf async)
   add_test(NAME ${TEST_NAME}
     COMMAND "${CMAKE_BINARY_DIR}/bin/${exec}" ${tags} --reporter compact -d yes)
   set_property(TEST ${TEST_NAME}
-    PROPERTY ENVIRONMENT HERMES_CONF=${CMAKE_SOURCE_DIR}/adapter/test/data/${conf}.conf)
+    PROPERTY ENVIRONMENT HERMES_CONF=${CMAKE_SOURCE_DIR}/adapter/test/data/${conf}.yaml)
   set_property(TEST ${TEST_NAME} APPEND
     PROPERTY ENVIRONMENT LSAN_OPTIONS=suppressions=${CMAKE_SOURCE_DIR}/test/data/asan.supp)
 
@@ -16,7 +16,7 @@ function(gcc_hermes_mode exec tag_name tags mode path)
     set(test_name Test${exec}_${tag_name}_${mode}_${path})
     add_test(NAME ${test_name} COMMAND "${CMAKE_BINARY_DIR}/bin/${exec}" ${tags} --reporter compact -d yes)
     set_property(TEST ${test_name}
-            PROPERTY ENVIRONMENT HERMES_CONF=${CMAKE_SOURCE_DIR}/adapter/test/data/hermes.conf)
+            PROPERTY ENVIRONMENT HERMES_CONF=${CMAKE_SOURCE_DIR}/adapter/test/data/hermes.yaml)
     set_property(TEST ${test_name} APPEND
             PROPERTY ENVIRONMENT LSAN_OPTIONS=suppressions=${CMAKE_SOURCE_DIR}/test/data/asan.supp)
     set_property(TEST ${test_name} APPEND
@@ -55,11 +55,8 @@ add_executable(hermes_stdio_low_buf_adapter_test stdio_adapter_low_buffer_space_
 target_link_libraries(hermes_stdio_low_buf_adapter_test hermes_stdio)
 add_dependencies(hermes_stdio_low_buf_adapter_test hermes_stdio hermes_daemon)
 set_target_properties(hermes_stdio_low_buf_adapter_test PROPERTIES COMPILE_FLAGS "-DHERMES_INTERCEPT=1")
-# TODO: The DPE doesn't respect available buffering space. In this test, it
-# gives out over 1 MiB of RAM even though the RAM tier only has ~756 KiB
-# available. See issue #439.
-# gcc_hermes(hermes_stdio_low_buf_adapter_test "" "" hermes_small "")
-# gcc_hermes(hermes_stdio_low_buf_adapter_test "" "" hermes_small async)
+gcc_hermes(hermes_stdio_low_buf_adapter_test "" "" hermes_small "")
+gcc_hermes(hermes_stdio_low_buf_adapter_test "" "" hermes_small async)
 
 add_executable(hermes_stdio_adapter_mode_test stdio_adapter_mode_test.cpp ${ADAPTER_COMMON})
 target_link_libraries(hermes_stdio_adapter_mode_test hermes_stdio)

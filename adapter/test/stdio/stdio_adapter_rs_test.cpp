@@ -941,7 +941,6 @@ TEST_CASE("BatchedReadRandomRSRangeLarge",
               std::to_string(info.num_iterations) +
               "][pattern=random][file=1]") {
   pretest();
-
   SECTION("read from existing file") {
     test::test_fopen(info.existing_file.c_str(), "r+");
     REQUIRE(test::fh_orig != nullptr);
