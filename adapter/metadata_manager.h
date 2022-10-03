@@ -1,26 +1,26 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Distributed under BSD 3-Clause license.                                   *
-* Copyright by The HDF Group.                                               *
-* Copyright by the Illinois Institute of Technology.                        *
-* All rights reserved.                                                      *
-*                                                                           *
-* This file is part of Hermes. The full Hermes copyright notice, including  *
-* terms governing use, modification, and redistribution, is contained in    *
-* the COPYING file, which can be found at the top directory. If you do not  *
-* have access to the file, you may request a copy from help@hdfgroup.org.   *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ * Distributed under BSD 3-Clause license.                                   *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Illinois Institute of Technology.                        *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of Hermes. The full Hermes copyright notice, including  *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the COPYING file, which can be found at the top directory. If you do not  *
+ * have access to the file, you may request a copy from help@hdfgroup.org.   *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef HERMES_ADAPTER_METADATA_MANAGER_H_
 #define HERMES_ADAPTER_METADATA_MANAGER_H_
 
-#include <mpi.h>
-#include "constants.h"
-#include "enumerations.h"
-#include "interceptor.h"
-
 #include <bucket.h>
 #include <buffer_pool.h>
 #include <hermes_types.h>
+#include <mpi.h>
+
+#include "constants.h"
+#include "enumerations.h"
+#include "interceptor.h"
 
 namespace hapi = hermes::api;
 
@@ -75,7 +75,6 @@ class MetadataManager {
     ref++;
   }
 
-
   /**
    * Finalize hermes and close rpc if reference is equal to one. Else just
    * decrement the ref counter.
@@ -96,6 +95,5 @@ class MetadataManager {
 };
 
 }  // namespace hermes::adapter
-
 
 #endif  // HERMES_ADAPTER_METADATA_MANAGER_H_

@@ -187,10 +187,8 @@ Status RenameBucket(const std::string &old_name, const std::string &new_name,
                     Context &ctx);
 
 /** \todo Not implemented yet. */
-Status TransferBlob(const Bucket &src_bkt,
-                    const std::string &src_blob_name,
-                    Bucket &dst_bkt,
-                    const std::string &dst_blob_name,
+Status TransferBlob(const Bucket &src_bkt, const std::string &src_blob_name,
+                    Bucket &dst_bkt, const std::string &dst_blob_name,
                     Context &ctx);
 
 /** \brief Initialize an instance of Hermes.

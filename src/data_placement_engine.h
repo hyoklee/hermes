@@ -22,7 +22,9 @@
 namespace hermes {
 
 #define VERIFY_DPE_POLICY(ctx) \
-  if (ctx.policy != policy_) { return Status(); }
+  if (ctx.policy != policy_) { \
+    return Status();           \
+  }
 
 using api::Status;
 using hermes::api::PlacementPolicy;
@@ -31,15 +33,16 @@ class DPE {
  protected:
   bool require_bw_;
   PlacementPolicy policy_;
+
  public:
   std::vector<f32> bandwidths;
   explicit DPE(PlacementPolicy policy) : policy_(policy) {}
   virtual ~DPE() = default;
   virtual Status Placement(const std::vector<size_t> &blob_sizes,
-                   const std::vector<u64> &node_state,
-                   const std::vector<TargetID> &targets,
-                   const api::Context &ctx,
-                   std::vector<PlacementSchema> &output) = 0;
+                           const std::vector<u64> &node_state,
+                           const std::vector<TargetID> &targets,
+                           const api::Context &ctx,
+                           std::vector<PlacementSchema> &output) = 0;
 
  protected:
   std::vector<int> GetValidSplitChoices(size_t blob_size);

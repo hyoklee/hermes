@@ -20,10 +20,8 @@
 #include <unordered_map>
 #include <vector>
 
-#include <glog/logging.h>
-
-#include "hermes.h"
 #include "dpe/round_robin.h"
+#include "hermes.h"
 #include "metadata_management.h"
 #include "utils.h"
 
@@ -117,16 +115,15 @@ class Bucket {
    *
    * \return \status
    */
-  template<typename T>
+  template <typename T>
   Status Put(const std::string &name, const std::vector<T> &data);
 
   /** \overload
    *
    * \param \ctx{Put}
    */
-  template<typename T>
+  template <typename T>
   Status Put(const std::string &name, const std::vector<T> &data, Context &ctx);
-
 
   /**
    * \brief Put a Blob in this Bucket.
@@ -173,7 +170,7 @@ class Bucket {
    *
    * \param \ctx{Put}
    */
-  template<typename T>
+  template <typename T>
   Status Put(const std::vector<std::string> &names,
              const std::vector<std::vector<T>> &blobs, const Context &ctx);
 
@@ -201,13 +198,13 @@ class Bucket {
    *
    * \return The size in bytes of the Blob.
    */
-  size_t Get(const std::string &name, Blob& user_blob);
+  size_t Get(const std::string &name, Blob &user_blob);
 
   /** \overload
    *
    * \param \ctx{Get}
    */
-  size_t Get(const std::string &name, Blob& user_blob, const Context &ctx);
+  size_t Get(const std::string &name, Blob &user_blob, const Context &ctx);
 
   /** \brief Retrieve multiple Blob%s in one call.
    *
@@ -240,13 +237,13 @@ class Bucket {
    *
    * \return The size in bytes of the retrieved Blob.
    */
-  size_t GetNext(u64 blob_index, Blob& user_blob);
+  size_t GetNext(u64 blob_index, Blob &user_blob);
 
   /** \overload
    *
    * \param \ctx{call}
    */
-  size_t GetNext(u64 blob_index, Blob& user_blob, const Context &ctx);
+  size_t GetNext(u64 blob_index, Blob &user_blob, const Context &ctx);
 
   /** \overload
    *
@@ -269,7 +266,7 @@ class Bucket {
    *
    * \return \status
    */
-  template<class Predicate>
+  template <class Predicate>
   Status GetV(void *user_blob, Predicate pred, Context &ctx);
 
   /** \brief Delete a Blob from this Bucket.
@@ -324,7 +321,7 @@ class Bucket {
    *
    * \todo Not implemented yet.
    */
-  template<class Predicate>
+  template <class Predicate>
   std::vector<std::string> GetBlobNames(Predicate pred, Context &ctx);
 
   /** \brief Rename this Bucket.
@@ -336,13 +333,13 @@ class Bucket {
    *
    * \return \status
    */
-  Status Rename(const std::string& new_name);
+  Status Rename(const std::string &new_name);
 
   /** \overload
    *
    * \param \ctx{call}.
    */
-  Status Rename(const std::string& new_name, const Context &ctx);
+  Status Rename(const std::string &new_name, const Context &ctx);
 
   /** \brief Save this Bucket%'s Blob%s to persistent storage.
    *
@@ -416,7 +413,7 @@ class Bucket {
    *
    * \return \status
    */
-  template<typename T>
+  template <typename T>
   Status PutInternal(const std::vector<std::string> &names,
                      const std::vector<size_t> &sizes,
                      const std::vector<std::vector<T>> &blobs,
@@ -425,7 +422,7 @@ class Bucket {
    *
    * \return \status
    */
-  template<typename T>
+  template <typename T>
   Status PlaceBlobs(std::vector<PlacementSchema> &schemas,
                     const std::vector<std::vector<T>> &blobs,
                     const std::vector<std::string> &names, const Context &ctx);

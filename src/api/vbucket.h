@@ -186,7 +186,8 @@ class VBucket {
    */
   Status Detach(Trait *trait, Context &ctx);
 
-  /** \brief Retrieves the subset of attached traits satisfying the Predicate \p pred.
+  /** \brief Retrieves the subset of attached traits satisfying the Predicate \p
+   * pred.
    *
    * \todo \p pred is curently ignored and this function returns all attached
    * traits.

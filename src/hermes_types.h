@@ -91,7 +91,6 @@ class PlacementPolicyConv {
   }
 };
 
-
 struct MinimizeIoTimeOptions {
   double minimum_remaining_capacity;
   double capacity_change_threshold;
