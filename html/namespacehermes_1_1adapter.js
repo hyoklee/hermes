@@ -14,5 +14,6 @@ var namespacehermes_1_1adapter =
       ] ]
     ] ],
     [ "InterceptorList", "structhermes_1_1adapter_1_1_interceptor_list.html", "structhermes_1_1adapter_1_1_interceptor_list" ],
+    [ "MetadataManager", "classhermes_1_1adapter_1_1_metadata_manager.html", "classhermes_1_1adapter_1_1_metadata_manager" ],
     [ "Singleton", "classhermes_1_1adapter_1_1_singleton.html", "classhermes_1_1adapter_1_1_singleton" ]
 ];

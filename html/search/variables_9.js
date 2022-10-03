@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['kpathexclusions_693',['kPathExclusions',['../namespacehermes_1_1adapter.html#a3a3652f8c8e1d29985103cfd8ec05694',1,'hermes::adapter']]],
-  ['kpathinclusions_694',['kPathInclusions',['../namespacehermes_1_1adapter.html#a209fde010458e633e96050914a99e91f',1,'hermes::adapter']]]
+  ['kmaxblobnamesize_723',['kMaxBlobNameSize',['../hermes__types_8h.html#a7ed10d74c2c33f9b76051420b6bdd608',1,'hermes']]]
 ];

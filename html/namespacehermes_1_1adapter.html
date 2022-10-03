@@ -28,7 +28,7 @@
    <div id="projectname">Hermes
    &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
-   <div id="projectbrief">I/O Buffering System</div>
+   <div id="projectbrief">Hierarchical Distributed I/O Buffering System</div>
   </td>
  </tr>
  </tbody>
@@ -108,6 +108,8 @@ Namespaces</h2></td></tr>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1_interceptor_list.html">InterceptorList</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1_metadata_manager.html">MetadataManager</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1_singleton.html">Singleton</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -152,14 +154,15 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetFilenameFro
 Variables</h2></td></tr>
 <tr class="memitem:a4e9f91a3d851250c3765b0858ad9eb05"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehermes_1_1adapter.html#a4e9f91a3d851250c3765b0858ad9eb05">exit</a> = false</td></tr>
 <tr class="separator:a4e9f91a3d851250c3765b0858ad9eb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a3652f8c8e1d29985103cfd8ec05694"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehermes_1_1adapter.html#a3a3652f8c8e1d29985103cfd8ec05694">kPathExclusions</a> []</td></tr>
-<tr class="separator:a3a3652f8c8e1d29985103cfd8ec05694"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a209fde010458e633e96050914a99e91f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehermes_1_1adapter.html#a209fde010458e633e96050914a99e91f">kPathInclusions</a> [] = {&quot;/var/opt/cray/dws/mounts/&quot;}</td></tr>
-<tr class="separator:a209fde010458e633e96050914a99e91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98d206f04c8c9adb010aa624d2cdd70c"><td class="memItemLeft" align="right" valign="top"><a id="a98d206f04c8c9adb010aa624d2cdd70c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>populated</b> = false</td></tr>
+<tr class="separator:a98d206f04c8c9adb010aa624d2cdd70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1085e85409a6cc5ddd39923c670775d0"><td class="memItemLeft" align="right" valign="top"><a id="a1085e85409a6cc5ddd39923c670775d0"></a>
+FlushingMode&#160;</td><td class="memItemRight" valign="bottom"><b>global_flushing_mode</b></td></tr>
+<tr class="separator:a1085e85409a6cc5ddd39923c670775d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Internal headers</p>
-<p>Make a class singleton when used with the class. format for class name T <a class="el" href="classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6">Singleton&lt;T&gt;::GetInstance()</a> </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+<div class="textblock"><p>Make a class singleton when used with the class. format for class name T <a class="el" href="classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6">Singleton&lt;T&gt;::GetInstance()</a> </p><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td></td></tr>
   </table>
@@ -244,40 +247,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>is exit by program called. </p>
-
-</div>
-</div>
-<a id="a3a3652f8c8e1d29985103cfd8ec05694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a3652f8c8e1d29985103cfd8ec05694">&#9670;&nbsp;</a></span>kPathExclusions</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* hermes::adapter::kPathExclusions[]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {<span class="stringliteral">&quot;/bin/&quot;</span>, <span class="stringliteral">&quot;/boot/&quot;</span>,  <span class="stringliteral">&quot;/dev/&quot;</span>,      <span class="stringliteral">&quot;/etc/&quot;</span>,</div>
-<div class="line">                                 <span class="stringliteral">&quot;/lib/&quot;</span>, <span class="stringliteral">&quot;/opt/&quot;</span>,   <span class="stringliteral">&quot;/proc/&quot;</span>,     <span class="stringliteral">&quot;/sbin/&quot;</span>,</div>
-<div class="line">                                 <span class="stringliteral">&quot;/sys/&quot;</span>, <span class="stringliteral">&quot;/usr/&quot;</span>,   <span class="stringliteral">&quot;/var/&quot;</span>,      <span class="stringliteral">&quot;/run/&quot;</span>,</div>
-<div class="line">                                 <span class="stringliteral">&quot;pipe&quot;</span>,  <span class="stringliteral">&quot;socket:&quot;</span>, <span class="stringliteral">&quot;anon_inode:&quot;</span>}</div>
-</div><!-- fragment --><p>Paths prefixed with the following directories are not tracked in Hermes Exclusion list used by darshan at darshan/darshan-runtime/lib/darshan-core.c </p>
-
-</div>
-</div>
-<a id="a209fde010458e633e96050914a99e91f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a209fde010458e633e96050914a99e91f">&#9670;&nbsp;</a></span>kPathInclusions</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* hermes::adapter::kPathInclusions[] = {&quot;/var/opt/cray/dws/mounts/&quot;}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Paths prefixed with the following directories are tracked by Hermes even if they share a root with a path listed in path_exclusions </p>
 
 </div>
 </div>

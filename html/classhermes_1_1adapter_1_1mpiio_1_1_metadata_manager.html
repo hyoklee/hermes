@@ -28,7 +28,7 @@
    <div id="projectname">Hermes
    &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
-   <div id="projectbrief">I/O Buffering System</div>
+   <div id="projectbrief">Hierarchical Distributed I/O Buffering System</div>
   </td>
  </tr>
  </tbody>
@@ -167,177 +167,6 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a288c33ae922bfbd43c0535e2deb4d841"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a288c33ae922bfbd43c0535e2deb4d841">&#9670;&nbsp;</a></span>Create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MetadataManager::Create </td>
-          <td>(</td>
-          <td class="paramtype">MPI_File *&#160;</td>
-          <td class="paramname"><em>fh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html">AdapterStat</a> &amp;&#160;</td>
-          <td class="paramname"><em>stat</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Create a metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination filesystem. </td></tr>
-    <tr><td class="paramname">stat,<a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html">AdapterStat</a>,MPIIO</td><td>Adapter version of Stat data structure. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true, if operation was successful. false, if operation was unsuccessful. </dd></dl>
-
-</div>
-</div>
-<a id="a71abb3ce9ed023c6ce7f554b4e929d60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71abb3ce9ed023c6ce7f554b4e929d60">&#9670;&nbsp;</a></span>DecodeBlobNameLocal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt; int, <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html">HermesStruct</a> &gt; MetadataManager::DecodeBlobNameLocal </td>
-          <td>(</td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>encoded_blob_name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Decodes a encoded blob name string into hermesstruct </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">encoded_blob_name,std::string,encoded</td><td>blob name string. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>hermes struct with blob_name, rank, offset, and size </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager_a71abb3ce9ed023c6ce7f554b4e929d60_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager_a71abb3ce9ed023c6ce7f554b4e929d60_cgraph" alt=""/></div>
-<map name="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager_a71abb3ce9ed023c6ce7f554b4e929d60_cgraph" id="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager_a71abb3ce9ed023c6ce7f554b4e929d60_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,240,61"/>
-<area shape="rect" href="namespacehermes_1_1adapter.html#a117306c79f6cf35279ccf08907df6bc3" title=" " alt="" coords="288,20,492,47"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a958de8777230b8f1d9849397470aee1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a958de8777230b8f1d9849397470aee1e">&#9670;&nbsp;</a></span>Delete()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MetadataManager::Delete </td>
-          <td>(</td>
-          <td class="paramtype">MPI_File *&#160;</td>
-          <td class="paramname"><em>fh</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Delete existing metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true, if operation was successful. false, if operation was unsuccessful. </dd></dl>
-
-</div>
-</div>
-<a id="af954c98ce2b064ad0d30ce66d97d8229"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af954c98ce2b064ad0d30ce66d97d8229">&#9670;&nbsp;</a></span>EncodeBlobNameLocal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string MetadataManager::EncodeBlobNameLocal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html">HermesStruct</a>&#160;</td>
-          <td class="paramname"><em>hermes_struct</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Encode a given Hermes Struct from Mapping engine to Local <a class="el" href="structhermes_1_1_blob.html">Blob</a> Name. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hermes_struct,<a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html">HermesStruct</a>,structure</td><td>containing hermes representatrion of file. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>string encoded with process local information. </dd></dl>
-
-</div>
-</div>
-<a id="af3d5caae473a2970331d364749111c36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3d5caae473a2970331d364749111c36">&#9670;&nbsp;</a></span>FinalizeHermes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hermes::adapter::mpiio::MetadataManager::FinalizeHermes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Finalize hermes and close rpc if reference is equal to one. Else just decrement the ref counter. </p>
-
-</div>
-</div>
-<a id="a5d3cb1bbc530e3226642e6f26edae1dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d3cb1bbc530e3226642e6f26edae1dd">&#9670;&nbsp;</a></span>Find()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html">AdapterStat</a>, bool &gt; MetadataManager::Find </td>
-          <td>(</td>
-          <td class="paramtype">MPI_File *&#160;</td>
-          <td class="paramname"><em>fh</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Find existing metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The metadata entry if exist. The bool in pair indicated whether metadata entry exists. </dd></dl>
-
-</div>
-</div>
 <a id="a75d56d7f8a9c68ba856d9c83bd463e6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75d56d7f8a9c68ba856d9c83bd463e6c">&#9670;&nbsp;</a></span>GetHermes()</h2>
 
@@ -390,6 +219,68 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="af3d5caae473a2970331d364749111c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3d5caae473a2970331d364749111c36">&#9670;&nbsp;</a></span>FinalizeHermes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::adapter::mpiio::MetadataManager::FinalizeHermes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Finalize hermes and close rpc if reference is equal to one. Else just decrement the ref counter. </p>
+
+</div>
+</div>
+<a id="a288c33ae922bfbd43c0535e2deb4d841"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a288c33ae922bfbd43c0535e2deb4d841">&#9670;&nbsp;</a></span>Create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MetadataManager::Create </td>
+          <td>(</td>
+          <td class="paramtype">MPI_File *&#160;</td>
+          <td class="paramname"><em>fh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html">AdapterStat</a> &amp;&#160;</td>
+          <td class="paramname"><em>stat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Create a metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination filesystem. </td></tr>
+    <tr><td class="paramname">stat,<a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html">AdapterStat</a>,MPIIO</td><td>Adapter version of Stat data structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true, if operation was successful. false, if operation was unsuccessful. </dd></dl>
+
+</div>
+</div>
 <a id="a07c5c32652f400b68ce9481c26b4932e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07c5c32652f400b68ce9481c26b4932e">&#9670;&nbsp;</a></span>Update()</h2>
 
@@ -426,30 +317,116 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ae15b8df93f94d5b7739d448971a06306"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae15b8df93f94d5b7739d448971a06306">&#9670;&nbsp;</a></span>hermes</h2>
+<a id="a958de8777230b8f1d9849397470aee1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a958de8777230b8f1d9849397470aee1e">&#9670;&nbsp;</a></span>Delete()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt; hermes::adapter::mpiio::MetadataManager::hermes</td>
+          <td class="memname">bool MetadataManager::Delete </td>
+          <td>(</td>
+          <td class="paramtype">MPI_File *&#160;</td>
+          <td class="paramname"><em>fh</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<p>hermes attribute to initialize Hermes </p>
+<p>Delete existing metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true, if operation was successful. false, if operation was unsuccessful. </dd></dl>
 
 </div>
 </div>
+<a id="a5d3cb1bbc530e3226642e6f26edae1dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d3cb1bbc530e3226642e6f26edae1dd">&#9670;&nbsp;</a></span>Find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html">AdapterStat</a>, bool &gt; MetadataManager::Find </td>
+          <td>(</td>
+          <td class="paramtype">MPI_File *&#160;</td>
+          <td class="paramname"><em>fh</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Find existing metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The metadata entry if exist. The bool in pair indicated whether metadata entry exists. </dd></dl>
+
+</div>
+</div>
+<a id="af954c98ce2b064ad0d30ce66d97d8229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af954c98ce2b064ad0d30ce66d97d8229">&#9670;&nbsp;</a></span>EncodeBlobNameLocal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string MetadataManager::EncodeBlobNameLocal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html">HermesStruct</a>&#160;</td>
+          <td class="paramname"><em>hermes_struct</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Encode a given Hermes Struct from Mapping engine to Local <a class="el" href="structhermes_1_1_blob.html">Blob</a> Name. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hermes_struct,<a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html">HermesStruct</a>,structure</td><td>containing hermes representatrion of file. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string encoded with process local information. </dd></dl>
+
+</div>
+</div>
+<a id="a71abb3ce9ed023c6ce7f554b4e929d60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71abb3ce9ed023c6ce7f554b4e929d60">&#9670;&nbsp;</a></span>DecodeBlobNameLocal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; int, <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html">HermesStruct</a> &gt; MetadataManager::DecodeBlobNameLocal </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>encoded_blob_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Decodes a encoded blob name string into hermesstruct </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">encoded_blob_name,std::string,encoded</td><td>blob name string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>hermes struct with blob_name, rank, offset, and size </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager_a71abb3ce9ed023c6ce7f554b4e929d60_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager_a71abb3ce9ed023c6ce7f554b4e929d60_cgraph" alt=""/></div>
+<map name="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager_a71abb3ce9ed023c6ce7f554b4e929d60_cgraph" id="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager_a71abb3ce9ed023c6ce7f554b4e929d60_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,240,61"/>
+<area shape="rect" href="namespacehermes_1_1adapter.html#a117306c79f6cf35279ccf08907df6bc3" title=" " alt="" coords="288,20,492,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="ada1a097c6847c027ae857adfefa6f31e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada1a097c6847c027ae857adfefa6f31e">&#9670;&nbsp;</a></span>metadata</h2>
 
@@ -473,18 +450,26 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a7929ad2e014cc294064f98197423e7f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7929ad2e014cc294064f98197423e7f0">&#9670;&nbsp;</a></span>rank</h2>
+<a id="ae15b8df93f94d5b7739d448971a06306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae15b8df93f94d5b7739d448971a06306">&#9670;&nbsp;</a></span>hermes</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int hermes::adapter::mpiio::MetadataManager::rank</td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt; hermes::adapter::mpiio::MetadataManager::hermes</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>MPI attributes </p>
+<p>hermes attribute to initialize Hermes </p>
 
 </div>
 </div>
@@ -508,6 +493,21 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>references of how many times hermes was tried to initialize. </p>
+
+</div>
+</div>
+<a id="a7929ad2e014cc294064f98197423e7f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7929ad2e014cc294064f98197423e7f0">&#9670;&nbsp;</a></span>rank</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hermes::adapter::mpiio::MetadataManager::rank</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>MPI attributes </p>
 
 </div>
 </div>

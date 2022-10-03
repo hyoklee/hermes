@@ -28,7 +28,7 @@
    <div id="projectname">Hermes
    &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
-   <div id="projectbrief">I/O Buffering System</div>
+   <div id="projectbrief">Hierarchical Distributed I/O Buffering System</div>
   </td>
  </tr>
  </tbody>
@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#a451f2bfb745a587e3ccfec736d992ffb">hermes::api::Hermes</a>
 </li>
 <li>Attach()
-: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a82eaa7e8e2c25c96bf9aef5f6f8914ee">hermes::api::VBucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a26a6f00e07cdc495206c15314186a060">hermes::api::VBucket</a>
 </li>
 </ul>
 
@@ -106,6 +106,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>BlobIsInSwap()
 : <a class="el" href="classhermes_1_1api_1_1_bucket.html#a11ada6c7bf2d916ae15083b735b53768">hermes::api::Bucket</a>
+</li>
+<li>Bucket()
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#ab4084ef2bfb1ea3eb055cb1336905341">hermes::api::Bucket</a>
 </li>
 <li>BucketContainsBlob()
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#a9ab56ab8d652f87ae789043089672e96">hermes::api::Hermes</a>
@@ -157,20 +160,14 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 , <a class="el" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#a0b30cf84978751ed81e11b1900aa17bf">hermes::adapter::stdio::MetadataManager</a>
 </li>
 <li>DeleteBlob()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a38bb0dd78b3b99f551d16171e48d87ea">hermes::api::Bucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#ae12c91aa518c3aa30c0cdc29e67e45a0">hermes::api::Bucket</a>
 </li>
 <li>Destroy()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a46360aedcfc50832303609b0fd541049">hermes::api::Bucket</a>
-, <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a8b392b4d30c1118a80e41f37e58ebc0a">hermes::api::VBucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#ab969c7d75e5f109ae02031ca2076c5b0">hermes::api::Bucket</a>
+, <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a14a2e0804ef0d64a6a58156af4d85ede">hermes::api::VBucket</a>
 </li>
 <li>Detach()
-: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#ae257c6f39661bbd9fce0655cf4fb49ed">hermes::api::VBucket</a>
-</li>
-<li>Display_bucket()
-: <a class="el" href="classhermes_1_1api_1_1_hermes.html#ac5e5c3d734635db08aae4bdf90d64075">hermes::api::Hermes</a>
-</li>
-<li>Display_vbucket()
-: <a class="el" href="classhermes_1_1api_1_1_hermes.html#aeb3132dd2af5918c6fd117e91a766f88">hermes::api::Hermes</a>
+: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a4cc7da678a88a47c6860f5eb5a55ac9f">hermes::api::VBucket</a>
 </li>
 </ul>
 
@@ -202,7 +199,8 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#aca7ea39b90693a4e8ff39ef47286b075">hermes::api::Hermes</a>
 </li>
 <li>FinalizeHermes()
-: <a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#af3d5caae473a2970331d364749111c36">hermes::adapter::mpiio::MetadataManager</a>
+: <a class="el" href="classhermes_1_1adapter_1_1_metadata_manager.html#acb7163b12dab22b7f4799d87e94545cf">hermes::adapter::MetadataManager</a>
+, <a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#af3d5caae473a2970331d364749111c36">hermes::adapter::mpiio::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ab53851f8e761f5f26755287540ec9de8">hermes::adapter::posix::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#afd032b4337a329356d3097b4a1701952">hermes::adapter::pubsub::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#ad6c55034a9c121d0466ee26695d9bb20">hermes::adapter::stdio::MetadataManager</a>
@@ -221,8 +219,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_mapper_factory.html#ad88702927b2a7549e1d1416d7d0db5e4">hermes::adapter::mpiio::MapperFactory</a>
 , <a class="el" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">hermes::adapter::posix::MapperFactory</a>
 , <a class="el" href="classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html#a18dc570603d6d7e583cd66950198d09b">hermes::adapter::stdio::MapperFactory</a>
-, <a class="el" href="classhermes_1_1api_1_1_bucket.html#a938d7c3e150a937c8639d7eb5cbba395">hermes::api::Bucket</a>
+, <a class="el" href="classhermes_1_1api_1_1_bucket.html#ae9f4e17e1ca771271429449de6d7b881">hermes::api::Bucket</a>
 , <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a09fb36f4994f0c7613073e187c113491">hermes::api::VBucket</a>
+, <a class="el" href="classhermes_1_1_d_p_e_factory.html#a6894612fc0d57be85041eb4bb757e769">hermes::DPEFactory</a>
 </li>
 <li>GetAppCommunicator()
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#a7977326df644c6e80cf38193add6c4c7">hermes::api::Hermes</a>
@@ -231,16 +230,17 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classhermes_1_1api_1_1_bucket.html#ab4b92a3d45767c4a1f77ee5a8124babb">hermes::api::Bucket</a>
 </li>
 <li>GetBlobSize()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a345819d2ff8557cf1e9b38bc89cddabc">hermes::api::Bucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a0681d850e03cf0a31acc43df2464336a">hermes::api::Bucket</a>
 </li>
 <li>GetCurrentDeviceIndex()
-: <a class="el" href="classhermes_1_1_round_robin_state.html#abff3f38fb83915f0a4cce1d7f12a2c97">hermes::RoundRobinState</a>
+: <a class="el" href="classhermes_1_1_round_robin.html#a5bd28432ea190b26581e3a1517788368">hermes::RoundRobin</a>
 </li>
 <li>GetDeviceByIndex()
-: <a class="el" href="classhermes_1_1_round_robin_state.html#a5ce012d47a8ada91a50e6c23e2205184">hermes::RoundRobinState</a>
+: <a class="el" href="classhermes_1_1_round_robin.html#a72b1006d2d7c1b643eac90477a550028">hermes::RoundRobin</a>
 </li>
 <li>GetHermes()
-: <a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#a75d56d7f8a9c68ba856d9c83bd463e6c">hermes::adapter::mpiio::MetadataManager</a>
+: <a class="el" href="classhermes_1_1adapter_1_1_metadata_manager.html#a86a94749818bb26ef0b992547c6505cc">hermes::adapter::MetadataManager</a>
+, <a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#a75d56d7f8a9c68ba856d9c83bd463e6c">hermes::adapter::mpiio::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ab5ecd98f31881c875c1ba7cb04e662ea">hermes::adapter::posix::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#a18cac4cd8820424110f1a80f6fe9d8a5">hermes::adapter::pubsub::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#a3a223f5e510b83f0ae525fe6262f8428">hermes::adapter::stdio::MetadataManager</a>
@@ -259,13 +259,13 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 , <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#af520851d6c4382ebc470e99beb1e49ea">hermes::api::VBucket</a>
 </li>
 <li>GetNext()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a53ec2db97bd21f011a29b6e5b8c933d4">hermes::api::Bucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#aff75409766b2e0aa8b159ec4cf42170a">hermes::api::Bucket</a>
 </li>
 <li>GetNodeId()
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#aff0bd1497415ed58211f6b4823f76df0">hermes::api::Hermes</a>
 </li>
 <li>GetNumDevices()
-: <a class="el" href="classhermes_1_1_round_robin_state.html#a96055c255eed95f1c946ac342b9d199a">hermes::RoundRobinState</a>
+: <a class="el" href="classhermes_1_1_round_robin.html#a8030aa767764adcde3d440fdd06e0ac9">hermes::RoundRobin</a>
 </li>
 <li>GetNumProcesses()
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#a94c14d58bf77193e622d5a481af3d402">hermes::api::Hermes</a>
@@ -301,20 +301,18 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 
 <h3><a id="index_i"></a>- i -</h3><ul>
-<li>ID()
-: <a class="el" href="classhermes_1_1api_1_1_i_d.html#a62038488852a91084413eae6c05d2a3b">hermes::api::ID&lt; Tag, T, default_value &gt;</a>
+<li>InitDevices()
+: <a class="el" href="classhermes_1_1_round_robin.html#a65d23952affd0b2adfd668c1db93d581">hermes::RoundRobin</a>
 </li>
 <li>InitializeHermes()
-: <a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#acc4f61280f1374ac4af95a0976e1b097">hermes::adapter::mpiio::MetadataManager</a>
+: <a class="el" href="classhermes_1_1adapter_1_1_metadata_manager.html#a31f23d972af1269ea588bb33f3c218e9">hermes::adapter::MetadataManager</a>
+, <a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#acc4f61280f1374ac4af95a0976e1b097">hermes::adapter::mpiio::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#a311f157a07dd1e096324ed2444f7105f">hermes::adapter::posix::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#a5c67a4fbcaded6c88e4945e06c90d0d8">hermes::adapter::pubsub::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#a998ec8bef877e84043dca3e7e1c24d76">hermes::adapter::stdio::MetadataManager</a>
 </li>
 <li>InterceptorList()
 : <a class="el" href="structhermes_1_1adapter_1_1_interceptor_list.html#af5fa1b9e88263539e9c627e87ddf3ad2">hermes::adapter::InterceptorList</a>
-</li>
-<li>Invalid()
-: <a class="el" href="classhermes_1_1api_1_1_i_d.html#a7573b80694db9723e40cfbc9b96c150b">hermes::api::ID&lt; Tag, T, default_value &gt;</a>
 </li>
 <li>IsApplicationCore()
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#ad2bb69f41037cc5b7e4638d0ec4a6e57">hermes::api::Hermes</a>
@@ -324,13 +322,14 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>IsValid()
 : <a class="el" href="classhermes_1_1api_1_1_bucket.html#ab0f3448f247972e09644d405e84b71f7">hermes::api::Bucket</a>
+, <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#afeba35fbbfdd9a2cf97dfea19dc846c2">hermes::api::VBucket</a>
 </li>
 </ul>
 
 
 <h3><a id="index_l"></a>- l -</h3><ul>
 <li>Link()
-: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a6d086cfdcec3a6195bb59f99d0b992b6">hermes::api::VBucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a9a2d3b0743c29f8e4636e871e2911da3">hermes::api::VBucket</a>
 </li>
 </ul>
 
@@ -360,6 +359,17 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
+<li>onAttach()
+: <a class="el" href="structhermes_1_1api_1_1_write_only_trait.html#a05907d81e22189c283f4b49dcffbb3a3">hermes::api::WriteOnlyTrait</a>
+</li>
+<li>onDetach()
+: <a class="el" href="structhermes_1_1api_1_1_persist_trait.html#ad60d96f48e6ecd4e0493b0b1f2886a12">hermes::api::PersistTrait</a>
+, <a class="el" href="structhermes_1_1api_1_1_write_only_trait.html#a3f4fdc1aa18a773dfe63d6ae12d99219">hermes::api::WriteOnlyTrait</a>
+</li>
+<li>onUnlink()
+: <a class="el" href="structhermes_1_1api_1_1_persist_trait.html#a15937621717fb7efc736fdeb027d3e03">hermes::api::PersistTrait</a>
+, <a class="el" href="structhermes_1_1api_1_1_write_only_trait.html#a7dbc4cacbd42b6655177387312edc068">hermes::api::WriteOnlyTrait</a>
+</li>
 <li>Open()
 : <a class="el" href="structhermes_1_1adapter_1_1vfd_1_1test_1_1_hdf5_api.html#aa3b9ff73d67676ea4c293b6f16ecb698">hermes::adapter::vfd::test::Hdf5Api</a>
 </li>
@@ -368,9 +378,6 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>operator Arena *()
 : <a class="el" href="structhermes_1_1_scoped_temporary_memory.html#a5270d2d43f96ee4917e08671c540dbbd">hermes::ScopedTemporaryMemory</a>
-</li>
-<li>operator T()
-: <a class="el" href="classhermes_1_1api_1_1_i_d.html#a4b73f813055613a3a9a88dabc99297b8">hermes::api::ID&lt; Tag, T, default_value &gt;</a>
 </li>
 <li>operator=()
 : <a class="el" href="classapi_1_1_status.html#aa07ab2da93eec3ff49e84775f413ba8b">api::Status</a>
@@ -395,13 +402,13 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>Persist()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a91e455b2345e69f376803728d9414a56">hermes::api::Bucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a8a2fc36ffa8c3dc9fa02035848615e1e">hermes::api::Bucket</a>
 </li>
 <li>PlaceBlobs()
 : <a class="el" href="classhermes_1_1api_1_1_bucket.html#a90ac5c8ab3fc47ccc51566e722d3ca66">hermes::api::Bucket</a>
 </li>
 <li>Put()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a18180399c351be737c889ccaee8ff04f">hermes::api::Bucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a025d344918acf90a60ba9efb978e6f6d">hermes::api::Bucket</a>
 </li>
 <li>PutInternal()
 : <a class="el" href="classhermes_1_1api_1_1_bucket.html#a409f78fc50a74d26d2623cde27a9a1ad">hermes::api::Bucket</a>
@@ -414,17 +421,17 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="structhermes_1_1adapter_1_1vfd_1_1test_1_1_hdf5_api.html#ae176cc36885691ffbd936b5835691276">hermes::adapter::vfd::test::Hdf5Api</a>
 </li>
 <li>Release()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#afffebf51756e2e6c3bc1d05ab4496726">hermes::api::Bucket</a>
-, <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a5a7b40cc56d2b57c36d921cd1ec5b989">hermes::api::VBucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a7935b0cf350c91ef11fff62fd183d5ca">hermes::api::Bucket</a>
+, <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#ac02c11309661262ccba581193ad57e17">hermes::api::VBucket</a>
 </li>
 <li>RemoteFinalize()
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#a9c9a950cf51161341788bad35198d1a5">hermes::api::Hermes</a>
 </li>
 <li>Rename()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a527ed9f0ab1d1382c149e864332b68ab">hermes::api::Bucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a31daed3b53c172bb3567e5d51154c32e">hermes::api::Bucket</a>
 </li>
 <li>RenameBlob()
-: <a class="el" href="classhermes_1_1api_1_1_bucket.html#a2ad35d22977d50c7a1cafa64693e49e4">hermes::api::Bucket</a>
+: <a class="el" href="classhermes_1_1api_1_1_bucket.html#abca0fdaa0e780793b8046b174cab86b9">hermes::api::Bucket</a>
 </li>
 <li>RunDaemon()
 : <a class="el" href="classhermes_1_1api_1_1_hermes.html#a7f9700051f64b2c3d51e3ff30c323154">hermes::api::Hermes</a>
@@ -443,7 +450,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="structhermes_1_1_scoped_temporary_memory.html#a19bd49ca137b58259db63509423abd36">hermes::ScopedTemporaryMemory</a>
 </li>
 <li>SetCurrentDeviceIndex()
-: <a class="el" href="classhermes_1_1_round_robin_state.html#a923cfd23328602dc5d9343aeb5e72c71">hermes::RoundRobinState</a>
+: <a class="el" href="classhermes_1_1_round_robin.html#a9896b8a9e011e2e92780242bf9cdafd8">hermes::RoundRobin</a>
 </li>
 <li>Singleton()
 : <a class="el" href="classhermes_1_1adapter_1_1_singleton.html#acb9aa864d45b7d030c98f7f4eae7a106">hermes::adapter::Singleton&lt; T &gt;</a>
@@ -457,6 +464,13 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </ul>
 
 
+<h3><a id="index_t"></a>- t -</h3><ul>
+<li>Trait()
+: <a class="el" href="structhermes_1_1api_1_1_trait.html#ad9d8db7946ca59dda5fc44894693ad3c">hermes::api::Trait</a>
+</li>
+</ul>
+
+
 <h3><a id="index_u"></a>- u -</h3><ul>
 <li>Unlink()
 : <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#af1ea7cd685b2264a405e1ced612088a9">hermes::api::VBucket</a>
@@ -466,6 +480,13 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 , <a class="el" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ad4cd83902a8b1d2288c03b6bd4e2cb29">hermes::adapter::posix::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#aaaa53e1509fdcc8eb9eac03f04855861">hermes::adapter::pubsub::MetadataManager</a>
 , <a class="el" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#a003573d76b0f752b35ee1dada880afc3">hermes::adapter::stdio::MetadataManager</a>
+</li>
+</ul>
+
+
+<h3><a id="index_v"></a>- v -</h3><ul>
+<li>VBucket()
+: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a94b344d00db3915e69945a3a9ceba2a3">hermes::api::VBucket</a>
 </li>
 </ul>
 
@@ -486,6 +507,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>~ScopedTemporaryMemory()
 : <a class="el" href="structhermes_1_1_scoped_temporary_memory.html#ad3d6513353dcf82ec9390975b3a042b4">hermes::ScopedTemporaryMemory</a>
+</li>
+<li>~VBucket()
+: <a class="el" href="classhermes_1_1api_1_1_v_bucket.html#adf39d797323f3bc55caf315ce455d00f">hermes::api::VBucket</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -28,7 +28,7 @@
    <div id="projectname">Hermes
    &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
-   <div id="projectbrief">I/O Buffering System</div>
+   <div id="projectbrief">Hierarchical Distributed I/O Buffering System</div>
   </td>
  </tr>
  </tbody>
@@ -103,12 +103,12 @@ $(document).ready(function(){initNavTree('posix_2datastructures_8h_source.html',
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define HERMES_POSIX_ADAPTER_DATASTRUCTURES_H</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;ftw.h&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;set&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;bucket.h&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="bucket_8h.html">bucket.h</a>&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="buffer__pool_8h.html">buffer_pool.h</a>&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;hermes_types.h&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="hermes__types_8h.html">hermes_types.h</a>&gt;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span>hapi = hermes::api;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
@@ -265,6 +265,7 @@ $(document).ready(function(){initNavTree('posix_2datastructures_8h_source.html',
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_adapter_stat_html_a81b602c19adcb9016dad1f22d9d48636"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html#a81b602c19adcb9016dad1f22d9d48636">hermes::adapter::posix::AdapterStat::st_bkid</a></div><div class="ttdeci">std::shared_ptr&lt; hapi::Bucket &gt; st_bkid</div><div class="ttdef"><b>Definition:</b> datastructures.h:160</div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_hermes_struct_html"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_hermes_struct.html">hermes::adapter::posix::HermesStruct</a></div><div class="ttdef"><b>Definition:</b> datastructures.h:121</div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_file_i_d_html_a9dd7cab380875ae11ab6a4618ecf5809"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_file_i_d.html#a9dd7cab380875ae11ab6a4618ecf5809">hermes::adapter::posix::FileID::dev_id_</a></div><div class="ttdeci">dev_t dev_id_</div><div class="ttdef"><b>Definition:</b> datastructures.h:48</div></div>
+<div class="ttc" id="abucket_8h_html"><div class="ttname"><a href="bucket_8h.html">bucket.h</a></div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_hermes_struct_html_aff75ca5c906bba0d5207d956d039652a"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_hermes_struct.html#aff75ca5c906bba0d5207d956d039652a">hermes::adapter::posix::HermesStruct::operator=</a></div><div class="ttdeci">HermesStruct &amp; operator=(const HermesStruct &amp;other)</div><div class="ttdef"><b>Definition:</b> datastructures.h:145</div></div>
 <div class="ttc" id="anamespacehermes_1_1adapter_1_1posix_html"><div class="ttname"><a href="namespacehermes_1_1adapter_1_1posix.html">hermes::adapter::posix</a></div><div class="ttdef"><b>Definition:</b> datastructures.h:39</div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_file_struct_html_a2dfe473947811090c4e9abf3ae033089"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_file_struct.html#a2dfe473947811090c4e9abf3ae033089">hermes::adapter::posix::FileStruct::FileStruct</a></div><div class="ttdeci">FileStruct()</div><div class="ttdef"><b>Definition:</b> datastructures.h:93</div></div>
@@ -274,6 +275,7 @@ $(document).ready(function(){initNavTree('posix_2datastructures_8h_source.html',
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> datastructures.h:216</div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_adapter_stat_html"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html">hermes::adapter::posix::AdapterStat</a></div><div class="ttdef"><b>Definition:</b> datastructures.h:156</div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_hermes_struct_html_a67d119c0e5bb564b396fc2e5ad078347"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_hermes_struct.html#a67d119c0e5bb564b396fc2e5ad078347">hermes::adapter::posix::HermesStruct::HermesStruct</a></div><div class="ttdeci">HermesStruct()</div><div class="ttdef"><b>Definition:</b> datastructures.h:131</div></div>
+<div class="ttc" id="ahermes__types_8h_html"><div class="ttname"><a href="hermes__types_8h.html">hermes_types.h</a></div></div>
 <div class="ttc" id="astructhermes_1_1adapter_1_1posix_1_1_adapter_stat_html_acfb85c0c4023c1e96161082c3b136c9d"><div class="ttname"><a href="structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html#acfb85c0c4023c1e96161082c3b136c9d">hermes::adapter::posix::AdapterStat::CompareBlobs</a></div><div class="ttdeci">static bool CompareBlobs(const std::string &amp;a, const std::string &amp;b)</div><div class="ttdef"><b>Definition:</b> datastructures.h:206</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

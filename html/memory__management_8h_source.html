@@ -28,7 +28,7 @@
    <div id="projectname">Hermes
    &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
-   <div id="projectbrief">I/O Buffering System</div>
+   <div id="projectbrief">Hierarchical Distributed I/O Buffering System</div>
   </td>
  </tr>
  </tbody>
@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('memory__management_8h_source.html','')
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;hermes_types.h&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hermes__types_8h.html">hermes_types.h</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace </span>hermes {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('memory__management_8h_source.html','')
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="structhermes_1_1_arena_info.html">   52</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1_arena_info.html">ArenaInfo</a> {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">size_t</span> sizes[kArenaType_Count];</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">size_t</span> sizes[<a class="code" href="hermes__types_8h.html#a62c3f0a639ff72d4ea54e6aee25a7e8da06bea029a0a1327d43c0da2f1db41bc0">kArenaType_Count</a>];</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">size_t</span> total;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
@@ -294,6 +294,7 @@ $(document).ready(function(){initNavTree('memory__management_8h_source.html','')
 <div class="ttc" id="astructhermes_1_1_heap_html"><div class="ttname"><a href="structhermes_1_1_heap.html">hermes::Heap</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:87</div></div>
 <div class="ttc" id="astructhermes_1_1_arena_html_a430f30fb23571afde63972cfe31d4a9a"><div class="ttname"><a href="structhermes_1_1_arena.html#a430f30fb23571afde63972cfe31d4a9a">hermes::Arena::error_handler</a></div><div class="ttdeci">ArenaErrorFunc * error_handler</div><div class="ttdef"><b>Definition:</b> memory_management.h:82</div></div>
 <div class="ttc" id="astructhermes_1_1_arena_info_html"><div class="ttname"><a href="structhermes_1_1_arena_info.html">hermes::ArenaInfo</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:52</div></div>
+<div class="ttc" id="ahermes__types_8h_html_a62c3f0a639ff72d4ea54e6aee25a7e8da06bea029a0a1327d43c0da2f1db41bc0"><div class="ttname"><a href="hermes__types_8h.html#a62c3f0a639ff72d4ea54e6aee25a7e8da06bea029a0a1327d43c0da2f1db41bc0">hermes::kArenaType_Count</a></div><div class="ttdeci">@ kArenaType_Count</div><div class="ttdef"><b>Definition:</b> hermes_types.h:211</div></div>
 <div class="ttc" id="amemory__management_8cc_html_abc4a3f05d273d7eacbd2cd8e1ad5e9ce"><div class="ttname"><a href="memory__management_8cc.html#abc4a3f05d273d7eacbd2cd8e1ad5e9ce">hermes::PushSize</a></div><div class="ttdeci">u8 * PushSize(Arena *arena, size_t size, size_t alignment)</div><div class="ttdef"><b>Definition:</b> memory_management.cc:124</div></div>
 <div class="ttc" id="astructhermes_1_1_heap_html_a5b043f15e02a1d33511bf09df320a9f4"><div class="ttname"><a href="structhermes_1_1_heap.html#a5b043f15e02a1d33511bf09df320a9f4">hermes::Heap::error_handler</a></div><div class="ttdeci">ArenaErrorFunc * error_handler</div><div class="ttdef"><b>Definition:</b> memory_management.h:89</div></div>
 <div class="ttc" id="astructhermes_1_1_heap_html_a9f2cb46031a4d37e1a8b891f6d2bbecb"><div class="ttname"><a href="structhermes_1_1_heap.html#a9f2cb46031a4d37e1a8b891f6d2bbecb">hermes::Heap::extent</a></div><div class="ttdeci">u32 extent</div><div class="ttdef"><b>Definition:</b> memory_management.h:100</div></div>
@@ -310,6 +311,7 @@ $(document).ready(function(){initNavTree('memory__management_8h_source.html','')
 <div class="ttc" id="astructhermes_1_1_heap_html_a8de2dd8500c107ec816ada7e472a3e26"><div class="ttname"><a href="structhermes_1_1_heap.html#a8de2dd8500c107ec816ada7e472a3e26">hermes::Heap::free_list_offset</a></div><div class="ttdeci">u32 free_list_offset</div><div class="ttdef"><b>Definition:</b> memory_management.h:95</div></div>
 <div class="ttc" id="astructhermes_1_1_arena_html_aba3fc1f263ab099439fabdca9c782204"><div class="ttname"><a href="structhermes_1_1_arena.html#aba3fc1f263ab099439fabdca9c782204">hermes::Arena::base</a></div><div class="ttdeci">u8 * base</div><div class="ttdef"><b>Definition:</b> memory_management.h:76</div></div>
 <div class="ttc" id="astructhermes_1_1_arena_html_a2a73789f44ff22eb1efea7f6325d256b"><div class="ttname"><a href="structhermes_1_1_arena.html#a2a73789f44ff22eb1efea7f6325d256b">hermes::Arena::temp_count</a></div><div class="ttdeci">i32 temp_count</div><div class="ttdef"><b>Definition:</b> memory_management.h:84</div></div>
+<div class="ttc" id="ahermes__types_8h_html"><div class="ttname"><a href="hermes__types_8h.html">hermes_types.h</a></div></div>
 <div class="ttc" id="astructhermes_1_1_heap_html_aa94525cba13ccc4f7066454e417e4bb1"><div class="ttname"><a href="structhermes_1_1_heap.html#aa94525cba13ccc4f7066454e417e4bb1">hermes::Heap::alignment</a></div><div class="ttdeci">u16 alignment</div><div class="ttdef"><b>Definition:</b> memory_management.h:103</div></div>
 <div class="ttc" id="astructhermes_1_1_temporary_memory_html"><div class="ttname"><a href="structhermes_1_1_temporary_memory.html">hermes::TemporaryMemory</a></div><div class="ttdef"><b>Definition:</b> memory_management.h:119</div></div>
 <div class="ttc" id="astructhermes_1_1_scoped_temporary_memory_html_ad3d6513353dcf82ec9390975b3a042b4"><div class="ttname"><a href="structhermes_1_1_scoped_temporary_memory.html#ad3d6513353dcf82ec9390975b3a042b4">hermes::ScopedTemporaryMemory::~ScopedTemporaryMemory</a></div><div class="ttdeci">~ScopedTemporaryMemory()</div><div class="ttdef"><b>Definition:</b> memory_management.h:174</div></div>

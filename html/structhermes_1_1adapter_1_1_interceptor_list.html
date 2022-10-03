@@ -28,7 +28,7 @@
    <div id="projectname">Hermes
    &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
-   <div id="projectbrief">I/O Buffering System</div>
+   <div id="projectbrief">Hierarchical Distributed I/O Buffering System</div>
   </td>
  </tr>
  </tbody>
@@ -117,6 +117,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a9656e98214326b7a836643c49de70f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe24f9ff0790b4cc516e0b81f6ed2c5f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1_interceptor_list.html#abe24f9ff0790b4cc516e0b81f6ed2c5f">adapter_paths</a></td></tr>
 <tr class="separator:abe24f9ff0790b4cc516e0b81f6ed2c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1753edc494048353b6f234b01f4e1a65"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1_interceptor_list.html#a1753edc494048353b6f234b01f4e1a65">hermes_paths_inclusion</a></td></tr>
+<tr class="separator:a1753edc494048353b6f234b01f4e1a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6ba5d414bb024bde1236eb5beece646"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1_interceptor_list.html#ad6ba5d414bb024bde1236eb5beece646">hermes_paths_exclusion</a></td></tr>
 <tr class="separator:ad6ba5d414bb024bde1236eb5beece646"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad60fcf307ac5cf76669b54ee4d4d84e9"><td class="memItemLeft" align="right" valign="top">std::unordered_set&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1_interceptor_list.html#ad60fcf307ac5cf76669b54ee4d4d84e9">hermes_flush_exclusion</a></td></tr>
@@ -182,18 +184,18 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad60fcf307ac5cf76669b54ee4d4d84e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad60fcf307ac5cf76669b54ee4d4d84e9">&#9670;&nbsp;</a></span>hermes_flush_exclusion</h2>
+<a id="a1753edc494048353b6f234b01f4e1a65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1753edc494048353b6f234b01f4e1a65">&#9670;&nbsp;</a></span>hermes_paths_inclusion</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_set&lt;std::string&gt; hermes::adapter::InterceptorList::hermes_flush_exclusion</td>
+          <td class="memname">std::vector&lt;std::string&gt; hermes::adapter::InterceptorList::hermes_paths_inclusion</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Allow adapter to exclude files which are currently flushed. </p>
+<p>Allow adapter to include hermes specific files. </p>
 
 </div>
 </div>
@@ -209,6 +211,21 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Allow adapter to exclude hermes specific files. </p>
+
+</div>
+</div>
+<a id="ad60fcf307ac5cf76669b54ee4d4d84e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad60fcf307ac5cf76669b54ee4d4d84e9">&#9670;&nbsp;</a></span>hermes_flush_exclusion</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_set&lt;std::string&gt; hermes::adapter::InterceptorList::hermes_flush_exclusion</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Allow adapter to exclude files which are currently flushed. </p>
 
 </div>
 </div>

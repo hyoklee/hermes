@@ -28,7 +28,7 @@
    <div id="projectname">Hermes
    &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
-   <div id="projectbrief">I/O Buffering System</div>
+   <div id="projectbrief">Hierarchical Distributed I/O Buffering System</div>
   </td>
  </tr>
  </tbody>
@@ -162,6 +162,85 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>comm_size</b></td></tr
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab5ecd98f31881c875c1ba7cb04e662ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ecd98f31881c875c1ba7cb04e662ea">&#9670;&nbsp;</a></span>GetHermes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt;&amp; hermes::adapter::posix::MetadataManager::GetHermes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the instance of hermes. </p>
+
+</div>
+</div>
+<a id="a311f157a07dd1e096324ed2444f7105f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a311f157a07dd1e096324ed2444f7105f">&#9670;&nbsp;</a></span>InitializeHermes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::adapter::posix::MetadataManager::InitializeHermes </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_mpi</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Initialize hermes. Get the kHermesConf from environment else get_env returns NULL which is handled internally by hermes. Initialize hermes in daemon mode. Keep a reference of how many times Initialize is called. Within the adapter, Initialize is called from fopen. </p>
+
+</div>
+</div>
+<a id="ab53851f8e761f5f26755287540ec9de8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab53851f8e761f5f26755287540ec9de8">&#9670;&nbsp;</a></span>FinalizeHermes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::adapter::posix::MetadataManager::FinalizeHermes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Finalize hermes and close rpc if reference is equal to one. Else just decrement the ref counter. </p>
+
+</div>
+</div>
 <a id="ab3516716b7579762e47f0f3c955f1bcb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3516716b7579762e47f0f3c955f1bcb">&#9670;&nbsp;</a></span>Convert()</h2>
 
@@ -238,153 +317,6 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="ad4c11289205cbaaeb4f319cd1d3bfeea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4c11289205cbaaeb4f319cd1d3bfeea">&#9670;&nbsp;</a></span>Delete()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MetadataManager::Delete </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fh</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Delete existing metadata entry for POSIX adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fh,int,original</td><td>file handler of the file on the destination. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true, if operation was successful. false, if operation was unsuccessful. </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ad4c11289205cbaaeb4f319cd1d3bfeea_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ad4c11289205cbaaeb4f319cd1d3bfeea_cgraph" alt=""/></div>
-<map name="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ad4c11289205cbaaeb4f319cd1d3bfeea_cgraph" id="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ad4c11289205cbaaeb4f319cd1d3bfeea_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,205,47"/>
-<area shape="rect" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ab3516716b7579762e47f0f3c955f1bcb" title=" " alt="" coords="253,5,461,47"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ab53851f8e761f5f26755287540ec9de8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab53851f8e761f5f26755287540ec9de8">&#9670;&nbsp;</a></span>FinalizeHermes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hermes::adapter::posix::MetadataManager::FinalizeHermes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Finalize hermes and close rpc if reference is equal to one. Else just decrement the ref counter. </p>
-
-</div>
-</div>
-<a id="ae7be81d0d6fe03980bcf8fdf54744751"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7be81d0d6fe03980bcf8fdf54744751">&#9670;&nbsp;</a></span>Find()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html">AdapterStat</a>, bool &gt; MetadataManager::Find </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fh</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Find existing metadata entry for POSIX adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fh,int,original</td><td>file handler of the file on the destination. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The metadata entry if exist. The bool in pair indicated whether metadata entry exists. </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ae7be81d0d6fe03980bcf8fdf54744751_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ae7be81d0d6fe03980bcf8fdf54744751_cgraph" alt=""/></div>
-<map name="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ae7be81d0d6fe03980bcf8fdf54744751_cgraph" id="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ae7be81d0d6fe03980bcf8fdf54744751_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,189,47"/>
-<area shape="rect" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ab3516716b7579762e47f0f3c955f1bcb" title=" " alt="" coords="237,5,445,47"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ab5ecd98f31881c875c1ba7cb04e662ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5ecd98f31881c875c1ba7cb04e662ea">&#9670;&nbsp;</a></span>GetHermes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt;&amp; hermes::adapter::posix::MetadataManager::GetHermes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Get the instance of hermes. </p>
-
-</div>
-</div>
-<a id="a311f157a07dd1e096324ed2444f7105f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a311f157a07dd1e096324ed2444f7105f">&#9670;&nbsp;</a></span>InitializeHermes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hermes::adapter::posix::MetadataManager::InitializeHermes </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>is_mpi</em> = <code>false</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Initialize hermes. Get the kHermesConf from environment else get_env returns NULL which is handled internally by hermes. Initialize hermes in daemon mode. Keep a reference of how many times Initialize is called. Within the adapter, Initialize is called from fopen. </p>
-
-</div>
-</div>
 <a id="ad4cd83902a8b1d2288c03b6bd4e2cb29"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad4cd83902a8b1d2288c03b6bd4e2cb29">&#9670;&nbsp;</a></span>Update()</h2>
 
@@ -430,53 +362,75 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="ad4c11289205cbaaeb4f319cd1d3bfeea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c11289205cbaaeb4f319cd1d3bfeea">&#9670;&nbsp;</a></span>Delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MetadataManager::Delete </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fh</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Delete existing metadata entry for POSIX adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fh,int,original</td><td>file handler of the file on the destination. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true, if operation was successful. false, if operation was unsuccessful. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ad4c11289205cbaaeb4f319cd1d3bfeea_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ad4c11289205cbaaeb4f319cd1d3bfeea_cgraph" alt=""/></div>
+<map name="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ad4c11289205cbaaeb4f319cd1d3bfeea_cgraph" id="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ad4c11289205cbaaeb4f319cd1d3bfeea_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,205,47"/>
+<area shape="rect" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ab3516716b7579762e47f0f3c955f1bcb" title=" " alt="" coords="253,5,461,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae7be81d0d6fe03980bcf8fdf54744751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7be81d0d6fe03980bcf8fdf54744751">&#9670;&nbsp;</a></span>Find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; <a class="el" href="structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html">AdapterStat</a>, bool &gt; MetadataManager::Find </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fh</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Find existing metadata entry for POSIX adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fh,int,original</td><td>file handler of the file on the destination. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The metadata entry if exist. The bool in pair indicated whether metadata entry exists. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ae7be81d0d6fe03980bcf8fdf54744751_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ae7be81d0d6fe03980bcf8fdf54744751_cgraph" alt=""/></div>
+<map name="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ae7be81d0d6fe03980bcf8fdf54744751_cgraph" id="classhermes_1_1adapter_1_1posix_1_1_metadata_manager_ae7be81d0d6fe03980bcf8fdf54744751_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,189,47"/>
+<area shape="rect" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ab3516716b7579762e47f0f3c955f1bcb" title=" " alt="" coords="237,5,445,47"/>
+</map>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aedb0060a7752444139e1ff0add35c00f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedb0060a7752444139e1ff0add35c00f">&#9670;&nbsp;</a></span>hermes</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt; hermes::adapter::posix::MetadataManager::hermes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>hermes attribute to initialize Hermes </p>
-
-</div>
-</div>
-<a id="a4e498e9406c73715cae4c55533389a01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e498e9406c73715cae4c55533389a01">&#9670;&nbsp;</a></span>is_mpi</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hermes::adapter::posix::MetadataManager::is_mpi</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>MPI attributes </p>
-
-</div>
-</div>
 <a id="ae6b110b499b8a667bcf637016ff971c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae6b110b499b8a667bcf637016ff971c8">&#9670;&nbsp;</a></span>metadata</h2>
 
@@ -500,6 +454,29 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="aedb0060a7752444139e1ff0add35c00f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedb0060a7752444139e1ff0add35c00f">&#9670;&nbsp;</a></span>hermes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt; hermes::adapter::posix::MetadataManager::hermes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>hermes attribute to initialize Hermes </p>
+
+</div>
+</div>
 <a id="a2e2cf745472a8012aadd9afac9b9bfd5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e2cf745472a8012aadd9afac9b9bfd5">&#9670;&nbsp;</a></span>ref</h2>
 
@@ -520,6 +497,29 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>references of how many times hermes was tried to initialize. </p>
+
+</div>
+</div>
+<a id="a4e498e9406c73715cae4c55533389a01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e498e9406c73715cae4c55533389a01">&#9670;&nbsp;</a></span>is_mpi</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hermes::adapter::posix::MetadataManager::is_mpi</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>MPI attributes </p>
 
 </div>
 </div>

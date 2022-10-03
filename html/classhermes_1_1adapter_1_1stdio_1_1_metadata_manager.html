@@ -28,7 +28,7 @@
    <div id="projectname">Hermes
    &#160;<span id="projectnumber">0.8.0-beta</span>
    </div>
-   <div id="projectbrief">I/O Buffering System</div>
+   <div id="projectbrief">Hierarchical Distributed I/O Buffering System</div>
   </td>
  </tr>
  </tbody>
@@ -162,6 +162,85 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>comm_size</b></td></tr
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3a223f5e510b83f0ae525fe6262f8428"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a223f5e510b83f0ae525fe6262f8428">&#9670;&nbsp;</a></span>GetHermes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt;&amp; hermes::adapter::stdio::MetadataManager::GetHermes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the instance of hermes. </p>
+
+</div>
+</div>
+<a id="a998ec8bef877e84043dca3e7e1c24d76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a998ec8bef877e84043dca3e7e1c24d76">&#9670;&nbsp;</a></span>InitializeHermes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::adapter::stdio::MetadataManager::InitializeHermes </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_mpi</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Initialize hermes. Get the kHermesConf from environment else get_env returns NULL which is handled internally by hermes. Initialize hermes in daemon mode. Keep a reference of how many times Initialize is called. Within the adapter, Initialize is called from fopen. </p>
+
+</div>
+</div>
+<a id="ad6c55034a9c121d0466ee26695d9bb20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6c55034a9c121d0466ee26695d9bb20">&#9670;&nbsp;</a></span>FinalizeHermes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::adapter::stdio::MetadataManager::FinalizeHermes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Finalize hermes and close rpc if reference is equal to one. Else just decrement the ref counter. </p>
+
+</div>
+</div>
 <a id="aa1a3130a83bf194f5a01d1988cf48f98"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1a3130a83bf194f5a01d1988cf48f98">&#9670;&nbsp;</a></span>Convert()</h2>
 
@@ -238,153 +317,6 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a0b30cf84978751ed81e11b1900aa17bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b30cf84978751ed81e11b1900aa17bf">&#9670;&nbsp;</a></span>Delete()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool MetadataManager::Delete </td>
-          <td>(</td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>fh</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Delete existing metadata entry for STDIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true, if operation was successful. false, if operation was unsuccessful. </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a0b30cf84978751ed81e11b1900aa17bf_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a0b30cf84978751ed81e11b1900aa17bf_cgraph" alt=""/></div>
-<map name="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a0b30cf84978751ed81e11b1900aa17bf_cgraph" id="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a0b30cf84978751ed81e11b1900aa17bf_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,205,47"/>
-<area shape="rect" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#aa1a3130a83bf194f5a01d1988cf48f98" title=" " alt="" coords="253,5,461,47"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ad6c55034a9c121d0466ee26695d9bb20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6c55034a9c121d0466ee26695d9bb20">&#9670;&nbsp;</a></span>FinalizeHermes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hermes::adapter::stdio::MetadataManager::FinalizeHermes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Finalize hermes and close rpc if reference is equal to one. Else just decrement the ref counter. </p>
-
-</div>
-</div>
-<a id="a39d3eeb8b5b737d5fb7c972d1e81eeb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39d3eeb8b5b737d5fb7c972d1e81eeb9">&#9670;&nbsp;</a></span>Find()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html">AdapterStat</a>, bool &gt; MetadataManager::Find </td>
-          <td>(</td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>fh</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Find existing metadata entry for STDIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The metadata entry if exist. The bool in pair indicated whether metadata entry exists. </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a39d3eeb8b5b737d5fb7c972d1e81eeb9_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a39d3eeb8b5b737d5fb7c972d1e81eeb9_cgraph" alt=""/></div>
-<map name="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a39d3eeb8b5b737d5fb7c972d1e81eeb9_cgraph" id="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a39d3eeb8b5b737d5fb7c972d1e81eeb9_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,189,47"/>
-<area shape="rect" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#aa1a3130a83bf194f5a01d1988cf48f98" title=" " alt="" coords="237,5,445,47"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a3a223f5e510b83f0ae525fe6262f8428"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a223f5e510b83f0ae525fe6262f8428">&#9670;&nbsp;</a></span>GetHermes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt;&amp; hermes::adapter::stdio::MetadataManager::GetHermes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Get the instance of hermes. </p>
-
-</div>
-</div>
-<a id="a998ec8bef877e84043dca3e7e1c24d76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a998ec8bef877e84043dca3e7e1c24d76">&#9670;&nbsp;</a></span>InitializeHermes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hermes::adapter::stdio::MetadataManager::InitializeHermes </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>is_mpi</em> = <code>false</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Initialize hermes. Get the kHermesConf from environment else get_env returns NULL which is handled internally by hermes. Initialize hermes in daemon mode. Keep a reference of how many times Initialize is called. Within the adapter, Initialize is called from fopen. </p>
-
-</div>
-</div>
 <a id="a003573d76b0f752b35ee1dada880afc3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a003573d76b0f752b35ee1dada880afc3">&#9670;&nbsp;</a></span>Update()</h2>
 
@@ -430,53 +362,75 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="a0b30cf84978751ed81e11b1900aa17bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b30cf84978751ed81e11b1900aa17bf">&#9670;&nbsp;</a></span>Delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MetadataManager::Delete </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>fh</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Delete existing metadata entry for STDIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true, if operation was successful. false, if operation was unsuccessful. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a0b30cf84978751ed81e11b1900aa17bf_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a0b30cf84978751ed81e11b1900aa17bf_cgraph" alt=""/></div>
+<map name="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a0b30cf84978751ed81e11b1900aa17bf_cgraph" id="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a0b30cf84978751ed81e11b1900aa17bf_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,205,47"/>
+<area shape="rect" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#aa1a3130a83bf194f5a01d1988cf48f98" title=" " alt="" coords="253,5,461,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a39d3eeb8b5b737d5fb7c972d1e81eeb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39d3eeb8b5b737d5fb7c972d1e81eeb9">&#9670;&nbsp;</a></span>Find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; <a class="el" href="structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html">AdapterStat</a>, bool &gt; MetadataManager::Find </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>fh</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Find existing metadata entry for STDIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The metadata entry if exist. The bool in pair indicated whether metadata entry exists. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a39d3eeb8b5b737d5fb7c972d1e81eeb9_cgraph.png" border="0" usemap="#classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a39d3eeb8b5b737d5fb7c972d1e81eeb9_cgraph" alt=""/></div>
+<map name="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a39d3eeb8b5b737d5fb7c972d1e81eeb9_cgraph" id="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager_a39d3eeb8b5b737d5fb7c972d1e81eeb9_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,189,47"/>
+<area shape="rect" href="classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#aa1a3130a83bf194f5a01d1988cf48f98" title=" " alt="" coords="237,5,445,47"/>
+</map>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa0c774870edfcc42a704ba0e1a35118c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0c774870edfcc42a704ba0e1a35118c">&#9670;&nbsp;</a></span>hermes</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt; hermes::adapter::stdio::MetadataManager::hermes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>hermes attribute to initialize Hermes </p>
-
-</div>
-</div>
-<a id="a39622e004353e1e5f4f82562fcdb2c58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39622e004353e1e5f4f82562fcdb2c58">&#9670;&nbsp;</a></span>is_mpi</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hermes::adapter::stdio::MetadataManager::is_mpi</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>MPI attributes </p>
-
-</div>
-</div>
 <a id="a9ba56246f210b4e00f41081a934da18e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9ba56246f210b4e00f41081a934da18e">&#9670;&nbsp;</a></span>metadata</h2>
 
@@ -500,6 +454,29 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="aa0c774870edfcc42a704ba0e1a35118c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0c774870edfcc42a704ba0e1a35118c">&#9670;&nbsp;</a></span>hermes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhermes_1_1api_1_1_hermes.html">hapi::Hermes</a>&gt; hermes::adapter::stdio::MetadataManager::hermes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>hermes attribute to initialize Hermes </p>
+
+</div>
+</div>
 <a id="a7598b4c1f08b4ad379c02573f5ae8d88"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7598b4c1f08b4ad379c02573f5ae8d88">&#9670;&nbsp;</a></span>ref</h2>
 
@@ -520,6 +497,29 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>references of how many times hermes was tried to initialize. </p>
+
+</div>
+</div>
+<a id="a39622e004353e1e5f4f82562fcdb2c58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39622e004353e1e5f4f82562fcdb2c58">&#9670;&nbsp;</a></span>is_mpi</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hermes::adapter::stdio::MetadataManager::is_mpi</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>MPI attributes </p>
 
 </div>
 </div>
