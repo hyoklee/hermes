@@ -88,28 +88,28 @@ $(document).ready(function(){initNavTree('metadata__manager_8h_source.html','');
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">* Distributed under BSD 3-Clause license.                                   *</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">* Copyright by The HDF Group.                                               *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">* Copyright by the Illinois Institute of Technology.                        *</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">* All rights reserved.                                                      *</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">*                                                                           *</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">* This file is part of Hermes. The full Hermes copyright notice, including  *</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">* terms governing use, modification, and redistribution, is contained in    *</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">* the COPYING file, which can be found at the top directory. If you do not  *</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">* have access to the file, you may request a copy from help@hdfgroup.org.   *</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Distributed under BSD 3-Clause license.                                   *</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * Copyright by The HDF Group.                                               *</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Copyright by the Illinois Institute of Technology.                        *</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * All rights reserved.                                                      *</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> *                                                                           *</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * This file is part of Hermes. The full Hermes copyright notice, including  *</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * terms governing use, modification, and redistribution, is contained in    *</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> * the COPYING file, which can be found at the top directory. If you do not  *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> * have access to the file, you may request a copy from help@hdfgroup.org.   *</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#ifndef HERMES_ADAPTER_METADATA_MANAGER_H_</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define HERMES_ADAPTER_METADATA_MANAGER_H_</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;mpi.h&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;constants.h&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;enumerations.h&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;interceptor.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="bucket_8h.html">bucket.h</a>&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="buffer__pool_8h.html">buffer_pool.h</a>&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="hermes__types_8h.html">hermes_types.h</a>&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;mpi.h&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="bucket_8h.html">bucket.h</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="buffer__pool_8h.html">buffer_pool.h</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="hermes__types_8h.html">hermes_types.h</a>&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;constants.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;enumerations.h&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;interceptor.h&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>hapi = hermes::api;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
@@ -157,21 +157,19 @@ $(document).ready(function(){initNavTree('metadata__manager_8h_source.html','');
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    ref++;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1_metadata_manager.html#acb7163b12dab22b7f4799d87e94545cf">   84</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classhermes_1_1adapter_1_1_metadata_manager.html#acb7163b12dab22b7f4799d87e94545cf">FinalizeHermes</a>() {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span> (ref == 1) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      hermes-&gt;FinalizeClient();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    ref--;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1_metadata_manager.html#a86a94749818bb26ef0b992547c6505cc">   95</a></span>&#160;  std::shared_ptr&lt;hapi::Hermes&gt;&amp; <a class="code" href="classhermes_1_1adapter_1_1_metadata_manager.html#a86a94749818bb26ef0b992547c6505cc">GetHermes</a>() { <span class="keywordflow">return</span> hermes; }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}  <span class="comment">// namespace hermes::adapter</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif  // HERMES_ADAPTER_METADATA_MANAGER_H_</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1_metadata_manager.html#acb7163b12dab22b7f4799d87e94545cf">   83</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classhermes_1_1adapter_1_1_metadata_manager.html#acb7163b12dab22b7f4799d87e94545cf">FinalizeHermes</a>() {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> (ref == 1) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      hermes-&gt;FinalizeClient();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    ref--;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1_metadata_manager.html#a86a94749818bb26ef0b992547c6505cc">   94</a></span>&#160;  std::shared_ptr&lt;hapi::Hermes&gt;&amp; <a class="code" href="classhermes_1_1adapter_1_1_metadata_manager.html#a86a94749818bb26ef0b992547c6505cc">GetHermes</a>() { <span class="keywordflow">return</span> hermes; }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;};</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}  <span class="comment">// namespace hermes::adapter</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif  // HERMES_ADAPTER_METADATA_MANAGER_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="abuffer__pool_8h_html"><div class="ttname"><a href="buffer__pool_8h.html">buffer_pool.h</a></div></div>
@@ -180,8 +178,8 @@ $(document).ready(function(){initNavTree('metadata__manager_8h_source.html','');
 <div class="ttc" id="aclasshermes_1_1adapter_1_1_metadata_manager_html"><div class="ttname"><a href="classhermes_1_1adapter_1_1_metadata_manager.html">hermes::adapter::MetadataManager</a></div><div class="ttdef"><b>Definition:</b> metadata_manager.h:31</div></div>
 <div class="ttc" id="anamespacehermes_1_1adapter_html"><div class="ttname"><a href="namespacehermes_1_1adapter.html">hermes::adapter</a></div><div class="ttdef"><b>Definition:</b> adapter_utils.cc:34</div></div>
 <div class="ttc" id="ahermes__types_8h_html"><div class="ttname"><a href="hermes__types_8h.html">hermes_types.h</a></div></div>
-<div class="ttc" id="aclasshermes_1_1adapter_1_1_metadata_manager_html_acb7163b12dab22b7f4799d87e94545cf"><div class="ttname"><a href="classhermes_1_1adapter_1_1_metadata_manager.html#acb7163b12dab22b7f4799d87e94545cf">hermes::adapter::MetadataManager::FinalizeHermes</a></div><div class="ttdeci">void FinalizeHermes()</div><div class="ttdef"><b>Definition:</b> metadata_manager.h:84</div></div>
-<div class="ttc" id="aclasshermes_1_1adapter_1_1_metadata_manager_html_a86a94749818bb26ef0b992547c6505cc"><div class="ttname"><a href="classhermes_1_1adapter_1_1_metadata_manager.html#a86a94749818bb26ef0b992547c6505cc">hermes::adapter::MetadataManager::GetHermes</a></div><div class="ttdeci">std::shared_ptr&lt; hapi::Hermes &gt; &amp; GetHermes()</div><div class="ttdef"><b>Definition:</b> metadata_manager.h:95</div></div>
+<div class="ttc" id="aclasshermes_1_1adapter_1_1_metadata_manager_html_acb7163b12dab22b7f4799d87e94545cf"><div class="ttname"><a href="classhermes_1_1adapter_1_1_metadata_manager.html#acb7163b12dab22b7f4799d87e94545cf">hermes::adapter::MetadataManager::FinalizeHermes</a></div><div class="ttdeci">void FinalizeHermes()</div><div class="ttdef"><b>Definition:</b> metadata_manager.h:83</div></div>
+<div class="ttc" id="aclasshermes_1_1adapter_1_1_metadata_manager_html_a86a94749818bb26ef0b992547c6505cc"><div class="ttname"><a href="classhermes_1_1adapter_1_1_metadata_manager.html#a86a94749818bb26ef0b992547c6505cc">hermes::adapter::MetadataManager::GetHermes</a></div><div class="ttdeci">std::shared_ptr&lt; hapi::Hermes &gt; &amp; GetHermes()</div><div class="ttdef"><b>Definition:</b> metadata_manager.h:94</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -111,48 +111,51 @@ $(document).ready(function(){initNavTree('data__placement__engine_8h_source.html
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>hermes {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#define VERIFY_DPE_POLICY(ctx) \</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">  if (ctx.policy != policy_) { return Status(); }</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">using</span> <a class="code" href="classapi_1_1_status.html">api::Status</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">using</span> <a class="code" href="hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67">hermes::api::PlacementPolicy</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classhermes_1_1_d_p_e.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhermes_1_1_d_p_e.html">DPE</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">bool</span> require_bw_;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  PlacementPolicy policy_;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  std::vector&lt;f32&gt; bandwidths;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classhermes_1_1_d_p_e.html">DPE</a>(PlacementPolicy policy) : policy_(policy) {}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classhermes_1_1_d_p_e.html">DPE</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="classapi_1_1_status.html">Status</a> Placement(<span class="keyword">const</span> std::vector&lt;size_t&gt; &amp;blob_sizes,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                   <span class="keyword">const</span> std::vector&lt;u64&gt; &amp;node_state,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                   <span class="keyword">const</span> std::vector&lt;TargetID&gt; &amp;targets,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                   <span class="keyword">const</span> <a class="code" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;ctx,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                   std::vector&lt;PlacementSchema&gt; &amp;output) = 0;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  std::vector&lt;int&gt; GetValidSplitChoices(<span class="keywordtype">size_t</span> blob_size);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">bool</span> SplitBlob(<span class="keywordtype">size_t</span> blob_size);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">void</span> GetSplitSizes(<span class="keywordtype">size_t</span> blob_size, std::vector&lt;size_t&gt; &amp;output);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<a class="code" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> AggregateBlobSchema(<a class="code" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;schema);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<a class="code" href="classapi_1_1_status.html">Status</a> CalculatePlacement(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                          <span class="keyword">const</span> std::vector&lt;size_t&gt; &amp;blob_size,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                          std::vector&lt;PlacementSchema&gt; &amp;output,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                          <span class="keyword">const</span> <a class="code" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;api_context);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}  <span class="comment">// namespace hermes</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif  // HERMES_DATA_PLACEMENT_ENGINE_H_</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">  if (ctx.policy != policy_) { \</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">    return Status();           \</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">  }</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">using</span> <a class="code" href="classapi_1_1_status.html">api::Status</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">using</span> <a class="code" href="hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67">hermes::api::PlacementPolicy</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classhermes_1_1_d_p_e.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhermes_1_1_d_p_e.html">DPE</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">bool</span> require_bw_;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  PlacementPolicy policy_;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  std::vector&lt;f32&gt; bandwidths;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classhermes_1_1_d_p_e.html">DPE</a>(PlacementPolicy policy) : policy_(policy) {}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="classhermes_1_1_d_p_e.html">DPE</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">virtual</span> <a class="code" href="classapi_1_1_status.html">Status</a> Placement(<span class="keyword">const</span> std::vector&lt;size_t&gt; &amp;blob_sizes,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                           <span class="keyword">const</span> std::vector&lt;u64&gt; &amp;node_state,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                           <span class="keyword">const</span> std::vector&lt;TargetID&gt; &amp;targets,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                           <span class="keyword">const</span> <a class="code" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;ctx,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                           std::vector&lt;PlacementSchema&gt; &amp;output) = 0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  std::vector&lt;int&gt; GetValidSplitChoices(<span class="keywordtype">size_t</span> blob_size);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">bool</span> SplitBlob(<span class="keywordtype">size_t</span> blob_size);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">void</span> GetSplitSizes(<span class="keywordtype">size_t</span> blob_size, std::vector&lt;size_t&gt; &amp;output);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<a class="code" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> AggregateBlobSchema(<a class="code" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;schema);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<a class="code" href="classapi_1_1_status.html">Status</a> CalculatePlacement(<a class="code" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *context, <a class="code" href="structhermes_1_1_rpc_context.html">RpcContext</a> *rpc,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                          <span class="keyword">const</span> std::vector&lt;size_t&gt; &amp;blob_size,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                          std::vector&lt;PlacementSchema&gt; &amp;output,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                          <span class="keyword">const</span> <a class="code" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;api_context);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}  <span class="comment">// namespace hermes</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif  // HERMES_DATA_PLACEMENT_ENGINE_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructhermes_1_1_rpc_context_html"><div class="ttname"><a href="structhermes_1_1_rpc_context.html">hermes::RpcContext</a></div><div class="ttdef"><b>Definition:</b> rpc.h:37</div></div>
-<div class="ttc" id="ahermes__types_8h_html_aa29a80eb3b2f5a1f59bc16dbf24c1274"><div class="ttname"><a href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">hermes::PlacementSchema</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; size_t, TargetID &gt; &gt; PlacementSchema</div><div class="ttdef"><b>Definition:</b> hermes_types.h:192</div></div>
-<div class="ttc" id="astructhermes_1_1api_1_1_context_html"><div class="ttname"><a href="structhermes_1_1api_1_1_context.html">hermes::api::Context</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:109</div></div>
+<div class="ttc" id="ahermes__types_8h_html_aa29a80eb3b2f5a1f59bc16dbf24c1274"><div class="ttname"><a href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">hermes::PlacementSchema</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; size_t, TargetID &gt; &gt; PlacementSchema</div><div class="ttdef"><b>Definition:</b> hermes_types.h:191</div></div>
+<div class="ttc" id="astructhermes_1_1api_1_1_context_html"><div class="ttname"><a href="structhermes_1_1api_1_1_context.html">hermes::api::Context</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:108</div></div>
 <div class="ttc" id="ahermes_8h_html"><div class="ttname"><a href="hermes_8h.html">hermes.h</a></div></div>
 <div class="ttc" id="aclassapi_1_1_status_html"><div class="ttname"><a href="classapi_1_1_status.html">api::Status</a></div><div class="ttdef"><b>Definition:</b> hermes_status.h:77</div></div>
-<div class="ttc" id="aclasshermes_1_1_d_p_e_html"><div class="ttname"><a href="classhermes_1_1_d_p_e.html">hermes::DPE</a></div><div class="ttdef"><b>Definition:</b> data_placement_engine.h:30</div></div>
+<div class="ttc" id="aclasshermes_1_1_d_p_e_html"><div class="ttname"><a href="classhermes_1_1_d_p_e.html">hermes::DPE</a></div><div class="ttdef"><b>Definition:</b> data_placement_engine.h:32</div></div>
 <div class="ttc" id="astructhermes_1_1_shared_memory_context_html"><div class="ttname"><a href="structhermes_1_1_shared_memory_context.html">hermes::SharedMemoryContext</a></div><div class="ttdef"><b>Definition:</b> buffer_pool.h:254</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a02a03c2aa41e4113f2ef9e0d877c15b2"><div class="ttname"><a href="buffer__pool_8cc.html#a02a03c2aa41e4113f2ef9e0d877c15b2">hermes::GetBandwidths</a></div><div class="ttdeci">std::vector&lt; f32 &gt; GetBandwidths(SharedMemoryContext *context, const std::vector&lt; TargetID &gt; &amp;targets)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:163</div></div>
 <div class="ttc" id="ahermes__types_8h_html_a66b9a7dd528375b0f2f0e77f72d66b67"><div class="ttname"><a href="hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67">hermes::api::PlacementPolicy</a></div><div class="ttdeci">PlacementPolicy</div><div class="ttdef"><b>Definition:</b> hermes_types.h:70</div></div>
