@@ -28,32 +28,35 @@
  * Types used in Hermes.
  */
 
-#define KILOBYTES(n) (((size_t)n) * 1024)
-#define MEGABYTES(n) (((size_t)n) * 1024 * 1024)
-#define GIGABYTES(n) (((size_t)n) * 1024UL * 1024UL * 1024UL)
+#define KILOBYTES(n) (((size_t)n) * 1024) /**< KB */
+#define MEGABYTES(n) (((size_t)n) * 1024 * 1024) /**< MB */
+#define GIGABYTES(n) (((size_t)n) * 1024UL * 1024UL * 1024UL) /**< GB */
 
 /**
  * \namespace hermes
  */
 namespace hermes {
 
-typedef uint8_t u8;
-typedef uint16_t u16;
-typedef uint32_t u32;
-typedef uint64_t u64;
-typedef int8_t i8;
-typedef int16_t i16;
-typedef int32_t i32;
-typedef int64_t i64;
-typedef float f32;
-typedef double f64;
+typedef uint8_t u8;             /**< 8-bit unsigned integer */
+typedef uint16_t u16;           /**< 16-bit unsigned integer */
+typedef uint32_t u32;           /**< 32-bit unsigned integer */
+typedef uint64_t u64;           /**< 64-bit unsigned integer */
+typedef int8_t i8;              /**< 8-bit signed integer */
+typedef int16_t i16;            /**< 16-bit signed integer */
+typedef int32_t i32;            /**< 32-bit signed integer */
+typedef int64_t i64;            /**< 64-bit signed integer */
+typedef float f32;              /**< 32-bit float */
+typedef double f64;             /**< 64-bit float */
 
-typedef u16 DeviceID;
+typedef u16 DeviceID;           /**< device id in unsigned 16-bit integer */ 
 
+/**
+   A structure to represent chunked ID list
+ */
 struct ChunkedIdList {
-  u32 head_offset;
-  u32 length;
-  u32 capacity;
+  u32 head_offset;              /**< offset of head in the list */
+  u32 length;                   /**< length of list */
+  u32 capacity;                 /**< capacity of list */ 
 };
 
 /**
@@ -73,8 +76,12 @@ enum class PlacementPolicy {
   kMinimizeIoTime, /**< LP-based blob placement, minimize I/O time */
 };
 
+/**
+   A class to convert placement policy enum value to string
+*/    
 class PlacementPolicyConv {
  public:
+  /** A function to return string representation of \a policy */
   static std::string str(PlacementPolicy policy) {
     switch (policy) {
       case PlacementPolicy::kRandom: {
@@ -91,11 +98,15 @@ class PlacementPolicyConv {
   }
 };
 
+/**
+   A structure to represent MinimizeIOTime options 
+*/
 struct MinimizeIoTimeOptions {
-  double minimum_remaining_capacity;
-  double capacity_change_threshold;
-  bool use_placement_ratio;
+  double minimum_remaining_capacity; /**<  minimum remaining capacity */
+  double capacity_change_threshold;  /**<  threshold for capacity change  */
+  bool use_placement_ratio;          /**<  use placement ratio or not */
 
+  /** A function for initialization */
   MinimizeIoTimeOptions(double minimum_remaining_capacity_ = 0.0,
                         double capacity_change_threshold_ = 0.0,
                         bool use_placement_ratio_ = false)
@@ -148,18 +159,21 @@ struct Context {
 // TODO(chogan): These constants impose limits on the number of slabs,
 // devices, file path lengths, and shared memory name lengths, but eventually
 // we should allow arbitrary sizes of each.
-static constexpr int kMaxBufferPoolSlabs = 8;
-constexpr int kMaxPathLength = 256;
+static constexpr int kMaxBufferPoolSlabs = 8; /**< max. buffer pool slabs */
+constexpr int kMaxPathLength = 256; /**< max. path length */
+/** max. buffer pool shared memory name length */    
 constexpr int kMaxBufferPoolShmemNameLength = 64;
-constexpr int kMaxDevices = 8;
-constexpr int kMaxBucketNameSize = 256;
-constexpr int kMaxVBucketNameSize = 256;
+constexpr int kMaxDevices = 8; /**< max. devices */
+constexpr int kMaxBucketNameSize = 256; /**< max. bucket name size */
+constexpr int kMaxVBucketNameSize = 256; /**< max. virtual bucket name size */
+/** a string to represent the place in hierarchy */
+constexpr char kPlaceInHierarchy[] = "PlaceInHierarchy"; 
 
-constexpr char kPlaceInHierarchy[] = "PlaceInHierarchy";
-
+/** A definition for logging something that is not yet implemented */
 #define HERMES_NOT_IMPLEMENTED_YET \
   LOG(FATAL) << __func__ << " not implemented yet\n"
-
+    
+/** A definition for logging invalid code path */
 #define HERMES_INVALID_CODE_PATH LOG(FATAL) << "Invalid code path." << std::endl
 
 /** A TargetID uniquely identifies a buffering target within the system. */
@@ -181,6 +195,9 @@ union TargetID {
   u64 as_int;
 };
 
+/**
+   A constant for swap target IDs 
+ */   
 const TargetID kSwapTargetId = {{0, 0, 0}};
 
 /**
@@ -206,13 +223,15 @@ enum ArenaType {
   kArenaType_BufferPool, /**< Buffer pool: This must always be first! */
   kArenaType_MetaData,   /**< Metadata                                */
   kArenaType_Transient,  /**< Scratch space                           */
-
-  kArenaType_Count /**< Sentinel value                          */
+  kArenaType_Count       /**< Sentinel value                          */
 };
-
+    
+/**
+ * A structure to represent thesholds with mimimum and maximum values
+ */
 struct Thresholds {
-  float min;
-  float max;
+  float min;                    /**< minimum threshold value */ 
+  float max;                    /**< maximum threshold value */ 
 };
 
 /**
@@ -315,6 +334,9 @@ struct Config {
   std::vector<std::string> path_inclusions;
 };
 
+/**
+   A union of Bucket ID type
+*/
 union BucketID {
   /** The Bucket ID as bitfield */
   struct {
@@ -329,15 +351,23 @@ union BucketID {
   u64 as_int;
 };
 
+
 // NOTE(chogan): We reserve sizeof(BucketID) * 2 bytes in order to embed the
 // BucketID into the Blob name. See MakeInternalBlobName() for a description of
 // why we need double the bytes of a BucketID.
+/**
+   A constant for bucket id string size
+ */    
 constexpr int kBucketIdStringSize = sizeof(BucketID) * 2;
+
 /**
  * The maximum size in bytes allowed for Blob names.
  */
 constexpr int kMaxBlobNameSize = 64 - kBucketIdStringSize;
 
+/**
+  A union of virtual Bucket ID type   
+ */       
 union VBucketID {
   /** The VBucket ID as bitfield */
   struct {
@@ -352,6 +382,9 @@ union VBucketID {
   u64 as_int;
 };
 
+/**
+  A union of Blob ID type   
+ */   
 union BlobID {
   /** The Blob ID as bitfield */
   struct {
