@@ -119,13 +119,13 @@ Collaboration diagram for hermes::RoundRobin:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2b074a38bd99d1e34f252dbbacaa78d0"><td class="memItemLeft" align="right" valign="top"><a id="a2b074a38bd99d1e34f252dbbacaa78d0"></a>
-<a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Placement</b> (const std::vector&lt; size_t &gt; &amp;blob_sizes, const std::vector&lt; u64 &gt; &amp;node_state, const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;targets, const <a class="el" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;ctx, std::vector&lt; <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &gt; &amp;output)</td></tr>
+<a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Placement</b> (const std::vector&lt; size_t &gt; &amp;blob_sizes, const std::vector&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> &gt; &amp;node_state, const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;targets, const <a class="el" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;ctx, std::vector&lt; <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &gt; &amp;output)</td></tr>
 <tr class="separator:a2b074a38bd99d1e34f252dbbacaa78d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8030aa767764adcde3d440fdd06e0ac9"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_round_robin.html#a8030aa767764adcde3d440fdd06e0ac9">GetNumDevices</a> () const</td></tr>
 <tr class="separator:a8030aa767764adcde3d440fdd06e0ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bd28432ea190b26581e3a1517788368"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_round_robin.html#a5bd28432ea190b26581e3a1517788368">GetCurrentDeviceIndex</a> () const</td></tr>
 <tr class="separator:a5bd28432ea190b26581e3a1517788368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72b1006d2d7c1b643eac90477a550028"><td class="memItemLeft" align="right" valign="top">DeviceID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_round_robin.html#a72b1006d2d7c1b643eac90477a550028">GetDeviceByIndex</a> (int i) const</td></tr>
+<tr class="memitem:a72b1006d2d7c1b643eac90477a550028"><td class="memItemLeft" align="right" valign="top"><a class="el" href="hermes__types_8h.html#a8ba52be34dd263021aef92b27274d68c">DeviceID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_round_robin.html#a72b1006d2d7c1b643eac90477a550028">GetDeviceByIndex</a> (int i) const</td></tr>
 <tr class="separator:a72b1006d2d7c1b643eac90477a550028"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9896b8a9e011e2e92780242bf9cdafd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_round_robin.html#a9896b8a9e011e2e92780242bf9cdafd8">SetCurrentDeviceIndex</a> (int new_device_index)</td></tr>
 <tr class="separator:a9896b8a9e011e2e92780242bf9cdafd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,7 +145,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>InitDevices</b
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a1e62e4415e17fa0a716113c6850b657d"><td class="memItemLeft" align="right" valign="top"><a id="a1e62e4415e17fa0a716113c6850b657d"></a>
-<a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><b>AddSchema</b> (size_t index, std::vector&lt; u64 &gt; &amp;node_state, const std::vector&lt; size_t &gt; &amp;blob_sizes, const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;targets, <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;output)</td></tr>
+<a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><b>AddSchema</b> (size_t index, std::vector&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> &gt; &amp;node_state, const std::vector&lt; size_t &gt; &amp;blob_sizes, const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;targets, <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;output)</td></tr>
 <tr class="separator:a1e62e4415e17fa0a716113c6850b657d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
@@ -157,21 +157,19 @@ Private Attributes</h2></td></tr>
 Static Private Attributes</h2></td></tr>
 <tr class="memitem:ac2dd73614f78cac663d913efc6e469e6"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_round_robin.html#ac2dd73614f78cac663d913efc6e469e6">current_device_index_</a> {}</td></tr>
 <tr class="separator:ac2dd73614f78cac663d913efc6e469e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a523f029d7046a4d52fe00e32518432a2"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; DeviceID &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_round_robin.html#a523f029d7046a4d52fe00e32518432a2">devices_</a></td></tr>
+<tr class="memitem:a523f029d7046a4d52fe00e32518432a2"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; <a class="el" href="hermes__types_8h.html#a8ba52be34dd263021aef92b27274d68c">DeviceID</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_round_robin.html#a523f029d7046a4d52fe00e32518432a2">devices_</a></td></tr>
 <tr class="separator:a523f029d7046a4d52fe00e32518432a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_classhermes_1_1_d_p_e"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classhermes_1_1_d_p_e')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classhermes_1_1_d_p_e.html">hermes::DPE</a></td></tr>
 <tr class="memitem:a7a37b4a9637ef2015c2ee224e107640d inherit pub_attribs_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="a7a37b4a9637ef2015c2ee224e107640d"></a>
-std::vector&lt; f32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bandwidths</b></td></tr>
+std::vector&lt; <a class="el" href="hermes__types_8h.html#a2d3ce1bbd1f0b4922501277c5b029c5b">f32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bandwidths</b></td></tr>
 <tr class="separator:a7a37b4a9637ef2015c2ee224e107640d inherit pub_attribs_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classhermes_1_1_d_p_e"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classhermes_1_1_d_p_e')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classhermes_1_1_d_p_e.html">hermes::DPE</a></td></tr>
-<tr class="memitem:a8402544993f74601148b17c378975055 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="a8402544993f74601148b17c378975055"></a>
-std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetValidSplitChoices</b> (size_t blob_size)</td></tr>
+<tr class="memitem:a8402544993f74601148b17c378975055 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a8402544993f74601148b17c378975055">GetValidSplitChoices</a> (size_t blob_size)</td></tr>
 <tr class="separator:a8402544993f74601148b17c378975055 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a939d1f951dd15c5b64dc5787241ae9 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="a0a939d1f951dd15c5b64dc5787241ae9"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>SplitBlob</b> (size_t blob_size)</td></tr>
+<tr class="memitem:a0a939d1f951dd15c5b64dc5787241ae9 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a0a939d1f951dd15c5b64dc5787241ae9">SplitBlob</a> (size_t blob_size)</td></tr>
 <tr class="separator:a0a939d1f951dd15c5b64dc5787241ae9 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac7524719a166a4fdbf4eee40459d782 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="aac7524719a166a4fdbf4eee40459d782"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>GetSplitSizes</b> (size_t blob_size, std::vector&lt; size_t &gt; &amp;output)</td></tr>
@@ -230,7 +228,7 @@ PlacementPolicy&#160;</td><td class="memItemRight" valign="bottom"><b>policy_</b
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">DeviceID hermes::RoundRobin::GetDeviceByIndex </td>
+          <td class="memname"><a class="el" href="hermes__types_8h.html#a8ba52be34dd263021aef92b27274d68c">DeviceID</a> hermes::RoundRobin::GetDeviceByIndex </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -332,7 +330,7 @@ PlacementPolicy&#160;</td><td class="memItemRight" valign="bottom"><b>policy_</b
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; DeviceID &gt; hermes::RoundRobin::devices_</td>
+          <td class="memname">std::vector&lt; <a class="el" href="hermes__types_8h.html#a8ba52be34dd263021aef92b27274d68c">DeviceID</a> &gt; hermes::RoundRobin::devices_</td>
         </tr>
       </table>
   </td>

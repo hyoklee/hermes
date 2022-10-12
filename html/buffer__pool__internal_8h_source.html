@@ -131,20 +131,20 @@ $(document).ready(function(){initNavTree('buffer__pool__internal_8h_source.html'
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keywordtype">void</span> LocalReleaseBuffers(SharedMemoryContext *context,</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                         <span class="keyword">const</span> std::vector&lt;BufferID&gt; &amp;buffer_ids);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;i32 GetSlabUnitSize(SharedMemoryContext *context, DeviceID device_id,</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<a class="code" href="hermes__types_8h.html#ac6630042b3219ba5162f05595ea95769">i32</a> GetSlabUnitSize(SharedMemoryContext *context, DeviceID device_id,</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                    <span class="keywordtype">int</span> slab_index);</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;u32 LocalGetBufferSize(SharedMemoryContext *context, BufferID <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;i32 GetSlabBufferSize(SharedMemoryContext *context, DeviceID device_id,</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<a class="code" href="hermes__types_8h.html#ac009c14ea7c4a1871e5d4453ba0ad3af">u32</a> LocalGetBufferSize(SharedMemoryContext *context, BufferID <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<a class="code" href="hermes__types_8h.html#ac6630042b3219ba5162f05595ea95769">i32</a> GetSlabBufferSize(SharedMemoryContext *context, DeviceID device_id,</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                      <span class="keywordtype">int</span> slab_index);</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keywordtype">void</span> SerializeBufferPoolToFile(SharedMemoryContext *context, FILE *file);</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keywordtype">void</span> ParseConfig(Arena *arena, <span class="keyword">const</span> <span class="keywordtype">char</span> *path, Config *config);</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;u8 *InitSharedMemory(<span class="keyword">const</span> <span class="keywordtype">char</span> *shmem_name, <span class="keywordtype">size_t</span> total_size);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<a class="code" href="hermes__types_8h.html#a67dcf64ed55349e6beab0a38e641a389">u8</a> *InitSharedMemory(<span class="keyword">const</span> <span class="keywordtype">char</span> *shmem_name, <span class="keywordtype">size_t</span> total_size);</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;u8 *GetRamBufferPtr(SharedMemoryContext *context, BufferID buffer_id);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<a class="code" href="hermes__types_8h.html#a67dcf64ed55349e6beab0a38e641a389">u8</a> *GetRamBufferPtr(SharedMemoryContext *context, BufferID buffer_id);</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;Target *GetTarget(SharedMemoryContext *context, <span class="keywordtype">int</span> index);</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
@@ -165,7 +165,10 @@ $(document).ready(function(){initNavTree('buffer__pool__internal_8h_source.html'
 <div class="ttc" id="abuffer__pool_8cc_html_a42d7d04421227f822bdaa0344654409f"><div class="ttname"><a href="buffer__pool_8cc.html#a42d7d04421227f822bdaa0344654409f">hermes::GetHeaderByBufferId</a></div><div class="ttdeci">BufferHeader * GetHeaderByBufferId(SharedMemoryContext *context, BufferID id)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:206</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a0594eaad6f55d0838ac754ce0aa8e53c"><div class="ttname"><a href="buffer__pool_8cc.html#a0594eaad6f55d0838ac754ce0aa8e53c">hermes::MergeRamBufferFreeList</a></div><div class="ttdeci">void MergeRamBufferFreeList(SharedMemoryContext *context, int slab_index)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:807</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_aa4aa1c5e87928e65cc3e16c8a2c1aa6e"><div class="ttname"><a href="buffer__pool_8cc.html#aa4aa1c5e87928e65cc3e16c8a2c1aa6e">hermes::SplitRamBufferFreeList</a></div><div class="ttdeci">void SplitRamBufferFreeList(SharedMemoryContext *context, int slab_index)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:943</div></div>
+<div class="ttc" id="ahermes__types_8h_html_ac6630042b3219ba5162f05595ea95769"><div class="ttname"><a href="hermes__types_8h.html#ac6630042b3219ba5162f05595ea95769">hermes::i32</a></div><div class="ttdeci">int32_t i32</div><div class="ttdef"><b>Definition:</b> hermes_types.h:46</div></div>
+<div class="ttc" id="ahermes__types_8h_html_ac009c14ea7c4a1871e5d4453ba0ad3af"><div class="ttname"><a href="hermes__types_8h.html#ac009c14ea7c4a1871e5d4453ba0ad3af">hermes::u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> hermes_types.h:42</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a18efa1b5dc4adcceb04cda71e1e9294d"><div class="ttname"><a href="buffer__pool_8cc.html#a18efa1b5dc4adcceb04cda71e1e9294d">hermes::GetHeadersBase</a></div><div class="ttdeci">BufferHeader * GetHeadersBase(SharedMemoryContext *context)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:189</div></div>
+<div class="ttc" id="ahermes__types_8h_html_a67dcf64ed55349e6beab0a38e641a389"><div class="ttname"><a href="hermes__types_8h.html#a67dcf64ed55349e6beab0a38e641a389">hermes::u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> hermes_types.h:40</div></div>
 <div class="ttc" id="abuffer__pool_8cc_html_a53535e85665e48b4cf17e78a790537da"><div class="ttname"><a href="buffer__pool_8cc.html#a53535e85665e48b4cf17e78a790537da">hermes::HeaderIsDormant</a></div><div class="ttdeci">bool HeaderIsDormant(BufferHeader *header)</div><div class="ttdef"><b>Definition:</b> buffer_pool.cc:230</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

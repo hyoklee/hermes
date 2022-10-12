@@ -32,6 +32,8 @@ var NAVTREEINDEX2 =
 "functions_vars_w.html":[3,3,2,19],
 "functions_w.html":[3,3,0,19],
 "functions_~.html":[3,3,0,20],
+"globals.html":[4,1,0],
+"globals_defs.html":[4,1,1],
 "gotcha__mpi__io_8h_source.html":[4,0,1,0],
 "gotcha__posix_8h_source.html":[4,0,1,1],
 "gotcha__stdio_8h_source.html":[4,0,1,2],
@@ -222,8 +224,8 @@ var NAVTREEINDEX2 =
 "namespacehermes_1_1adapter_1_1mpiio.html":[2,0,0,0,0],
 "namespacehermes_1_1adapter_1_1posix.html":[2,0,0,0,1],
 "namespacehermes_1_1adapter_1_1posix.html":[3,0,1,0,1],
-"namespacehermes_1_1adapter_1_1pubsub.html":[3,0,1,0,2],
 "namespacehermes_1_1adapter_1_1pubsub.html":[2,0,0,0,2],
+"namespacehermes_1_1adapter_1_1pubsub.html":[3,0,1,0,2],
 "namespacehermes_1_1adapter_1_1stdio.html":[3,0,1,0,3],
 "namespacehermes_1_1adapter_1_1stdio.html":[2,0,0,0,3],
 "namespacehermes_1_1pubsub.html":[2,0,0,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "pubsub_2datastructures_8h_source.html":[4,0,0,2,0],
 "pubsub_2metadata__manager_8h_source.html":[4,0,0,2,1],
 "pubsub_8h_source.html":[4,0,0,2,2],
-"random_8h_source.html":[4,0,2,1,2],
-"round__robin_8h_source.html":[4,0,2,1,3],
-"rpc_8h_source.html":[4,0,2,19]
+"random_8h_source.html":[4,0,2,1,2]
 };

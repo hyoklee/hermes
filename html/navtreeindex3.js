@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"round__robin_8h_source.html":[4,0,2,1,3],
+"rpc_8h_source.html":[4,0,2,19],
 "rpc__thallium_8h_source.html":[4,0,2,20],
 "singleton_8h_source.html":[4,0,0,11],
 "stdio_2constants_8h_source.html":[4,0,0,3,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "structhermes_1_1_metadata_manager.html#adfdffc3e77e1ccc0b3c981d81d88dfa2":[3,0,1,38,16],
 "structhermes_1_1_metadata_manager.html#ae740be4c55a4f80c2b324369bda00356":[3,0,1,38,28],
 "structhermes_1_1_metadata_manager.html#aea3b5bfcf1c7346e1dcc636485bfe204":[3,0,1,38,15],
-"structhermes_1_1_metadata_manager.html#aef892a72e6c84840ce6837fa0d8eb103":[3,0,1,38,31],
-"structhermes_1_1_rpc_context.html":[3,0,1,43],
-"structhermes_1_1_rpc_context.html#a6ff5ae0cc94a2ed99210d92faf3930f7":[3,0,1,43,8]
+"structhermes_1_1_metadata_manager.html#aef892a72e6c84840ce6837fa0d8eb103":[3,0,1,38,31]
 };
