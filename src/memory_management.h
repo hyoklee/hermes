@@ -27,31 +27,40 @@
 
 namespace hermes {
 
-typedef void(ArenaErrorFunc)();
+typedef void(ArenaErrorFunc)();    /**< Arena error function */
 
 /**
  * Implements a ticket lock as described at
  * https://en.wikipedia.org/wiki/Ticket_lock.
  */
 struct TicketMutex {
-  std::atomic<u32> ticket;
-  std::atomic<u32> serving;
+  std::atomic<u32> ticket;      /**< ticket number */
+  std::atomic<u32> serving;     /**< ticket number being served */
 };
 
+/**
+ A structure to represent ticket
+*/
 struct Ticket {
-  u32 ticket;
-  bool acquired;
+  u32 ticket;                   /**< ticket number */
+  bool acquired;                /**< is ticket acquired? */
 };
 
+/**
+ A structure to represent read-write lock
+*/
 struct RwLock {
-  TicketMutex mutex;
-  std::atomic<u32> readers;
-  std::atomic<bool> writer_waiting;
+  TicketMutex mutex;            /**< mutex is a lock for shared resource. */
+  std::atomic<u32> readers;     /**< number of readers */
+  std::atomic<bool> writer_waiting; /**< is writer waiting for the lock? */
 };
 
+/**
+ A structure to represent arena information
+*/
 struct ArenaInfo {
-  size_t sizes[kArenaType_Count];
-  size_t total;
+  size_t sizes[kArenaType_Count]; /**< array of sizes for each arena type */
+  size_t total;                   /**< total number of arena */
 };
 
 /**
@@ -84,6 +93,9 @@ struct Arena {
   i32 temp_count;
 };
 
+/**
+ A structure to represent heap
+*/
 struct Heap {
   /** Function called when this Heap encounters and error */
   ArenaErrorFunc *error_handler;
@@ -102,23 +114,32 @@ struct Heap {
    * value */
   u16 alignment;
   /** 1 if allocating new memory returns higher memory addresses, else 0 */
-  u16 grows_up;
+  bool grows_up;
 };
 
+/**
+ A structure to represent free block header
+*/
 struct FreeBlockHeader {
-  size_t size;
+  size_t size;                  /**< size of free block header */
 };
 
+/**
+ A structure to represent free block
+*/
 struct FreeBlock {
-  /* The offset of the next FreeBlock in the list. Offset 0 represents NULL */
+  /** The offset of the next FreeBlock in the list. Offset 0 represents NULL. */
   u32 next_offset;
-  /* The size of the next FreeBlock in the list. */
+  /** The size of the next FreeBlock in the list */
   u32 size;
 };
 
+/**
+ A structure to represent
+*/
 struct TemporaryMemory {
-  Arena *arena;
-  size_t used;
+  Arena *arena;                 /**< pointer to arena */
+  size_t used;                  /**< temporary memory used */
 };
 
 /**
@@ -350,8 +371,11 @@ inline T *PushClearedArray(Arena *arena, int count, size_t alignment = 8) {
 
   return result;
 }
-u8 *HeapPushSize(Heap *heap, u32 size);
+u8 *HeapPushSize(Heap *heap, u32 size); /**< push \a size to \a heap */
 
+/**
+ A template for pushing structure to \a heap. 
+*/
 template <typename T>
 inline T *HeapPushStruct(Heap *heap) {
   T *result = reinterpret_cast<T *>(HeapPushSize(heap, sizeof(T)));
@@ -359,6 +383,9 @@ inline T *HeapPushStruct(Heap *heap) {
   return result;
 }
 
+/**
+ A template for pushing array of \a count size to \a heap. 
+*/
 template <typename T>
 inline T *HeapPushArray(Heap *heap, u32 count) {
   T *result = reinterpret_cast<T *>(HeapPushSize(heap, count * sizeof(T)));
