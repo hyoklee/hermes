@@ -22,16 +22,16 @@
 namespace hermes {
 
 /**
-  A structure to represent ID <key, value> map  
-*/   
+  A structure to represent ID <key, value> map
+*/
 struct IdMap {
   char *key;                    /**< ID string as key */
   u64 value;                    /**< ID value */
 };
- 
+
 /**
-  A structure to represent BLOB information <key, value> map  
-*/   
+  A structure to represent BLOB information <key, value> map
+*/
 struct BlobInfoMap {
   BlobID key;                   /**< BLOB ID as key */
   BlobInfo value;               /**< BLOB information value */
