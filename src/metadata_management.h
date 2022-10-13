@@ -65,7 +65,7 @@ enum MapType {
 enum class ThresholdViolation { kMin, kMax };
 /**
    A structure to represent violation information
-*/   
+*/
 struct ViolationInfo {
   TargetID target_id;           /**< target node ID */
   ThresholdViolation violation; /**< threshold violation */
@@ -74,25 +74,25 @@ struct ViolationInfo {
 
 /**
    A structure to represent statistics
- */   
+ */
 struct Stats {
-  u32 recency;                  /**< recency */
-  u32 frequency;                /**< frequency */
+  u32 recency;   /**< recency */
+  u32 frequency; /**< frequency */
 };
 
 const int kIdListChunkSize = 10;
 
 /**
    A structure to represent ID list
-*/   
+*/
 struct IdList {
-  u32 head_offset;              /**< the offset of head in the list */
-  u32 length;                   /**< length of list */
+  u32 head_offset; /**< the offset of head in the list */
+  u32 length;      /**< length of list */
 };
 
 /**
    A structure to represent the array of buffer IDs
- */    
+ */
 struct BufferIdArray {
   BufferID *ids; /**< pointer to IDs */
   u32 length;    /**< length of array */
@@ -102,12 +102,11 @@ struct BufferIdArray {
    A structure to represent Blob information
  */
 struct BlobInfo {
-  Stats stats;                /**< BLOB statistics */
-  TicketMutex lock;           /**< lock */
-  TargetID effective_target;  /**< target ID */
-  u32 last;                   /**< last */
-  bool stop;                  /**< stop */
-
+  Stats stats;               /**< BLOB statistics */
+  TicketMutex lock;          /**< lock */
+  TargetID effective_target; /**< target ID */
+  u32 last;                  /**< last */
+  bool stop;                 /**< stop */
 
   BlobInfo() : last(0), stop(false) {
     stats.recency = 0;
@@ -132,32 +131,32 @@ struct BlobInfo {
 
 /**
    A structure to represent bucket information
-*/       
+*/
 struct BucketInfo {
-  BucketID next_free;           /**< id of next free bucket */
-  ChunkedIdList blobs;          /**< list of BLOB IDs */
-  std::atomic<int> ref_count;   /**< reference count */
-  bool active;                  /**< is bucket active? */
+  BucketID next_free;         /**< id of next free bucket */
+  ChunkedIdList blobs;        /**< list of BLOB IDs */
+  std::atomic<int> ref_count; /**< reference count */
+  bool active;                /**< is bucket active? */
 };
 
 static constexpr int kMaxTraitsPerVBucket = 8;
 
 /**
-   A structure to represent virtual bucket information   
+   A structure to represent virtual bucket information
  */
 struct VBucketInfo {
-  VBucketID next_free;          /**< id of next free virtual bucket */
-  ChunkedIdList blobs;          /**< list of BLOB IDs */
-  std::atomic<int> ref_count;   /**< reference count */
+  VBucketID next_free;                /**< id of next free virtual bucket */
+  ChunkedIdList blobs;                /**< list of BLOB IDs */
+  std::atomic<int> ref_count;         /**< reference count */
   std::atomic<int> async_flush_count; /**< asynchrnous flush count */
   /** Not currently used since Traits are process local. */
   TraitID traits[kMaxTraitsPerVBucket];
-  bool active;                  /**< is virtual bucket active? */
+  bool active; /**< is virtual bucket active? */
 };
 
 /**
    A sntructure to view the current state of system
- */    
+ */
 struct SystemViewState {
   /** Total capacities of each device. */
   u64 capacities[kMaxDevices];
@@ -209,18 +208,18 @@ struct MetadataManager {
   ptrdiff_t vbucket_info_offset; /**< virtual bucket information */
   VBucketID first_free_vbucket;  /**< ID of first free virtual bucket */
 
-  ptrdiff_t rpc_state_offset;    /**< RPC state */
-  ptrdiff_t host_names_offset;   /**< host names  */
-  ptrdiff_t host_numbers_offset; /**< host numbers */
+  ptrdiff_t rpc_state_offset;                /**< RPC state */
+  ptrdiff_t host_names_offset;               /**< host names  */
+  ptrdiff_t host_numbers_offset;             /**< host numbers */
   ptrdiff_t system_view_state_offset;        /**< system view state */
   ptrdiff_t global_system_view_state_offset; /**< global system view state */
 
-  ptrdiff_t id_heap_offset;     /**< ID heap */
-  ptrdiff_t map_heap_offset;    /**< map heap */
+  ptrdiff_t id_heap_offset;  /**< ID heap */
+  ptrdiff_t map_heap_offset; /**< map heap */
 
-  ptrdiff_t bucket_map_offset;  /**< bucket map */
-  ptrdiff_t vbucket_map_offset; /**< virtual bucket map */
-  ptrdiff_t blob_id_map_offset; /**< BLOB ID map */
+  ptrdiff_t bucket_map_offset;    /**< bucket map */
+  ptrdiff_t vbucket_map_offset;   /**< virtual bucket map */
+  ptrdiff_t blob_id_map_offset;   /**< BLOB ID map */
   ptrdiff_t blob_info_map_offset; /**< BLOB information map */
 
   ptrdiff_t swap_filename_prefix_offset; /**< swap file name prefix */
@@ -232,7 +231,7 @@ struct MetadataManager {
   /** Lock for accessing `BucketInfo` structures located at
    * `bucket_info_offset` */
   TicketMutex bucket_mutex;
-  RwLock bucket_delete_lock;    /**< lock for bucket deletion */
+  RwLock bucket_delete_lock; /**< lock for bucket deletion */
 
   /** Lock for accessing `VBucketInfo` structures located at
    * `vbucket_info_offset` */
@@ -249,18 +248,18 @@ struct MetadataManager {
   /** Lock for accessing `IdList`s and `ChunkedIdList`s */
   TicketMutex id_mutex;
 
-  size_t map_seed;              /**<  map seed */
+  size_t map_seed; /**<  map seed */
 
-  IdList node_targets;          /**<  ID list of node targets  */
-  IdList neighborhood_targets;  /**<  ID list of neighborhood targets */
+  IdList node_targets;         /**<  ID list of node targets  */
+  IdList neighborhood_targets; /**<  ID list of neighborhood targets */
 
   u32 system_view_state_update_interval_ms; /**< sys. view update interval */
   u32 global_system_view_state_node_id;     /**< node ID fo global sys. view */
   u32 num_buckets;                          /**< number of buckets */
-  u32 max_buckets;              /**< maximum number of buckets */
-  u32 num_vbuckets;             /**< number of virtual buckets */
-  u32 max_vbuckets;             /**< maximum number of virtual buckets */
-  std::atomic<u32> clock;       /**< clock */
+  u32 max_buckets;                          /**< maximum number of buckets */
+  u32 num_vbuckets;                         /**< number of virtual buckets */
+  u32 max_vbuckets;       /**< maximum number of virtual buckets */
+  std::atomic<u32> clock; /**< clock */
 };
 
 struct RpcContext;
