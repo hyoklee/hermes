@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"pubsub_8h_source.html":[4,0,0,2,2],
+"random_8h_source.html":[4,0,2,1,2],
 "round__robin_8h_source.html":[4,0,2,1,3],
 "rpc_8h_source.html":[4,0,2,19],
 "rpc__thallium_8h_source.html":[4,0,2,20],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "structhermes_1_1_metadata_manager.html#ad5ad2ad85f20e48c006e0270cbb7e4fe":[3,0,1,38,10],
 "structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2":[3,0,1,38,19],
 "structhermes_1_1_metadata_manager.html#adfdffc3e77e1ccc0b3c981d81d88dfa2":[3,0,1,38,16],
-"structhermes_1_1_metadata_manager.html#ae740be4c55a4f80c2b324369bda00356":[3,0,1,38,28],
-"structhermes_1_1_metadata_manager.html#aea3b5bfcf1c7346e1dcc636485bfe204":[3,0,1,38,15],
-"structhermes_1_1_metadata_manager.html#aef892a72e6c84840ce6837fa0d8eb103":[3,0,1,38,31]
+"structhermes_1_1_metadata_manager.html#ae740be4c55a4f80c2b324369bda00356":[3,0,1,38,28]
 };

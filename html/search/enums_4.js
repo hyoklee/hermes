@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['traittype_871',['TraitType',['../hermes__types_8h.html#a9986546c3c718bfe0d411b7935349ae1',1,'hermes::api']]]
+  ['traittype_885',['TraitType',['../hermes__types_8h.html#a9986546c3c718bfe0d411b7935349ae1',1,'hermes::api']]]
 ];
