@@ -27,31 +27,31 @@
 
 namespace hermes {
 
-typedef void(ArenaErrorFunc)();    /**< Arena error function */
+typedef void(ArenaErrorFunc)(); /**< Arena error function */
 
 /**
  * Implements a ticket lock as described at
  * https://en.wikipedia.org/wiki/Ticket_lock.
  */
 struct TicketMutex {
-  std::atomic<u32> ticket;      /**< ticket number */
-  std::atomic<u32> serving;     /**< ticket number being served */
+  std::atomic<u32> ticket;  /**< ticket number */
+  std::atomic<u32> serving; /**< ticket number being served */
 };
 
 /**
  A structure to represent ticket
 */
 struct Ticket {
-  u32 ticket;                   /**< ticket number */
-  bool acquired;                /**< is ticket acquired? */
+  u32 ticket;    /**< ticket number */
+  bool acquired; /**< is ticket acquired? */
 };
 
 /**
  A structure to represent read-write lock
 */
 struct RwLock {
-  TicketMutex mutex;            /**< mutex is a lock for shared resource. */
-  std::atomic<u32> readers;     /**< number of readers */
+  TicketMutex mutex;                /**< mutex is a lock for shared resource. */
+  std::atomic<u32> readers;         /**< number of readers */
   std::atomic<bool> writer_waiting; /**< is writer waiting for the lock? */
 };
 
@@ -121,7 +121,7 @@ struct Heap {
  A structure to represent free block header
 */
 struct FreeBlockHeader {
-  size_t size;                  /**< size of free block header */
+  size_t size; /**< size of free block header */
 };
 
 /**
@@ -138,8 +138,8 @@ struct FreeBlock {
  A structure to represent
 */
 struct TemporaryMemory {
-  Arena *arena;                 /**< pointer to arena */
-  size_t used;                  /**< temporary memory used */
+  Arena *arena; /**< pointer to arena */
+  size_t used;  /**< temporary memory used */
 };
 
 /**
@@ -374,7 +374,7 @@ inline T *PushClearedArray(Arena *arena, int count, size_t alignment = 8) {
 u8 *HeapPushSize(Heap *heap, u32 size); /**< push \a size to \a heap */
 
 /**
- A template for pushing structure to \a heap. 
+ A template for pushing structure to \a heap.
 */
 template <typename T>
 inline T *HeapPushStruct(Heap *heap) {
@@ -384,7 +384,7 @@ inline T *HeapPushStruct(Heap *heap) {
 }
 
 /**
- A template for pushing array of \a count size to \a heap. 
+ A template for pushing array of \a count size to \a heap.
 */
 template <typename T>
 inline T *HeapPushArray(Heap *heap, u32 count) {
