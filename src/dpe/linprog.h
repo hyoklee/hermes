@@ -25,8 +25,8 @@ namespace hermes {
    A structure to represent 2D array index
 */
 struct Array2DIdx {
-  int nrow_;                     /**< number of rows */
-  int ncol_;                     /**< number of columns */
+  int nrow_; /**< number of rows */
+  int ncol_; /**< number of columns */
 
   /** Initialize structure with \a nrow and \a ncol. */
   Array2DIdx(int nrow, int ncol) : nrow_(nrow), ncol_(ncol) {}
@@ -52,14 +52,14 @@ const size_t kDefaultCoeffs = 1000 + 1;
 */
 class LinearProgram {
  private:
-  int num_vars_;                /**< number of variables */
-  int num_constraints_;         /**< number of constraints */
-  glp_prob *lp_;                /**< pointer to GLPK problem solver */
-  std::vector<int> ia_;         /**< The "i" in A[i][j] */
-  std::vector<int> ja_;         /**< The "j" in A[i][j] */
-  std::vector<double> ar_;      /**< values for A[i][j] */
-  size_t cur_constraint_;       /**< current constraint */
-  size_t result_;               /**< result of solver */
+  int num_vars_;           /**< number of variables */
+  int num_constraints_;    /**< number of constraints */
+  glp_prob *lp_;           /**< pointer to GLPK problem solver */
+  std::vector<int> ia_;    /**< The "i" in A[i][j] */
+  std::vector<int> ja_;    /**< The "j" in A[i][j] */
+  std::vector<double> ar_; /**< values for A[i][j] */
+  size_t cur_constraint_;  /**< current constraint */
+  size_t result_;          /**< result of solver */
 
  public:
   /** Initialize linear program solver with \a name. */
