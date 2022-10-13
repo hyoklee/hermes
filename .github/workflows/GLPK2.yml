@@ -62,6 +62,8 @@ jobs:
           spack external find zlib
           spack external find xz
           spack external find yaml-cpp
+          spack install yaml-cpp
+          spack load yaml-cpp
           spack install glpk
           spack load glpk
           spack install glog
