@@ -1,9 +1,14 @@
 var searchData=
 [
-  ['last_887',['last',['../structhermes_1_1_blob_info.html#a0bac6d53d1da2d6f755453be42d62957',1,'hermes::BlobInfo']]],
-  ['latencies_888',['latencies',['../structhermes_1_1_config.html#a31bfa368bb4ed0726b283fa98201c93c',1,'hermes::Config']]],
-  ['latency_5fns_889',['latency_ns',['../structhermes_1_1_device.html#a436057d76f6e0c415e60d6dfa9950931',1,'hermes::Device']]],
-  ['length_890',['length',['../structhermes_1_1_chunked_id_list.html#a368b60a4efa4e17a21b7489dfabb82cf',1,'hermes::ChunkedIdList::length()'],['../structhermes_1_1_id_list.html#af0e6cd8d116133427a07bafead927e57',1,'hermes::IdList::length()'],['../structhermes_1_1_buffer_id_array.html#a9d9c3803aab0ee0f25a8fd2554bfeb8f',1,'hermes::BufferIdArray::length()']]],
-  ['lock_891',['lock',['../structhermes_1_1_blob_info.html#ab713f1732702626a5fb140fcfb4fe144',1,'hermes::BlobInfo']]],
-  ['locked_892',['locked',['../structhermes_1_1_buffer_header.html#a25cd12581305b74a0d4164e98650e5a0',1,'hermes::BufferHeader']]]
+  ['kbucketidstringsize_919',['kBucketIdStringSize',['../hermes__types_8h.html#aaba7989e15321cd9cd19c2b6940ea4a2',1,'hermes']]],
+  ['kill_5frequested_920',['kill_requested',['../structhermes_1_1_thallium_state.html#ae469c10b4e645352e54233bb6d9f2727',1,'hermes::ThalliumState']]],
+  ['kmaxblobnamesize_921',['kMaxBlobNameSize',['../hermes__types_8h.html#a7ed10d74c2c33f9b76051420b6bdd608',1,'hermes']]],
+  ['kmaxbucketnamesize_922',['kMaxBucketNameSize',['../hermes__types_8h.html#afbf3bb1ae1d4b93cec82921c0b5f2731',1,'hermes']]],
+  ['kmaxbufferpoolshmemnamelength_923',['kMaxBufferPoolShmemNameLength',['../hermes__types_8h.html#a7b383ce9550094138409ea748419330b',1,'hermes']]],
+  ['kmaxbufferpoolslabs_924',['kMaxBufferPoolSlabs',['../hermes__types_8h.html#a1a4d6ab272396e7c9eb60b351e548ea8',1,'hermes']]],
+  ['kmaxdevices_925',['kMaxDevices',['../hermes__types_8h.html#a05b185685cfe4402fcd4f4d102f773db',1,'hermes']]],
+  ['kmaxpathlength_926',['kMaxPathLength',['../hermes__types_8h.html#a22d7c46825d957a3a5859608fd442a5c',1,'hermes']]],
+  ['kmaxvbucketnamesize_927',['kMaxVBucketNameSize',['../hermes__types_8h.html#acc1696a11bcbfed72a351c8a7ef2cc76',1,'hermes']]],
+  ['kplaceinhierarchy_928',['kPlaceInHierarchy',['../hermes__types_8h.html#a1ac506009fb30ec0ddacdfde0c176455',1,'hermes']]],
+  ['kswaptargetid_929',['kSwapTargetId',['../hermes__types_8h.html#a433af8f0a0c9a37f56c47e36fad7b2f9',1,'hermes']]]
 ];

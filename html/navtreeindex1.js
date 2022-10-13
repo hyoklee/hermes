@@ -246,8 +246,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[3,3,0,4],
 "functions_f.html":[3,3,0,5],
 "functions_func.html":[3,3,1],
-"functions_g.html":[3,3,0,6],
-"functions_h.html":[3,3,0,7],
-"functions_i.html":[3,3,0,8],
-"functions_k.html":[3,3,0,9]
+"functions_func.html":[3,3,1,0],
+"functions_func_b.html":[3,3,1,1],
+"functions_func_c.html":[3,3,1,2],
+"functions_func_d.html":[3,3,1,3]
 };

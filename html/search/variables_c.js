@@ -1,18 +1,18 @@
 var searchData=
 [
-  ['name_5f_908',['name_',['../classhermes_1_1api_1_1_bucket.html#a74d087ec18fe0c1550382177103c5e84',1,'hermes::api::Bucket::name_()'],['../classhermes_1_1api_1_1_v_bucket.html#a517416726168bfe3a38d9978c04daa27',1,'hermes::api::VBucket::name_()']]],
-  ['neighborhood_5ftargets_909',['neighborhood_targets',['../structhermes_1_1_metadata_manager.html#a58c9db540f9def7b22229ac616bd8e9e',1,'hermes::MetadataManager']]],
-  ['next_5ffree_910',['next_free',['../structhermes_1_1_buffer_header.html#af93940dc35543c572bcd8fe7f6dd99e7',1,'hermes::BufferHeader::next_free()'],['../structhermes_1_1_bucket_info.html#ab90a8879ece20a76786aa44368f4f53c',1,'hermes::BucketInfo::next_free()'],['../structhermes_1_1_v_bucket_info.html#ac5717113040e1f6ebfb0ab01e2ef8df3',1,'hermes::VBucketInfo::next_free()']]],
-  ['next_5foffset_911',['next_offset',['../structhermes_1_1_free_block.html#a2f0abc73bddffb7f0086b8ca78e399b7',1,'hermes::FreeBlock']]],
-  ['node_5fid_912',['node_id',['../unionhermes_1_1_buffer_i_d.html#acf2d545d2ec2905d0e61dec8887243fb',1,'hermes::BufferID::node_id()'],['../structhermes_1_1_communication_context.html#a6ee75c70b8c29ae4ac38ad80d111766b',1,'hermes::CommunicationContext::node_id()'],['../unionhermes_1_1_target_i_d.html#a6f7ee7f574deb8618f9a7d6225fd991c',1,'hermes::TargetID::node_id()'],['../unionhermes_1_1_bucket_i_d.html#a054b905c9f7465119ab367dd2ada3ccb',1,'hermes::BucketID::node_id()'],['../unionhermes_1_1_v_bucket_i_d.html#a69a44133585c0a5c953a0d5805a67986',1,'hermes::VBucketID::node_id()'],['../unionhermes_1_1_blob_i_d.html#a8e4b00341107c264ad55da116fa972a9',1,'hermes::BlobID::node_id()']]],
-  ['node_5ftargets_913',['node_targets',['../structhermes_1_1_metadata_manager.html#aa18912233afe29fab561cebf6904b887',1,'hermes::MetadataManager']]],
-  ['num_5fbuckets_914',['num_buckets',['../structhermes_1_1_metadata_manager.html#a7d38155798d566c58daeaeb0de7e97e7',1,'hermes::MetadataManager']]],
-  ['num_5fbuffer_5forganizer_5fretries_915',['num_buffer_organizer_retries',['../structhermes_1_1_config.html#a648d12da020c09a90466de49693bf1dc',1,'hermes::Config']]],
-  ['num_5fdevices_916',['num_devices',['../structhermes_1_1_buffer_pool.html#a3a8573cd2348aa2b39d4a678e22eca11',1,'hermes::BufferPool::num_devices()'],['../structhermes_1_1_config.html#a84f4ed233fb630c7e3fb844f5491d040',1,'hermes::Config::num_devices()'],['../structhermes_1_1_system_view_state.html#a1e048fb07236cac24578dbd9f9847c5e',1,'hermes::SystemViewState::num_devices()'],['../structhermes_1_1_global_system_view_state.html#a3fd1f56ab7953b7dc82fd6018151449e',1,'hermes::GlobalSystemViewState::num_devices()']]],
-  ['num_5fheaders_917',['num_headers',['../structhermes_1_1_buffer_pool.html#aad9ef89dd11da05ed9c543898f8ee52e',1,'hermes::BufferPool']]],
-  ['num_5fnodes_918',['num_nodes',['../structhermes_1_1_communication_context.html#ae731641f4776f27ebf22bcfb6e812fa5',1,'hermes::CommunicationContext']]],
-  ['num_5frows_919',['num_rows',['../struct_heap_metadata.html#a3573d91e174ac2f61f8244a79b4a4f3c',1,'HeapMetadata']]],
-  ['num_5fslabs_920',['num_slabs',['../structhermes_1_1_buffer_pool.html#aec7666673ec1ed1d556575a807a7ea35',1,'hermes::BufferPool::num_slabs()'],['../structhermes_1_1_config.html#a7be959755e4cad44534f957cdb40c158',1,'hermes::Config::num_slabs()']]],
-  ['num_5ftargets_921',['num_targets',['../structhermes_1_1_config.html#a512abea6d6878bf2335a0e07ac6b5bd7',1,'hermes::Config::num_targets()'],['../structhermes_1_1_global_system_view_state.html#ae749e5178abb720bf0da460026ca0dfc',1,'hermes::GlobalSystemViewState::num_targets()']]],
-  ['num_5fvbuckets_922',['num_vbuckets',['../structhermes_1_1_metadata_manager.html#ac56b939cffb651a62ef5dba1d93d2d37',1,'hermes::MetadataManager']]]
+  ['map_5fheap_5foffset_937',['map_heap_offset',['../structhermes_1_1_metadata_manager.html#ad5ad2ad85f20e48c006e0270cbb7e4fe',1,'hermes::MetadataManager']]],
+  ['map_5fseed_938',['map_seed',['../structhermes_1_1_metadata_manager.html#a1de1f728b3d0aedce1cbe5f5e249f17c',1,'hermes::MetadataManager']]],
+  ['max_939',['max',['../structhermes_1_1_thresholds.html#a029f620b7a5a438903487bdd049a0894',1,'hermes::Thresholds']]],
+  ['max_5fbuckets_940',['max_buckets',['../structhermes_1_1_metadata_manager.html#aef892a72e6c84840ce6837fa0d8eb103',1,'hermes::MetadataManager']]],
+  ['max_5fbuckets_5fper_5fnode_941',['max_buckets_per_node',['../structhermes_1_1_config.html#a195d48422fb135a5bd86dd9166d3ada8',1,'hermes::Config']]],
+  ['max_5fvbuckets_942',['max_vbuckets',['../structhermes_1_1_metadata_manager.html#a5bace6c4cbfe278dd74a7a5af3a0efec',1,'hermes::MetadataManager']]],
+  ['max_5fvbuckets_5fper_5fnode_943',['max_vbuckets_per_node',['../structhermes_1_1_config.html#ac90e86144b866097d6d02cd1ef4dff66',1,'hermes::Config']]],
+  ['metadata_944',['metadata',['../classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#ada1a097c6847c027ae857adfefa6f31e',1,'hermes::adapter::mpiio::MetadataManager::metadata()'],['../classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ae6b110b499b8a667bcf637016ff971c8',1,'hermes::adapter::posix::MetadataManager::metadata()'],['../classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#aa24f2c8e7dd9d64efbdb55649a61de8d',1,'hermes::adapter::pubsub::MetadataManager::metadata()'],['../classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#a9ba56246f210b4e00f41081a934da18e',1,'hermes::adapter::stdio::MetadataManager::metadata()']]],
+  ['metadata_5fmanager_5foffset_945',['metadata_manager_offset',['../structhermes_1_1_shared_memory_context.html#a78322dc2f38b1642d82235955ac25f5c',1,'hermes::SharedMemoryContext']]],
+  ['min_946',['min',['../structhermes_1_1_thresholds.html#acfd2bdebf2d63985cb96f64b519fab92',1,'hermes::Thresholds']]],
+  ['minimize_5fio_5ftime_5foptions_947',['minimize_io_time_options',['../structhermes_1_1api_1_1_context.html#addefab2a6b6c6b897617af229b3a20d2',1,'hermes::api::Context']]],
+  ['minimum_5fremaining_5fcapacity_948',['minimum_remaining_capacity',['../structhermes_1_1api_1_1_minimize_io_time_options.html#a4b5357c3daf47e4a1c4369e8605c9c8c',1,'hermes::api::MinimizeIoTimeOptions']]],
+  ['mount_5fpoint_949',['mount_point',['../structhermes_1_1_device.html#ad4a4fe8cad8bd303ce14d9a745bf0c43',1,'hermes::Device']]],
+  ['mount_5fpoints_950',['mount_points',['../structhermes_1_1_config.html#a9703f47309e0fcfe42a9f092a6b355ea',1,'hermes::Config']]],
+  ['mutex_951',['mutex',['../structhermes_1_1_rw_lock.html#aebe5617d379dbf87152c5a78a9915da2',1,'hermes::RwLock::mutex()'],['../structhermes_1_1_heap.html#a84f50982a2fba97e0577f418261c3284',1,'hermes::Heap::mutex()']]]
 ];

@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['vbucket_5finfo_5foffset_995',['vbucket_info_offset',['../structhermes_1_1_metadata_manager.html#a5f8953422596626b5ba97d2dc6ce9fee',1,'hermes::MetadataManager']]],
-  ['vbucket_5fmap_5fmutex_996',['vbucket_map_mutex',['../structhermes_1_1_metadata_manager.html#ad1b87dc2dbacbbf77fbb1c91ab13a788',1,'hermes::MetadataManager']]],
-  ['vbucket_5fmap_5foffset_997',['vbucket_map_offset',['../structhermes_1_1_metadata_manager.html#a4db451249c330af121618983921d0944',1,'hermes::MetadataManager']]],
-  ['vbucket_5fmutex_998',['vbucket_mutex',['../structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2',1,'hermes::MetadataManager']]],
-  ['violation_999',['violation',['../structhermes_1_1_violation_info.html#a14abdf04518f4b5676835407b3af5ac0',1,'hermes::ViolationInfo']]],
-  ['violation_5fsize_1000',['violation_size',['../structhermes_1_1_violation_info.html#a2cf21df846a02490e73af19842608c68',1,'hermes::ViolationInfo']]]
+  ['use_5fplacement_5fratio_1042',['use_placement_ratio',['../structhermes_1_1api_1_1_minimize_io_time_options.html#a082f06127473cdecba614230ddfb2014',1,'hermes::api::MinimizeIoTimeOptions']]],
+  ['used_1043',['used',['../structhermes_1_1_buffer_header.html#a9bc65551cd0187c86a4941c6d54768a5',1,'hermes::BufferHeader::used()'],['../structhermes_1_1_arena.html#ab2ba6b537c627c2d55a2d4203be55fe5',1,'hermes::Arena::used()'],['../structhermes_1_1_temporary_memory.html#a0a34782ed593490087219c07f088b251',1,'hermes::TemporaryMemory::used()'],['../structhermes_1_1_scoped_temporary_memory.html#a304b15921f746ae4bb7db06022e992ba',1,'hermes::ScopedTemporaryMemory::used()']]]
 ];
