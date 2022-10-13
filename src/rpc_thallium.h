@@ -35,15 +35,15 @@ const char kBoPrefix[] = "BO::";
 const int kBoPrefixLength = sizeof(kBoPrefix) - 1;
 
 /**
-   A structure to represent Thallium state   
+   A structure to represent Thallium state
 */
 struct ThalliumState {
-  char server_name_prefix[kMaxServerNamePrefix]; /**< server prefix */
-  char server_name_postfix[kMaxServerNamePostfix]; /**< server suffix */
+  char server_name_prefix[kMaxServerNamePrefix];      /**< server prefix */
+  char server_name_postfix[kMaxServerNamePostfix];    /**< server suffix */
   char bo_server_name_postfix[kMaxServerNamePostfix]; /**< buf. org. suffix */
-  std::atomic<bool> kill_requested; /**< is kill requested? */
-  tl::engine *engine;               /**< pointer to engine */
-  tl::engine *bo_engine;            /**< pointer to buf. org. engine */
+  std::atomic<bool> kill_requested;                   /**< is kill requested? */
+  tl::engine *engine;                                 /**< pointer to engine */
+  tl::engine *bo_engine;        /**< pointer to buf. org. engine */
   ABT_xstream execution_stream; /**< Argobots execution stream */
 };
 
