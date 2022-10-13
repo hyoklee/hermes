@@ -21,14 +21,20 @@
 
 namespace hermes {
 
+/**
+  A structure to represent ID <key, value> map  
+*/   
 struct IdMap {
-  char *key;
-  u64 value;
+  char *key;                    /**< ID string as key */
+  u64 value;                    /**< ID value */
 };
-
+ 
+/**
+  A structure to represent BLOB information <key, value> map  
+*/   
 struct BlobInfoMap {
-  BlobID key;
-  BlobInfo value;
+  BlobID key;                   /**< BLOB ID as key */
+  BlobInfo value;               /**< BLOB information value */
 };
 
 static IdMap *GetMapByOffset(MetadataManager *mdm, u32 offset) {
@@ -1027,6 +1033,9 @@ f32 LocalGetBlobImportanceScore(SharedMemoryContext *context, BlobID blob_id) {
   return result;
 }
 
+/**
+   Get the importance score of \a blob_id BLOB.
+ */   
 f32 GetBlobImportanceScore(SharedMemoryContext *context, RpcContext *rpc,
                            BlobID blob_id) {
   f32 result = 0;
