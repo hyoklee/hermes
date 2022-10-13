@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['_7ebucket_478',['~Bucket',['../classhermes_1_1api_1_1_bucket.html#a3a037c47b1c62a8829d1dbebf09bbe2d',1,'hermes::api::Bucket']]],
-  ['_7escopedtemporarymemory_479',['~ScopedTemporaryMemory',['../structhermes_1_1_scoped_temporary_memory.html#ad3d6513353dcf82ec9390975b3a042b4',1,'hermes::ScopedTemporaryMemory']]],
-  ['_7evbucket_480',['~VBucket',['../classhermes_1_1api_1_1_v_bucket.html#adf39d797323f3bc55caf315ce455d00f',1,'hermes::api::VBucket']]]
+  ['x_494',['x',['../struct_point.html#a8c779e11e694b20e0946105a9f5de842',1,'Point']]]
 ];
