@@ -254,8 +254,7 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetBlobSize
 <tr class="memitem:af1bf3c14edcfd90fa50cbe61cd50b07a"><td class="memItemLeft" align="right" valign="top"><a id="af1bf3c14edcfd90fa50cbe61cd50b07a"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetBlobSizeById</b> (SharedMemoryContext *context, RpcContext *rpc, Arena *arena, BlobID blob_id)</td></tr>
 <tr class="separator:af1bf3c14edcfd90fa50cbe61cd50b07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e6bb22eee573b7ba2436b6bddd79c91"><td class="memItemLeft" align="right" valign="top"><a id="a8e6bb22eee573b7ba2436b6bddd79c91"></a>
-f32&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetBlobImportanceScore</b> (SharedMemoryContext *context, RpcContext *rpc, BlobID blob_id)</td></tr>
+<tr class="memitem:a8e6bb22eee573b7ba2436b6bddd79c91"><td class="memItemLeft" align="right" valign="top">f32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="buffer__pool_8h.html#a8e6bb22eee573b7ba2436b6bddd79c91">hermes::GetBlobImportanceScore</a> (SharedMemoryContext *context, RpcContext *rpc, BlobID blob_id)</td></tr>
 <tr class="separator:a8e6bb22eee573b7ba2436b6bddd79c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93572ab14ec8c48e304fbdfc25cab81d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="buffer__pool_8cc.html#a93572ab14ec8c48e304fbdfc25cab81d">hermes::MakeFullShmemName</a> (char *dest, const char *base)</td></tr>
 <tr class="separator:a93572ab14ec8c48e304fbdfc25cab81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -335,6 +334,57 @@ Device *&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetDevice
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The public structures and functions for interacting with the BufferPool as a client. The interface includes hermes-specific application core intialization, and the API through which the RoundRobin DPE and BufferOrganizer interact with the BufferPool. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a8e6bb22eee573b7ba2436b6bddd79c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e6bb22eee573b7ba2436b6bddd79c91">&#9670;&nbsp;</a></span>GetBlobImportanceScore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">f32 hermes::GetBlobImportanceScore </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_rpc_context.html">RpcContext</a> *&#160;</td>
+          <td class="paramname"><em>rpc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="unionhermes_1_1_blob_i_d.html">BlobID</a>&#160;</td>
+          <td class="paramname"><em>blob_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the importance score of <em>blob_id</em> BLOB. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="buffer__pool_8h_a8e6bb22eee573b7ba2436b6bddd79c91_cgraph.png" border="0" usemap="#buffer__pool_8h_a8e6bb22eee573b7ba2436b6bddd79c91_cgraph" alt=""/></div>
+<map name="buffer__pool_8h_a8e6bb22eee573b7ba2436b6bddd79c91_cgraph" id="buffer__pool_8h_a8e6bb22eee573b7ba2436b6bddd79c91_cgraph">
+<area shape="rect" title=" " alt="" coords="5,29,211,71"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="buffer__pool_8h_a8e6bb22eee573b7ba2436b6bddd79c91_icgraph.png" border="0" usemap="#buffer__pool_8h_a8e6bb22eee573b7ba2436b6bddd79c91_icgraph" alt=""/></div>
+<map name="buffer__pool_8h_a8e6bb22eee573b7ba2436b6bddd79c91_icgraph" id="buffer__pool_8h_a8e6bb22eee573b7ba2436b6bddd79c91_icgraph">
+<area shape="rect" title=" " alt="" coords="5,29,211,71"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a93572ab14ec8c48e304fbdfc25cab81d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a93572ab14ec8c48e304fbdfc25cab81d">&#9670;&nbsp;</a></span>MakeFullShmemName()</h2>
 
