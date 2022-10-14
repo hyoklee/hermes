@@ -73,7 +73,7 @@ struct Device {
  A structure to represent target
 */
 struct Target {
-  TargetID id;                /**< ID of target */
+  TargetID id; /**< ID of target */
   /** The total capacity of the Target. */
   u64 capacity;
   std::atomic<u64> remaining_space; /**< remaining space */
@@ -123,8 +123,8 @@ bool operator==(const BufferID &lhs, const BufferID &rhs);
  A structure to represent shared memory client information
 */
 struct ShmemClientInfo {
-  ptrdiff_t mdm_offset;         /**< metadata manager offset */
-  ptrdiff_t bpm_offset;         /**< buffer pool manager offset */
+  ptrdiff_t mdm_offset; /**< metadata manager offset */
+  ptrdiff_t bpm_offset; /**< buffer pool manager offset */
 };
 
 /**
@@ -320,7 +320,7 @@ f32 GetBlobImportanceScore(SharedMemoryContext *context, RpcContext *rpc,
 void MakeFullShmemName(char *dest, const char *base);
 
 /**
- * \todo 
+ * \todo
  * Creates and opens all files that will be used for buffering. Stores open FILE
  * pointers in the @p context. The file buffering paradaigm uses one file per
  * slab for each Device. If `posix_fallocate` is available, and `make_space` is
@@ -433,15 +433,15 @@ struct Blob {
 
 /**
  A structure to represent swap BLOB
- 
+
  \note (chogan): When adding members to this struct, it is important to also add
  an entry to the SwapBlobMembers enum below.
-*/ 
+*/
 struct SwapBlob {
-  u32 node_id;                  /**< node ID */
-  u64 offset;                   /**< offset of swap BLOB */
-  u64 size;                     /**< size of swap BLOB */
-  BucketID bucket_id;           /**< Bucket ID */
+  u32 node_id;        /**< node ID */
+  u64 offset;         /**< offset of swap BLOB */
+  u64 size;           /**< size of swap BLOB */
+  BucketID bucket_id; /**< Bucket ID */
 };
 
 /**
