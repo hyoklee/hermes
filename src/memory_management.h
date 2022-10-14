@@ -135,7 +135,7 @@ struct FreeBlock {
 };
 
 /**
- A structure to represent
+ A structure to represent a temporary memory
 */
 struct TemporaryMemory {
   Arena *arena; /**< pointer to arena */
