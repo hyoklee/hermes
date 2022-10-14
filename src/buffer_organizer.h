@@ -34,36 +34,51 @@ enum class BoPriority {
   kCount
 };
 
+/**
+ A union of structures to represent buffer organizer arguments
+*/
 union BoArgs {
+  /** A structure to represent move arguments */
   struct {
-    BufferID src;
-    TargetID dest;
+    BufferID src;               /**< source buffer ID */
+    TargetID dest;              /**< destination target ID */
   } move_args;
+  /** A structure to represent copy arguments */  
   struct {
-    BufferID src;
-    TargetID dest;
+    BufferID src;               /**< source buffer ID */
+    TargetID dest;              /**< destination target ID */
   } copy_args;
+  /** A structure to represent delete arguments */    
   struct {
-    BufferID src;
-  } delete_args;
+    BufferID src;               /**< source buffer ID */
+  } delete_args;                
 };
 
+/**
+   A structure to represent buffer organizer task
+*/
 struct BoTask {
-  BoOperation op;
-  BoArgs args;
+  BoOperation op;               /**< buffer organizer operation */
+  BoArgs args;                  /**< buffer organizer arguments */
 };
 
+/**
+   A structure to represent buffer information
+*/
 struct BufferInfo {
-  BufferID id;
-  f32 bandwidth_mbps;
-  size_t size;
+  BufferID id;                  /**< buffer ID */
+  f32 bandwidth_mbps;           /**< bandwidth in Megabits per second */
+  size_t size;                  /**< buffer size */
 };
 
 bool operator==(const BufferInfo &lhs, const BufferInfo &rhs);
 
+/**
+   A structure to represent buffer organizer
+*/
 struct BufferOrganizer {
-  ThreadPool pool;
-
+  ThreadPool pool;              /**< a pool of threads */
+  /** initialize buffer organizer with \a num_threads number of threads.  */ 
   explicit BufferOrganizer(int num_threads);
 };
 
