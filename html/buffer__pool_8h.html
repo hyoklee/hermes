@@ -232,7 +232,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a22c98bca84c4e7d31662e8eae85bf2ec"><td class="memItemLeft" align="right" valign="top"><a id="a22c98bca84c4e7d31662e8eae85bf2ec"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SwapBlobMembers</b> { <br />
+<tr class="memitem:a22c98bca84c4e7d31662e8eae85bf2ec"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="buffer__pool_8h.html#a22c98bca84c4e7d31662e8eae85bf2ec">hermes::SwapBlobMembers</a> { <br />
 &#160;&#160;<b>SwapBlobMembers_NodeId</b>, 
 <b>SwapBlobMembers_Offset</b>, 
 <b>SwapBlobMembers_Size</b>, 
@@ -294,12 +294,10 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::LocalReadBu
 <tr class="memitem:a54ca273e5e4837d879b749645ba6d83f"><td class="memItemLeft" align="right" valign="top"><a id="a54ca273e5e4837d879b749645ba6d83f"></a>
 SwapBlob&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::PutToSwap</b> (SharedMemoryContext *context, RpcContext *rpc, const std::string &amp;name, BucketID bucket_id, const u8 *data, size_t size)</td></tr>
 <tr class="separator:a54ca273e5e4837d879b749645ba6d83f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46ef629f773dcff448648ca2657c9fe2"><td class="memTemplParams" colspan="2"><a id="a46ef629f773dcff448648ca2657c9fe2"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a46ef629f773dcff448648ca2657c9fe2"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; SwapBlob &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>hermes::PutToSwap</b> (SharedMemoryContext *context, RpcContext *rpc, BucketID id, std::vector&lt; std::vector&lt; T &gt;&gt; &amp;blobs, std::vector&lt; std::string &gt; &amp;names)</td></tr>
+<tr class="memitem:a46ef629f773dcff448648ca2657c9fe2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a46ef629f773dcff448648ca2657c9fe2"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; SwapBlob &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="buffer__pool_8h.html#a46ef629f773dcff448648ca2657c9fe2">hermes::PutToSwap</a> (SharedMemoryContext *context, RpcContext *rpc, BucketID id, std::vector&lt; std::vector&lt; T &gt;&gt; &amp;blobs, std::vector&lt; std::string &gt; &amp;names)</td></tr>
 <tr class="separator:a46ef629f773dcff448648ca2657c9fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab15d1c233fd19870be47076dbbe4a3bd"><td class="memItemLeft" align="right" valign="top"><a id="ab15d1c233fd19870be47076dbbe4a3bd"></a>
-SwapBlob&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::WriteToSwap</b> (SharedMemoryContext *context, Blob blob, BlobID blob_id, BucketID bucket_id)</td></tr>
+<tr class="memitem:ab15d1c233fd19870be47076dbbe4a3bd"><td class="memItemLeft" align="right" valign="top">SwapBlob&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="buffer__pool_8h.html#ab15d1c233fd19870be47076dbbe4a3bd">hermes::WriteToSwap</a> (SharedMemoryContext *context, Blob blob, BlobID blob_id, BucketID bucket_id)</td></tr>
 <tr class="separator:ab15d1c233fd19870be47076dbbe4a3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90b2ac6f6b32dab62d7ad2d4dfc93bc6"><td class="memItemLeft" align="right" valign="top"><a id="a90b2ac6f6b32dab62d7ad2d4dfc93bc6"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::ReadFromSwap</b> (SharedMemoryContext *context, Blob blob, SwapBlob swap_blob)</td></tr>
@@ -333,7 +331,23 @@ Device *&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetDevice
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The public structures and functions for interacting with the BufferPool as a client. The interface includes hermes-specific application core intialization, and the API through which the RoundRobin DPE and BufferOrganizer interact with the BufferPool. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a22c98bca84c4e7d31662e8eae85bf2ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22c98bca84c4e7d31662e8eae85bf2ec">&#9670;&nbsp;</a></span>SwapBlobMembers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="buffer__pool_8h.html#a22c98bca84c4e7d31662e8eae85bf2ec">hermes::SwapBlobMembers</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>An enum to represent swap BLOB members </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>(chogan): metaprogramming - Generate this </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a8e6bb22eee573b7ba2436b6bddd79c91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e6bb22eee573b7ba2436b6bddd79c91">&#9670;&nbsp;</a></span>GetBlobImportanceScore()</h2>
 
@@ -463,13 +477,11 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>TODO Creates and opens all files that will be used for buffering. Stores open FILE pointers in the <code>context</code>. The file buffering paradaigm uses one file per slab for each Device. If <code>posix_fallocate</code> is available, and <code>make_space</code> is <code>true</code>, each file's capacity is reserved. Otherwise, the files will be initialized with 0 size.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Creates and opens all files that will be used for buffering. Stores open FILE pointers in the <code>context</code>. The file buffering paradaigm uses one file per slab for each Device. If <code>posix_fallocate</code> is available, and <code>make_space</code> is <code>true</code>, each file's capacity is reserved. Otherwise, the files will be initialized with 0 size.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">context</td><td>The SharedMemoryContext in which to store the opened FILE pointers. </td></tr>
-    <tr><td class="paramname">make_space</td><td>If true, attempts to reserve space on the * filesystem for each file. </td></tr>
-    <tr><td class="paramname">node_id</td><td>The node id, used for shared devices. </td></tr>
-    <tr><td class="paramname">first_on_node</td><td>True if this rank is sequentially the first on the node </td></tr>
+    <tr><td class="paramname">comm</td><td>context for communication </td></tr>
   </table>
   </dd>
 </dl>
@@ -727,8 +739,9 @@ Here is the caller graph for this function:</div>
 <p>Starts an RPC server that will listen for remote requests directed to the BufferPool.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">context</td><td>The shared memory context where the BufferPool lives. </td></tr>
-    <tr><td class="paramname">addr</td><td>The address and port where the RPC server will listen. This address must be a compatible with whatever the RPC implementation is. </td></tr>
+    <tr><td class="paramname">context</td><td>The shared memory context where the BufferPool lives </td></tr>
+    <tr><td class="paramname">addr</td><td>The address and port where the RPC server will listen This address must be a compatible with whatever the RPC implementation is. </td></tr>
+    <tr><td class="paramname">num_rpc_threads</td><td>number of RPC threads </td></tr>
   </table>
   </dd>
 </dl>
@@ -799,6 +812,7 @@ Here is the caller graph for this function:</div>
     <tr><td class="paramname">shmem_name</td><td>The name of the shared memory. </td></tr>
     <tr><td class="paramname">trans_arena</td><td>The instance's transient arena. </td></tr>
     <tr><td class="paramname">is_application_core</td><td>Whether or not this rank is an app rank. </td></tr>
+    <tr><td class="paramname">force_rpc_shutdown</td><td>Force RPC shutdown when it is true. </td></tr>
   </table>
   </dd>
 </dl>
@@ -863,9 +877,10 @@ Here is the caller graph for this function:</div>
 <p>Writes the blob to the collection of buffer_ids. The BufferIDs inform the call whether it is writing locally, remotely, to RAM (or a byte addressable Device) or to a file (block addressable Device).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">context</td><td>The shared memory context needed to access BufferPool info. </td></tr>
-    <tr><td class="paramname">blob</td><td>The data to write. </td></tr>
-    <tr><td class="paramname">buffer_ids</td><td>The collection of BufferIDs that should buffer the blob. </td></tr>
+    <tr><td class="paramname">context</td><td>The shared memory context needed to access BufferPool info </td></tr>
+    <tr><td class="paramname">rpc</td><td>The Hermes instance's RPC context </td></tr>
+    <tr><td class="paramname">blob</td><td>The data to write </td></tr>
+    <tr><td class="paramname">buffer_ids</td><td>The collection of BufferIDs that should buffer the blob </td></tr>
   </table>
   </dd>
 </dl>
@@ -961,6 +976,96 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title=" " alt="" coords="5,29,225,56"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a46ef629f773dcff448648ca2657c9fe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46ef629f773dcff448648ca2657c9fe2">&#9670;&nbsp;</a></span>PutToSwap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;SwapBlob&gt; hermes::PutToSwap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_rpc_context.html">RpcContext</a> *&#160;</td>
+          <td class="paramname"><em>rpc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="unionhermes_1_1_bucket_i_d.html">BucketID</a>&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; T &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>blobs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>names</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>A template function to put BLOBs into swap </p>
+
+</div>
+</div>
+<a id="ab15d1c233fd19870be47076dbbe4a3bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab15d1c233fd19870be47076dbbe4a3bd">&#9670;&nbsp;</a></span>WriteToSwap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SwapBlob hermes::WriteToSwap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_shared_memory_context.html">SharedMemoryContext</a> *&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_blob.html">Blob</a>&#160;</td>
+          <td class="paramname"><em>blob</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="unionhermes_1_1_blob_i_d.html">BlobID</a>&#160;</td>
+          <td class="paramname"><em>blob_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="unionhermes_1_1_bucket_i_d.html">BucketID</a>&#160;</td>
+          <td class="paramname"><em>bucket_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>write BLOB to swap. </p>
 
 </div>
 </div>
