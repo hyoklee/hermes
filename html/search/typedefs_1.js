@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['blob_1065',['Blob',['../hermes__types_8h.html#a2524128a957393840374aa59c93cf8b5',1,'hermes::api']]]
+  ['blob_1082',['Blob',['../hermes__types_8h.html#a2524128a957393840374aa59c93cf8b5',1,'hermes::api']]]
 ];
