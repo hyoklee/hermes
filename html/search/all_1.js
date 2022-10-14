@@ -56,9 +56,11 @@ var searchData=
   ['bufferidhash_77',['BufferIdHash',['../structhermes_1_1_buffer_id_hash.html',1,'hermes']]],
   ['bufferinfo_78',['BufferInfo',['../structhermes_1_1_buffer_info.html',1,'hermes']]],
   ['buffering_5ffilenames_79',['buffering_filenames',['../structhermes_1_1_shared_memory_context.html#ab3217d6ef32c676c28aa17ee44d150bc',1,'hermes::SharedMemoryContext']]],
-  ['bufferorganizer_80',['BufferOrganizer',['../structhermes_1_1_buffer_organizer.html',1,'hermes::BufferOrganizer'],['../structhermes_1_1_buffer_organizer.html#a8ea032e03ec8d13d58692a7ac5d33579',1,'hermes::BufferOrganizer::BufferOrganizer()']]],
-  ['bufferpool_81',['BufferPool',['../structhermes_1_1_buffer_pool.html',1,'hermes']]],
-  ['buffers_5favailable_5foffsets_82',['buffers_available_offsets',['../structhermes_1_1_buffer_pool.html#ad5a9de4b6c9eaa049ac7d10aee570e1c',1,'hermes::BufferPool']]],
-  ['bytes_5favailable_83',['bytes_available',['../structhermes_1_1_system_view_state.html#ab9859fb1b37b1d833fe087b5a736c32e',1,'hermes::SystemViewState::bytes_available()'],['../structhermes_1_1_global_system_view_state.html#a6a1669389d616566c8f9efbc903ae369',1,'hermes::GlobalSystemViewState::bytes_available()']]],
-  ['bytes_5fto_5fslots_84',['bytes_to_slots',['../struct_heap_metadata.html#a27aca4246e611daba50c8857d408eb8d',1,'HeapMetadata']]]
+  ['bufferisbyteaddressable_80',['BufferIsByteAddressable',['../buffer__pool_8cc.html#a119acdbc67271182db4d36ebe76c07bc',1,'hermes']]],
+  ['bufferisremote_81',['BufferIsRemote',['../buffer__pool_8cc.html#a32e9009c690da7b3e2fbcf90636e5922',1,'hermes::BufferIsRemote(CommunicationContext *comm, BufferID buffer_id)'],['../buffer__pool_8cc.html#a0590d8c81c30d8f23dc5e055edb5cbe9',1,'hermes::BufferIsRemote(RpcContext *rpc, BufferID buffer_id)']]],
+  ['bufferorganizer_82',['BufferOrganizer',['../structhermes_1_1_buffer_organizer.html',1,'hermes::BufferOrganizer'],['../structhermes_1_1_buffer_organizer.html#a8ea032e03ec8d13d58692a7ac5d33579',1,'hermes::BufferOrganizer::BufferOrganizer()']]],
+  ['bufferpool_83',['BufferPool',['../structhermes_1_1_buffer_pool.html',1,'hermes']]],
+  ['buffers_5favailable_5foffsets_84',['buffers_available_offsets',['../structhermes_1_1_buffer_pool.html#ad5a9de4b6c9eaa049ac7d10aee570e1c',1,'hermes::BufferPool']]],
+  ['bytes_5favailable_85',['bytes_available',['../structhermes_1_1_system_view_state.html#ab9859fb1b37b1d833fe087b5a736c32e',1,'hermes::SystemViewState::bytes_available()'],['../structhermes_1_1_global_system_view_state.html#a6a1669389d616566c8f9efbc903ae369',1,'hermes::GlobalSystemViewState::bytes_available()']]],
+  ['bytes_5fto_5fslots_86',['bytes_to_slots',['../struct_heap_metadata.html#a27aca4246e611daba50c8857d408eb8d',1,'HeapMetadata']]]
 ];

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['mapperfactory_615',['MapperFactory',['../classhermes_1_1adapter_1_1mpiio_1_1_mapper_factory.html',1,'hermes::adapter::mpiio::MapperFactory'],['../classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html',1,'hermes::adapter::posix::MapperFactory'],['../classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html',1,'hermes::adapter::stdio::MapperFactory']]],
-  ['metadatamanager_616',['MetadataManager',['../classhermes_1_1adapter_1_1_metadata_manager.html',1,'hermes::adapter::MetadataManager'],['../classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html',1,'hermes::adapter::posix::MetadataManager'],['../classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html',1,'hermes::adapter::mpiio::MetadataManager'],['../classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html',1,'hermes::adapter::pubsub::MetadataManager'],['../structhermes_1_1_metadata_manager.html',1,'hermes::MetadataManager'],['../classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html',1,'hermes::adapter::stdio::MetadataManager']]],
-  ['minimizeiotime_617',['MinimizeIoTime',['../classhermes_1_1_minimize_io_time.html',1,'hermes']]],
-  ['minimizeiotimeoptions_618',['MinimizeIoTimeOptions',['../structhermes_1_1api_1_1_minimize_io_time_options.html',1,'hermes::api']]],
-  ['mpistate_619',['MPIState',['../structhermes_1_1_m_p_i_state.html',1,'hermes']]],
-  ['mutehdf5errors_620',['MuteHdf5Errors',['../classhermes_1_1adapter_1_1vfd_1_1test_1_1_mute_hdf5_errors.html',1,'hermes::adapter::vfd::test']]]
+  ['mapperfactory_665',['MapperFactory',['../classhermes_1_1adapter_1_1mpiio_1_1_mapper_factory.html',1,'hermes::adapter::mpiio::MapperFactory'],['../classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html',1,'hermes::adapter::posix::MapperFactory'],['../classhermes_1_1adapter_1_1stdio_1_1_mapper_factory.html',1,'hermes::adapter::stdio::MapperFactory']]],
+  ['metadatamanager_666',['MetadataManager',['../classhermes_1_1adapter_1_1_metadata_manager.html',1,'hermes::adapter::MetadataManager'],['../classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html',1,'hermes::adapter::posix::MetadataManager'],['../classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html',1,'hermes::adapter::mpiio::MetadataManager'],['../classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html',1,'hermes::adapter::pubsub::MetadataManager'],['../structhermes_1_1_metadata_manager.html',1,'hermes::MetadataManager'],['../classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html',1,'hermes::adapter::stdio::MetadataManager']]],
+  ['minimizeiotime_667',['MinimizeIoTime',['../classhermes_1_1_minimize_io_time.html',1,'hermes']]],
+  ['minimizeiotimeoptions_668',['MinimizeIoTimeOptions',['../structhermes_1_1api_1_1_minimize_io_time_options.html',1,'hermes::api']]],
+  ['mpistate_669',['MPIState',['../structhermes_1_1_m_p_i_state.html',1,'hermes']]],
+  ['mutehdf5errors_670',['MuteHdf5Errors',['../classhermes_1_1adapter_1_1vfd_1_1test_1_1_mute_hdf5_errors.html',1,'hermes::adapter::vfd::test']]]
 ];
