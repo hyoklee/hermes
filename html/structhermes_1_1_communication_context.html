@@ -90,17 +90,16 @@ $(document).ready(function(){initNavTree('structhermes_1_1_communication_context
 <div class="title">hermes::CommunicationContext Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="communication_8h_source.html">communication.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a731da0512a52664d87276b44bdd20e04"><td class="memItemLeft" align="right" valign="top"><a id="a731da0512a52664d87276b44bdd20e04"></a>
-BarrierFunc&#160;</td><td class="memItemRight" valign="bottom"><b>world_barrier</b></td></tr>
+<tr class="memitem:a731da0512a52664d87276b44bdd20e04"><td class="memItemLeft" align="right" valign="top">BarrierFunc&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_communication_context.html#a731da0512a52664d87276b44bdd20e04">world_barrier</a></td></tr>
 <tr class="separator:a731da0512a52664d87276b44bdd20e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a000d66fc5b70b6b03e7412aaa83f1824"><td class="memItemLeft" align="right" valign="top"><a id="a000d66fc5b70b6b03e7412aaa83f1824"></a>
-BarrierFunc&#160;</td><td class="memItemRight" valign="bottom"><b>sub_barrier</b></td></tr>
+<tr class="memitem:a000d66fc5b70b6b03e7412aaa83f1824"><td class="memItemLeft" align="right" valign="top">BarrierFunc&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_communication_context.html#a000d66fc5b70b6b03e7412aaa83f1824">sub_barrier</a></td></tr>
 <tr class="separator:a000d66fc5b70b6b03e7412aaa83f1824"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad368df6be65e73737adafa7f166649ec"><td class="memItemLeft" align="right" valign="top"><a id="ad368df6be65e73737adafa7f166649ec"></a>
-FinalizeFunc&#160;</td><td class="memItemRight" valign="bottom"><b>finalize</b></td></tr>
+<tr class="memitem:ad368df6be65e73737adafa7f166649ec"><td class="memItemLeft" align="right" valign="top">FinalizeFunc&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_communication_context.html#ad368df6be65e73737adafa7f166649ec">finalize</a></td></tr>
 <tr class="separator:ad368df6be65e73737adafa7f166649ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37bcda3812f92afdbfe744f6bcce073f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_communication_context.html#a37bcda3812f92afdbfe744f6bcce073f">state</a></td></tr>
 <tr class="separator:a37bcda3812f92afdbfe744f6bcce073f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,7 +122,54 @@ FinalizeFunc&#160;</td><td class="memItemRight" valign="bottom"><b>finalize</b><
 <tr class="memitem:a9b9990bb3d90653fc4b18d8fa31f9546"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1_communication_context.html#a9b9990bb3d90653fc4b18d8fa31f9546">first_on_node</a></td></tr>
 <tr class="separator:a9b9990bb3d90653fc4b18d8fa31f9546"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A structure to represent MPI communication context </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a731da0512a52664d87276b44bdd20e04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a731da0512a52664d87276b44bdd20e04">&#9670;&nbsp;</a></span>world_barrier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BarrierFunc hermes::CommunicationContext::world_barrier</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>MPI communication world barrier </p>
+
+</div>
+</div>
+<a id="a000d66fc5b70b6b03e7412aaa83f1824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a000d66fc5b70b6b03e7412aaa83f1824">&#9670;&nbsp;</a></span>sub_barrier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BarrierFunc hermes::CommunicationContext::sub_barrier</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>MPI communication subset barrier </p>
+
+</div>
+</div>
+<a id="ad368df6be65e73737adafa7f166649ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad368df6be65e73737adafa7f166649ec">&#9670;&nbsp;</a></span>finalize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FinalizeFunc hermes::CommunicationContext::finalize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>MPI communication finalize </p>
+
+</div>
+</div>
 <a id="a37bcda3812f92afdbfe744f6bcce073f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a37bcda3812f92afdbfe744f6bcce073f">&#9670;&nbsp;</a></span>state</h2>
 

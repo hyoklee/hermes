@@ -1,3 +1,10 @@
 <map id="hermes::Finalize" name="hermes::Finalize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,29,135,56"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,153,135,180"/>
+<area shape="rect" id="node2" href="$memory__management_8cc.html#ac64963cdb2aef85ac002f4b8634cd2fc" title=" " alt="" coords="214,29,382,56"/>
+<area shape="rect" id="node3" href="$buffer__pool_8cc.html#a7f5a7088d0c67afec779b03060291180" title=" " alt="" coords="183,105,413,146"/>
+<area shape="rect" id="node7" href="$communication_8h.html#af9192be0415eb65b473ecaec4a40ac8b" title=" " alt="" coords="225,195,371,221"/>
+<area shape="rect" id="node8" href="$communication_8h.html#a5df88969885557897a4f601927679555" title=" " alt="" coords="218,269,378,296"/>
+<area shape="rect" id="node4" href="$buffer__pool_8cc.html#af8bfcb2d66a8c335c6d62b452c549f9f" title=" " alt="" coords="472,75,676,101"/>
+<area shape="rect" id="node6" href="$buffer__pool_8cc.html#a8330d4c1cab36eddd4085af9cdfb4e58" title=" " alt="" coords="461,149,687,176"/>
+<area shape="rect" id="node5" href="$buffer__pool_8cc.html#a3a16d19dbc6aa057e14961538cd3d933" title=" " alt="" coords="735,67,937,109"/>
 </map>

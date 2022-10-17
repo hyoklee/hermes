@@ -1,0 +1,6 @@
+<map id="hermes::SubBarrier" name="hermes::SubBarrier">
+<area shape="rect" id="node1" title=" " alt="" coords="419,54,565,81"/>
+<area shape="rect" id="node2" href="$classhermes_1_1api_1_1_hermes.html#a451f2bfb745a587e3ccfec736d992ffb" title="A barrier across all application processes." alt="" coords="212,5,371,47"/>
+<area shape="rect" id="node3" href="$buffer__pool_8cc.html#aba276e3158ce278c8b895b936678b255" title=" " alt="" coords="227,95,356,122"/>
+<area shape="rect" id="node4" href="$classhermes_1_1api_1_1_hermes.html#a37a6512a0d20bf8ed0e5c2ef4238d807" title="Shutdown Hermes." alt="" coords="5,88,164,129"/>
+</map>

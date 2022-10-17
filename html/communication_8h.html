@@ -169,11 +169,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a89f1a6457c589b30d00920c223270930"><td class="memItemLeft" align="right" valign="top"><a id="a89f1a6457c589b30d00920c223270930"></a>
-typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::BarrierFunc</b>) (void *)</td></tr>
+<tr class="memitem:a89f1a6457c589b30d00920c223270930"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a89f1a6457c589b30d00920c223270930">hermes::BarrierFunc</a>) (void *)</td></tr>
 <tr class="separator:a89f1a6457c589b30d00920c223270930"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8da6c1968fda4ecb46905afd2a9c2159"><td class="memItemLeft" align="right" valign="top"><a id="a8da6c1968fda4ecb46905afd2a9c2159"></a>
-typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::FinalizeFunc</b>) (void *)</td></tr>
+<tr class="memitem:a8da6c1968fda4ecb46905afd2a9c2159"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a8da6c1968fda4ecb46905afd2a9c2159">hermes::FinalizeFunc</a>) (void *)</td></tr>
 <tr class="separator:a8da6c1968fda4ecb46905afd2a9c2159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -181,11 +179,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a836c299dc8ea8750977c22abbae3f3b5"><td class="memItemLeft" align="right" valign="top"><a id="a836c299dc8ea8750977c22abbae3f3b5"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::InitCommunication</b> (CommunicationContext *comm, Arena *arena, size_t trans_arena_size_per_node, bool is_daemon=false, bool is_adapter=false)</td></tr>
 <tr class="separator:a836c299dc8ea8750977c22abbae3f3b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5df88969885557897a4f601927679555"><td class="memItemLeft" align="right" valign="top"><a id="a5df88969885557897a4f601927679555"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::WorldBarrier</b> (CommunicationContext *comm)</td></tr>
+<tr class="memitem:a5df88969885557897a4f601927679555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a5df88969885557897a4f601927679555">hermes::WorldBarrier</a> (CommunicationContext *comm)</td></tr>
 <tr class="separator:a5df88969885557897a4f601927679555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9192be0415eb65b473ecaec4a40ac8b"><td class="memItemLeft" align="right" valign="top"><a id="af9192be0415eb65b473ecaec4a40ac8b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::SubBarrier</b> (CommunicationContext *comm)</td></tr>
+<tr class="memitem:af9192be0415eb65b473ecaec4a40ac8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#af9192be0415eb65b473ecaec4a40ac8b">hermes::SubBarrier</a> (CommunicationContext *comm)</td></tr>
 <tr class="separator:af9192be0415eb65b473ecaec4a40ac8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a162d3180b098ebc40f5638117fcc9cb2"><td class="memItemLeft" align="right" valign="top"><a id="a162d3180b098ebc40f5638117fcc9cb2"></a>
 void *&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetAppCommunicator</b> (CommunicationContext *comm)</td></tr>
@@ -193,7 +189,131 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetAppCommu
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A generic communication interface for Hermes that can be implemented by multiple backends. See <a class="el" href="communication__mpi_8cc.html">communication_mpi.cc</a> for an example of how to implement a communication backend. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a89f1a6457c589b30d00920c223270930"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89f1a6457c589b30d00920c223270930">&#9670;&nbsp;</a></span>BarrierFunc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* hermes::BarrierFunc) (void *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>MPI barrier function pointer </p>
+
+</div>
+</div>
+<a id="a8da6c1968fda4ecb46905afd2a9c2159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8da6c1968fda4ecb46905afd2a9c2159">&#9670;&nbsp;</a></span>FinalizeFunc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* hermes::FinalizeFunc) (void *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>MPI finalize function pointer </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a5df88969885557897a4f601927679555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5df88969885557897a4f601927679555">&#9670;&nbsp;</a></span>WorldBarrier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::WorldBarrier </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_communication_context.html">CommunicationContext</a> *&#160;</td>
+          <td class="paramname"><em>comm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>world communicator <br  />
+ </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="communication_8h_a5df88969885557897a4f601927679555_cgraph.png" border="0" usemap="#communication_8h_a5df88969885557897a4f601927679555_cgraph" alt=""/></div>
+<map name="communication_8h_a5df88969885557897a4f601927679555_cgraph" id="communication_8h_a5df88969885557897a4f601927679555_cgraph">
+<area shape="rect" title=" " alt="" coords="5,29,165,56"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="communication_8h_a5df88969885557897a4f601927679555_icgraph.png" border="0" usemap="#communication_8h_a5df88969885557897a4f601927679555_icgraph" alt=""/></div>
+<map name="communication_8h_a5df88969885557897a4f601927679555_icgraph" id="communication_8h_a5df88969885557897a4f601927679555_icgraph">
+<area shape="rect" title=" " alt="" coords="389,29,549,56"/>
+<area shape="rect" href="buffer__pool_8cc.html#aba276e3158ce278c8b895b936678b255" title=" " alt="" coords="212,29,341,56"/>
+<area shape="rect" href="classhermes_1_1api_1_1_hermes.html#a37a6512a0d20bf8ed0e5c2ef4238d807" title="Shutdown Hermes." alt="" coords="5,22,164,63"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af9192be0415eb65b473ecaec4a40ac8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9192be0415eb65b473ecaec4a40ac8b">&#9670;&nbsp;</a></span>SubBarrier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::SubBarrier </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_communication_context.html">CommunicationContext</a> *&#160;</td>
+          <td class="paramname"><em>comm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>sub-communicator </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="communication_8h_af9192be0415eb65b473ecaec4a40ac8b_cgraph.png" border="0" usemap="#communication_8h_af9192be0415eb65b473ecaec4a40ac8b_cgraph" alt=""/></div>
+<map name="communication_8h_af9192be0415eb65b473ecaec4a40ac8b_cgraph" id="communication_8h_af9192be0415eb65b473ecaec4a40ac8b_cgraph">
+<area shape="rect" title=" " alt="" coords="5,29,152,56"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="communication_8h_af9192be0415eb65b473ecaec4a40ac8b_icgraph.png" border="0" usemap="#communication_8h_af9192be0415eb65b473ecaec4a40ac8b_icgraph" alt=""/></div>
+<map name="communication_8h_af9192be0415eb65b473ecaec4a40ac8b_icgraph" id="communication_8h_af9192be0415eb65b473ecaec4a40ac8b_icgraph">
+<area shape="rect" title=" " alt="" coords="419,54,565,81"/>
+<area shape="rect" href="classhermes_1_1api_1_1_hermes.html#a451f2bfb745a587e3ccfec736d992ffb" title="A barrier across all application processes." alt="" coords="212,5,371,47"/>
+<area shape="rect" href="buffer__pool_8cc.html#aba276e3158ce278c8b895b936678b255" title=" " alt="" coords="227,95,356,122"/>
+<area shape="rect" href="classhermes_1_1api_1_1_hermes.html#a37a6512a0d20bf8ed0e5c2ef4238d807" title="Shutdown Hermes." alt="" coords="5,88,164,129"/>
+</map>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
