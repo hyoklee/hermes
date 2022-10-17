@@ -26,16 +26,16 @@
 
 namespace hermes {
 
-typedef void (*BarrierFunc)(void *); /**< MPI barrier function pointer */
+typedef void (*BarrierFunc)(void *);  /**< MPI barrier function pointer */
 typedef void (*FinalizeFunc)(void *); /**< MPI finalize function pointer */
 
 /**
  A structure to represent MPI communication context
 */
 struct CommunicationContext {
-  BarrierFunc world_barrier;    /**< MPI communication world barrier */
-  BarrierFunc sub_barrier;      /**< MPI communication subset barrier */
-  FinalizeFunc finalize;        /**< MPI communication finalize */
+  BarrierFunc world_barrier; /**< MPI communication world barrier */
+  BarrierFunc sub_barrier;   /**< MPI communication subset barrier */
+  FinalizeFunc finalize;     /**< MPI communication finalize */
 
   /** Details relative to the backing communciation implementation. */
   void *state;
