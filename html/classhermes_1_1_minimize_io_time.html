@@ -114,12 +114,10 @@ Collaboration diagram for hermes::MinimizeIoTime:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0df85d9848f28a9464535b06f6c7d2ee"><td class="memItemLeft" align="right" valign="top"><a id="a0df85d9848f28a9464535b06f6c7d2ee"></a>
-<a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Placement</b> (const std::vector&lt; size_t &gt; &amp;blob_sizes, const std::vector&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> &gt; &amp;node_state, const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;targets, const <a class="el" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;ctx, std::vector&lt; <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &gt; &amp;output)</td></tr>
+<tr class="memitem:a0df85d9848f28a9464535b06f6c7d2ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_minimize_io_time.html#a0df85d9848f28a9464535b06f6c7d2ee">Placement</a> (const std::vector&lt; size_t &gt; &amp;blob_sizes, const std::vector&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> &gt; &amp;node_state, const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;targets, const <a class="el" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;ctx, std::vector&lt; <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &gt; &amp;output)</td></tr>
 <tr class="separator:a0df85d9848f28a9464535b06f6c7d2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classhermes_1_1_d_p_e"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classhermes_1_1_d_p_e')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classhermes_1_1_d_p_e.html">hermes::DPE</a></td></tr>
-<tr class="memitem:a31cbf0cbf4833e2b12cc39be2b267f2f inherit pub_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="a31cbf0cbf4833e2b12cc39be2b267f2f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DPE</b> (PlacementPolicy policy)</td></tr>
+<tr class="memitem:a31cbf0cbf4833e2b12cc39be2b267f2f inherit pub_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a31cbf0cbf4833e2b12cc39be2b267f2f">DPE</a> (PlacementPolicy policy)</td></tr>
 <tr class="separator:a31cbf0cbf4833e2b12cc39be2b267f2f inherit pub_methods_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
@@ -143,25 +141,95 @@ std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_classhermes_1_1_d_p_e"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classhermes_1_1_d_p_e')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classhermes_1_1_d_p_e.html">hermes::DPE</a></td></tr>
-<tr class="memitem:a7a37b4a9637ef2015c2ee224e107640d inherit pub_attribs_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="a7a37b4a9637ef2015c2ee224e107640d"></a>
-std::vector&lt; <a class="el" href="hermes__types_8h.html#a2d3ce1bbd1f0b4922501277c5b029c5b">f32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bandwidths</b></td></tr>
+<tr class="memitem:a7a37b4a9637ef2015c2ee224e107640d inherit pub_attribs_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="hermes__types_8h.html#a2d3ce1bbd1f0b4922501277c5b029c5b">f32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a7a37b4a9637ef2015c2ee224e107640d">bandwidths</a></td></tr>
 <tr class="separator:a7a37b4a9637ef2015c2ee224e107640d inherit pub_attribs_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classhermes_1_1_d_p_e"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classhermes_1_1_d_p_e')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classhermes_1_1_d_p_e.html">hermes::DPE</a></td></tr>
 <tr class="memitem:a8402544993f74601148b17c378975055 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a8402544993f74601148b17c378975055">GetValidSplitChoices</a> (size_t blob_size)</td></tr>
 <tr class="separator:a8402544993f74601148b17c378975055 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a939d1f951dd15c5b64dc5787241ae9 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a0a939d1f951dd15c5b64dc5787241ae9">SplitBlob</a> (size_t blob_size)</td></tr>
 <tr class="separator:a0a939d1f951dd15c5b64dc5787241ae9 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac7524719a166a4fdbf4eee40459d782 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="aac7524719a166a4fdbf4eee40459d782"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>GetSplitSizes</b> (size_t blob_size, std::vector&lt; size_t &gt; &amp;output)</td></tr>
+<tr class="memitem:aac7524719a166a4fdbf4eee40459d782 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#aac7524719a166a4fdbf4eee40459d782">GetSplitSizes</a> (size_t blob_size, std::vector&lt; size_t &gt; &amp;output)</td></tr>
 <tr class="separator:aac7524719a166a4fdbf4eee40459d782 inherit pro_methods_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classhermes_1_1_d_p_e"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classhermes_1_1_d_p_e')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classhermes_1_1_d_p_e.html">hermes::DPE</a></td></tr>
-<tr class="memitem:a76afac04515af228a43d3b9e9d78ce6b inherit pro_attribs_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="a76afac04515af228a43d3b9e9d78ce6b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>require_bw_</b></td></tr>
+<tr class="memitem:a76afac04515af228a43d3b9e9d78ce6b inherit pro_attribs_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a76afac04515af228a43d3b9e9d78ce6b">require_bw_</a></td></tr>
 <tr class="separator:a76afac04515af228a43d3b9e9d78ce6b inherit pro_attribs_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8da23ac46f33a29ac82ee9a7d43c249b inherit pro_attribs_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top"><a id="a8da23ac46f33a29ac82ee9a7d43c249b"></a>
-PlacementPolicy&#160;</td><td class="memItemRight" valign="bottom"><b>policy_</b></td></tr>
+<tr class="memitem:a8da23ac46f33a29ac82ee9a7d43c249b inherit pro_attribs_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">PlacementPolicy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a8da23ac46f33a29ac82ee9a7d43c249b">policy_</a></td></tr>
 <tr class="separator:a8da23ac46f33a29ac82ee9a7d43c249b inherit pro_attribs_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0df85d9848f28a9464535b06f6c7d2ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0df85d9848f28a9464535b06f6c7d2ee">&#9670;&nbsp;</a></span>Placement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classapi_1_1_status.html">Status</a> hermes::MinimizeIoTime::Placement </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; size_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>blob_sizes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>node_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>targets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhermes_1_1api_1_1_context.html">api::Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>set placement schema given BLOB sizes, node states, targets, and context. </p>
+
+<p>Implements <a class="el" href="classhermes_1_1_d_p_e.html#ad635ea3e0755b4cfaf809331bd0ec3a6">hermes::DPE</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhermes_1_1_minimize_io_time_a0df85d9848f28a9464535b06f6c7d2ee_cgraph.png" border="0" usemap="#classhermes_1_1_minimize_io_time_a0df85d9848f28a9464535b06f6c7d2ee_cgraph" alt=""/></div>
+<map name="classhermes_1_1_minimize_io_time_a0df85d9848f28a9464535b06f6c7d2ee_cgraph" id="classhermes_1_1_minimize_io_time_a0df85d9848f28a9464535b06f6c7d2ee_cgraph">
+<area shape="rect" title=" " alt="" coords="5,235,189,276"/>
+<area shape="rect" href="classhermes_1_1_linear_program.html#a9f8349d76cdfd0f88bbb8264fa0f2db8" title=" " alt="" coords="237,5,412,47"/>
+<area shape="rect" href="classhermes_1_1_linear_program.html#afc46e0d167848e4ceb24ba1cf9876a63" title=" " alt="" coords="237,71,412,112"/>
+<area shape="rect" href="classhermes_1_1_linear_program.html#af9becc74f4dde9833726e94acaa17abd" title=" " alt="" coords="237,136,412,177"/>
+<area shape="rect" href="classhermes_1_1_linear_program.html#a8396bcfd56a01e647fda44ec889d1e37" title=" " alt="" coords="237,201,412,243"/>
+<area shape="rect" href="classhermes_1_1_linear_program.html#a2bf67953201a321e404c96ce4e0d0245" title=" " alt="" coords="237,267,412,308"/>
+<area shape="rect" href="classhermes_1_1_linear_program.html#ab10907f6f70942395838b4cbf9d527a5" title=" " alt="" coords="237,332,412,373"/>
+<area shape="rect" href="classhermes_1_1_linear_program.html#a24c480831222abad36ee802660bd72d0" title=" " alt="" coords="237,397,412,439"/>
+<area shape="rect" href="classhermes_1_1_linear_program.html#a586e0b6ca3f22c18bec91e32039f8a91" title=" " alt="" coords="237,463,412,504"/>
+</map>
+</div>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/hermes/hermes/src/dpe/<a class="el" href="minimize__io__time_8h_source.html">minimize_io_time.h</a></li>
 <li>/home/runner/work/hermes/hermes/src/dpe/minimize_io_time.cc</li>
