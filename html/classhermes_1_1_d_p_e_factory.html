@@ -90,13 +90,17 @@ $(document).ready(function(){initNavTree('classhermes_1_1_d_p_e_factory.html',''
 <div class="title">hermes::DPEFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="data__placement__engine__factory_8h_source.html">data_placement_engine_factory.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a6894612fc0d57be85041eb4bb757e769"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classhermes_1_1_d_p_e.html">DPE</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e_factory.html#a6894612fc0d57be85041eb4bb757e769">Get</a> (const PlacementPolicy &amp;type)</td></tr>
 <tr class="separator:a6894612fc0d57be85041eb4bb757e769"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class to represent Data Placement Engine Factory </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6894612fc0d57be85041eb4bb757e769"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6894612fc0d57be85041eb4bb757e769">&#9670;&nbsp;</a></span>Get()</h2>
 
@@ -120,14 +124,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Return the instance of mapper given a type. Uses factory pattern.</p>
+<p>return a pointer to data placement engine given a policy type. This uses factory pattern.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type,MapperType,type</td><td>of mapper to be used by the STDIO adapter. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>a placement policy type to be used by the data placement engine factory. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Instance of mapper given a type. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to DataPlacementEngine given <em>type</em> PlacementPolicy. </dd></dl>
 
 </div>
 </div>
