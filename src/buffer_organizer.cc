@@ -28,11 +28,13 @@ bool operator==(const BufferInfo &lhs, const BufferInfo &rhs) {
   return (lhs.id == rhs.id && lhs.size == rhs.size &&
           lhs.bandwidth_mbps == rhs.bandwidth_mbps);
 }
-
+/**
+ A structure to represent Target information
+*/
 struct TargetInfo {
-  TargetID id;
-  f32 bandwidth_mbps;
-  u64 capacity;
+  TargetID id;                  /**< unique ID */
+  f32 bandwidth_mbps;           /**< bandwidth in Megabits per second */
+  u64 capacity;                 /**< capacity */
 };
 
 BufferInfo LocalGetBufferInfo(SharedMemoryContext *context,
@@ -736,7 +738,9 @@ bool LocalEnqueueFlushingTask(SharedMemoryContext *context, RpcContext *rpc,
 
   return result;
 }
-
+/**
+   place BLOBs in hierarchy
+*/
 Status PlaceInHierarchy(SharedMemoryContext *context, RpcContext *rpc,
                         SwapBlob swap_blob, const std::string &name,
                         const api::Context &ctx) {
