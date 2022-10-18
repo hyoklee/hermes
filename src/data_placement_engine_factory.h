@@ -21,13 +21,18 @@ namespace hermes {
 
 using hermes::api::PlacementPolicy;
 
+/**
+ A class to represent Data Placement Engine Factory
+*/
 class DPEFactory {
  public:
   /**
-   * Return the instance of mapper given a type. Uses factory pattern.
+   * return a pointer to data placement engine given a policy type.
+   * This uses factory pattern.
    *
-   * @param type, MapperType, type of mapper to be used by the STDIO adapter.
-   * @return Instance of mapper given a type.
+   * @param[in] type a placement policy type to be used by the
+   *            data placement engine factory.
+   * @return pointer to DataPlacementEngine given \a type PlacementPolicy.
    */
   std::unique_ptr<DPE> Get(const PlacementPolicy &type) {
     switch (type) {
