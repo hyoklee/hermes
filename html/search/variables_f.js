@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['path_5fexclusions_1150',['path_exclusions',['../structhermes_1_1_config.html#a034c3075cf5959b0cd7d195c9d0096d5',1,'hermes::Config']]],
-  ['path_5finclusions_1151',['path_inclusions',['../structhermes_1_1_config.html#a28548adbe7a769a342779dd218a1b5b0',1,'hermes::Config']]],
-  ['policy_1152',['policy',['../structhermes_1_1api_1_1_context.html#a38439f5337dc4f0623d8f94e9aa33f03',1,'hermes::api::Context']]],
-  ['policy_5f_1153',['policy_',['../classhermes_1_1_d_p_e.html#a8da23ac46f33a29ac82ee9a7d43c249b',1,'hermes::DPE']]],
-  ['pool_1154',['pool',['../structhermes_1_1_buffer_organizer.html#ac51a643a2639bf3e6eab926d670fdc92',1,'hermes::BufferOrganizer']]],
-  ['port_1155',['port',['../structhermes_1_1_rpc_context.html#a91688994e798392630254ab3ea18b11a',1,'hermes::RpcContext']]],
-  ['proc_5fkind_1156',['proc_kind',['../structhermes_1_1_communication_context.html#a41de3edded73879fbf8a750761c9111c',1,'hermes::CommunicationContext']]]
+  ['path_5fexclusions_1155',['path_exclusions',['../structhermes_1_1_config.html#a034c3075cf5959b0cd7d195c9d0096d5',1,'hermes::Config']]],
+  ['path_5finclusions_1156',['path_inclusions',['../structhermes_1_1_config.html#a28548adbe7a769a342779dd218a1b5b0',1,'hermes::Config']]],
+  ['policy_1157',['policy',['../structhermes_1_1api_1_1_context.html#a38439f5337dc4f0623d8f94e9aa33f03',1,'hermes::api::Context']]],
+  ['policy_5f_1158',['policy_',['../classhermes_1_1_d_p_e.html#a8da23ac46f33a29ac82ee9a7d43c249b',1,'hermes::DPE']]],
+  ['pool_1159',['pool',['../structhermes_1_1_buffer_organizer.html#ac51a643a2639bf3e6eab926d670fdc92',1,'hermes::BufferOrganizer']]],
+  ['port_1160',['port',['../structhermes_1_1_rpc_context.html#a91688994e798392630254ab3ea18b11a',1,'hermes::RpcContext']]],
+  ['proc_5fkind_1161',['proc_kind',['../structhermes_1_1_communication_context.html#a41de3edded73879fbf8a750761c9111c',1,'hermes::CommunicationContext']]]
 ];
