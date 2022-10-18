@@ -16,7 +16,9 @@
 #include "data_placement_engine.h"
 
 namespace hermes {
-
+/**
+ A class to represent data placement engine that places data randomly.
+*/
 class Random : public DPE {
  public:
   Random() : DPE(PlacementPolicy::kRandom) {}
@@ -28,9 +30,13 @@ class Random : public DPE {
                    std::vector<PlacementSchema> &output);
 
  private:
+  /**
+     get the capacities of each \a node_state and \a targets and store them
+     into \a ordered_cap.*/
   void GetOrderedCapacities(const std::vector<u64> &node_state,
                             const std::vector<TargetID> &targets,
                             std::multimap<u64, TargetID> &ordered_cap);
+  /** add placement schema */
   Status AddSchema(std::multimap<u64, TargetID> &ordered_cap, size_t blob_size,
                    PlacementSchema &schema);
 };
