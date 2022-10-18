@@ -1,5 +1,6 @@
 <map id="hermes::DestroyArena" name="hermes::DestroyArena">
-<area shape="rect" id="node1" title=" " alt="" coords="389,29,557,56"/>
-<area shape="rect" id="node2" href="$buffer__pool_8cc.html#aba276e3158ce278c8b895b936678b255" title=" " alt="" coords="212,29,341,56"/>
+<area shape="rect" id="node1" title=" " alt="" coords="443,67,611,93"/>
+<area shape="rect" id="node2" href="$buffer__pool_8cc.html#aba276e3158ce278c8b895b936678b255" title=" " alt="" coords="239,29,368,56"/>
+<area shape="rect" id="node4" href="$communication__mpi_8cc.html#a59b5a1ff74a0ab24cdec9207b2ee0b24" title=" " alt="" coords="212,104,395,131"/>
 <area shape="rect" id="node3" href="$classhermes_1_1api_1_1_hermes.html#a37a6512a0d20bf8ed0e5c2ef4238d807" title="Shutdown Hermes." alt="" coords="5,22,164,63"/>
 </map>

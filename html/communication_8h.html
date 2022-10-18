@@ -176,15 +176,13 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a836c299dc8ea8750977c22abbae3f3b5"><td class="memItemLeft" align="right" valign="top"><a id="a836c299dc8ea8750977c22abbae3f3b5"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::InitCommunication</b> (CommunicationContext *comm, Arena *arena, size_t trans_arena_size_per_node, bool is_daemon=false, bool is_adapter=false)</td></tr>
+<tr class="memitem:a836c299dc8ea8750977c22abbae3f3b5"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a836c299dc8ea8750977c22abbae3f3b5">hermes::InitCommunication</a> (CommunicationContext *comm, Arena *arena, size_t trans_arena_size_per_node, bool is_daemon=false, bool is_adapter=false)</td></tr>
 <tr class="separator:a836c299dc8ea8750977c22abbae3f3b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5df88969885557897a4f601927679555"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a5df88969885557897a4f601927679555">hermes::WorldBarrier</a> (CommunicationContext *comm)</td></tr>
 <tr class="separator:a5df88969885557897a4f601927679555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9192be0415eb65b473ecaec4a40ac8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#af9192be0415eb65b473ecaec4a40ac8b">hermes::SubBarrier</a> (CommunicationContext *comm)</td></tr>
 <tr class="separator:af9192be0415eb65b473ecaec4a40ac8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a162d3180b098ebc40f5638117fcc9cb2"><td class="memItemLeft" align="right" valign="top"><a id="a162d3180b098ebc40f5638117fcc9cb2"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetAppCommunicator</b> (CommunicationContext *comm)</td></tr>
+<tr class="memitem:a162d3180b098ebc40f5638117fcc9cb2"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="communication_8h.html#a162d3180b098ebc40f5638117fcc9cb2">hermes::GetAppCommunicator</a> (CommunicationContext *comm)</td></tr>
 <tr class="separator:a162d3180b098ebc40f5638117fcc9cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -221,6 +219,79 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>hermes::GetAppCommu
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a836c299dc8ea8750977c22abbae3f3b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a836c299dc8ea8750977c22abbae3f3b5">&#9670;&nbsp;</a></span>InitCommunication()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t hermes::InitCommunication </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_communication_context.html">CommunicationContext</a> *&#160;</td>
+          <td class="paramname"><em>comm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_arena.html">Arena</a> *&#160;</td>
+          <td class="paramname"><em>arena</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>trans_arena_size_per_node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_daemon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_adapter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>initialize MPI communication. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="communication_8h_a836c299dc8ea8750977c22abbae3f3b5_cgraph.png" border="0" usemap="#communication_8h_a836c299dc8ea8750977c22abbae3f3b5_cgraph" alt=""/></div>
+<map name="communication_8h_a836c299dc8ea8750977c22abbae3f3b5_cgraph" id="communication_8h_a836c299dc8ea8750977c22abbae3f3b5_cgraph">
+<area shape="rect" title=" " alt="" coords="5,216,208,243"/>
+<area shape="rect" href="communication__mpi_8cc.html#ac08b6a0677f8d21fae9fe6614c77a601" title=" " alt="" coords="259,29,482,56"/>
+<area shape="rect" href="communication__mpi_8cc.html#a75b8b50fae9f886d864f437ff09f61c0" title=" " alt="" coords="294,104,447,131"/>
+<area shape="rect" href="communication__mpi_8cc.html#a0a588e65234b2504ed2ba0ec0f42f74a" title=" " alt="" coords="256,179,485,205"/>
+<area shape="rect" href="communication__mpi_8cc.html#adad8f97c7612e3f81749ca47c8216631" title=" " alt="" coords="269,253,472,280"/>
+<area shape="rect" href="communication__mpi_8cc.html#aefe0d3a3ce13097ab61070665da00ca4" title=" " alt="" coords="285,328,456,355"/>
+<area shape="rect" href="communication__mpi_8cc.html#aaaed2f9c1b41765783a5eb93f51b24fd" title=" " alt="" coords="279,403,463,429"/>
+<area shape="rect" href="memory__management_8cc.html#ad344fd4f2e60298d0b78945625b16d4a" title=" " alt="" coords="533,29,749,56"/>
+<area shape="rect" href="communication__mpi_8cc.html#a8d8dc2ecb449e493c821f6afe6cf5fe9" title=" " alt="" coords="545,179,737,205"/>
+<area shape="rect" href="communication__mpi_8cc.html#a2fad06c86a78151bb7081f00ebeeabe2" title=" " alt="" coords="558,253,725,280"/>
+<area shape="rect" href="communication__mpi_8cc.html#af945baa0aefde451845022c0517ad818" title=" " alt="" coords="568,365,715,392"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="communication_8h_a836c299dc8ea8750977c22abbae3f3b5_icgraph.png" border="0" usemap="#communication_8h_a836c299dc8ea8750977c22abbae3f3b5_icgraph" alt=""/></div>
+<map name="communication_8h_a836c299dc8ea8750977c22abbae3f3b5_icgraph" id="communication_8h_a836c299dc8ea8750977c22abbae3f3b5_icgraph">
+<area shape="rect" title=" " alt="" coords="5,29,208,56"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a5df88969885557897a4f601927679555"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5df88969885557897a4f601927679555">&#9670;&nbsp;</a></span>WorldBarrier()</h2>
 
@@ -308,6 +379,42 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="classhermes_1_1api_1_1_hermes.html#a451f2bfb745a587e3ccfec736d992ffb" title="A barrier across all application processes." alt="" coords="212,5,371,47"/>
 <area shape="rect" href="buffer__pool_8cc.html#aba276e3158ce278c8b895b936678b255" title=" " alt="" coords="227,95,356,122"/>
 <area shape="rect" href="classhermes_1_1api_1_1_hermes.html#a37a6512a0d20bf8ed0e5c2ef4238d807" title="Shutdown Hermes." alt="" coords="5,88,164,129"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a162d3180b098ebc40f5638117fcc9cb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a162d3180b098ebc40f5638117fcc9cb2">&#9670;&nbsp;</a></span>GetAppCommunicator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * hermes::GetAppCommunicator </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1_communication_context.html">CommunicationContext</a> *&#160;</td>
+          <td class="paramname"><em>comm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>get the application's communicator </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="communication_8h_a162d3180b098ebc40f5638117fcc9cb2_cgraph.png" border="0" usemap="#communication_8h_a162d3180b098ebc40f5638117fcc9cb2_cgraph" alt=""/></div>
+<map name="communication_8h_a162d3180b098ebc40f5638117fcc9cb2_cgraph" id="communication_8h_a162d3180b098ebc40f5638117fcc9cb2_cgraph">
+<area shape="rect" title=" " alt="" coords="5,29,228,56"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="communication_8h_a162d3180b098ebc40f5638117fcc9cb2_icgraph.png" border="0" usemap="#communication_8h_a162d3180b098ebc40f5638117fcc9cb2_icgraph" alt=""/></div>
+<map name="communication_8h_a162d3180b098ebc40f5638117fcc9cb2_icgraph" id="communication_8h_a162d3180b098ebc40f5638117fcc9cb2_icgraph">
+<area shape="rect" title=" " alt="" coords="228,29,451,56"/>
+<area shape="rect" href="classhermes_1_1api_1_1_hermes.html#a7977326df644c6e80cf38193add6c4c7" title="Get an application communicator handle." alt="" coords="5,22,180,63"/>
 </map>
 </div>
 

@@ -1,3 +1,7 @@
 <map id="hermes::MpiFirstOnNode" name="hermes::MpiFirstOnNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,29,188,56"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,141,188,168"/>
+<area shape="rect" id="node2" href="$memory__management_8cc.html#ac64963cdb2aef85ac002f4b8634cd2fc" title=" " alt="" coords="248,29,416,56"/>
+<area shape="rect" id="node3" href="$memory__management_8cc.html#af5d3174c5dc80367ddfa913d7685e666" title=" " alt="" coords="263,104,401,131"/>
+<area shape="rect" id="node4" href="$communication__mpi_8cc.html#a8d8dc2ecb449e493c821f6afe6cf5fe9" title=" " alt="" coords="236,179,428,205"/>
+<area shape="rect" id="node5" href="$communication__mpi_8cc.html#a2fad06c86a78151bb7081f00ebeeabe2" title=" " alt="" coords="249,253,415,280"/>
 </map>

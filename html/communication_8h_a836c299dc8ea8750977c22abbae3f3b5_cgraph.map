@@ -1,0 +1,13 @@
+<map id="hermes::InitCommunication" name="hermes::InitCommunication">
+<area shape="rect" id="node1" title=" " alt="" coords="5,216,208,243"/>
+<area shape="rect" id="node2" href="$communication__mpi_8cc.html#ac08b6a0677f8d21fae9fe6614c77a601" title=" " alt="" coords="259,29,482,56"/>
+<area shape="rect" id="node4" href="$communication__mpi_8cc.html#a75b8b50fae9f886d864f437ff09f61c0" title=" " alt="" coords="294,104,447,131"/>
+<area shape="rect" id="node5" href="$communication__mpi_8cc.html#a0a588e65234b2504ed2ba0ec0f42f74a" title=" " alt="" coords="256,179,485,205"/>
+<area shape="rect" id="node7" href="$communication__mpi_8cc.html#adad8f97c7612e3f81749ca47c8216631" title=" " alt="" coords="269,253,472,280"/>
+<area shape="rect" id="node9" href="$communication__mpi_8cc.html#aefe0d3a3ce13097ab61070665da00ca4" title=" " alt="" coords="285,328,456,355"/>
+<area shape="rect" id="node11" href="$communication__mpi_8cc.html#aaaed2f9c1b41765783a5eb93f51b24fd" title=" " alt="" coords="279,403,463,429"/>
+<area shape="rect" id="node3" href="$memory__management_8cc.html#ad344fd4f2e60298d0b78945625b16d4a" title=" " alt="" coords="533,29,749,56"/>
+<area shape="rect" id="node6" href="$communication__mpi_8cc.html#a8d8dc2ecb449e493c821f6afe6cf5fe9" title=" " alt="" coords="545,179,737,205"/>
+<area shape="rect" id="node8" href="$communication__mpi_8cc.html#a2fad06c86a78151bb7081f00ebeeabe2" title=" " alt="" coords="558,253,725,280"/>
+<area shape="rect" id="node10" href="$communication__mpi_8cc.html#af945baa0aefde451845022c0517ad818" title=" " alt="" coords="568,365,715,392"/>
+</map>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['barrierfunc_1251',['BarrierFunc',['../communication_8h.html#a89f1a6457c589b30d00920c223270930',1,'hermes']]],
-  ['blob_1252',['Blob',['../hermes__types_8h.html#a2524128a957393840374aa59c93cf8b5',1,'hermes::api']]]
+  ['barrierfunc_1273',['BarrierFunc',['../communication_8h.html#a89f1a6457c589b30d00920c223270930',1,'hermes']]],
+  ['blob_1274',['Blob',['../hermes__types_8h.html#a2524128a957393840374aa59c93cf8b5',1,'hermes::api']]]
 ];
