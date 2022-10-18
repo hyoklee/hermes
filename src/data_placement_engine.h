@@ -34,11 +34,11 @@ using hermes::api::PlacementPolicy;
 */
 class DPE {
  protected:
-  bool require_bw_;             /**< check if bandwidth is required */
-  PlacementPolicy policy_;      /**< data placement policy */
+  bool require_bw_;        /**< check if bandwidth is required */
+  PlacementPolicy policy_; /**< data placement policy */
 
  public:
-  std::vector<f32> bandwidths;  /**< a vector of bandwidths */
+  std::vector<f32> bandwidths; /**< a vector of bandwidths */
   /** constructor function */
   explicit DPE(PlacementPolicy policy) : policy_(policy) {}
   virtual ~DPE() = default;
