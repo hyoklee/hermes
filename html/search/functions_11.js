@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vbucket_977',['VBucket',['../classhermes_1_1api_1_1_v_bucket.html#a94b344d00db3915e69945a3a9ceba2a3',1,'hermes::api::VBucket']]]
+  ['vbucket_981',['VBucket',['../classhermes_1_1api_1_1_v_bucket.html#a94b344d00db3915e69945a3a9ceba2a3',1,'hermes::api::VBucket']]]
 ];

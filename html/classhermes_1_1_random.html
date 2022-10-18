@@ -91,6 +91,8 @@ $(document).ready(function(){initNavTree('classhermes_1_1_random.html',''); init
 <div class="title">hermes::Random Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="random_8h_source.html">random.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for hermes::Random:</div>
 <div class="dyncontent">
@@ -121,11 +123,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a72e642507193d5505750defd0e3202c5"><td class="memItemLeft" align="right" valign="top"><a id="a72e642507193d5505750defd0e3202c5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>GetOrderedCapacities</b> (const std::vector&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> &gt; &amp;node_state, const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;targets, std::multimap&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a>, <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;ordered_cap)</td></tr>
+<tr class="memitem:a72e642507193d5505750defd0e3202c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_random.html#a72e642507193d5505750defd0e3202c5">GetOrderedCapacities</a> (const std::vector&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> &gt; &amp;node_state, const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;targets, std::multimap&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a>, <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;ordered_cap)</td></tr>
 <tr class="separator:a72e642507193d5505750defd0e3202c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4de5bdb7e5881b6531c7f110900ad4e7"><td class="memItemLeft" align="right" valign="top"><a id="a4de5bdb7e5881b6531c7f110900ad4e7"></a>
-<a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><b>AddSchema</b> (std::multimap&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a>, <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;ordered_cap, size_t blob_size, <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;schema)</td></tr>
+<tr class="memitem:a4de5bdb7e5881b6531c7f110900ad4e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_random.html#a4de5bdb7e5881b6531c7f110900ad4e7">AddSchema</a> (std::multimap&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a>, <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;ordered_cap, size_t blob_size, <a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;schema)</td></tr>
 <tr class="separator:a4de5bdb7e5881b6531c7f110900ad4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
@@ -146,7 +146,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8da23ac46f33a29ac82ee9a7d43c249b inherit pro_attribs_classhermes_1_1_d_p_e"><td class="memItemLeft" align="right" valign="top">PlacementPolicy&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1_d_p_e.html#a8da23ac46f33a29ac82ee9a7d43c249b">policy_</a></td></tr>
 <tr class="separator:a8da23ac46f33a29ac82ee9a7d43c249b inherit pro_attribs_classhermes_1_1_d_p_e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class to represent data placement engine that places data randomly. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aaf224ac7c37181f4661679a5a9ce8b36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf224ac7c37181f4661679a5a9ce8b36">&#9670;&nbsp;</a></span>Placement()</h2>
 
@@ -206,11 +208,117 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhermes_1_1_random_aaf224ac7c37181f4661679a5a9ce8b36_cgraph.png" border="0" usemap="#classhermes_1_1_random_aaf224ac7c37181f4661679a5a9ce8b36_cgraph" alt=""/></div>
 <map name="classhermes_1_1_random_aaf224ac7c37181f4661679a5a9ce8b36_cgraph" id="classhermes_1_1_random_aaf224ac7c37181f4661679a5a9ce8b36_cgraph">
-<area shape="rect" title=" " alt="" coords="5,63,216,90"/>
-<area shape="rect" href="classhermes_1_1_d_p_e.html#aac7524719a166a4fdbf4eee40459d782" title=" " alt="" coords="264,13,463,39"/>
-<area shape="rect" href="classhermes_1_1_d_p_e.html#a0a939d1f951dd15c5b64dc5787241ae9" title=" " alt="" coords="278,63,449,90"/>
-<area shape="rect" href="classapi_1_1_status.html#a12ac0a86f097a9c62a01fca4dbed7e55" title=" " alt="" coords="279,114,448,141"/>
-<area shape="rect" href="classhermes_1_1_d_p_e.html#a8402544993f74601148b17c378975055" title=" " alt="" coords="511,5,708,47"/>
+<area shape="rect" title=" " alt="" coords="5,123,216,149"/>
+<area shape="rect" href="classhermes_1_1_random.html#a4de5bdb7e5881b6531c7f110900ad4e7" title=" " alt="" coords="264,5,483,32"/>
+<area shape="rect" href="classhermes_1_1_random.html#a72e642507193d5505750defd0e3202c5" title=" " alt="" coords="265,57,481,98"/>
+<area shape="rect" href="classhermes_1_1_d_p_e.html#aac7524719a166a4fdbf4eee40459d782" title=" " alt="" coords="274,123,473,149"/>
+<area shape="rect" href="classhermes_1_1_d_p_e.html#a0a939d1f951dd15c5b64dc5787241ae9" title=" " alt="" coords="288,173,459,200"/>
+<area shape="rect" href="classapi_1_1_status.html#a12ac0a86f097a9c62a01fca4dbed7e55" title=" " alt="" coords="289,224,458,251"/>
+<area shape="rect" href="classhermes_1_1_d_p_e.html#a8402544993f74601148b17c378975055" title=" " alt="" coords="531,115,728,157"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a72e642507193d5505750defd0e3202c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72e642507193d5505750defd0e3202c5">&#9670;&nbsp;</a></span>GetOrderedCapacities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::Random::GetOrderedCapacities </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>node_state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>targets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::multimap&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a>, <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ordered_cap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>get the capacities of each <em>node_state</em> and <em>targets</em> and store them into <em>ordered_cap</em>. </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhermes_1_1_random_a72e642507193d5505750defd0e3202c5_icgraph.png" border="0" usemap="#classhermes_1_1_random_a72e642507193d5505750defd0e3202c5_icgraph" alt=""/></div>
+<map name="classhermes_1_1_random_a72e642507193d5505750defd0e3202c5_icgraph" id="classhermes_1_1_random_a72e642507193d5505750defd0e3202c5_icgraph">
+<area shape="rect" title=" " alt="" coords="264,5,480,47"/>
+<area shape="rect" href="classhermes_1_1_random.html#aaf224ac7c37181f4661679a5a9ce8b36" title=" " alt="" coords="5,13,216,39"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a4de5bdb7e5881b6531c7f110900ad4e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de5bdb7e5881b6531c7f110900ad4e7">&#9670;&nbsp;</a></span>AddSchema()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classapi_1_1_status.html">Status</a> hermes::Random::AddSchema </td>
+          <td>(</td>
+          <td class="paramtype">std::multimap&lt; <a class="el" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a>, <a class="el" href="unionhermes_1_1_target_i_d.html">TargetID</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ordered_cap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>blob_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;&#160;</td>
+          <td class="paramname"><em>schema</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>add placement schema </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhermes_1_1_random_a4de5bdb7e5881b6531c7f110900ad4e7_icgraph.png" border="0" usemap="#classhermes_1_1_random_a4de5bdb7e5881b6531c7f110900ad4e7_icgraph" alt=""/></div>
+<map name="classhermes_1_1_random_a4de5bdb7e5881b6531c7f110900ad4e7_icgraph" id="classhermes_1_1_random_a4de5bdb7e5881b6531c7f110900ad4e7_icgraph">
+<area shape="rect" title=" " alt="" coords="264,5,483,32"/>
+<area shape="rect" href="classhermes_1_1_random.html#aaf224ac7c37181f4661679a5a9ce8b36" title=" " alt="" coords="5,5,216,32"/>
 </map>
 </div>
 
