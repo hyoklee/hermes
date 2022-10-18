@@ -16,10 +16,12 @@
 #include "data_placement_engine.h"
 
 namespace hermes {
-
+/**
+ A class to represent data placement engine that minimizes I/O time.
+*/
 class MinimizeIoTime : public DPE {
  private:
-  std::vector<double> placement_ratios_;
+  std::vector<double> placement_ratios_; /**< a vector of placement ratios */
 
  public:
   MinimizeIoTime() : DPE(PlacementPolicy::kMinimizeIoTime) {}
@@ -31,9 +33,12 @@ class MinimizeIoTime : public DPE {
                    std::vector<PlacementSchema> &output);
 
  private:
+  /** get the absolute difference value from \a x size and \a y size */
   size_t AbsDiff(size_t x, size_t y, bool &y_gt_x);
+  /** place bytes */
   void PlaceBytes(size_t j, ssize_t bytes, std::vector<size_t> &vars_bytes,
                   const std::vector<u64> &node_state);
+  /** get placement ratios from node states in \a ctx  context */
   void GetPlacementRatios(const std::vector<u64> &node_state,
                           const api::Context &ctx);
 };
