@@ -29,15 +29,22 @@ namespace hermes {
 using api::Status;
 using hermes::api::PlacementPolicy;
 
+/**
+ A class to represent data placement engine
+*/
 class DPE {
  protected:
-  bool require_bw_;
-  PlacementPolicy policy_;
+  bool require_bw_;             /**< check if bandwidth is required */
+  PlacementPolicy policy_;      /**< data placement policy */
 
  public:
-  std::vector<f32> bandwidths;
+  std::vector<f32> bandwidths;  /**< a vector of bandwidths */
+  /** constructor function */
   explicit DPE(PlacementPolicy policy) : policy_(policy) {}
   virtual ~DPE() = default;
+  /**
+     set placement schema given BLOB sizes, node states, targets, and context.
+   */
   virtual Status Placement(const std::vector<size_t> &blob_sizes,
                            const std::vector<u64> &node_state,
                            const std::vector<TargetID> &targets,
@@ -45,8 +52,10 @@ class DPE {
                            std::vector<PlacementSchema> &output) = 0;
 
  protected:
+  /** get valid choices for splitting BLOB. */
   std::vector<int> GetValidSplitChoices(size_t blob_size);
   bool SplitBlob(size_t blob_size);
+  /** get split sizes for \a blob_size. */
   void GetSplitSizes(size_t blob_size, std::vector<size_t> &output);
 };
 
