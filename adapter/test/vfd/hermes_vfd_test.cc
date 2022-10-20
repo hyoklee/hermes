@@ -48,7 +48,7 @@ struct TestInfo {
   static const int element_size = sizeof(f32); /**< test element size */
 
   // int rank = 0;
-  // int comm_size = 1;
+  int comm_size = 1;            /**< communicator size */
   std::vector<f32> write_data;  /**< test data for writing */
   std::vector<f32> read_data;   /**< test data for reading */
   std::string new_file;         /**< new file name */
