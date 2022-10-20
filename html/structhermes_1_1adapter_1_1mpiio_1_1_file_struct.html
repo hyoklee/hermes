@@ -98,15 +98,6 @@ $(document).ready(function(){initNavTree('structhermes_1_1adapter_1_1mpiio_1_1_f
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f65458059c498be06e30226cba3c9b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html#a4f65458059c498be06e30226cba3c9b1">FileStruct</a> ()</td></tr>
 <tr class="separator:a4f65458059c498be06e30226cba3c9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1bf4c581b6efc45befa13634eb5ba04"><td class="memItemLeft" align="right" valign="top"><a id="ae1bf4c581b6efc45befa13634eb5ba04"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FileStruct</b> (MPI_File *file_id, size_t offset, size_t size)</td></tr>
-<tr class="separator:ae1bf4c581b6efc45befa13634eb5ba04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad424b1e102299cf0bd4777bc7701054d"><td class="memItemLeft" align="right" valign="top"><a id="ad424b1e102299cf0bd4777bc7701054d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FileStruct</b> (const <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html">FileStruct</a> &amp;other)</td></tr>
-<tr class="separator:ad424b1e102299cf0bd4777bc7701054d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8face6c41281d4995187d67c03aab46"><td class="memItemLeft" align="right" valign="top"><a id="af8face6c41281d4995187d67c03aab46"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FileStruct</b> (<a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html">FileStruct</a> &amp;&amp;other)</td></tr>
-<tr class="separator:af8face6c41281d4995187d67c03aab46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a945372efa19b5fd412cba810c1dd378a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html">FileStruct</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html#a945372efa19b5fd412cba810c1dd378a">operator=</a> (const <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html">FileStruct</a> &amp;other)</td></tr>
 <tr class="separator:a945372efa19b5fd412cba810c1dd378a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -114,11 +105,9 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a24ac0ac8c4fcb0d7c170b676376ec266"><td class="memItemLeft" align="right" valign="top">MPI_File *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html#a24ac0ac8c4fcb0d7c170b676376ec266">file_id_</a></td></tr>
 <tr class="separator:a24ac0ac8c4fcb0d7c170b676376ec266"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac196700adcb2ccb3d87d2530c06af3df"><td class="memItemLeft" align="right" valign="top"><a id="ac196700adcb2ccb3d87d2530c06af3df"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>offset_</b></td></tr>
+<tr class="memitem:ac196700adcb2ccb3d87d2530c06af3df"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html#ac196700adcb2ccb3d87d2530c06af3df">offset_</a></td></tr>
 <tr class="separator:ac196700adcb2ccb3d87d2530c06af3df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68f4d70de733fcb65c5542fb238b46f3"><td class="memItemLeft" align="right" valign="top"><a id="a68f4d70de733fcb65c5542fb238b46f3"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>size_</b></td></tr>
+<tr class="memitem:a68f4d70de733fcb65c5542fb238b46f3"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_file_struct.html#a68f4d70de733fcb65c5542fb238b46f3">size_</a></td></tr>
 <tr class="separator:a68f4d70de733fcb65c5542fb238b46f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -190,7 +179,37 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>size_</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>attributes </p>
+<p>attributes fileID to identify a file uniquely. </p>
+
+</div>
+</div>
+<a id="ac196700adcb2ccb3d87d2530c06af3df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac196700adcb2ccb3d87d2530c06af3df">&#9670;&nbsp;</a></span>offset_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t hermes::adapter::mpiio::FileStruct::offset_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>file pointer within the file. </p>
+
+</div>
+</div>
+<a id="a68f4d70de733fcb65c5542fb238b46f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68f4d70de733fcb65c5542fb238b46f3">&#9670;&nbsp;</a></span>size_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t hermes::adapter::mpiio::FileStruct::size_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>size of data refered in file. </p>
 
 </div>
 </div>

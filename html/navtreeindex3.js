@@ -10,8 +10,9 @@ var NAVTREEINDEX3 =
 "namespacehermes_1_1adapter_1_1stdio.html":[2,0,0,0,3],
 "namespacehermes_1_1pubsub.html":[2,0,0,1],
 "namespacemembers.html":[2,1,0],
-"namespacemembers_enum.html":[2,1,3],
+"namespacemembers_enum.html":[2,1,4],
 "namespacemembers_func.html":[2,1,1],
+"namespacemembers_type.html":[2,1,3],
 "namespacemembers_vars.html":[2,1,2],
 "namespaces.html":[2,0],
 "namespacestd.html":[3,0,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "structhermes_1_1_metadata_manager.html#a000240ff4dbb339df450f654f96de616":[3,0,1,38,29],
 "structhermes_1_1_metadata_manager.html#a0d3e57d4c5c28ee508923c05b3fd9725":[3,0,1,38,8],
 "structhermes_1_1_metadata_manager.html#a10641a015787d90d7dfe649c3fe21353":[3,0,1,38,13],
-"structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92":[3,0,1,38,17],
-"structhermes_1_1_metadata_manager.html#a1a47a5e02eb0e47e80565f45aa9b047e":[3,0,1,38,14]
+"structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92":[3,0,1,38,17]
 };

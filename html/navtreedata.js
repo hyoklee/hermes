@@ -33,6 +33,7 @@ var NAVTREE =
         [ "All", "namespacemembers.html", null ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
@@ -62,8 +63,8 @@ var NAVTREEINDEX =
 "classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6",
 "functions_func_e.html",
 "namespacehermes_1_1adapter_1_1mpiio.html",
-"structhermes_1_1_metadata_manager.html#a1de1f728b3d0aedce1cbe5f5e249f17c",
-"structhermes_1_1adapter_1_1stdio_1_1_file_struct.html#a58d1c2a78b9a8474c69442fe53f0b573"
+"structhermes_1_1_metadata_manager.html#a1a47a5e02eb0e47e80565f45aa9b047e",
+"structhermes_1_1adapter_1_1stdio_1_1_file_struct.html#ac0d1b46273a0f0363bd1b41b273cdf57"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
