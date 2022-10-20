@@ -22,7 +22,7 @@
 namespace hermes {
 /**
    A class to represent thread pool
- */ 
+ */
 class ThreadPool {
  public:
   /** construct thread pool with \a num_threads number of threads */
@@ -97,7 +97,7 @@ class ThreadPool {
   mutable std::queue<std::packaged_task<void()>> queue_low;
   /** low-priority queue */
   mutable std::queue<std::packaged_task<void()>> queue_high;
-  mutable std::mutex mutex;   /**< mutex lock */
+  mutable std::mutex mutex;                /**< mutex lock */
   mutable std::condition_variable condvar; /**< conditional variable */
 };
 }  // namespace hermes
