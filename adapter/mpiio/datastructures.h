@@ -49,9 +49,9 @@ struct FileStruct {
   /**
    * attributes
    */
-  MPI_File *file_id_;  // fileID to identify a file uniquely.
-  size_t offset_;      // file pointer within the file.
-  size_t size_;        // size of data refered in file.
+  MPI_File *file_id_;  /**< fileID to identify a file uniquely. */
+  size_t offset_;      /**< file pointer within the file. */
+  size_t size_;        /**< size of data refered in file. */
   /**
    * Constructor
    */
@@ -59,15 +59,15 @@ struct FileStruct {
   FileStruct(MPI_File *file_id, size_t offset, size_t size)
       : file_id_(file_id),
         offset_(offset),
-        size_(size) {} /* parameterized constructor */
+        size_(size) {} /**< parameterized constructor */
   FileStruct(const FileStruct &other)
       : file_id_(other.file_id_),
         offset_(other.offset_),
-        size_(other.size_) {} /* copy constructor*/
+        size_(other.size_) {} /**< copy constructor*/
   FileStruct(FileStruct &&other)
       : file_id_(other.file_id_),
         offset_(other.offset_),
-        size_(other.size_) {} /* move constructor*/
+        size_(other.size_) {} /**<  move constructor*/
   /**
    * Operators defined
    */
@@ -87,10 +87,10 @@ struct HermesStruct {
   /**
    * attributes
    */
-  std::string blob_name_;
-  std::string encoded_blob_name_;
-  size_t offset_;
-  size_t size_;
+  std::string blob_name_;         /**< BLOB name*/
+  std::string encoded_blob_name_; /**< BLOB name in encoded format */
+  size_t offset_;                 /**< BLOB offset */
+  size_t size_;                   /**< BLOB size */
   /**
    * Constructor
    */
@@ -103,12 +103,12 @@ struct HermesStruct {
       : blob_name_(other.blob_name_),
         encoded_blob_name_(other.encoded_blob_name_),
         offset_(other.offset_),
-        size_(other.size_) {} /* copy constructor*/
+        size_(other.size_) {} /**< copy constructor */
   HermesStruct(HermesStruct &&other)
       : blob_name_(other.blob_name_),
         encoded_blob_name_(other.encoded_blob_name_),
         offset_(other.offset_),
-        size_(other.size_) {} /* move constructor*/
+        size_(other.size_) {} /**<  move constructor*/
   /**
    * Operators defined
    */
@@ -122,9 +122,10 @@ struct HermesStruct {
   }
 };
 
+
 typedef std::set<std::string,
                  bool (*)(const std::string &, const std::string &)>
-    StringSet_t;
+    StringSet_t; /**< A type for string set */
 
 /**
  * Stat which defines File within MPIIO Adapter.
@@ -133,16 +134,18 @@ struct AdapterStat {
   /**
    * attributes
    */
-  std::shared_ptr<hapi::Bucket> st_bkid; /* bucket associated with the file */
-  StringSet_t st_blobs;                  /* Blobs access in the bucket */
-  StringSet_t st_vbuckets;               /* vBuckets used in this file */
-  i32 ref_count;                         /* # of time process opens a file */
-  int a_mode;                            /* access mode */
-  MPI_Info info;                         /* Info object (handle) */
-  MPI_Comm comm;                         /* Communicator for the file.*/
-  MPI_Offset size;                       /* total size, in bytes */
-  MPI_Offset ptr;                        /* Current ptr of FILE */
-  bool atomicity; /* Consistency semantics for data-access */
+
+  /** bucket associated with the file */
+  std::shared_ptr<hapi::Bucket> st_bkid;
+  StringSet_t st_blobs;                  /**< Blobs access in the bucket */
+  StringSet_t st_vbuckets;               /**< vBuckets used in this file */
+  i32 ref_count;                         /**< # of time process opens a file */
+  int a_mode;                            /**< access mode */
+  MPI_Info info;                         /**< Info object (handle) */
+  MPI_Comm comm;                         /**< Communicator for the file.*/
+  MPI_Offset size;                       /**< total size, in bytes */
+  MPI_Offset ptr;                        /**< Current ptr of FILE */
+  bool atomicity;        /**< Consistency semantics for data-access */
   /**
    * Constructor
    */
@@ -164,9 +167,12 @@ struct AdapterStat {
   }
 };
 
+/**
+  A structure to represent Hermes request
+ */
 struct HermesRequest {
-  std::future<int> return_future;
-  MPI_Status status;
+  std::future<int> return_future; /**< result of asynchronous operation */
+  MPI_Status status;              /**< MPI status */
 };
 
 }  // namespace hermes::adapter::mpiio
