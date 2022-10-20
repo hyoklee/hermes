@@ -13,7 +13,7 @@ var searchData=
   ['close_104',['Close',['../structhermes_1_1adapter_1_1vfd_1_1test_1_1_hdf5_api.html#a8320f6f0061c0d3e05e27abdca79a195',1,'hermes::adapter::vfd::test::Hdf5Api']]],
   ['closebufferingfiles_105',['CloseBufferingFiles',['../buffer__pool_8cc.html#af8bfcb2d66a8c335c6d62b452c549f9f',1,'hermes']]],
   ['comm_106',['comm',['../structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html#a35ced98d46349b739b20abc516310ac1',1,'hermes::adapter::mpiio::AdapterStat']]],
-  ['comm_5fsize_107',['comm_size',['../classhermes_1_1adapter_1_1_metadata_manager.html#a592e35bd5a1eae071dfb34a98b92a7e9',1,'hermes::adapter::MetadataManager']]],
+  ['comm_5fsize_107',['comm_size',['../classhermes_1_1adapter_1_1_metadata_manager.html#a592e35bd5a1eae071dfb34a98b92a7e9',1,'hermes::adapter::MetadataManager::comm_size()'],['../structhermes_1_1adapter_1_1vfd_1_1test_1_1_test_info.html#a13e5b800bbbb3bb0885dd9fa87e00b8b',1,'hermes::adapter::vfd::test::TestInfo::comm_size()']]],
   ['communication_2eh_108',['communication.h',['../communication_8h.html',1,'']]],
   ['communication_5fmpi_2ecc_109',['communication_mpi.cc',['../communication__mpi_8cc.html',1,'']]],
   ['communicationcontext_110',['CommunicationContext',['../structhermes_1_1_communication_context.html',1,'hermes']]],

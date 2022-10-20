@@ -7,7 +7,7 @@ var searchData=
   ['client_5frpc_1107',['client_rpc',['../structhermes_1_1_rpc_context.html#a860e923811f97e87093e17728335f865',1,'hermes::RpcContext']]],
   ['clock_1108',['clock',['../structhermes_1_1_metadata_manager.html#a382bdfe3660acf0e4cfcbb4847c69b2e',1,'hermes::MetadataManager']]],
   ['comm_1109',['comm',['../structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html#a35ced98d46349b739b20abc516310ac1',1,'hermes::adapter::mpiio::AdapterStat']]],
-  ['comm_5fsize_1110',['comm_size',['../classhermes_1_1adapter_1_1_metadata_manager.html#a592e35bd5a1eae071dfb34a98b92a7e9',1,'hermes::adapter::MetadataManager']]],
+  ['comm_5fsize_1110',['comm_size',['../classhermes_1_1adapter_1_1_metadata_manager.html#a592e35bd5a1eae071dfb34a98b92a7e9',1,'hermes::adapter::MetadataManager::comm_size()'],['../structhermes_1_1adapter_1_1vfd_1_1test_1_1_test_info.html#a13e5b800bbbb3bb0885dd9fa87e00b8b',1,'hermes::adapter::vfd::test::TestInfo::comm_size()']]],
   ['condvar_1111',['condvar',['../classhermes_1_1_thread_pool.html#a419a91fc0f5f10b3b3f0e6591222c38a',1,'hermes::ThreadPool']]],
   ['conflict_5ftraits_1112',['conflict_traits',['../structhermes_1_1api_1_1_trait.html#aea0060d306735bf86e5924932fb3301b',1,'hermes::api::Trait']]],
   ['copy_5fargs_1113',['copy_args',['../unionhermes_1_1_bo_args.html#ab9712f75966afe96f0e54dcbc68600e0',1,'hermes::BoArgs']]],

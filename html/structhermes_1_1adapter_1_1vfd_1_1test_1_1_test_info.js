@@ -1,6 +1,7 @@
 var structhermes_1_1adapter_1_1vfd_1_1test_1_1_test_info =
 [
     [ "element_size", "structhermes_1_1adapter_1_1vfd_1_1test_1_1_test_info.html#a349b97ed8ed910ecf1f822ecbee3bd1a", null ],
+    [ "comm_size", "structhermes_1_1adapter_1_1vfd_1_1test_1_1_test_info.html#a13e5b800bbbb3bb0885dd9fa87e00b8b", null ],
     [ "write_data", "structhermes_1_1adapter_1_1vfd_1_1test_1_1_test_info.html#aadd97d2f01f8914bc8bc4b331937e835", null ],
     [ "read_data", "structhermes_1_1adapter_1_1vfd_1_1test_1_1_test_info.html#abecaac372106437e9aa73d19ad5f2ca0", null ],
     [ "new_file", "structhermes_1_1adapter_1_1vfd_1_1test_1_1_test_info.html#a6eeac88f5cfab593bb99c156f4f09b3d", null ],
