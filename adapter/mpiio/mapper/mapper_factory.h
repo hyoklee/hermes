@@ -21,7 +21,7 @@
 namespace hermes::adapter::mpiio {
 /**
  A class to represent mapper factory pattern
-*/  
+*/
 class MapperFactory {
  public:
   /**
