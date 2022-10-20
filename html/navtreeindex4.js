@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"structhermes_1_1_metadata_manager.html#a1de1f728b3d0aedce1cbe5f5e249f17c":[3,0,1,38,25],
+"structhermes_1_1_metadata_manager.html#a20d9800f1a298124cc261ce53e82a16d":[3,0,1,38,3],
 "structhermes_1_1_metadata_manager.html#a24e288f6d69abe94b81ad24bbc80d095":[3,0,1,38,18],
 "structhermes_1_1_metadata_manager.html#a2aa797aea104198e507d959b2c7848b9":[3,0,1,38,11],
 "structhermes_1_1_metadata_manager.html#a382bdfe3660acf0e4cfcbb4847c69b2e":[3,0,1,38,34],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "structhermes_1_1adapter_1_1stdio_1_1_file_i_d.html#ad92f61743c85485f8e6238dbde20eb4d":[3,0,1,0,3,3,3],
 "structhermes_1_1adapter_1_1stdio_1_1_file_struct.html":[3,0,1,0,3,4],
 "structhermes_1_1adapter_1_1stdio_1_1_file_struct.html#a296a13a45e1f41c2a24bbcc3e4cd38be":[3,0,1,0,3,4,3],
-"structhermes_1_1adapter_1_1stdio_1_1_file_struct.html#a32c14c00a511f7e22ee1a5c1d0d78289":[3,0,1,0,3,4,1],
-"structhermes_1_1adapter_1_1stdio_1_1_file_struct.html#a58d1c2a78b9a8474c69442fe53f0b573":[3,0,1,0,3,4,6],
-"structhermes_1_1adapter_1_1stdio_1_1_file_struct.html#a5b22317d26f15fa3432ee67e9ac63df6":[3,0,1,0,3,4,0]
+"structhermes_1_1adapter_1_1stdio_1_1_file_struct.html#a32c14c00a511f7e22ee1a5c1d0d78289":[3,0,1,0,3,4,1]
 };

@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['value_614',['value',['../structhermes_1_1_id_map.html#ae65e1014d34491e5d280c8d8cb2fcc2d',1,'hermes::IdMap::value()'],['../structhermes_1_1_blob_info_map.html#ac41dfe3be12db27a239783a0277cd9d0',1,'hermes::BlobInfoMap::value()']]],
-  ['vbucket_615',['VBucket',['../classhermes_1_1api_1_1_v_bucket.html',1,'hermes::api::VBucket'],['../classhermes_1_1api_1_1_v_bucket.html#a94b344d00db3915e69945a3a9ceba2a3',1,'hermes::api::VBucket::VBucket()']]],
-  ['vbucket_5finfo_5foffset_616',['vbucket_info_offset',['../structhermes_1_1_metadata_manager.html#a5f8953422596626b5ba97d2dc6ce9fee',1,'hermes::MetadataManager']]],
-  ['vbucket_5fmap_5fmutex_617',['vbucket_map_mutex',['../structhermes_1_1_metadata_manager.html#ad1b87dc2dbacbbf77fbb1c91ab13a788',1,'hermes::MetadataManager']]],
-  ['vbucket_5fmap_5foffset_618',['vbucket_map_offset',['../structhermes_1_1_metadata_manager.html#a4db451249c330af121618983921d0944',1,'hermes::MetadataManager']]],
-  ['vbucket_5fmutex_619',['vbucket_mutex',['../structhermes_1_1_metadata_manager.html#adf620aa8b1533f943a4fdfba19dab1b2',1,'hermes::MetadataManager']]],
-  ['vbucketid_620',['VBucketID',['../unionhermes_1_1_v_bucket_i_d.html',1,'hermes']]],
-  ['vbucketinfo_621',['VBucketInfo',['../structhermes_1_1_v_bucket_info.html',1,'hermes']]],
-  ['violation_622',['violation',['../structhermes_1_1_violation_info.html#a14abdf04518f4b5676835407b3af5ac0',1,'hermes::ViolationInfo']]],
-  ['violation_5fsize_623',['violation_size',['../structhermes_1_1_violation_info.html#a2cf21df846a02490e73af19842608c68',1,'hermes::ViolationInfo']]],
-  ['violationinfo_624',['ViolationInfo',['../structhermes_1_1_violation_info.html',1,'hermes']]]
+  ['u16_606',['u16',['../hermes__types_8h.html#a31d8487bd312e59a742d8ae2a6675a7f',1,'hermes']]],
+  ['u32_607',['u32',['../hermes__types_8h.html#ac009c14ea7c4a1871e5d4453ba0ad3af',1,'hermes']]],
+  ['u64_608',['u64',['../hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46',1,'hermes']]],
+  ['u8_609',['u8',['../hermes__types_8h.html#a67dcf64ed55349e6beab0a38e641a389',1,'hermes']]],
+  ['unlink_610',['Unlink',['../classhermes_1_1api_1_1_v_bucket.html#af1ea7cd685b2264a405e1ced612088a9',1,'hermes::api::VBucket::Unlink(std::string blob_name, std::string bucket_name, Context &amp;ctx)'],['../classhermes_1_1api_1_1_v_bucket.html#a6329f7c88429dc6563eaee71318b3a1a',1,'hermes::api::VBucket::Unlink(std::string blob_name, std::string bucket_name)']]],
+  ['unlockbuffer_611',['UnlockBuffer',['../buffer__pool_8cc.html#ac603747db7e14260874ae27119384326',1,'hermes']]],
+  ['unmapsharedmemory_612',['UnmapSharedMemory',['../buffer__pool_8cc.html#a8330d4c1cab36eddd4085af9cdfb4e58',1,'hermes']]],
+  ['update_613',['Update',['../classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#a07c5c32652f400b68ce9481c26b4932e',1,'hermes::adapter::mpiio::MetadataManager::Update()'],['../classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ad4cd83902a8b1d2288c03b6bd4e2cb29',1,'hermes::adapter::posix::MetadataManager::Update()'],['../classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#aaaa53e1509fdcc8eb9eac03f04855861',1,'hermes::adapter::pubsub::MetadataManager::Update()'],['../classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#a003573d76b0f752b35ee1dada880afc3',1,'hermes::adapter::stdio::MetadataManager::Update()']]],
+  ['updatebufferingcapacities_614',['UpdateBufferingCapacities',['../buffer__pool_8cc.html#a29191e66c91e71f9084c4c128963568b',1,'hermes']]],
+  ['use_5fhost_5ffile_615',['use_host_file',['../structhermes_1_1_rpc_context.html#af03c9cfc7177ac946c53d2460cd1d536',1,'hermes::RpcContext']]],
+  ['use_5fplacement_5fratio_616',['use_placement_ratio',['../structhermes_1_1api_1_1_minimize_io_time_options.html#a082f06127473cdecba614230ddfb2014',1,'hermes::api::MinimizeIoTimeOptions']]],
+  ['used_617',['used',['../structhermes_1_1_buffer_header.html#a9bc65551cd0187c86a4941c6d54768a5',1,'hermes::BufferHeader::used()'],['../structhermes_1_1_arena.html#ab2ba6b537c627c2d55a2d4203be55fe5',1,'hermes::Arena::used()'],['../structhermes_1_1_temporary_memory.html#a0a34782ed593490087219c07f088b251',1,'hermes::TemporaryMemory::used()'],['../structhermes_1_1_scoped_temporary_memory.html#a304b15921f746ae4bb7db06022e992ba',1,'hermes::ScopedTemporaryMemory::used()']]],
+  ['utils_2eh_618',['utils.h',['../utils_8h.html',1,'']]]
 ];
