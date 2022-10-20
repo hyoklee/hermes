@@ -108,29 +108,29 @@ $(document).ready(function(){initNavTree('posix_2mapper_2mapper__factory_8h_sour
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;singleton.h&quot;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehermes_1_1adapter_1_1posix.html">hermes::adapter::posix</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html">MapperFactory</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">   30</a></span>&#160;  std::shared_ptr&lt;AbstractMapper&gt; <a class="code" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">Get</a>(<span class="keyword">const</span> <a class="code" href="namespacehermes_1_1adapter_1_1posix.html#a8080810720ab1e993c5e7ba7bb3a05e3">MapperType</a> &amp;type) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">switch</span> (type) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keywordflow">case</span> MapperType::BALANCED: {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6">hermes::adapter::Singleton&lt;BalancedMapper&gt;::GetInstance</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordflow">default</span>: {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="comment">// TODO(hari): @error_handling Mapper not implemented</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html">MapperFactory</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">   33</a></span>&#160;  std::shared_ptr&lt;AbstractMapper&gt; <a class="code" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">Get</a>(<span class="keyword">const</span> <a class="code" href="namespacehermes_1_1adapter_1_1posix.html#a8080810720ab1e993c5e7ba7bb3a05e3">MapperType</a> &amp;type) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">switch</span> (type) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keywordflow">case</span> MapperType::BALANCED: {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6">hermes::adapter::Singleton&lt;BalancedMapper&gt;::GetInstance</a>();</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}  <span class="comment">// namespace hermes::adapter::posix</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif  // HERMES_ADAPTER_FACTORY_H</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keywordflow">default</span>: {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="comment">// TODO(hari): @error_handling Mapper not implemented</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}  <span class="comment">// namespace hermes::adapter::posix</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif  // HERMES_ADAPTER_FACTORY_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespacehermes_1_1adapter_1_1posix_html_a8080810720ab1e993c5e7ba7bb3a05e3"><div class="ttname"><a href="namespacehermes_1_1adapter_1_1posix.html#a8080810720ab1e993c5e7ba7bb3a05e3">hermes::adapter::posix::MapperType</a></div><div class="ttdeci">MapperType</div><div class="ttdef"><b>Definition:</b> enumerations.h:23</div></div>
-<div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_mapper_factory_html_a9054045e55f3344d3011411fa3e76bb6"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">hermes::adapter::posix::MapperFactory::Get</a></div><div class="ttdeci">std::shared_ptr&lt; AbstractMapper &gt; Get(const MapperType &amp;type)</div><div class="ttdef"><b>Definition:</b> mapper_factory.h:30</div></div>
+<div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_mapper_factory_html_a9054045e55f3344d3011411fa3e76bb6"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">hermes::adapter::posix::MapperFactory::Get</a></div><div class="ttdeci">std::shared_ptr&lt; AbstractMapper &gt; Get(const MapperType &amp;type)</div><div class="ttdef"><b>Definition:</b> mapper_factory.h:33</div></div>
 <div class="ttc" id="aclasshermes_1_1adapter_1_1_singleton_html_a7628ad540d84a0e62635e0e3f2f71ad6"><div class="ttname"><a href="classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6">hermes::adapter::Singleton::GetInstance</a></div><div class="ttdeci">static std::shared_ptr&lt; T &gt; GetInstance(Args... args)</div><div class="ttdef"><b>Definition:</b> singleton.h:37</div></div>
 <div class="ttc" id="anamespacehermes_1_1adapter_1_1posix_html"><div class="ttname"><a href="namespacehermes_1_1adapter_1_1posix.html">hermes::adapter::posix</a></div><div class="ttdef"><b>Definition:</b> datastructures.h:40</div></div>
-<div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_mapper_factory_html"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html">hermes::adapter::posix::MapperFactory</a></div><div class="ttdef"><b>Definition:</b> mapper_factory.h:22</div></div>
+<div class="ttc" id="aclasshermes_1_1adapter_1_1posix_1_1_mapper_factory_html"><div class="ttname"><a href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html">hermes::adapter::posix::MapperFactory</a></div><div class="ttdef"><b>Definition:</b> mapper_factory.h:25</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

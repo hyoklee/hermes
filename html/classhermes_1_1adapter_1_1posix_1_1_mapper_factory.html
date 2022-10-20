@@ -90,13 +90,17 @@ $(document).ready(function(){initNavTree('classhermes_1_1adapter_1_1posix_1_1_ma
 <div class="title">hermes::adapter::posix::MapperFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="posix_2mapper_2mapper__factory_8h_source.html">mapper_factory.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9054045e55f3344d3011411fa3e76bb6"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classhermes_1_1adapter_1_1posix_1_1_abstract_mapper.html">AbstractMapper</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1posix_1_1_mapper_factory.html#a9054045e55f3344d3011411fa3e76bb6">Get</a> (const <a class="el" href="namespacehermes_1_1adapter_1_1posix.html#a8080810720ab1e993c5e7ba7bb3a05e3">MapperType</a> &amp;type)</td></tr>
 <tr class="separator:a9054045e55f3344d3011411fa3e76bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class to represent mapper factory pattern </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9054045e55f3344d3011411fa3e76bb6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9054045e55f3344d3011411fa3e76bb6">&#9670;&nbsp;</a></span>Get()</h2>
 
@@ -123,7 +127,7 @@ Public Member Functions</h2></td></tr>
 <p>Return the instance of mapper given a type. Uses factory pattern.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type,MapperType,type</td><td>of mapper to be used by the POSIX adapter. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>type of mapper to be used by the POSIX adapter. </td></tr>
   </table>
   </dd>
 </dl>
