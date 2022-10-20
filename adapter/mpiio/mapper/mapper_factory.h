@@ -19,12 +19,15 @@
 #include "singleton.h"
 
 namespace hermes::adapter::mpiio {
+/**
+ A class to represent mapper factory pattern
+*/  
 class MapperFactory {
  public:
   /**
    * Return the instance of mapper given a type. Uses factory pattern.
    *
-   * @param type, MapperType, type of mapper to be used by the MPIIO adapter.
+   * @param[in] type type of mapper to be used by the MPIIO adapter.
    * @return Instance of mapper given a type.
    */
   std::shared_ptr<AbstractMapper> Get(const MapperType &type) {
