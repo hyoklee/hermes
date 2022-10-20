@@ -34,7 +34,7 @@ FlushingMode global_flushing_mode;
 */
 class MetadataManager {
  protected:
-  int rank;  /**< MPI communicator rank */
+  int rank;      /**< MPI communicator rank */
   int comm_size; /**< MPI communicator size */
   /** a reference of how many times Initialize is called */
   std::atomic<size_t> ref;
