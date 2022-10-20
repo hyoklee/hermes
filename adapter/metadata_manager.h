@@ -26,15 +26,20 @@ namespace hapi = hermes::api;
 
 namespace hermes::adapter {
 
+/** A variable for synchronous or asynchronous global flusing mode */
 FlushingMode global_flushing_mode;
 
+/**
+   A class to represent metadata manager
+*/
 class MetadataManager {
  protected:
-  int rank;
-  int comm_size;
+  int rank;  /**< MPI communicator rank */
+  int comm_size; /**< MPI communicator size */
+  /** a reference of how many times Initialize is called */
   std::atomic<size_t> ref;
-  std::shared_ptr<hapi::Hermes> hermes;
-  bool is_mpi_;
+  std::shared_ptr<hapi::Hermes> hermes; /**< pointer to hermes instances */
+  bool is_mpi_; /**< check whether MPI is being used or not */
 
  public:
   /**
