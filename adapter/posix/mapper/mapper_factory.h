@@ -19,12 +19,15 @@
 #include "singleton.h"
 
 namespace hermes::adapter::posix {
+/**
+ A class to represent mapper factory pattern
+*/
 class MapperFactory {
  public:
   /**
    * Return the instance of mapper given a type. Uses factory pattern.
    *
-   * @param type, MapperType, type of mapper to be used by the POSIX adapter.
+   * @param[in] type type of mapper to be used by the POSIX adapter.
    * @return Instance of mapper given a type.
    */
   std::shared_ptr<AbstractMapper> Get(const MapperType &type) {
