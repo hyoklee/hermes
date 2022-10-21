@@ -52,7 +52,7 @@ class Hermes {
   // TODO(chogan): Temporarily public to facilitate iterative development.
   hermes::SharedMemoryContext context_; /**< shared memory context */
   hermes::CommunicationContext comm_;   /**< communication context */
-  hermes::RpcContext rpc_;    /**< remote procedure call context */
+  hermes::RpcContext rpc_;              /**< remote procedure call context */
   hermes::Arena trans_arena_; /**< arena backed by allocated memory. */
   /** The name of the shared memory segment in which all Hermes data is
    * stored.
