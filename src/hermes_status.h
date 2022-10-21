@@ -18,7 +18,7 @@
 /** \file hermes_status.h */
 
 namespace hermes {
-
+/** a macro for returning error code */
 #define RETURN_CODES(X)                                                    \
   X(2, HERMES_OK_MAX,                                                      \
     "Maximum supported HERMES success with "                               \
@@ -63,7 +63,10 @@ namespace hermes {
     "proper target for blob.")                                             \
   X(-26, HERMES_ERROR_MAX, "Maximum supported HERMES errors.")
 
+/** a macro for returning enum */
 #define RETURN_ENUM(ID, NAME, TEXT) NAME = ID,
+
+/** a macro for returning text */
 #define RETURN_TEXT(ID, NAME, TEXT) \
   case ID:                          \
     return TEXT;
