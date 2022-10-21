@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stringset_5ft_1404',['StringSet_t',['../namespacehermes_1_1adapter_1_1mpiio.html#a7c5b1990abdac9d9699e2844209c534d',1,'hermes::adapter::mpiio']]]
+  ['placementschema_1406',['PlacementSchema',['../hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274',1,'hermes']]]
 ];

@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"namespacehermes_1_1adapter.html":[3,0,1,0],
 "namespacehermes_1_1adapter_1_1mpiio.html":[3,0,1,0,0],
 "namespacehermes_1_1adapter_1_1mpiio.html":[2,0,0,0,0],
 "namespacehermes_1_1adapter_1_1posix.html":[2,0,0,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "structhermes_1_1_metadata_manager.html":[3,0,1,38],
 "structhermes_1_1_metadata_manager.html#a000240ff4dbb339df450f654f96de616":[3,0,1,38,29],
 "structhermes_1_1_metadata_manager.html#a0d3e57d4c5c28ee508923c05b3fd9725":[3,0,1,38,8],
-"structhermes_1_1_metadata_manager.html#a10641a015787d90d7dfe649c3fe21353":[3,0,1,38,13],
-"structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92":[3,0,1,38,17]
+"structhermes_1_1_metadata_manager.html#a10641a015787d90d7dfe649c3fe21353":[3,0,1,38,13]
 };

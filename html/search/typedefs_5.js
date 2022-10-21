@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['placementschema_1403',['PlacementSchema',['../hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274',1,'hermes']]]
+  ['offsetmap_1405',['OffsetMap',['../structhermes_1_1api_1_1_persist_trait.html#ac3f7147a2acc98396d299e349cb09cec',1,'hermes::api::PersistTrait']]]
 ];

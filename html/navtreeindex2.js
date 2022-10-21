@@ -30,6 +30,7 @@ var NAVTREEINDEX2 =
 "functions_r.html":[3,3,0,17],
 "functions_s.html":[3,3,0,18],
 "functions_t.html":[3,3,0,19],
+"functions_type.html":[3,3,3],
 "functions_u.html":[3,3,0,20],
 "functions_v.html":[3,3,0,21],
 "functions_vars.html":[3,3,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "mpiio_2mapper_2mapper__factory_8h_source.html":[4,0,0,0,0,2],
 "mpiio_2metadata__manager_8h_source.html":[4,0,0,0,4],
 "mpiio_8h_source.html":[4,0,0,0,5],
-"namespacehermes_1_1adapter.html":[2,0,0,0],
-"namespacehermes_1_1adapter.html":[3,0,1,0]
+"namespacehermes_1_1adapter.html":[2,0,0,0]
 };
