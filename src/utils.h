@@ -45,7 +45,7 @@
 #else
 #define HERMES_BEGIN_TIMED_BLOCK(func_name) /**< begin timing */
 #define HERMES_END_TIMED_BLOCK()            /**< end timing */
-#endif  // HERMES_ENABLE_TIMING
+#endif                                      // HERMES_ENABLE_TIMING
 
 namespace hermes {
 
@@ -97,7 +97,7 @@ void FailedLibraryCall(std::string func);
 namespace testing {
 /**
    A class to represent BLOB size
- */   
+ */
 enum class BlobSizeRange {
   kSmall,
   kMedium,
@@ -108,7 +108,7 @@ enum class BlobSizeRange {
 
 /**
    A structure to represent target view state
-*/  
+*/
 struct TargetViewState {
   std::vector<hermes::u64> bytes_capacity;  /**< a vector of capacities */
   std::vector<hermes::u64> bytes_available; /**< a vector of available bytes */
