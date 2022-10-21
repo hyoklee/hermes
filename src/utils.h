@@ -43,8 +43,8 @@
           << hermes_timed_block_seconds_ << " seconds\n";
 
 #else
-#define HERMES_BEGIN_TIMED_BLOCK(func_name)
-#define HERMES_END_TIMED_BLOCK()
+#define HERMES_BEGIN_TIMED_BLOCK(func_name) /**< begin timing */
+#define HERMES_END_TIMED_BLOCK()            /**< end timing */
 #endif  // HERMES_ENABLE_TIMING
 
 namespace hermes {
@@ -95,7 +95,9 @@ void InitDefaultConfig(Config *config);
 void FailedLibraryCall(std::string func);
 
 namespace testing {
-
+/**
+   A class to represent BLOB size
+ */   
 enum class BlobSizeRange {
   kSmall,
   kMedium,
@@ -104,11 +106,14 @@ enum class BlobSizeRange {
   kHuge,
 };
 
+/**
+   A structure to represent target view state
+*/  
 struct TargetViewState {
-  std::vector<hermes::u64> bytes_capacity;
-  std::vector<hermes::u64> bytes_available;
-  std::vector<hermes::f32> bandwidth;
-  int num_devices;
+  std::vector<hermes::u64> bytes_capacity;  /**< a vector of capacities */
+  std::vector<hermes::u64> bytes_available; /**< a vector of available bytes */
+  std::vector<hermes::f32> bandwidth;       /**< a vector of bandwidths */
+  int num_devices;                          /**< number of devices */
 };
 
 /**
@@ -137,7 +142,7 @@ u64 UpdateDeviceState(PlacementSchema &schema, TargetViewState &node_state);
 /**
  * Print device state.
  *
- * @param The TargetViewState with current state.
+ * @param node_state The TargetViewState with current state.
  */
 void PrintNodeState(TargetViewState &node_state);
 
