@@ -504,6 +504,9 @@ void ParseConfigYAML(YAML::Node &yaml_conf, Config *config) {
   CheckConstraints(config);
 }
 
+/**
+   parse YAML configuration file
+ */   
 void ParseConfig(Arena *arena, const char *path, Config *config) {
   ScopedTemporaryMemory scratch(arena);
   InitDefaultConfig(config);
