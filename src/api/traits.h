@@ -94,11 +94,15 @@ struct PersistTrait : public Trait {
   /** \bool{flushing data should block until finished} */
   bool synchronous;
 
-  /** */
+  /** offset map */
+  using OffsetMap = std::unordered_map<std::string, u64>;
+
+  /** Constructor */
   explicit PersistTrait(bool synchronous);
-  /** */
+
+  /** Constructor with file name and offset map */
   explicit PersistTrait(const std::string &filename,
-                        const std::unordered_map<std::string, u64> &offset_map,
+                        const OffsetMap &offset_map,
                         bool synchronous = false);
 
   /**
