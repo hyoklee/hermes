@@ -1,4 +1,7 @@
 <map id="hermes::GetSlabBufferSize" name="hermes::GetSlabBufferSize">
-<area shape="rect" id="node1" title=" " alt="" coords="201,29,397,56"/>
-<area shape="rect" id="node2" href="$buffer__pool_8cc.html#ae3789d75221354e09f43fe8d1520b988" title=" " alt="" coords="5,29,153,56"/>
+<area shape="rect" id="node1" title=" " alt="" coords="789,29,985,56"/>
+<area shape="rect" id="node2" href="$buffer__pool_8cc.html#ae3789d75221354e09f43fe8d1520b988" title=" " alt="" coords="593,29,741,56"/>
+<area shape="rect" id="node3" href="$buffer__pool_8cc.html#a162e1bfac8a276d2b948f2b4b1d61602" title=" " alt="" coords="403,29,545,56"/>
+<area shape="rect" id="node4" href="$classhermes_1_1api_1_1_bucket.html#a90ac5c8ab3fc47ccc51566e722d3ca66" title="Low&#45;level version of Put." alt="" coords="204,22,355,63"/>
+<area shape="rect" id="node5" href="$classhermes_1_1api_1_1_bucket.html#a409f78fc50a74d26d2623cde27a9a1ad" title="Internal version of Put, called by all overloads." alt="" coords="5,22,156,63"/>
 </map>

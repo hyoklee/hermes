@@ -126,8 +126,8 @@ $(document).ready(function(){initNavTree('utils_8h_source.html',''); initResizab
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">          &lt;&lt; hermes_timed_block_seconds_ &lt;&lt; &quot; seconds\n&quot;;</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#define HERMES_BEGIN_TIMED_BLOCK(func_name)</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define HERMES_END_TIMED_BLOCK()</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="utils_8h.html#a04ec504a04aac1745c3e17447415599f">   46</a></span>&#160;<span class="preprocessor">#define HERMES_BEGIN_TIMED_BLOCK(func_name) </span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="utils_8h.html#a1ef8e411bd5bf0eb35949b43ad7f5f53">   47</a></span>&#160;<span class="preprocessor">#define HERMES_END_TIMED_BLOCK()            </span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif  // HERMES_ENABLE_TIMING</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">namespace </span>hermes {</div>
@@ -141,51 +141,55 @@ $(document).ready(function(){initNavTree('utils_8h_source.html',''); initResizab
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keywordtype">void</span> FailedLibraryCall(std::string func);</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">namespace </span>testing {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">enum class</span> BlobSizeRange {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  kSmall,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  kMedium,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  kLarge,</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  kXLarge,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  kHuge,</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;};</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="structhermes_1_1testing_1_1_target_view_state.html">  107</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1testing_1_1_target_view_state.html">TargetViewState</a> {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  std::vector&lt;hermes::u64&gt; bytes_capacity;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  std::vector&lt;hermes::u64&gt; bytes_available;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  std::vector&lt;hermes::f32&gt; bandwidth;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordtype">int</span> num_devices;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;};</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<a class="code" href="structhermes_1_1testing_1_1_target_view_state.html">TargetViewState</a> InitDeviceState(<a class="code" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> total_target = 4, <span class="keywordtype">bool</span> homo_dist = <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<a class="code" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> UpdateDeviceState(<a class="code" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;schema, <a class="code" href="structhermes_1_1testing_1_1_target_view_state.html">TargetViewState</a> &amp;node_state);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="keywordtype">void</span> PrintNodeState(<a class="code" href="structhermes_1_1testing_1_1_target_view_state.html">TargetViewState</a> &amp;node_state);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;std::vector&lt;TargetID&gt; GetDefaultTargets(<span class="keywordtype">size_t</span> n);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;std::vector&lt;size_t&gt; GenFixedTotalBlobSize(<span class="keywordtype">size_t</span> total_size,</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                                          BlobSizeRange range);</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}  <span class="comment">// namespace testing</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}  <span class="comment">// namespace hermes</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#endif  // HERMES_UTILS_H_</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="utils_8h.html#a0c4b97f292ab271f341eb01ca82d526b">  101</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="utils_8h.html#a0c4b97f292ab271f341eb01ca82d526b">BlobSizeRange</a> {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  kSmall,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  kMedium,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  kLarge,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  kXLarge,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  kHuge,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;};</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="structhermes_1_1testing_1_1_target_view_state.html">  112</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structhermes_1_1testing_1_1_target_view_state.html">TargetViewState</a> {</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="structhermes_1_1testing_1_1_target_view_state.html#aeda201d04c5499e68f3cc3bce09d917e">  113</a></span>&#160;  std::vector&lt;hermes::u64&gt; <a class="code" href="structhermes_1_1testing_1_1_target_view_state.html#aeda201d04c5499e68f3cc3bce09d917e">bytes_capacity</a>;  </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="structhermes_1_1testing_1_1_target_view_state.html#a069107c1a230dea68e30e51dafc4cfca">  114</a></span>&#160;  std::vector&lt;hermes::u64&gt; <a class="code" href="structhermes_1_1testing_1_1_target_view_state.html#a069107c1a230dea68e30e51dafc4cfca">bytes_available</a>; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="structhermes_1_1testing_1_1_target_view_state.html#a97c2ba1e2f1612d384f6cf5b012be02f">  115</a></span>&#160;  std::vector&lt;hermes::f32&gt; <a class="code" href="structhermes_1_1testing_1_1_target_view_state.html#a97c2ba1e2f1612d384f6cf5b012be02f">bandwidth</a>;       </div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="structhermes_1_1testing_1_1_target_view_state.html#a06c78fb9b9e8867c759edc134be1c2a2">  116</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structhermes_1_1testing_1_1_target_view_state.html#a06c78fb9b9e8867c759edc134be1c2a2">num_devices</a>;                          </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;};</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<a class="code" href="structhermes_1_1testing_1_1_target_view_state.html">TargetViewState</a> InitDeviceState(<a class="code" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> total_target = 4, <span class="keywordtype">bool</span> homo_dist = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<a class="code" href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">u64</a> UpdateDeviceState(<a class="code" href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">PlacementSchema</a> &amp;schema, <a class="code" href="structhermes_1_1testing_1_1_target_view_state.html">TargetViewState</a> &amp;node_state);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keywordtype">void</span> PrintNodeState(<a class="code" href="structhermes_1_1testing_1_1_target_view_state.html">TargetViewState</a> &amp;node_state);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;std::vector&lt;TargetID&gt; GetDefaultTargets(<span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;std::vector&lt;size_t&gt; GenFixedTotalBlobSize(<span class="keywordtype">size_t</span> total_size,</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                          <a class="code" href="utils_8h.html#a0c4b97f292ab271f341eb01ca82d526b">BlobSizeRange</a> range);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}  <span class="comment">// namespace testing</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;}  <span class="comment">// namespace hermes</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">#endif  // HERMES_UTILS_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="ahermes__types_8h_html_a62c3f0a639ff72d4ea54e6aee25a7e8da608b6134b3fb3686ce3efb1cfe88da79"><div class="ttname"><a href="hermes__types_8h.html#a62c3f0a639ff72d4ea54e6aee25a7e8da608b6134b3fb3686ce3efb1cfe88da79">hermes::kArenaType_BufferPool</a></div><div class="ttdeci">@ kArenaType_BufferPool</div><div class="ttdef"><b>Definition:</b> hermes_types.h:223</div></div>
 <div class="ttc" id="ahermes__types_8h_html_a62c3f0a639ff72d4ea54e6aee25a7e8dad6fd13ea9367c260c4b7c8a57ae66b6b"><div class="ttname"><a href="hermes__types_8h.html#a62c3f0a639ff72d4ea54e6aee25a7e8dad6fd13ea9367c260c4b7c8a57ae66b6b">hermes::kArenaType_Transient</a></div><div class="ttdeci">@ kArenaType_Transient</div><div class="ttdef"><b>Definition:</b> hermes_types.h:225</div></div>
+<div class="ttc" id="astructhermes_1_1testing_1_1_target_view_state_html_a97c2ba1e2f1612d384f6cf5b012be02f"><div class="ttname"><a href="structhermes_1_1testing_1_1_target_view_state.html#a97c2ba1e2f1612d384f6cf5b012be02f">hermes::testing::TargetViewState::bandwidth</a></div><div class="ttdeci">std::vector&lt; hermes::f32 &gt; bandwidth</div><div class="ttdef"><b>Definition:</b> utils.h:115</div></div>
 <div class="ttc" id="ahermes__types_8h_html_a675aa107ed38032ce5f00b78ab57514e"><div class="ttname"><a href="hermes__types_8h.html#a675aa107ed38032ce5f00b78ab57514e">MEGABYTES</a></div><div class="ttdeci">#define MEGABYTES(n)</div><div class="ttdef"><b>Definition:</b> hermes_types.h:32</div></div>
 <div class="ttc" id="ahermes__types_8h_html_a62c3f0a639ff72d4ea54e6aee25a7e8dac9fdfc361d1b3db46b1e14ea610883e2"><div class="ttname"><a href="hermes__types_8h.html#a62c3f0a639ff72d4ea54e6aee25a7e8dac9fdfc361d1b3db46b1e14ea610883e2">hermes::kArenaType_MetaData</a></div><div class="ttdeci">@ kArenaType_MetaData</div><div class="ttdef"><b>Definition:</b> hermes_types.h:224</div></div>
 <div class="ttc" id="ahermes__types_8h_html_a8ba52be34dd263021aef92b27274d68c"><div class="ttname"><a href="hermes__types_8h.html#a8ba52be34dd263021aef92b27274d68c">hermes::DeviceID</a></div><div class="ttdeci">u16 DeviceID</div><div class="ttdef"><b>Definition:</b> hermes_types.h:51</div></div>
 <div class="ttc" id="ahermes__types_8h_html_aa29a80eb3b2f5a1f59bc16dbf24c1274"><div class="ttname"><a href="hermes__types_8h.html#aa29a80eb3b2f5a1f59bc16dbf24c1274">hermes::PlacementSchema</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; size_t, TargetID &gt; &gt; PlacementSchema</div><div class="ttdef"><b>Definition:</b> hermes_types.h:208</div></div>
+<div class="ttc" id="autils_8h_html_a0c4b97f292ab271f341eb01ca82d526b"><div class="ttname"><a href="utils_8h.html#a0c4b97f292ab271f341eb01ca82d526b">hermes::testing::BlobSizeRange</a></div><div class="ttdeci">BlobSizeRange</div><div class="ttdef"><b>Definition:</b> utils.h:101</div></div>
 <div class="ttc" id="ahermes__types_8h_html_a9d8b546e2fbbdfae536a432fd9c914e6"><div class="ttname"><a href="hermes__types_8h.html#a9d8b546e2fbbdfae536a432fd9c914e6">KILOBYTES</a></div><div class="ttdeci">#define KILOBYTES(n)</div><div class="ttdef"><b>Definition:</b> hermes_types.h:31</div></div>
-<div class="ttc" id="astructhermes_1_1testing_1_1_target_view_state_html"><div class="ttname"><a href="structhermes_1_1testing_1_1_target_view_state.html">hermes::testing::TargetViewState</a></div><div class="ttdef"><b>Definition:</b> utils.h:107</div></div>
+<div class="ttc" id="astructhermes_1_1testing_1_1_target_view_state_html"><div class="ttname"><a href="structhermes_1_1testing_1_1_target_view_state.html">hermes::testing::TargetViewState</a></div><div class="ttdef"><b>Definition:</b> utils.h:112</div></div>
 <div class="ttc" id="ahermes__types_8h_html_ae7e6bd7162b216c94dc9e81ea0232a46"><div class="ttname"><a href="hermes__types_8h.html#ae7e6bd7162b216c94dc9e81ea0232a46">hermes::u64</a></div><div class="ttdeci">uint64_t u64</div><div class="ttdef"><b>Definition:</b> hermes_types.h:43</div></div>
 <div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div></div>
+<div class="ttc" id="astructhermes_1_1testing_1_1_target_view_state_html_aeda201d04c5499e68f3cc3bce09d917e"><div class="ttname"><a href="structhermes_1_1testing_1_1_target_view_state.html#aeda201d04c5499e68f3cc3bce09d917e">hermes::testing::TargetViewState::bytes_capacity</a></div><div class="ttdeci">std::vector&lt; hermes::u64 &gt; bytes_capacity</div><div class="ttdef"><b>Definition:</b> utils.h:113</div></div>
+<div class="ttc" id="astructhermes_1_1testing_1_1_target_view_state_html_a06c78fb9b9e8867c759edc134be1c2a2"><div class="ttname"><a href="structhermes_1_1testing_1_1_target_view_state.html#a06c78fb9b9e8867c759edc134be1c2a2">hermes::testing::TargetViewState::num_devices</a></div><div class="ttdeci">int num_devices</div><div class="ttdef"><b>Definition:</b> utils.h:116</div></div>
 <div class="ttc" id="ahermes__types_8h_html_a6beebba07e7cd645b39675b831dba240"><div class="ttname"><a href="hermes__types_8h.html#a6beebba07e7cd645b39675b831dba240">GIGABYTES</a></div><div class="ttdeci">#define GIGABYTES(n)</div><div class="ttdef"><b>Definition:</b> hermes_types.h:33</div></div>
 <div class="ttc" id="aunionhermes_1_1_target_i_d_html"><div class="ttname"><a href="unionhermes_1_1_target_i_d.html">hermes::TargetID</a></div><div class="ttdef"><b>Definition:</b> hermes_types.h:180</div></div>
 <div class="ttc" id="ahermes__types_8h_html"><div class="ttname"><a href="hermes__types_8h.html">hermes_types.h</a></div></div>
+<div class="ttc" id="astructhermes_1_1testing_1_1_target_view_state_html_a069107c1a230dea68e30e51dafc4cfca"><div class="ttname"><a href="structhermes_1_1testing_1_1_target_view_state.html#a069107c1a230dea68e30e51dafc4cfca">hermes::testing::TargetViewState::bytes_available</a></div><div class="ttdeci">std::vector&lt; hermes::u64 &gt; bytes_available</div><div class="ttdef"><b>Definition:</b> utils.h:114</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

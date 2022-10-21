@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['placementpolicy_1405',['PlacementPolicy',['../hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67',1,'hermes::api']]],
-  ['processkind_1406',['ProcessKind',['../hermes__types_8h.html#ae9d9c6dc6ad00f09a7d78b5db7e106cb',1,'hermes']]]
+  ['mappertype_1412',['MapperType',['../namespacehermes_1_1adapter_1_1mpiio.html#a836c49abd0162b4727fe79e846ccca0d',1,'hermes::adapter::mpiio::MapperType()'],['../namespacehermes_1_1adapter_1_1posix.html#a8080810720ab1e993c5e7ba7bb3a05e3',1,'hermes::adapter::posix::MapperType()'],['../namespacehermes_1_1adapter_1_1stdio.html#a3362b03a94ff0115f2d3465907261968',1,'hermes::adapter::stdio::MapperType()']]]
 ];

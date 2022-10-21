@@ -1,4 +1,5 @@
 <map id="api::Status::Failed" name="api::Status::Failed">
-<area shape="rect" id="node1" title=" " alt="" coords="204,13,341,39"/>
-<area shape="rect" id="node2" href="$classhermes_1_1api_1_1_bucket.html#a90ac5c8ab3fc47ccc51566e722d3ca66" title="Low&#45;level version of Put." alt="" coords="5,5,156,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="403,13,540,39"/>
+<area shape="rect" id="node2" href="$classhermes_1_1api_1_1_bucket.html#a90ac5c8ab3fc47ccc51566e722d3ca66" title="Low&#45;level version of Put." alt="" coords="204,5,355,47"/>
+<area shape="rect" id="node3" href="$classhermes_1_1api_1_1_bucket.html#a409f78fc50a74d26d2623cde27a9a1ad" title="Internal version of Put, called by all overloads." alt="" coords="5,5,156,47"/>
 </map>
