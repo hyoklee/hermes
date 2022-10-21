@@ -102,8 +102,7 @@ struct PersistTrait : public Trait {
 
   /** Constructor with file name and offset map */
   explicit PersistTrait(const std::string &filename,
-                        const OffsetMap &offset_map,
-                        bool synchronous = false);
+                        const OffsetMap &offset_map, bool synchronous = false);
 
   /**
    *
