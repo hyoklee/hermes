@@ -210,7 +210,7 @@ class Bucket {
   /** \overload
    *
    * \param name The name of the Blob to get.
-   * \param user_blob User-provided storage for the retrieved Blob.   
+   * \param user_blob User-provided storage for the retrieved Blob.
    * \param ctx context
    */
   size_t Get(const std::string &name, Blob &user_blob, const Context &ctx);
@@ -251,7 +251,7 @@ class Bucket {
   /** \overload
    *
    * \param blob_index The starting index.
-   * \param user_blob User-provided memory for the Blob.   
+   * \param user_blob User-provided memory for the Blob.
    * \param ctx context
    */
   size_t GetNext(u64 blob_index, Blob &user_blob, const Context &ctx);
@@ -293,7 +293,7 @@ class Bucket {
 
   /** \overload
    *
-   * \param name The name of the Blob to delete.   
+   * \param name The name of the Blob to delete.
    * \param ctx context
    */
   Status DeleteBlob(const std::string &name, const Context &ctx);
@@ -354,7 +354,7 @@ class Bucket {
 
   /** \overload
    *
-   * \param new_name A new name for the Bucket.   
+   * \param new_name A new name for the Bucket.
    * \param ctx context
    */
   Status Rename(const std::string &new_name, const Context &ctx);
