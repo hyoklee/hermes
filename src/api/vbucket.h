@@ -108,7 +108,7 @@ class VBucket {
   /** \overload
    *
    * \param blob_name The name of the Blob to link.
-   * \param bucket_name The name of the Bucket containing the Blob to link.   
+   * \param bucket_name The name of the Bucket containing the Blob to link.
    * \param ctx Currently unused.
    */
   Status Link(std::string blob_name, std::string bucket_name, Context &ctx);
@@ -142,7 +142,7 @@ class VBucket {
   size_t Get(const std::string &name, Bucket &bkt, Blob &user_blob);
 
   /** Get a Blob with size and context.
-   */  
+   */
   size_t Get(const std::string &name, Bucket &bkt, void *user_blob,
              size_t blob_size, const Context &ctx);
 
@@ -178,7 +178,7 @@ class VBucket {
    */
   Status Attach(Trait *trait);
 
- /** \overload
+  /** \overload
    *
    * \param trait The Trait to attach.
    * \param ctx Currently unused.
@@ -195,7 +195,7 @@ class VBucket {
 
   /** \overload
    *
-   * \param trait The Trait to detach.   
+   * \param trait The Trait to detach.
    * \param ctx Currently unused.
    */
   Status Detach(Trait *trait, Context &ctx);
