@@ -27,7 +27,7 @@
 
 namespace hermes::adapter::stdio {
 
-FlushingMode global_flushing_mode;
+  FlushingMode global_flushing_mode; /**< global flushing mode */
 
 /**
  * Metadata manager for STDIO adapter
@@ -49,12 +49,12 @@ class MetadataManager {
    * references of how many times hermes was tried to initialize.
    */
   std::atomic<size_t> ref;
-  /**
+  /*
    * MPI attributes
    */
-  bool is_mpi;
-  int rank;
-  int comm_size;
+  bool is_mpi;                /**< flag for checking if MPI is used */
+  int rank;                   /**< rank of MPI processor */
+  int comm_size;              /**< number of MPI processors */
 
  public:
   /**
@@ -134,9 +134,9 @@ class MetadataManager {
 
   /**
    * Create a metadata entry for STDIO adapter for a given file handler.
-   * @param fh, FILE*, original file handler of the file on the destination
-   * filesystem.
-   * @param stat, AdapterStat, STDIO Adapter version of Stat data structure.
+   *
+   * @param fh original file handler of the file on the destination filesystem.
+   * @param stat STDIO Adapter version of Stat data structure.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
@@ -144,24 +144,25 @@ class MetadataManager {
 
   /**
    * Update existing metadata entry for STDIO adapter for a given file handler.
-   * @param fh, FILE*, original file handler of the file on the destination.
-   * @param stat, AdapterStat, STDIO Adapter version of Stat data structure.
-   * @return    true, if operation was successful.
-   *            false, if operation was unsuccessful or entry doesn't exist.
+   * @param fh   original file handler of the file on the destination.
+   * @param stat STDIO Adapter version of Stat data structure.
+   * @return     true, if operation was successful.
+   *             false, if operation was unsuccessful or entry doesn't exist.
    */
   bool Update(FILE* fh, const AdapterStat& stat);
 
   /**
    * Delete existing metadata entry for STDIO adapter for a given file handler.
-   * @param fh, FILE*, original file handler of the file on the destination.
-   * @return    true, if operation was successful.
-   *            false, if operation was unsuccessful.
+   *
+   * @param  fh original file handler of the file on the destination.
+   * @return true, if operation was successful.
+   *         false, if operation was unsuccessful.
    */
   bool Delete(FILE* fh);
 
   /**
    * Find existing metadata entry for STDIO adapter for a given file handler.
-   * @param fh, FILE*, original file handler of the file on the destination.
+   * @param     fh original file handler of the file on the destination.
    * @return    The metadata entry if exist.
    *            The bool in pair indicated whether metadata entry exists.
    */
