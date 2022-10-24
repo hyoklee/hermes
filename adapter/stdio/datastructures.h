@@ -48,8 +48,8 @@ struct FileID {
   /*
    * attributes
    */
-  dev_t dev_id_;     /**< device id to place the file. */
-  ino_t inode_num_;  /**< inode number refering to the file. */
+  dev_t dev_id_;    /**< device id to place the file. */
+  ino_t inode_num_; /**< inode number refering to the file. */
   /**
    * Constructor
    */
@@ -89,9 +89,9 @@ struct FileStruct {
   /**
    * attributes
    */
-  FileID file_id_;  /**< fileID to identify a file uniquely. */
-  size_t offset_;   /**< file pointer within the file. */
-  size_t size_;     /**< size of data refered in file. */
+  FileID file_id_; /**< fileID to identify a file uniquely. */
+  size_t offset_;  /**< file pointer within the file. */
+  size_t size_;    /**< size of data refered in file. */
   /**
    * Constructor
    */
@@ -129,9 +129,9 @@ struct HermesStruct {
   /*
    * attributes
    */
-  std::string blob_name_;       /**< BLOB name */
-  size_t offset_;               /**< offset */
-  size_t size_;                 /**< size */
+  std::string blob_name_; /**< BLOB name */
+  size_t offset_;         /**< offset */
+  size_t size_;           /**< size */
   /*
    * Constructor
    */
