@@ -115,17 +115,13 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1c1be9e387da34fad6ea5ca61ddd2b97"><td class="memItemLeft" align="right" valign="top"><a id="a1c1be9e387da34fad6ea5ca61ddd2b97"></a>
-fs::path&#160;</td><td class="memItemRight" valign="bottom"><b>LexicallyNormal</b> (fs::path &amp;path)</td></tr>
+<tr class="memitem:a1c1be9e387da34fad6ea5ca61ddd2b97"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehermes_1_1adapter.html#a1c1be9e387da34fad6ea5ca61ddd2b97">LexicallyNormal</a> (fs::path &amp;path)</td></tr>
 <tr class="separator:a1c1be9e387da34fad6ea5ca61ddd2b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aa4f7848443a096daf267345ae3df37"><td class="memItemLeft" align="right" valign="top"><a id="a7aa4f7848443a096daf267345ae3df37"></a>
-fs::path&#160;</td><td class="memItemRight" valign="bottom"><b>WeaklyCanonical</b> (const fs::path &amp;p)</td></tr>
+<tr class="memitem:a7aa4f7848443a096daf267345ae3df37"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehermes_1_1adapter.html#a7aa4f7848443a096daf267345ae3df37">WeaklyCanonical</a> (const fs::path &amp;p)</td></tr>
 <tr class="separator:a7aa4f7848443a096daf267345ae3df37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3d68a771730e39170f74b5110e290e0"><td class="memItemLeft" align="right" valign="top"><a id="ae3d68a771730e39170f74b5110e290e0"></a>
-fs::path&#160;</td><td class="memItemRight" valign="bottom"><b>WeaklyCanonical</b> (const fs::path &amp;p, std::error_code &amp;ec)</td></tr>
+<tr class="memitem:ae3d68a771730e39170f74b5110e290e0"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehermes_1_1adapter.html#ae3d68a771730e39170f74b5110e290e0">WeaklyCanonical</a> (const fs::path &amp;p, std::error_code &amp;ec)</td></tr>
 <tr class="separator:ae3d68a771730e39170f74b5110e290e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa54a851e83081e6fa466bba5594035d2"><td class="memItemLeft" align="right" valign="top"><a id="aa54a851e83081e6fa466bba5594035d2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ReadGap</b> (const std::string &amp;filename, size_t seek_offset, <a class="el" href="hermes__types_8h.html#a67dcf64ed55349e6beab0a38e641a389">u8</a> *read_ptr, size_t read_size, size_t file_bounds)</td></tr>
+<tr class="memitem:aa54a851e83081e6fa466bba5594035d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehermes_1_1adapter.html#aa54a851e83081e6fa466bba5594035d2">ReadGap</a> (const std::string &amp;filename, size_t seek_offset, <a class="el" href="hermes__types_8h.html#a67dcf64ed55349e6beab0a38e641a389">u8</a> *read_ptr, size_t read_size, size_t file_bounds)</td></tr>
 <tr class="separator:aa54a851e83081e6fa466bba5594035d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f2ad314b9ce4c16ce685768076bb55b"><td class="memItemLeft" align="right" valign="top"><a id="a9f2ad314b9ce4c16ce685768076bb55b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PopulateBufferingPath</b> ()</td></tr>
@@ -168,6 +164,148 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>populated</b> = false
   </dd>
 </dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a1c1be9e387da34fad6ea5ca61ddd2b97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c1be9e387da34fad6ea5ca61ddd2b97">&#9670;&nbsp;</a></span>LexicallyNormal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fs::path hermes::adapter::LexicallyNormal </td>
+          <td>(</td>
+          <td class="paramtype">fs::path &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>normalize <em>path</em> </p>
+<dl class="section note"><dt>Note</dt><dd>(chogan): Back port of the C++17 standard fileystem implementation from gcc 9.1 to support gcc 7 </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacehermes_1_1adapter_a1c1be9e387da34fad6ea5ca61ddd2b97_icgraph.png" border="0" usemap="#namespacehermes_1_1adapter_a1c1be9e387da34fad6ea5ca61ddd2b97_icgraph" alt=""/></div>
+<map name="namespacehermes_1_1adapter_a1c1be9e387da34fad6ea5ca61ddd2b97_icgraph" id="namespacehermes_1_1adapter_a1c1be9e387da34fad6ea5ca61ddd2b97_icgraph">
+<area shape="rect" title=" " alt="" coords="303,5,497,47"/>
+<area shape="rect" href="namespacehermes_1_1adapter.html#a7aa4f7848443a096daf267345ae3df37" title=" " alt="" coords="5,13,255,39"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a7aa4f7848443a096daf267345ae3df37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aa4f7848443a096daf267345ae3df37">&#9670;&nbsp;</a></span>WeaklyCanonical() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fs::path hermes::adapter::WeaklyCanonical </td>
+          <td>(</td>
+          <td class="paramtype">const fs::path &amp;&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>convert path <em>p</em> to a canonical absolute path </p><dl class="section note"><dt>Note</dt><dd>(chogan): Backported from GCC 9 </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacehermes_1_1adapter_a7aa4f7848443a096daf267345ae3df37_cgraph.png" border="0" usemap="#namespacehermes_1_1adapter_a7aa4f7848443a096daf267345ae3df37_cgraph" alt=""/></div>
+<map name="namespacehermes_1_1adapter_a7aa4f7848443a096daf267345ae3df37_cgraph" id="namespacehermes_1_1adapter_a7aa4f7848443a096daf267345ae3df37_cgraph">
+<area shape="rect" title=" " alt="" coords="5,13,255,39"/>
+<area shape="rect" href="namespacehermes_1_1adapter.html#a1c1be9e387da34fad6ea5ca61ddd2b97" title=" " alt="" coords="303,5,497,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae3d68a771730e39170f74b5110e290e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3d68a771730e39170f74b5110e290e0">&#9670;&nbsp;</a></span>WeaklyCanonical() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fs::path hermes::adapter::WeaklyCanonical </td>
+          <td>(</td>
+          <td class="paramtype">const fs::path &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::error_code &amp;&#160;</td>
+          <td class="paramname"><em>ec</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>convert path <em>p</em> to a canonical absolute path with <em>ec</em> error code </p><dl class="section note"><dt>Note</dt><dd>(chogan): Backported from GCC 9 </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacehermes_1_1adapter_ae3d68a771730e39170f74b5110e290e0_cgraph.png" border="0" usemap="#namespacehermes_1_1adapter_ae3d68a771730e39170f74b5110e290e0_cgraph" alt=""/></div>
+<map name="namespacehermes_1_1adapter_ae3d68a771730e39170f74b5110e290e0_cgraph" id="namespacehermes_1_1adapter_ae3d68a771730e39170f74b5110e290e0_cgraph">
+<area shape="rect" title=" " alt="" coords="5,13,255,39"/>
+<area shape="rect" href="namespacehermes_1_1adapter.html#a1c1be9e387da34fad6ea5ca61ddd2b97" title=" " alt="" coords="303,5,497,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa54a851e83081e6fa466bba5594035d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa54a851e83081e6fa466bba5594035d2">&#9670;&nbsp;</a></span>ReadGap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::adapter::ReadGap </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>seek_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="hermes__types_8h.html#a67dcf64ed55349e6beab0a38e641a389">u8</a> *&#160;</td>
+          <td class="paramname"><em>read_ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>read_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>file_bounds</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read gap from the original file when BLOB has a gap in write. </p>
+
+</div>
+</div>
 <a id="acaa61681257a2e3c8ba391240a1f98d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acaa61681257a2e3c8ba391240a1f98d2">&#9670;&nbsp;</a></span>OnExit()</h2>
 
