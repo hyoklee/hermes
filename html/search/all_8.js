@@ -36,10 +36,11 @@ var searchData=
   ['is_5fshared_357',['is_shared',['../structhermes_1_1_device.html#a35dd52e3ef9fe3099ba2e4d73366dc23',1,'hermes::Device']]],
   ['is_5fshared_5fdevice_358',['is_shared_device',['../structhermes_1_1_config.html#a693d05ae2a5d7a8192fcaf806458c3c8',1,'hermes::Config']]],
   ['isapplicationcore_359',['IsApplicationCore',['../classhermes_1_1api_1_1_hermes.html#ad2bb69f41037cc5b7e4638d0ec4a6e57',1,'hermes::api::Hermes']]],
-  ['isfirstrankonnode_360',['IsFirstRankOnNode',['../classhermes_1_1api_1_1_hermes.html#a82f6bce58521204910e61ef2c5973108',1,'hermes::api::Hermes']]],
-  ['isnullbufferid_361',['IsNullBufferId',['../buffer__pool_8cc.html#a83dbab7423f951b8a1c39bead7471b50',1,'hermes']]],
-  ['isoptimal_362',['IsOptimal',['../classhermes_1_1_linear_program.html#af9becc74f4dde9833726e94acaa17abd',1,'hermes::LinearProgram']]],
-  ['ispoweroftwo_363',['IsPowerOfTwo',['../memory__management_8cc.html#ab0540547920ce06d86e36a9022ec35e4',1,'hermes']]],
-  ['istracked_364',['IsTracked',['../namespacehermes_1_1adapter.html#a7fbf6cf088a73d571bdb2a8f6a843a9f',1,'hermes::adapter::IsTracked(const std::string &amp;path)'],['../namespacehermes_1_1adapter.html#ac34fe701c5827f54980600810863d669',1,'hermes::adapter::IsTracked(FILE *fh)'],['../namespacehermes_1_1adapter.html#a076dd6aa28d504d3556f72a4140b40f0',1,'hermes::adapter::IsTracked(int fd)']]],
-  ['isvalid_365',['IsValid',['../classhermes_1_1api_1_1_bucket.html#ab0f3448f247972e09644d405e84b71f7',1,'hermes::api::Bucket::IsValid()'],['../classhermes_1_1api_1_1_v_bucket.html#afeba35fbbfdd9a2cf97dfea19dc846c2',1,'hermes::api::VBucket::IsValid()']]]
+  ['isclient_360',['isClient',['../classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#a6d52327522ee7459ebd4f8e01a88d43b',1,'hermes::adapter::pubsub::MetadataManager']]],
+  ['isfirstrankonnode_361',['IsFirstRankOnNode',['../classhermes_1_1api_1_1_hermes.html#a82f6bce58521204910e61ef2c5973108',1,'hermes::api::Hermes']]],
+  ['isnullbufferid_362',['IsNullBufferId',['../buffer__pool_8cc.html#a83dbab7423f951b8a1c39bead7471b50',1,'hermes']]],
+  ['isoptimal_363',['IsOptimal',['../classhermes_1_1_linear_program.html#af9becc74f4dde9833726e94acaa17abd',1,'hermes::LinearProgram']]],
+  ['ispoweroftwo_364',['IsPowerOfTwo',['../memory__management_8cc.html#ab0540547920ce06d86e36a9022ec35e4',1,'hermes']]],
+  ['istracked_365',['IsTracked',['../namespacehermes_1_1adapter.html#a7fbf6cf088a73d571bdb2a8f6a843a9f',1,'hermes::adapter::IsTracked(const std::string &amp;path)'],['../namespacehermes_1_1adapter.html#ac34fe701c5827f54980600810863d669',1,'hermes::adapter::IsTracked(FILE *fh)'],['../namespacehermes_1_1adapter.html#a076dd6aa28d504d3556f72a4140b40f0',1,'hermes::adapter::IsTracked(int fd)']]],
+  ['isvalid_366',['IsValid',['../classhermes_1_1api_1_1_bucket.html#ab0f3448f247972e09644d405e84b71f7',1,'hermes::api::Bucket::IsValid()'],['../classhermes_1_1api_1_1_v_bucket.html#afeba35fbbfdd9a2cf97dfea19dc846c2',1,'hermes::api::VBucket::IsValid()']]]
 ];
