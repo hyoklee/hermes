@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('structhermes_1_1api_1_1_write_only_tra
 </div><!--header-->
 <div class="contents">
 
-<p>Marks the <a class="el" href="structhermes_1_1_blob.html">Blob</a>s in a <a class="el" href="classhermes_1_1api_1_1_v_bucket.html">VBucket</a> as write-only.  
+<p>Marks the Blobs in a <a class="el" href="classhermes_1_1api_1_1_v_bucket.html">VBucket</a> as write-only.  
  <a href="structhermes_1_1api_1_1_write_only_trait.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="traits_8h_source.html">traits.h</a>&gt;</code></p>
@@ -124,8 +124,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1api_1_1_write_only_trait.html#a3f4fdc1aa18a773dfe63d6ae12d99219">onDetach</a> (HermesPtr hermes, <a class="el" href="unionhermes_1_1_v_bucket_i_d.html">VBucketID</a> <a class="el" href="structhermes_1_1api_1_1_trait.html#ab0e13fe834bba47d6f69451305117a6b">id</a>, <a class="el" href="structhermes_1_1api_1_1_trait.html">Trait</a> *trait)</td></tr>
 <tr class="memdesc:a3f4fdc1aa18a773dfe63d6ae12d99219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Currently a no-op. <br /></td></tr>
 <tr class="separator:a3f4fdc1aa18a773dfe63d6ae12d99219"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a844c67345a7a87a769cfee71a7097895"><td class="memItemLeft" align="right" valign="top"><a id="a844c67345a7a87a769cfee71a7097895"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>onLink</b> (HermesPtr hermes, <a class="el" href="structhermes_1_1api_1_1_blob_info.html">TraitInput</a> &amp;input, <a class="el" href="structhermes_1_1api_1_1_trait.html">Trait</a> *trait)</td></tr>
+<tr class="memitem:a844c67345a7a87a769cfee71a7097895"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1api_1_1_write_only_trait.html#a844c67345a7a87a769cfee71a7097895">onLink</a> (HermesPtr hermes, <a class="el" href="structhermes_1_1api_1_1_blob_info.html">TraitInput</a> &amp;input, <a class="el" href="structhermes_1_1api_1_1_trait.html">Trait</a> *trait)</td></tr>
 <tr class="separator:a844c67345a7a87a769cfee71a7097895"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dbc4cacbd42b6655177387312edc068"><td class="memItemLeft" align="right" valign="top"><a id="a7dbc4cacbd42b6655177387312edc068"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhermes_1_1api_1_1_write_only_trait.html#a7dbc4cacbd42b6655177387312edc068">onUnlink</a> (HermesPtr hermes, <a class="el" href="structhermes_1_1api_1_1_blob_info.html">TraitInput</a> &amp;input, <a class="el" href="structhermes_1_1api_1_1_trait.html">Trait</a> *trait)</td></tr>
@@ -160,9 +159,45 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a58c300542aeb634e6430f5ea0cc3b8b3 inherit pub_attribs_structhermes_1_1api_1_1_trait"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Marks the <a class="el" href="structhermes_1_1_blob.html">Blob</a>s in a <a class="el" href="classhermes_1_1api_1_1_v_bucket.html">VBucket</a> as write-only. </p>
-<p>If we know that certain <a class="el" href="structhermes_1_1_blob.html">Blob</a>s are write-only, we can asynchronously and eagerly flush buffered data to the final destination. </p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
+<div class="textblock"><p>Marks the Blobs in a <a class="el" href="classhermes_1_1api_1_1_v_bucket.html">VBucket</a> as write-only. </p>
+<p>If we know that certain Blobs are write-only, we can asynchronously and eagerly flush buffered data to the final destination. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a844c67345a7a87a769cfee71a7097895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a844c67345a7a87a769cfee71a7097895">&#9670;&nbsp;</a></span>onLink()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hermes::api::WriteOnlyTrait::onLink </td>
+          <td>(</td>
+          <td class="paramtype">HermesPtr&#160;</td>
+          <td class="paramname"><em>hermes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1api_1_1_blob_info.html">TraitInput</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhermes_1_1api_1_1_trait.html">Trait</a> *&#160;</td>
+          <td class="paramname"><em>trait</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>a binding function to run on link event </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>/home/runner/work/hermes/hermes/src/api/<a class="el" href="traits_8h_source.html">traits.h</a></li>
 <li>/home/runner/work/hermes/hermes/src/api/traits.cc</li>
 </ul>
