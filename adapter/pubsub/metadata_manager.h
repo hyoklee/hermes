@@ -47,7 +47,7 @@ class MetadataManager {
   std::atomic<size_t> ref;
 
  public:
-  int mpi_rank;                 /**< rank of MPI processor */
+  int mpi_rank; /**< rank of MPI processor */
   /**
    * Constructor
    */
