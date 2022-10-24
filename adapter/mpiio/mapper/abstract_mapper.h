@@ -31,7 +31,7 @@ class AbstractMapper {
   /**
    * This method maps the current Operation to Hermes data structures.
    *
-   * @param file_op, FileStruct, operations for which we are mapping.
+   * @param[in] file_op FileStruct operations for which we are mapping.
    * @return a map of FileStruct to Hermes Struct
    */
   virtual MapperReturnType map(const FileStruct& file_op) = 0;
