@@ -58,7 +58,7 @@ var searchData=
   ['getvalidsplitchoices_266',['GetValidSplitChoices',['../classhermes_1_1_d_p_e.html#a8402544993f74601148b17c378975055',1,'hermes::DPE']]],
   ['getvariable_267',['GetVariable',['../classhermes_1_1_linear_program.html#a04f1a862b66dd11af4c23bc27d68ca86',1,'hermes::LinearProgram']]],
   ['gigabytes_268',['GIGABYTES',['../hermes__types_8h.html#a6beebba07e7cd645b39675b831dba240',1,'hermes_types.h']]],
-  ['global_5fflushing_5fmode_269',['global_flushing_mode',['../namespacehermes_1_1adapter.html#a1085e85409a6cc5ddd39923c670775d0',1,'hermes::adapter']]],
+  ['global_5fflushing_5fmode_269',['global_flushing_mode',['../namespacehermes_1_1adapter.html#a1085e85409a6cc5ddd39923c670775d0',1,'hermes::adapter::global_flushing_mode()'],['../namespacehermes_1_1adapter_1_1stdio.html#adf92fbda32c26551d3ddd2b3e5aea5c2',1,'hermes::adapter::stdio::global_flushing_mode()']]],
   ['global_5fsystem_5fview_5fstate_5fnode_5fid_270',['global_system_view_state_node_id',['../structhermes_1_1_metadata_manager.html#a000240ff4dbb339df450f654f96de616',1,'hermes::MetadataManager']]],
   ['global_5fsystem_5fview_5fstate_5foffset_271',['global_system_view_state_offset',['../structhermes_1_1_metadata_manager.html#a0d3e57d4c5c28ee508923c05b3fd9725',1,'hermes::MetadataManager']]],
   ['globalsystemviewstate_272',['GlobalSystemViewState',['../structhermes_1_1_global_system_view_state.html',1,'hermes']]],
