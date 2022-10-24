@@ -46,12 +46,12 @@ class MetadataManager {
    * references of how many times hermes was tried to initialize.
    */
   std::atomic<size_t> ref;
-  /**
+  /*
    * MPI attributes
    */
-  bool is_mpi;
-  int rank;
-  int comm_size;
+  bool is_mpi;                  /**< flag for checking if MPI is used */
+  int rank;                     /**< rank of MPI processor */
+  int comm_size;                /**< number of MPI processors */
 
  public:
   /**
@@ -121,9 +121,9 @@ class MetadataManager {
 
   /**
    * Create a metadata entry for POSIX adapter for a given file handler.
-   * @param fh, int, original file handler of the file on the destination
+   * @param fh original file handler of the file on the destination
    * filesystem.
-   * @param stat, AdapterStat, POSIX Adapter version of Stat data structure.
+   * @param stat POSIX Adapter version of Stat data structure.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
@@ -131,8 +131,8 @@ class MetadataManager {
 
   /**
    * Update existing metadata entry for POSIX adapter for a given file handler.
-   * @param fh, int, original file handler of the file on the destination.
-   * @param stat, AdapterStat, POSIX Adapter version of Stat data structure.
+   * @param fh original file handler of the file on the destination.
+   * @param stat POSIX Adapter version of Stat data structure.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful or entry doesn't exist.
    */
@@ -140,7 +140,7 @@ class MetadataManager {
 
   /**
    * Delete existing metadata entry for POSIX adapter for a given file handler.
-   * @param fh, int, original file handler of the file on the destination.
+   * @param fh original file handler of the file on the destination.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
@@ -148,7 +148,7 @@ class MetadataManager {
 
   /**
    * Find existing metadata entry for POSIX adapter for a given file handler.
-   * @param fh, int, original file handler of the file on the destination.
+   * @param fh original file handler of the file on the destination.
    * @return    The metadata entry if exist.
    *            The bool in pair indicated whether metadata entry exists.
    */
