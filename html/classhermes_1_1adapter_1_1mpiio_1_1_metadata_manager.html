@@ -122,8 +122,7 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a7929ad2e014cc294064f98197423e7f0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#a7929ad2e014cc294064f98197423e7f0">rank</a></td></tr>
 <tr class="separator:a7929ad2e014cc294064f98197423e7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfa3516e95327be73baf8f15a18ee4bf"><td class="memItemLeft" align="right" valign="top"><a id="abfa3516e95327be73baf8f15a18ee4bf"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>comm_size</b></td></tr>
+<tr class="memitem:abfa3516e95327be73baf8f15a18ee4bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#abfa3516e95327be73baf8f15a18ee4bf">comm_size</a></td></tr>
 <tr class="separator:abfa3516e95327be73baf8f15a18ee4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a838f5577833b680cc137a43588e65fde"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; MPI_Request *, <a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_hermes_request.html">HermesRequest</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#a838f5577833b680cc137a43588e65fde">request_map</a></td></tr>
 <tr class="separator:a838f5577833b680cc137a43588e65fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -272,8 +271,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Create a metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination filesystem. </td></tr>
-    <tr><td class="paramname">stat,<a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html">AdapterStat</a>,MPIIO</td><td>Adapter version of Stat data structure. </td></tr>
+    <tr><td class="paramname">fh</td><td>original file handler of the file on the destination filesystem. </td></tr>
+    <tr><td class="paramname">stat</td><td>MPIIO Adapter version of Stat data structure. </td></tr>
   </table>
   </dd>
 </dl>
@@ -308,8 +307,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Update existing metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
-    <tr><td class="paramname">stat,<a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_adapter_stat.html">AdapterStat</a>,MPIIO</td><td>Adapter version of Stat data structure. </td></tr>
+    <tr><td class="paramname">fh</td><td>original file handler of the file on the destination. </td></tr>
+    <tr><td class="paramname">stat</td><td>MPIIO Adapter version of Stat data structure. </td></tr>
   </table>
   </dd>
 </dl>
@@ -334,7 +333,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Delete existing metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
+    <tr><td class="paramname">fh</td><td>original file handler of the file on the destination. </td></tr>
   </table>
   </dd>
 </dl>
@@ -359,7 +358,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Find existing metadata entry for MPIIO adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fh,FILE*,original</td><td>file handler of the file on the destination. </td></tr>
+    <tr><td class="paramname">fh</td><td>original file handler of the file on the destination. </td></tr>
   </table>
   </dd>
 </dl>
@@ -384,7 +383,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encode a given Hermes Struct from Mapping engine to Local <a class="el" href="structhermes_1_1_blob.html">Blob</a> Name. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hermes_struct,<a class="el" href="structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html">HermesStruct</a>,structure</td><td>containing hermes representatrion of file. </td></tr>
+    <tr><td class="paramname">hermes_struct</td><td>structure containing hermes representatrion of file. </td></tr>
   </table>
   </dd>
 </dl>
@@ -409,7 +408,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Decodes a encoded blob name string into hermesstruct </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">encoded_blob_name,std::string,encoded</td><td>blob name string. </td></tr>
+    <tr><td class="paramname">encoded_blob_name</td><td>encoded blob name string. </td></tr>
   </table>
   </dd>
 </dl>
@@ -508,6 +507,21 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>MPI attributes </p>
+
+</div>
+</div>
+<a id="abfa3516e95327be73baf8f15a18ee4bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa3516e95327be73baf8f15a18ee4bf">&#9670;&nbsp;</a></span>comm_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hermes::adapter::mpiio::MetadataManager::comm_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>number of MPI processors </p>
 
 </div>
 </div>
