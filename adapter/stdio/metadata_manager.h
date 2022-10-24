@@ -27,7 +27,7 @@
 
 namespace hermes::adapter::stdio {
 
-  FlushingMode global_flushing_mode; /**< global flushing mode */
+FlushingMode global_flushing_mode; /**< global flushing mode */
 
 /**
  * Metadata manager for STDIO adapter
@@ -52,9 +52,9 @@ class MetadataManager {
   /*
    * MPI attributes
    */
-  bool is_mpi;                /**< flag for checking if MPI is used */
-  int rank;                   /**< rank of MPI processor */
-  int comm_size;              /**< number of MPI processors */
+  bool is_mpi;   /**< flag for checking if MPI is used */
+  int rank;      /**< rank of MPI processor */
+  int comm_size; /**< number of MPI processors */
 
  public:
   /**
