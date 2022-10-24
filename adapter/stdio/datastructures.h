@@ -45,24 +45,24 @@ namespace hermes::adapter::stdio {
  * FileID structure used as an identifier in STDIO adapter.
  */
 struct FileID {
-  /**
+  /*
    * attributes
    */
-  dev_t dev_id_;     // device id to place the file.
-  ino_t inode_num_;  // inode number refering to the file.
+  dev_t dev_id_;     /**< device id to place the file. */
+  ino_t inode_num_;  /**< inode number refering to the file. */
   /**
    * Constructor
    */
   FileID() : dev_id_(), inode_num_() {} /* default constructor */
   FileID(dev_t dev_id, ino_t inode_num)
       : dev_id_(dev_id),
-        inode_num_(inode_num) {} /* parameterized constructor */
+        inode_num_(inode_num) {} /**< parameterized constructor */
   FileID(const FileID &other)
       : dev_id_(other.dev_id_),
-        inode_num_(other.inode_num_) {} /* copy constructor*/
+        inode_num_(other.inode_num_) {} /**< copy constructor*/
   FileID(FileID &&other)
       : dev_id_(other.dev_id_),
-        inode_num_(other.inode_num_) {} /* move constructor*/
+        inode_num_(other.inode_num_) {} /**< move constructor*/
 
   /**
    * Operators defined
@@ -74,7 +74,9 @@ struct FileID {
     return *this;
   }
 
-  /* Equal operator. */
+  /**
+     Equal operator.
+  */
   bool operator==(const FileID &o) const {
     return dev_id_ == o.dev_id_ && inode_num_ == o.inode_num_;
   }
@@ -87,9 +89,9 @@ struct FileStruct {
   /**
    * attributes
    */
-  FileID file_id_;  // fileID to identify a file uniquely.
-  size_t offset_;   // file pointer within the file.
-  size_t size_;     // size of data refered in file.
+  FileID file_id_;  /**< fileID to identify a file uniquely. */
+  size_t offset_;   /**< file pointer within the file. */
+  size_t size_;     /**< size of data refered in file. */
   /**
    * Constructor
    */
@@ -97,15 +99,15 @@ struct FileStruct {
   FileStruct(FileID file_id, size_t offset, size_t size)
       : file_id_(file_id),
         offset_(offset),
-        size_(size) {} /* parameterized constructor */
+        size_(size) {} /**< parameterized constructor */
   FileStruct(const FileStruct &other)
       : file_id_(other.file_id_),
         offset_(other.offset_),
-        size_(other.size_) {} /* copy constructor*/
+        size_(other.size_) {} /**< copy constructor*/
   FileStruct(FileStruct &&other)
       : file_id_(other.file_id_),
         offset_(other.offset_),
-        size_(other.size_) {} /* move constructor*/
+        size_(other.size_) {} /**< move constructor*/
   /**
    * Operators defined
    */
@@ -119,28 +121,30 @@ struct FileStruct {
 };
 
 /**
- * Structure STDIO adapter uses to define Hermes blob.
+ * A structure to represent STDIO adapter
+ *
+ * It defines and uses Hermes BLOB.
  */
 struct HermesStruct {
-  /**
+  /*
    * attributes
    */
-  std::string blob_name_;
-  size_t offset_;
-  size_t size_;
-  /**
+  std::string blob_name_;       /**< BLOB name */
+  size_t offset_;               /**< offset */
+  size_t size_;                 /**< size */
+  /*
    * Constructor
    */
   HermesStruct()
-      : blob_name_(), offset_(0), size_(0) {} /* default constructor */
+      : blob_name_(), offset_(0), size_(0) {} /**< default constructor */
   HermesStruct(const HermesStruct &other)
       : blob_name_(other.blob_name_),
         offset_(other.offset_),
-        size_(other.size_) {} /* copy constructor*/
+        size_(other.size_) {} /**< copy constructor*/
   HermesStruct(HermesStruct &&other)
       : blob_name_(other.blob_name_),
         offset_(other.offset_),
-        size_(other.size_) {} /* move constructor*/
+        size_(other.size_) {} /**< move constructor*/
   /**
    * Operators defined
    */
@@ -166,17 +170,17 @@ struct AdapterStat {
   /** Used for async flushing. */
   std::shared_ptr<hapi::PersistTrait> st_persist;
   std::set<std::string, bool (*)(const std::string &, const std::string &)>
-      st_blobs;         /* Blobs access in the bucket */
-  i32 ref_count;        /* # of time process opens a file */
-  mode_t st_mode;       /* protection */
-  uid_t st_uid;         /* user ID of owner */
-  gid_t st_gid;         /* group ID of owner */
-  off_t st_size;        /* total size, in bytes */
-  off_t st_ptr;         /* Current ptr of FILE */
-  blksize_t st_blksize; /* blocksize for blob within bucket */
-  timespec st_atim;     /* time of last access */
-  timespec st_mtim;     /* time of last modification */
-  timespec st_ctim;     /* time of last status change */
+      st_blobs;         /**< Blobs access in the bucket */
+  i32 ref_count;        /**< # of time process opens a file */
+  mode_t st_mode;       /**< protection */
+  uid_t st_uid;         /**< user ID of owner */
+  gid_t st_gid;         /**< group ID of owner */
+  off_t st_size;        /**< total size, in bytes */
+  off_t st_ptr;         /**< Current ptr of FILE */
+  blksize_t st_blksize; /**< blocksize for blob within bucket */
+  timespec st_atim;     /**< time of last access */
+  timespec st_mtim;     /**< time of last modification */
+  timespec st_ctim;     /**< time of last status change */
   /**
    * Constructor
    */
@@ -209,7 +213,7 @@ struct AdapterStat {
         st_blksize(st.st_blksize),
         st_atim(st.st_atim),
         st_mtim(st.st_mtim),
-        st_ctim(st.st_ctim) {} /* parameterized constructor */
+        st_ctim(st.st_ctim) {} /**< parameterized constructor */
 
   /**
    * Comparator for comparing two blobs.
@@ -231,6 +235,7 @@ namespace std {
  */
 template <>
 struct hash<hermes::adapter::stdio::FileID> {
+  /** constructor */
   std::size_t operator()(const hermes::adapter::stdio::FileID &key) const {
     std::size_t result = 0;
     std::size_t h1 = std::hash<dev_t>{}(key.dev_id_);
