@@ -57,7 +57,7 @@ inline std::vector<std::string> StringSplit(char* str, char delimiter) {
 
 /**
    get the file name from \a fp file pointer
-*/ 
+*/
 inline std::string GetFilenameFromFP(FILE* fp) {
   char proclnk[kMaxPathLen];
   char filename[kMaxPathLen];
@@ -70,7 +70,7 @@ inline std::string GetFilenameFromFP(FILE* fp) {
 
 /**
    get the file name from \a fd file descriptor
-*/  
+*/
 inline std::string GetFilenameFromFD(int fd) {
   char proclnk[kMaxPathLen];
   char filename[kMaxPathLen];
