@@ -118,9 +118,11 @@ class Bucket {
   template <typename T>
   Status Put(const std::string &name, const std::vector<T> &data);
 
-  /** \overload
+  /** \brief Put a Blob in this Bucket using context.
    *
-   * \param \ctx{Put}
+   * \param name BLOB name
+   * \param data BLOB data
+   * \param ctx context
    */
   template <typename T>
   Status Put(const std::string &name, const std::vector<T> &data, Context &ctx);
@@ -129,15 +131,14 @@ class Bucket {
    * \brief Put a Blob in this Bucket.
    *
    * \param name The name of the Blob to Put
-   * \param data The Blob%'s data.
+   * \param data The Blob's data.
    * \param size The size of the Blob in bytes.
-   * \param \ctx{Put}
    *
    * \return \status
    *
    * \pre The Bucket must be valid.
    * \pre The length of \p name in bytes must not exceed
-   * #hermes::api::kMaxBlobNameSize.
+   *      hermes::api::kMaxBlobNameSize.
    * \pre The Blob buffer \p data must not be \c nullptr unless \p size is 0.
    *
    * \return \status
@@ -146,8 +147,10 @@ class Bucket {
 
   /**
    * \overload
-   *
-   * \param \ctx{Put}
+   * \param name BLOB name
+   * \param data BLOB data
+   * \param size BLOB size
+   * \param ctx context
    */
   Status Put(const std::string &name, const u8 *data, size_t size,
              const Context &ctx);
@@ -168,7 +171,9 @@ class Bucket {
 
   /** \overload
    *
-   * \param \ctx{Put}
+   * \param names BLOB names
+   * \param blobs BLOB data
+   * \param ctx context
    */
   template <typename T>
   Status Put(const std::vector<std::string> &names,
@@ -177,13 +182,15 @@ class Bucket {
   /** \brief Get the size in bytes of the Blob referred to by \p name.
    *
    * \param name The name of the Blob to query.
-   * \param \ctx{call}
+   * \param ctx context
    */
   size_t GetBlobSize(const std::string &name, const Context &ctx);
 
   /** \overload
    *
    * \param arena An Arena backed by allocated memory.
+   * \param name The name of the Blob to query.
+   * \param ctx context
    */
   size_t GetBlobSize(Arena *arena, const std::string &name, const Context &ctx);
 
@@ -202,7 +209,9 @@ class Bucket {
 
   /** \overload
    *
-   * \param \ctx{Get}
+   * \param name The name of the Blob to get.
+   * \param user_blob User-provided storage for the retrieved Blob.   
+   * \param ctx context
    */
   size_t Get(const std::string &name, Blob &user_blob, const Context &ctx);
 
@@ -241,13 +250,18 @@ class Bucket {
 
   /** \overload
    *
-   * \param \ctx{call}
+   * \param blob_index The starting index.
+   * \param user_blob User-provided memory for the Blob.   
+   * \param ctx context
    */
   size_t GetNext(u64 blob_index, Blob &user_blob, const Context &ctx);
 
   /** \overload
    *
-   * \param \ctx{call}
+   * \param blob_index The starting index.
+   * \param user_blob User-provided memory for the Blob.
+   * \param blob_size Blob size
+   * \param ctx context
    */
   size_t GetNext(u64 blob_index, void *user_blob, size_t blob_size,
                  const Context &ctx);
@@ -279,7 +293,8 @@ class Bucket {
 
   /** \overload
    *
-   * \param \ctx{call}
+   * \param name The name of the Blob to delete.   
+   * \param ctx context
    */
   Status DeleteBlob(const std::string &name, const Context &ctx);
 
@@ -296,7 +311,9 @@ class Bucket {
 
   /** \overload
    *
-   * \param \ctx{call}
+   * \param old_name The Blob to rename.
+   * \param new_name The desired new name of the Blob.
+   * \param ctx context
    */
   Status RenameBlob(const std::string &old_name, const std::string &new_name,
                     const Context &ctx);
@@ -337,7 +354,8 @@ class Bucket {
 
   /** \overload
    *
-   * \param \ctx{call}.
+   * \param new_name A new name for the Bucket.   
+   * \param ctx context
    */
   Status Rename(const std::string &new_name, const Context &ctx);
 
@@ -345,15 +363,15 @@ class Bucket {
    *
    * The blobs are written in the same order in which they were \p Put.
    *
-   * \param file_name The name of the file to persist the Blob%s to.
+   * \param file_name The name of the file to persist the Blob's to.
    *
    * \return \status
    */
   Status Persist(const std::string &file_name);
 
   /** \overload
-   *
-   * \param \ctx{call}.
+   * \param file_name The name of the file to persist the Blob's to.
+   * \param ctx context
    */
   Status Persist(const std::string &file_name, const Context &ctx);
 
@@ -393,7 +411,7 @@ class Bucket {
 
   /** \brief Destroy this Bucket.
    *
-   * Deletes all metadata and Blob%s associated with this Bucket.
+   * Deletes all metadata and Blob's associated with this Bucket.
    *
    * \pre The Bucket must have a reference count of 1. Other ranks must first
    * Bucket::Close the Bucket.
