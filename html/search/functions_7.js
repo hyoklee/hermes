@@ -10,5 +10,5 @@ var searchData=
   ['heappushstruct_999',['HeapPushStruct',['../memory__management_8h.html#a60c1e09296fea0acd1dc8c2e387f455f',1,'hermes']]],
   ['heaprealloc_1000',['HeapRealloc',['../memory__management_8cc.html#ae4831b5cb2cd6ffbbdad594c8e655bff',1,'hermes']]],
   ['hermes_1001',['Hermes',['../classhermes_1_1api_1_1_hermes.html#acb45c1c44b10505d070264998650f3d7',1,'hermes::api::Hermes']]],
-  ['hermesstruct_1002',['HermesStruct',['../structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html#a8b2d57ae9e51c09fe2e8f38990048475',1,'hermes::adapter::mpiio::HermesStruct::HermesStruct()'],['../structhermes_1_1adapter_1_1posix_1_1_hermes_struct.html#a67d119c0e5bb564b396fc2e5ad078347',1,'hermes::adapter::posix::HermesStruct::HermesStruct()'],['../structhermes_1_1adapter_1_1stdio_1_1_hermes_struct.html#a789f7c98a26c7604a7c8fe8d021affb9',1,'hermes::adapter::stdio::HermesStruct::HermesStruct()']]]
+  ['hermesstruct_1002',['HermesStruct',['../structhermes_1_1adapter_1_1mpiio_1_1_hermes_struct.html#a8b2d57ae9e51c09fe2e8f38990048475',1,'hermes::adapter::mpiio::HermesStruct::HermesStruct()'],['../structhermes_1_1adapter_1_1posix_1_1_hermes_struct.html#a67d119c0e5bb564b396fc2e5ad078347',1,'hermes::adapter::posix::HermesStruct::HermesStruct()']]]
 ];

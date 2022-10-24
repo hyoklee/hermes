@@ -1,7 +1,6 @@
 var structhermes_1_1adapter_1_1stdio_1_1_adapter_stat =
 [
     [ "AdapterStat", "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html#a1ad780e0b4a817e631a7920b26166c15", null ],
-    [ "AdapterStat", "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html#ad250aab839c49017efe40f2d72fa1da4", null ],
     [ "CompareBlobs", "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html#acde39b5ff37617f043f6e4909e9ec1d6", null ],
     [ "st_bkid", "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html#a0167797ce0e7135eef4eea3bdb684758", null ],
     [ "st_vbkt", "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html#a85f90f2d40981c9f82252a7d2b4a5562", null ],
