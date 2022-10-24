@@ -55,9 +55,13 @@ class RoundRobin : public DPE {
   /** Initialize the static variable for devices*/
   static void InitDevices(hermes::Config *config,
                           std::shared_ptr<api::Hermes> result);
+  /** Initialize \a count devices with \a start_val value */
   static void InitDevices(int count, int start_val = 0);
 
  private:
+  /**
+     add placement schema to \a output
+   */
   Status AddSchema(size_t index, std::vector<u64> &node_state,
                    const std::vector<size_t> &blob_sizes,
                    const std::vector<TargetID> &targets,
