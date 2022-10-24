@@ -205,10 +205,9 @@ var NAVTREEINDEX4 =
 "structhermes_1_1adapter_1_1posix_1_1_hermes_struct.html#aff75ca5c906bba0d5207d956d039652a":[3,0,1,0,1,5,1],
 "structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html":[3,0,1,0,2,0],
 "structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html#a6e1e8d668a4fe796ee213511747c588a":[3,0,1,0,2,0,0],
-"structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html#abf045a82f29a27c9e6924586b973d8d9":[3,0,1,0,2,0,2],
-"structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html#abf074b22ebebe6db2a157af58bf391e1":[3,0,1,0,2,0,1],
-"structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html#ae4457b1474dd4d16721077d904383cb3":[3,0,1,0,2,0,4],
-"structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html#af18275ee3ca3ec958fda89b89cd5a457":[3,0,1,0,2,0,3],
+"structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html#abf045a82f29a27c9e6924586b973d8d9":[3,0,1,0,2,0,1],
+"structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html#ae4457b1474dd4d16721077d904383cb3":[3,0,1,0,2,0,3],
+"structhermes_1_1adapter_1_1pubsub_1_1_client_metadata.html#af18275ee3ca3ec958fda89b89cd5a457":[3,0,1,0,2,0,2],
 "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html":[3,0,1,0,3,1],
 "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html#a0031a822adbc954843b6f2fb09d2df9e":[3,0,1,0,3,1,6],
 "structhermes_1_1adapter_1_1stdio_1_1_adapter_stat.html#a0167797ce0e7135eef4eea3bdb684758":[3,0,1,0,3,1,3],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "structhermes_1_1adapter_1_1stdio_1_1_hermes_struct.html#a19b12ea2f145ccffe485d7aa106e2d1a":[3,0,1,0,3,5,5],
 "structhermes_1_1adapter_1_1stdio_1_1_hermes_struct.html#a4ad83d4363fbe9f86c4aff0684d8d6f8":[3,0,1,0,3,5,1],
 "structhermes_1_1adapter_1_1stdio_1_1_hermes_struct.html#a5f6da5d890a49bb92f72c284461350bc":[3,0,1,0,3,5,2],
-"structhermes_1_1adapter_1_1stdio_1_1_hermes_struct.html#a789f7c98a26c7604a7c8fe8d021affb9":[3,0,1,0,3,5,0]
+"structhermes_1_1adapter_1_1stdio_1_1_hermes_struct.html#a789f7c98a26c7604a7c8fe8d021affb9":[3,0,1,0,3,5,0],
+"structhermes_1_1adapter_1_1stdio_1_1_hermes_struct.html#ac1799b46865dfcd1d528c7dffacf8c87":[3,0,1,0,3,5,6]
 };
