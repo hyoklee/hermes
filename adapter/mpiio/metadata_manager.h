@@ -51,7 +51,7 @@ class MetadataManager {
    * MPI attributes
    */
   int rank;
-  int comm_size;
+  int comm_size;                /**< number of MPI processors */
   /**
    * Maintain a local metadata MPI_Request and HermesRequest.
    */
@@ -101,9 +101,9 @@ class MetadataManager {
 
   /**
    * Create a metadata entry for MPIIO adapter for a given file handler.
-   * @param fh, FILE*, original file handler of the file on the destination
+   * @param fh original file handler of the file on the destination
    * filesystem.
-   * @param stat, AdapterStat, MPIIO Adapter version of Stat data structure.
+   * @param stat MPIIO Adapter version of Stat data structure.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
@@ -111,8 +111,8 @@ class MetadataManager {
 
   /**
    * Update existing metadata entry for MPIIO adapter for a given file handler.
-   * @param fh, FILE*, original file handler of the file on the destination.
-   * @param stat, AdapterStat, MPIIO Adapter version of Stat data structure.
+   * @param fh original file handler of the file on the destination.
+   * @param stat MPIIO Adapter version of Stat data structure.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful or entry doesn't exist.
    */
@@ -120,7 +120,7 @@ class MetadataManager {
 
   /**
    * Delete existing metadata entry for MPIIO adapter for a given file handler.
-   * @param fh, FILE*, original file handler of the file on the destination.
+   * @param fh original file handler of the file on the destination.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
@@ -128,21 +128,21 @@ class MetadataManager {
 
   /**
    * Find existing metadata entry for MPIIO adapter for a given file handler.
-   * @param fh, FILE*, original file handler of the file on the destination.
+   * @param fh original file handler of the file on the destination.
    * @return    The metadata entry if exist.
    *            The bool in pair indicated whether metadata entry exists.
    */
   std::pair<AdapterStat, bool> Find(MPI_File* fh);
   /**
    * Encode a given Hermes Struct from Mapping engine to Local Blob Name.
-   * @param hermes_struct, HermesStruct, structure containing hermes
+   * @param hermes_struct structure containing hermes
    * representatrion of file.
    * @return string encoded with process local information.
    */
   std::string EncodeBlobNameLocal(HermesStruct hermes_struct);
   /**
    * Decodes a encoded blob name string into hermesstruct
-   * @param encoded_blob_name, std::string, encoded blob name string.
+   * @param encoded_blob_name encoded blob name string.
    * @return hermes struct with blob_name, rank, offset, and size
    */
   std::pair<int, HermesStruct> DecodeBlobNameLocal(
