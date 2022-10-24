@@ -207,13 +207,13 @@ struct ScopedTemporaryMemory {
 };
 
 /**
-  return a temporary memory that points to \a arena Arena 
- */  
+  return a temporary memory that points to \a arena Arena
+ */
 TemporaryMemory BeginTemporaryMemory(Arena *arena);
 
 /**
   copy \a temp_memory usage information back to its arena.
- */  
+ */
 void EndTemporaryMemory(TemporaryMemory *temp_memory);
 
 /**
