@@ -51,7 +51,7 @@ class MetadataManager {
    * MPI attributes
    */
   int rank;
-  int comm_size;                /**< number of MPI processors */
+  int comm_size; /**< number of MPI processors */
   /**
    * Maintain a local metadata MPI_Request and HermesRequest.
    */
