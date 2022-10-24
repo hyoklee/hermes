@@ -32,9 +32,12 @@ inline bool is_dotdot(const fs::path& path) {
 
 namespace hermes {
 namespace adapter {
-
-// NOTE(chogan): Back port of the C++17 standard fileystem implementation from
-// gcc 9.1 to support gcc 7
+/**
+ * normalize \a path 
+ *
+ * \note (chogan): Back port of the C++17 standard fileystem implementation from
+ * gcc 9.1 to support gcc 7
+*/
 fs::path LexicallyNormal(fs::path &path) {
   /*
   C++17 [fs.path.generic] p6
@@ -122,7 +125,10 @@ fs::path LexicallyNormal(fs::path &path) {
   return ret;
 }
 
-// NOTE(chogan): Backported from GCC 9
+/**
+  convert path \a p to a canonical absolute path
+  \note (chogan): Backported from GCC 9
+*/
 fs::path WeaklyCanonical(const fs::path& p) {
   fs::path result;
   if (fs::exists(fs::status(p))) {
@@ -152,8 +158,10 @@ fs::path WeaklyCanonical(const fs::path& p) {
   // normalize:
   return LexicallyNormal(result);
 }
-
-// NOTE(chogan): Backported from GCC 9
+/**
+  convert path \a p to a canonical absolute path with \a ec error code
+  \note (chogan): Backported from GCC 9
+*/
 fs::path WeaklyCanonical(const fs::path& p, std::error_code& ec) {
   fs::path result;
   fs::file_status st = fs::status(p, ec);
@@ -199,6 +207,9 @@ fs::path WeaklyCanonical(const fs::path& p, std::error_code& ec) {
   return result;
 }
 
+/**
+   Read gap from the original file when BLOB has a gap in write.
+ */     
 void ReadGap(const std::string &filename, size_t seek_offset, u8 *read_ptr,
              size_t read_size, size_t file_bounds) {
   if (fs::exists(filename) &&
