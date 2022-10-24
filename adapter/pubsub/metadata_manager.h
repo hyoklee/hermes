@@ -47,7 +47,7 @@ class MetadataManager {
   std::atomic<size_t> ref;
 
  public:
-  int mpi_rank;
+  int mpi_rank;                 /**< rank of MPI processor */
   /**
    * Constructor
    */
@@ -85,12 +85,15 @@ class MetadataManager {
     ref--;
   }
 
+  /**
+     check if this application is client or core
+   */
   bool isClient() { return hermes->IsApplicationCore(); }
 
   /**
    * \brief Create a metadata entry for pubsub adapter for a given topic.
-   * \param topic, std::string&, name of the managed topic.
-   * \param stat, ClientMetadata&, current metadata of the topic.
+   * \param topic name of the managed topic.
+   * \param stat  current metadata of the topic.
    * \return true, if operation was successful.
    *         false, if operation was unsuccessful.
    */
@@ -98,26 +101,32 @@ class MetadataManager {
 
   /**
    * \brief Update existing metadata entry for pubsub adapter for a given file
-   * handler. \param topic, std::string&, name of the managed topic. \param
-   * stat, ClientMetadata&, current metadata of the topic to replace previous
-   * one. \return true, if operation was successful. false, if operation was
-   * unsuccessful or entry doesn't exist. \remark Update call will not
-   * degenerate into a create call if topic is not being tracked.
+   * handler.
+   * \param topic name of the managed topic.
+   * \param stat current metadata of the topic to replace previous one.
+   * \return true, if operation was successful.
+   *         false, if operation was unsuccessful or entry doesn't exist.
+   * \remark Update call will not degenerate into a create call
+   *         if topic is not being tracked.
    */
   bool Update(const std::string& topic, const ClientMetadata& stat);
 
   /**
    * \brief Delete existing metadata entry for pubsub adapter for a given file
-   * handler. \param topic, std::string&, name of the managed topic. \return
-   * true, if operation was successful. false, if operation was unsuccessful.
+   * handler.
+   * \param topic name of the managed topic.
+   * \return true, if operation was successful.
+   *         false, if operation was unsuccessful.
    */
   bool Delete(const std::string& topic);
 
   /**
    * \brief Find existing metadata entry for pubsub adapter for a given file
-   * handler. \param topic, std::string&, name of the managed topic. \return The
-   * metadata entry if exist. The bool in pair indicated whether metadata entry
-   * exists.
+   * handler.
+   * \param topic name of the managed topic.
+   * \return The metadata entry if exist.
+   *
+   * The bool in pair indicates whether metadata entry exists or not.
    */
   std::pair<ClientMetadata, bool> Find(const std::string& topic);
 };
