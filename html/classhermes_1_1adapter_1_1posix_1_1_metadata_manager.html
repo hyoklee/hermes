@@ -125,11 +125,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a2e2cf745472a8012aadd9afac9b9bfd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e498e9406c73715cae4c55533389a01"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#a4e498e9406c73715cae4c55533389a01">is_mpi</a></td></tr>
 <tr class="separator:a4e498e9406c73715cae4c55533389a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2ef17b92eb3f62fe896eb25d6540f3d"><td class="memItemLeft" align="right" valign="top"><a id="ab2ef17b92eb3f62fe896eb25d6540f3d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>rank</b></td></tr>
+<tr class="memitem:ab2ef17b92eb3f62fe896eb25d6540f3d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ab2ef17b92eb3f62fe896eb25d6540f3d">rank</a></td></tr>
 <tr class="separator:ab2ef17b92eb3f62fe896eb25d6540f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a191c69cf83f87dd3e05f1640a1f59227"><td class="memItemLeft" align="right" valign="top"><a id="a191c69cf83f87dd3e05f1640a1f59227"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>comm_size</b></td></tr>
+<tr class="memitem:a191c69cf83f87dd3e05f1640a1f59227"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#a191c69cf83f87dd3e05f1640a1f59227">comm_size</a></td></tr>
 <tr class="separator:a191c69cf83f87dd3e05f1640a1f59227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -299,8 +297,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Create a metadata entry for POSIX adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fh,int,original</td><td>file handler of the file on the destination filesystem. </td></tr>
-    <tr><td class="paramname">stat,<a class="el" href="structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html">AdapterStat</a>,POSIX</td><td>Adapter version of Stat data structure. </td></tr>
+    <tr><td class="paramname">fh</td><td>original file handler of the file on the destination filesystem. </td></tr>
+    <tr><td class="paramname">stat</td><td>POSIX Adapter version of Stat data structure. </td></tr>
   </table>
   </dd>
 </dl>
@@ -344,8 +342,8 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Update existing metadata entry for POSIX adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fh,int,original</td><td>file handler of the file on the destination. </td></tr>
-    <tr><td class="paramname">stat,<a class="el" href="structhermes_1_1adapter_1_1posix_1_1_adapter_stat.html">AdapterStat</a>,POSIX</td><td>Adapter version of Stat data structure. </td></tr>
+    <tr><td class="paramname">fh</td><td>original file handler of the file on the destination. </td></tr>
+    <tr><td class="paramname">stat</td><td>POSIX Adapter version of Stat data structure. </td></tr>
   </table>
   </dd>
 </dl>
@@ -379,7 +377,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Delete existing metadata entry for POSIX adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fh,int,original</td><td>file handler of the file on the destination. </td></tr>
+    <tr><td class="paramname">fh</td><td>original file handler of the file on the destination. </td></tr>
   </table>
   </dd>
 </dl>
@@ -413,7 +411,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Find existing metadata entry for POSIX adapter for a given file handler. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fh,int,original</td><td>file handler of the file on the destination. </td></tr>
+    <tr><td class="paramname">fh</td><td>original file handler of the file on the destination. </td></tr>
   </table>
   </dd>
 </dl>
@@ -519,7 +517,53 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>MPI attributes </p>
+<p>flag for checking if MPI is used </p>
+
+</div>
+</div>
+<a id="ab2ef17b92eb3f62fe896eb25d6540f3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2ef17b92eb3f62fe896eb25d6540f3d">&#9670;&nbsp;</a></span>rank</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hermes::adapter::posix::MetadataManager::rank</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>rank of MPI processor </p>
+
+</div>
+</div>
+<a id="a191c69cf83f87dd3e05f1640a1f59227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a191c69cf83f87dd3e05f1640a1f59227">&#9670;&nbsp;</a></span>comm_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hermes::adapter::posix::MetadataManager::comm_size</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>number of MPI processors </p>
 
 </div>
 </div>
