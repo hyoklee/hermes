@@ -39,5 +39,6 @@ var searchData=
   ['isnullbufferid_358',['IsNullBufferId',['../buffer__pool_8cc.html#a83dbab7423f951b8a1c39bead7471b50',1,'hermes']]],
   ['isoptimal_359',['IsOptimal',['../classhermes_1_1_linear_program.html#af9becc74f4dde9833726e94acaa17abd',1,'hermes::LinearProgram']]],
   ['ispoweroftwo_360',['IsPowerOfTwo',['../memory__management_8cc.html#ab0540547920ce06d86e36a9022ec35e4',1,'hermes']]],
-  ['isvalid_361',['IsValid',['../classhermes_1_1api_1_1_bucket.html#ab0f3448f247972e09644d405e84b71f7',1,'hermes::api::Bucket::IsValid()'],['../classhermes_1_1api_1_1_v_bucket.html#afeba35fbbfdd9a2cf97dfea19dc846c2',1,'hermes::api::VBucket::IsValid()']]]
+  ['istracked_361',['IsTracked',['../namespacehermes_1_1adapter.html#a7fbf6cf088a73d571bdb2a8f6a843a9f',1,'hermes::adapter::IsTracked(const std::string &amp;path)'],['../namespacehermes_1_1adapter.html#ac34fe701c5827f54980600810863d669',1,'hermes::adapter::IsTracked(FILE *fh)'],['../namespacehermes_1_1adapter.html#a076dd6aa28d504d3556f72a4140b40f0',1,'hermes::adapter::IsTracked(int fd)']]],
+  ['isvalid_362',['IsValid',['../classhermes_1_1api_1_1_bucket.html#ab0f3448f247972e09644d405e84b71f7',1,'hermes::api::Bucket::IsValid()'],['../classhermes_1_1api_1_1_v_bucket.html#afeba35fbbfdd9a2cf97dfea19dc846c2',1,'hermes::api::VBucket::IsValid()']]]
 ];
