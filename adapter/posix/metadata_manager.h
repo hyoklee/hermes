@@ -49,9 +49,9 @@ class MetadataManager {
   /*
    * MPI attributes
    */
-  bool is_mpi;                  /**< flag for checking if MPI is used */
-  int rank;                     /**< rank of MPI processor */
-  int comm_size;                /**< number of MPI processors */
+  bool is_mpi;   /**< flag for checking if MPI is used */
+  int rank;      /**< rank of MPI processor */
+  int comm_size; /**< number of MPI processors */
 
  public:
   /**
