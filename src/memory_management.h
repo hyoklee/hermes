@@ -42,8 +42,8 @@ struct TicketMutex {
  A structure to represent ticket
 */
 struct Ticket {
-  u32 ticket;    /**< ticket number */
-  bool acquired; /**< is ticket acquired? */
+  u32 ticket;                               /**< ticket number */
+  bool acquired;                            /**< is ticket acquired? */
   Ticket() : ticket(-1), acquired(false) {} /**< constructor */
 };
 

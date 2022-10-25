@@ -21,8 +21,8 @@
 
 #include "constants.h"
 #include "enumerations.h"
-#include "interceptor.h"
 #include "filesystem.h"
+#include "interceptor.h"
 
 namespace hermes::adapter::fs {
 /**
@@ -40,9 +40,9 @@ class MetadataManager {
  public:
   /** map for Hermes request */
   std::unordered_map<uint64_t, HermesRequest*> request_map;
-  bool is_mpi;                /**< flag for checking if MPI is used */
-  int rank;                   /**< rank of MPI processor */
-  int comm_size;              /**< number of MPI processors */
+  bool is_mpi;   /**< flag for checking if MPI is used */
+  int rank;      /**< rank of MPI processor */
+  int comm_size; /**< number of MPI processors */
 
   /**
    * Constructor
@@ -119,7 +119,7 @@ class MetadataManager {
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
-  bool Create(const File &f, const AdapterStat& stat);
+  bool Create(const File& f, const AdapterStat& stat);
 
   /**
    * Update existing metadata entry for POSIX adapter for a given file handler.
@@ -128,7 +128,7 @@ class MetadataManager {
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful or entry doesn't exist.
    */
-  bool Update(const File &f, const AdapterStat& stat);
+  bool Update(const File& f, const AdapterStat& stat);
 
   /**
    * Delete existing metadata entry for POSIX adapter for a given file handler.
@@ -136,7 +136,7 @@ class MetadataManager {
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
-  bool Delete(const File &f);
+  bool Delete(const File& f);
 
   /**
    * Find existing metadata entry for POSIX adapter for a given file handler.
@@ -144,7 +144,7 @@ class MetadataManager {
    * @return    The metadata entry if exist.
    *            The bool in pair indicated whether metadata entry exists.
    */
-  std::pair<AdapterStat, bool> Find(const File &f);
+  std::pair<AdapterStat, bool> Find(const File& f);
 };
 }  // namespace hermes::adapter::fs
 

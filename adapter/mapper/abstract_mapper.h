@@ -30,16 +30,14 @@ enum MapperType {
 };
 
 struct BlobPlacement {
-  int rank_;                 // The rank of the process producing the blob
-  size_t page_;              // The index in the array placements
-  size_t bucket_off_;        // Offset from file start (for FS)
-  size_t blob_off_;          // Offset from blob start
-  size_t blob_size_;         // Size after offset to read
-  int time_;                 // The order of the blob in a list of blobs
+  int rank_;           // The rank of the process producing the blob
+  size_t page_;        // The index in the array placements
+  size_t bucket_off_;  // Offset from file start (for FS)
+  size_t blob_off_;    // Offset from blob start
+  size_t blob_size_;   // Size after offset to read
+  int time_;           // The order of the blob in a list of blobs
 
-  std::string CreateBlobName() const {
-    return std::to_string(page_);
-  }
+  std::string CreateBlobName() const { return std::to_string(page_); }
 
   void DecodeBlobName(const std::string &blob_name) {
     std::stringstream(blob_name) >> page_;
@@ -56,8 +54,7 @@ struct BlobPlacement {
   }
 
   void DecodeBlobNamePerProc(const std::string &blob_name) {
-    auto str_split =
-        hermes::adapter::StringSplit(blob_name.data(), '#');
+    auto str_split = hermes::adapter::StringSplit(blob_name.data(), '#');
     std::stringstream(str_split[0]) >> page_;
     std::stringstream(str_split[1]) >> blob_off_;
     std::stringstream(str_split[2]) >> blob_size_;

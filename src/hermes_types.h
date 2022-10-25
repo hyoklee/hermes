@@ -71,10 +71,10 @@ typedef std::vector<unsigned char> Blob;
 
 /** Supported data placement policies */
 enum class PlacementPolicy {
-  kRandom,          /**< Random blob placement */
-  kRoundRobin,      /**< Round-Robin (around devices) blob placement */
-  kMinimizeIoTime,  /**< LP-based blob placement, minimize I/O time */
-  kNone,            /**< No DPE for cases we want it disabled */
+  kRandom,         /**< Random blob placement */
+  kRoundRobin,     /**< Round-Robin (around devices) blob placement */
+  kMinimizeIoTime, /**< LP-based blob placement, minimize I/O time */
+  kNone,           /**< No DPE for cases we want it disabled */
 };
 
 /**

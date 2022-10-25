@@ -13,10 +13,10 @@
 #ifndef HERMES_ADAPTER_FACTORY_H
 #define HERMES_ADAPTER_FACTORY_H
 
-#include "singleton.h"
 #include "abstract_mapper.h"
-#include "balanced_mapper.h"
 #include "balanced_mapper.cc"
+#include "balanced_mapper.h"
+#include "singleton.h"
 
 namespace hermes::adapter {
 /**
@@ -30,7 +30,7 @@ class MapperFactory {
    * @param[in] type type of mapper to be used by the POSIX adapter.
    * @return Instance of mapper given a type.
    */
-  AbstractMapper* Get(const MapperType &type) {
+  AbstractMapper* Get(const MapperType& type) {
     switch (type) {
       case MapperType::BALANCED: {
         return hermes::Singleton<BalancedMapper>::GetInstance();

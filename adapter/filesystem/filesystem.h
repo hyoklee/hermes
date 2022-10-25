@@ -1,29 +1,31 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Distributed under BSD 3-Clause license.                                   *
-* Copyright by The HDF Group.                                               *
-* Copyright by the Illinois Institute of Technology.                        *
-* All rights reserved.                                                      *
-*                                                                           *
-* This file is part of Hermes. The full Hermes copyright notice, including  *
-* terms governing use, modification, and redistribution, is contained in    *
-* the COPYING file, which can be found at the top directory. If you do not  *
-* have access to the file, you may request a copy from help@hdfgroup.org.   *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ * Distributed under BSD 3-Clause license.                                   *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Illinois Institute of Technology.                        *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of Hermes. The full Hermes copyright notice, including  *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the COPYING file, which can be found at the top directory. If you do not  *
+ * have access to the file, you may request a copy from help@hdfgroup.org.   *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef HERMES_ADAPTER_FILESYSTEM_FILESYSTEM_H_
 #define HERMES_ADAPTER_FILESYSTEM_FILESYSTEM_H_
 
-#include "enumerations.h"
-#include <ftw.h>
-#include <string>
 #include <bucket.h>
-#include <vbucket.h>
 #include <buffer_pool.h>
+#include <ftw.h>
 #include <hermes_types.h>
-#include <traits.h>
-#include "mapper/mapper_factory.h"
 #include <mpi.h>
+#include <traits.h>
+#include <vbucket.h>
+
 #include <set>
+#include <string>
+
+#include "enumerations.h"
+#include "mapper/mapper_factory.h"
 
 namespace hapi = hermes::api;
 
@@ -65,7 +67,7 @@ struct AdapterStat {
   std::string mode_str; /* mode used for fopen() */
 
   bool is_append; /* File is in append mode */
-  int amode;     /* access mode */
+  int amode;      /* access mode */
   MPI_Info info;  /* Info object (handle) */
   MPI_Comm comm;  /* Communicator for the file.*/
   bool atomicity; /* Consistency semantics for data-access */
@@ -104,17 +106,16 @@ struct File {
   bool status_;
   int mpi_status_;
 
-  File() : fd_(-1),
-           fh_(nullptr),
-           mpi_fh_(nullptr),
-           st_dev(-1),
-           st_ino(-1),
-           status_(true),
-           mpi_status_(MPI_SUCCESS) {}
+  File()
+      : fd_(-1),
+        fh_(nullptr),
+        mpi_fh_(nullptr),
+        st_dev(-1),
+        st_ino(-1),
+        status_(true),
+        mpi_status_(MPI_SUCCESS) {}
 
-  File(const File &old) {
-    Copy(old);
-  }
+  File(const File &old) { Copy(old); }
 
   File &operator=(const File &old) {
     Copy(old);
@@ -152,12 +153,13 @@ struct IoOptions {
   bool with_fallback_;
   MPI_Datatype mpi_type_;
   int count_;
-  IoOptions() :
-                dpe_(PlacementPolicy::kNone),
-                coordinate_(true),
-                seek_(true),
-                with_fallback_(true),
-                mpi_type_(MPI_CHAR), count_(0) {}
+  IoOptions()
+      : dpe_(PlacementPolicy::kNone),
+        coordinate_(true),
+        seek_(true),
+        with_fallback_(true),
+        mpi_type_(MPI_CHAR),
+        count_(0) {}
 
   static IoOptions WithParallelDpe(PlacementPolicy dpe) {
     IoOptions opts;
@@ -217,28 +219,32 @@ struct BlobPlacementIter {
                              const std::string &filename,
                              const BlobPlacement &p,
                              std::shared_ptr<hapi::Bucket> &bkt,
-                             IoStatus &io_status,
-                             IoOptions &opts) :
-        f_(f), stat_(stat), filename_(filename),
-        p_(p), bkt_(bkt), io_status_(io_status), opts_(opts) {}
+                             IoStatus &io_status, IoOptions &opts)
+      : f_(f),
+        stat_(stat),
+        filename_(filename),
+        p_(p),
+        bkt_(bkt),
+        io_status_(io_status),
+        opts_(opts) {}
 };
 
 class Filesystem {
  public:
   File Open(AdapterStat &stat, const std::string &path);
   void Open(AdapterStat &stat, File &f, const std::string &path);
-  size_t Write(File &f, AdapterStat &stat, const void *ptr,
-               size_t off, size_t total_size, IoStatus &io_status,
+  size_t Write(File &f, AdapterStat &stat, const void *ptr, size_t off,
+               size_t total_size, IoStatus &io_status,
                IoOptions opts = IoOptions());
-  size_t Read(File &f, AdapterStat &stat, void *ptr,
-              size_t off, size_t total_size, IoStatus &io_status,
+  size_t Read(File &f, AdapterStat &stat, void *ptr, size_t off,
+              size_t total_size, IoStatus &io_status,
               IoOptions opts = IoOptions());
-  HermesRequest* AWrite(File &f, AdapterStat &stat, const void *ptr,
-             size_t off, size_t total_size, size_t req_id,
-             IoStatus &io_status, IoOptions opts = IoOptions());
-  HermesRequest* ARead(File &f, AdapterStat &stat, void *ptr,
-            size_t off, size_t total_size, size_t req_id,
-            IoStatus &io_status, IoOptions opts = IoOptions());
+  HermesRequest *AWrite(File &f, AdapterStat &stat, const void *ptr, size_t off,
+                        size_t total_size, size_t req_id, IoStatus &io_status,
+                        IoOptions opts = IoOptions());
+  HermesRequest *ARead(File &f, AdapterStat &stat, void *ptr, size_t off,
+                       size_t total_size, size_t req_id, IoStatus &io_status,
+                       IoOptions opts = IoOptions());
   size_t Wait(uint64_t req_id);
   void Wait(std::vector<uint64_t> &req_id, std::vector<size_t> &ret);
   off_t Seek(File &f, AdapterStat &stat, SeekMode whence, off_t offset);
@@ -301,10 +307,12 @@ class Filesystem {
                             size_t size, const u8 *data_ptr,
                             IoStatus &io_status, IoOptions &opts) = 0;
   virtual size_t _RealRead(const std::string &filename, off_t offset,
-                           size_t size, u8 *data_ptr,
-                           IoStatus &io_status, IoOptions &opts) = 0;
+                           size_t size, u8 *data_ptr, IoStatus &io_status,
+                           IoOptions &opts) = 0;
   virtual void _IoStats(size_t count, IoStatus &io_status, IoOptions &opts) {
-    (void) count; (void) io_status; (void) opts;
+    (void)count;
+    (void)io_status;
+    (void)opts;
   }
   virtual int _RealSync(File &f) = 0;
   virtual int _RealClose(File &f) = 0;
@@ -315,16 +323,15 @@ class Filesystem {
    * */
 
  public:
-  size_t Write(File &f, AdapterStat &stat, const void *ptr,
-               size_t total_size, IoStatus &io_status, IoOptions opts);
-  size_t Read(File &f, AdapterStat &stat, void *ptr,
-              size_t total_size, IoStatus &io_status, IoOptions opts);
-  HermesRequest* AWrite(File &f, AdapterStat &stat, const void *ptr,
-             size_t total_size, size_t req_id,
-             IoStatus &io_status, IoOptions opts);
-  HermesRequest* ARead(File &f, AdapterStat &stat, void *ptr,
-            size_t total_size, size_t req_id,
-            IoStatus &io_status, IoOptions opts);
+  size_t Write(File &f, AdapterStat &stat, const void *ptr, size_t total_size,
+               IoStatus &io_status, IoOptions opts);
+  size_t Read(File &f, AdapterStat &stat, void *ptr, size_t total_size,
+              IoStatus &io_status, IoOptions opts);
+  HermesRequest *AWrite(File &f, AdapterStat &stat, const void *ptr,
+                        size_t total_size, size_t req_id, IoStatus &io_status,
+                        IoOptions opts);
+  HermesRequest *ARead(File &f, AdapterStat &stat, void *ptr, size_t total_size,
+                       size_t req_id, IoStatus &io_status, IoOptions opts);
 
   /*
    * Locates the AdapterStat data structure internally, and
@@ -332,38 +339,34 @@ class Filesystem {
    * */
 
  public:
-  size_t Write(File &f, bool &stat_exists, const void *ptr,
+  size_t Write(File &f, bool &stat_exists, const void *ptr, size_t total_size,
+               IoStatus &io_status, IoOptions opts = IoOptions());
+  size_t Read(File &f, bool &stat_exists, void *ptr, size_t total_size,
+              IoStatus &io_status, IoOptions opts = IoOptions());
+  size_t Write(File &f, bool &stat_exists, const void *ptr, size_t off,
                size_t total_size, IoStatus &io_status,
                IoOptions opts = IoOptions());
-  size_t Read(File &f, bool &stat_exists, void *ptr,
+  size_t Read(File &f, bool &stat_exists, void *ptr, size_t off,
               size_t total_size, IoStatus &io_status,
               IoOptions opts = IoOptions());
-  size_t Write(File &f, bool &stat_exists, const void *ptr,
-               size_t off, size_t total_size, IoStatus &io_status,
-               IoOptions opts = IoOptions());
-  size_t Read(File &f, bool &stat_exists, void *ptr,
-              size_t off, size_t total_size, IoStatus &io_status,
-              IoOptions opts = IoOptions());
 
-  HermesRequest* AWrite(File &f, bool &stat_exists, const void *ptr,
-             size_t total_size, size_t req_id,
-             IoStatus &io_status, IoOptions opts);
-  HermesRequest* ARead(File &f, bool &stat_exists, void *ptr,
-            size_t total_size, size_t req_id,
-            IoStatus &io_status, IoOptions opts);
-  HermesRequest* AWrite(File &f, bool &stat_exists, const void *ptr,
-             size_t off, size_t total_size, size_t req_id,
-             IoStatus &io_status, IoOptions opts);
-  HermesRequest* ARead(File &f, bool &stat_exists, void *ptr,
-            size_t off, size_t total_size, size_t req_id,
-            IoStatus &io_status, IoOptions opts);
+  HermesRequest *AWrite(File &f, bool &stat_exists, const void *ptr,
+                        size_t total_size, size_t req_id, IoStatus &io_status,
+                        IoOptions opts);
+  HermesRequest *ARead(File &f, bool &stat_exists, void *ptr, size_t total_size,
+                       size_t req_id, IoStatus &io_status, IoOptions opts);
+  HermesRequest *AWrite(File &f, bool &stat_exists, const void *ptr, size_t off,
+                        size_t total_size, size_t req_id, IoStatus &io_status,
+                        IoOptions opts);
+  HermesRequest *ARead(File &f, bool &stat_exists, void *ptr, size_t off,
+                       size_t total_size, size_t req_id, IoStatus &io_status,
+                       IoOptions opts);
 
   off_t Seek(File &f, bool &stat_exists, SeekMode whence, off_t offset);
   off_t Tell(File &f, bool &stat_exists);
   int Sync(File &f, bool &stat_exists);
   int Close(File &f, bool &stat_exists, bool destroy = true);
 };
-
 
 }  // namespace hermes::adapter::fs
 

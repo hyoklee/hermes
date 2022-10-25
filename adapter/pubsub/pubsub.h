@@ -33,7 +33,6 @@
 #include "../constants.h"
 #include "singleton.h"
 
-
 namespace hermes::pubsub {
 
 /**
