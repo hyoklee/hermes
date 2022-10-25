@@ -1,4 +1,26 @@
 var searchData=
 [
-  ['nextfreeblock_1054',['NextFreeBlock',['../memory__management_8cc.html#a23fd55610762e661d6b776a88c7b5587',1,'hermes']]]
+  ['makebufferheaders_1050',['MakeBufferHeaders',['../namespacehermes.html#a14146cb1dac9dc2bb103c2489ef19f43',1,'hermes']]],
+  ['makebufferid_1051',['MakeBufferId',['../namespacehermes.html#a9c57c10e839403e04c94a427c8d04193',1,'hermes']]],
+  ['makedataset_1052',['MakeDataset',['../structhermes_1_1adapter_1_1vfd_1_1test_1_1_hdf5_api.html#a12c11b51f77bdae6dbe179b095637768',1,'hermes::adapter::vfd::test::Hdf5Api::MakeDataset(hid_t hid, const std::string &amp;dset_name, const std::vector&lt; f32 &gt; &amp;data, bool compact=false)'],['../structhermes_1_1adapter_1_1vfd_1_1test_1_1_hdf5_api.html#a38b5fa713d7f5b309c7cd2c1ac23bb0f',1,'hermes::adapter::vfd::test::Hdf5Api::MakeDataset(hid_t hid, const std::string &amp;dset_name, const f32 *data, hsize_t nelems, bool compact=false)']]],
+  ['makefullshmemname_1053',['MakeFullShmemName',['../namespacehermes.html#a93572ab14ec8c48e304fbdfc25cab81d',1,'hermes']]],
+  ['makeheaderdormant_1054',['MakeHeaderDormant',['../namespacehermes.html#ae42113ecfdcc26b8b14bf5a575e04ea2',1,'hermes']]],
+  ['makeshmemstring_1055',['MakeShmemString',['../namespacehermes.html#a7f8d3c8f972cc70649337b7020fa6bd8',1,'hermes']]],
+  ['map_1056',['map',['../classhermes_1_1adapter_1_1_abstract_mapper.html#adb96f0ea08851a9a39ef6891ad9b1a58',1,'hermes::adapter::AbstractMapper::map()'],['../classhermes_1_1adapter_1_1_balanced_mapper.html#aa04259158a74b43dd8420e6683e82577',1,'hermes::adapter::BalancedMapper::map()']]],
+  ['mergerambufferfreelist_1057',['MergeRamBufferFreeList',['../namespacehermes.html#a0594eaad6f55d0838ac754ce0aa8e53c',1,'hermes']]],
+  ['metadatamanager_1058',['MetadataManager',['../classhermes_1_1adapter_1_1fs_1_1_metadata_manager.html#aa7b7403510a7fd3f5e162359f836f5e5',1,'hermes::adapter::fs::MetadataManager::MetadataManager()'],['../classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#a7b80f9df1ba62df37d550cdffe96d875',1,'hermes::adapter::pubsub::MetadataManager::MetadataManager()']]],
+  ['minimizeiotimeoptions_1059',['MinimizeIoTimeOptions',['../structhermes_1_1api_1_1_minimize_io_time_options.html#a8d81a3a829a1d04d2e54917c4e9cc2b1',1,'hermes::api::MinimizeIoTimeOptions']]],
+  ['mpiassignidstonodes_1060',['MpiAssignIDsToNodes',['../namespacehermes.html#ac08b6a0677f8d21fae9fe6614c77a601',1,'hermes']]],
+  ['mpibarrier_1061',['MpiBarrier',['../namespacehermes.html#af945baa0aefde451845022c0517ad818',1,'hermes']]],
+  ['mpifinalize_1062',['MpiFinalize',['../namespacehermes.html#a75b8b50fae9f886d864f437ff09f61c0',1,'hermes']]],
+  ['mpifirstonnode_1063',['MpiFirstOnNode',['../namespacehermes.html#a59b5a1ff74a0ab24cdec9207b2ee0b24',1,'hermes']]],
+  ['mpigetnumprocs_1064',['MpiGetNumProcs',['../namespacehermes.html#a8d8dc2ecb449e493c821f6afe6cf5fe9',1,'hermes']]],
+  ['mpigetnumworldprocs_1065',['MpiGetNumWorldProcs',['../namespacehermes.html#a0a588e65234b2504ed2ba0ec0f42f74a',1,'hermes']]],
+  ['mpigetprocid_1066',['MpiGetProcId',['../namespacehermes.html#a2fad06c86a78151bb7081f00ebeeabe2',1,'hermes']]],
+  ['mpigetsubprocid_1067',['MpiGetSubProcId',['../namespacehermes.html#a947bcdd5f42cb779c2fbe6da39a1c941',1,'hermes']]],
+  ['mpigetworldprocid_1068',['MpiGetWorldProcId',['../namespacehermes.html#adad8f97c7612e3f81749ca47c8216631',1,'hermes']]],
+  ['mpiinit_1069',['mpiInit',['../namespacehermes_1_1pubsub.html#a00e499399e9c58f5c7b0f19e11d985ea',1,'hermes::pubsub']]],
+  ['mpisubbarrier_1070',['MpiSubBarrier',['../namespacehermes.html#aefe0d3a3ce13097ab61070665da00ca4',1,'hermes']]],
+  ['mpiworldbarrier_1071',['MpiWorldBarrier',['../namespacehermes.html#aaaed2f9c1b41765783a5eb93f51b24fd',1,'hermes']]],
+  ['msg_1072',['Msg',['../classapi_1_1_status.html#ac896de1ec4175376237ca1088e901f23',1,'api::Status']]]
 ];

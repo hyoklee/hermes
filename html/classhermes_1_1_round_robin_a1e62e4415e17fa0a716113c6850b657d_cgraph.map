@@ -1,7 +1,8 @@
 <map id="hermes::RoundRobin::AddSchema" name="hermes::RoundRobin::AddSchema">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,163,145"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,136,163,177"/>
 <area shape="rect" id="node2" href="$classhermes_1_1_round_robin.html#a5bd28432ea190b26581e3a1517788368" title=" " alt="" coords="211,5,393,47"/>
 <area shape="rect" id="node3" href="$classhermes_1_1_round_robin.html#a72b1006d2d7c1b643eac90477a550028" title=" " alt="" coords="223,71,381,112"/>
 <area shape="rect" id="node4" href="$classhermes_1_1_round_robin.html#a8030aa767764adcde3d440fdd06e0ac9" title=" " alt="" coords="223,136,381,177"/>
-<area shape="rect" id="node5" href="$classhermes_1_1_round_robin.html#a9896b8a9e011e2e92780242bf9cdafd8" title=" " alt="" coords="212,201,392,243"/>
+<area shape="rect" id="node5" href="$classapi_1_1_status.html#ac896de1ec4175376237ca1088e901f23" title=" " alt="" coords="239,202,365,229"/>
+<area shape="rect" id="node6" href="$classhermes_1_1_round_robin.html#a9896b8a9e011e2e92780242bf9cdafd8" title=" " alt="" coords="212,253,392,295"/>
 </map>

@@ -1,12 +1,13 @@
 <map id="hermes::api::Hermes::Finalize" name="hermes::api::Hermes::Finalize">
-<area shape="rect" id="node1" title="Shutdown Hermes." alt="" coords="5,175,164,217"/>
-<area shape="rect" id="node2" href="$buffer__pool_8cc.html#aba276e3158ce278c8b895b936678b255" title=" " alt="" coords="227,153,356,180"/>
-<area shape="rect" id="node10" href="$classhermes_1_1api_1_1_hermes.html#ad2bb69f41037cc5b7e4638d0ec4a6e57" title="Return true if this rank is an application core, otherwise false." alt="" coords="212,205,371,246"/>
-<area shape="rect" id="node3" href="$memory__management_8cc.html#ac64963cdb2aef85ac002f4b8634cd2fc" title=" " alt="" coords="450,29,618,56"/>
-<area shape="rect" id="node4" href="$buffer__pool_8cc.html#a7f5a7088d0c67afec779b03060291180" title=" " alt="" coords="419,105,649,146"/>
-<area shape="rect" id="node8" href="$communication_8h.html#af9192be0415eb65b473ecaec4a40ac8b" title=" " alt="" coords="461,195,607,221"/>
-<area shape="rect" id="node9" href="$communication_8h.html#a5df88969885557897a4f601927679555" title=" " alt="" coords="454,269,614,296"/>
-<area shape="rect" id="node5" href="$buffer__pool_8cc.html#af8bfcb2d66a8c335c6d62b452c549f9f" title=" " alt="" coords="708,75,912,101"/>
-<area shape="rect" id="node7" href="$buffer__pool_8cc.html#a8330d4c1cab36eddd4085af9cdfb4e58" title=" " alt="" coords="697,149,923,176"/>
-<area shape="rect" id="node6" href="$buffer__pool_8cc.html#a3a16d19dbc6aa057e14961538cd3d933" title=" " alt="" coords="971,67,1173,109"/>
+<area shape="rect" id="node1" title="Shutdown Hermes." alt="" coords="5,115,164,157"/>
+<area shape="rect" id="node2" href="$namespacehermes.html#aba276e3158ce278c8b895b936678b255" title=" " alt="" coords="227,93,356,120"/>
+<area shape="rect" id="node11" href="$classhermes_1_1api_1_1_hermes.html#ad2bb69f41037cc5b7e4638d0ec4a6e57" title="Return true if this rank is an application core, otherwise false." alt="" coords="212,145,371,186"/>
+<area shape="rect" id="node3" href="$namespacehermes.html#ac64963cdb2aef85ac002f4b8634cd2fc" title=" " alt="" coords="450,5,618,32"/>
+<area shape="rect" id="node4" href="$namespacehermes.html#a7f5a7088d0c67afec779b03060291180" title=" " alt="" coords="419,57,649,98"/>
+<area shape="rect" id="node9" href="$namespacehermes.html#af9192be0415eb65b473ecaec4a40ac8b" title=" " alt="" coords="461,123,607,149"/>
+<area shape="rect" id="node10" href="$namespacehermes.html#a5df88969885557897a4f601927679555" title=" " alt="" coords="454,173,614,200"/>
+<area shape="rect" id="node5" href="$namespacehermes.html#af8bfcb2d66a8c335c6d62b452c549f9f" title=" " alt="" coords="708,39,912,65"/>
+<area shape="rect" id="node8" href="$namespacehermes.html#a8330d4c1cab36eddd4085af9cdfb4e58" title=" " alt="" coords="697,89,923,116"/>
+<area shape="rect" id="node6" href="$namespacehermes.html#a69b3dba2cfb7c9768be7dc61c5cde1ef" title=" " alt="" coords="979,9,1165,36"/>
+<area shape="rect" id="node7" href="$namespacehermes.html#a3a16d19dbc6aa057e14961538cd3d933" title=" " alt="" coords="971,61,1173,102"/>
 </map>

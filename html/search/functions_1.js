@@ -1,16 +1,14 @@
 var searchData=
 [
-  ['begin_885',['Begin',['../structhermes_1_1_array2_d_idx.html#ac3134e327e99754e7ef05109da2c86d6',1,'hermes::Array2DIdx']]],
-  ['beginreaderlock_886',['BeginReaderLock',['../memory__management_8cc.html#a2352149f1ac54de1b466fb13e679c162',1,'hermes']]],
-  ['begintemporarymemory_887',['BeginTemporaryMemory',['../memory__management_8cc.html#a455f4bde497798667e412e71bb9ddd06',1,'hermes']]],
-  ['beginticketmutex_888',['BeginTicketMutex',['../memory__management_8cc.html#aa154212f668ee2159c0b51ad134c7ffb',1,'hermes']]],
-  ['beginticketmutexifnowait_889',['BeginTicketMutexIfNoWait',['../memory__management_8cc.html#af0eb934a0429adfeac04160e6c8422b3',1,'hermes']]],
-  ['beginwriterlock_890',['BeginWriterLock',['../memory__management_8cc.html#a310025cf1d6ee849b8ed1e67ce1009bb',1,'hermes']]],
-  ['blobisinswap_891',['BlobIsInSwap',['../classhermes_1_1api_1_1_bucket.html#a11ada6c7bf2d916ae15083b735b53768',1,'hermes::api::Bucket']]],
-  ['bucket_892',['Bucket',['../classhermes_1_1api_1_1_bucket.html#ab4084ef2bfb1ea3eb055cb1336905341',1,'hermes::api::Bucket::Bucket()'],['../classhermes_1_1api_1_1_bucket.html#a7f38bdd3f6c04d1ddea7de495efddc5d',1,'hermes::api::Bucket::Bucket(const std::string &amp;initial_name, std::shared_ptr&lt; Hermes &gt; const &amp;h, Context ctx=Context())']]],
-  ['bucketcontainsblob_893',['BucketContainsBlob',['../classhermes_1_1api_1_1_hermes.html#a9ab56ab8d652f87ae789043089672e96',1,'hermes::api::Hermes']]],
-  ['bucketexists_894',['BucketExists',['../classhermes_1_1api_1_1_hermes.html#a2f9e3ee3470365ceeaad048b89aa4bbd',1,'hermes::api::Hermes']]],
-  ['bufferisbyteaddressable_895',['BufferIsByteAddressable',['../buffer__pool_8cc.html#a119acdbc67271182db4d36ebe76c07bc',1,'hermes']]],
-  ['bufferisremote_896',['BufferIsRemote',['../buffer__pool_8cc.html#a32e9009c690da7b3e2fbcf90636e5922',1,'hermes::BufferIsRemote(CommunicationContext *comm, BufferID buffer_id)'],['../buffer__pool_8cc.html#a0590d8c81c30d8f23dc5e055edb5cbe9',1,'hermes::BufferIsRemote(RpcContext *rpc, BufferID buffer_id)']]],
-  ['bufferorganizer_897',['BufferOrganizer',['../structhermes_1_1_buffer_organizer.html#a8ea032e03ec8d13d58692a7ac5d33579',1,'hermes::BufferOrganizer']]]
+  ['absdiff_883',['AbsDiff',['../classhermes_1_1_minimize_io_time.html#a18c57ce0e9410531f5d3c6020438ddf0',1,'hermes::MinimizeIoTime']]],
+  ['acceptable_884',['Acceptable',['../classapi_1_1_status.html#a614badfd271231991ed2e7664b09031a',1,'api::Status']]],
+  ['addconstraint_885',['AddConstraint',['../classhermes_1_1_linear_program.html#a9f8349d76cdfd0f88bbb8264fa0f2db8',1,'hermes::LinearProgram']]],
+  ['addschema_886',['AddSchema',['../classhermes_1_1_random.html#a4de5bdb7e5881b6531c7f110900ad4e7',1,'hermes::Random::AddSchema()'],['../classhermes_1_1_round_robin.html#a1e62e4415e17fa0a716113c6850b657d',1,'hermes::RoundRobin::AddSchema()']]],
+  ['alignbackward_887',['AlignBackward',['../namespacehermes.html#a44f5b611f252c397974f44ebb7989a54',1,'hermes']]],
+  ['alignforward_888',['AlignForward',['../namespacehermes.html#a5a5721855c1dc4e386f401611a746ad2',1,'hermes']]],
+  ['allocateorgrowidlist_889',['AllocateOrGrowIdList',['../namespacehermes.html#a060184cb8d537acfb723db0af10a8f56',1,'hermes']]],
+  ['appbarrier_890',['AppBarrier',['../classhermes_1_1api_1_1_hermes.html#a451f2bfb745a587e3ccfec736d992ffb',1,'hermes::api::Hermes']]],
+  ['appendtochunkedidlist_891',['AppendToChunkedIdList',['../namespacehermes.html#a0d20b5031e6c81bf1fb779981e9d97dc',1,'hermes']]],
+  ['array2didx_892',['Array2DIdx',['../structhermes_1_1_array2_d_idx.html#ae9de2c74336595164a4c541300672467',1,'hermes::Array2DIdx']]],
+  ['attach_893',['Attach',['../classhermes_1_1api_1_1_v_bucket.html#a26a6f00e07cdc495206c15314186a060',1,'hermes::api::VBucket::Attach(Trait *trait)'],['../classhermes_1_1api_1_1_v_bucket.html#a82eaa7e8e2c25c96bf9aef5f6f8914ee',1,'hermes::api::VBucket::Attach(Trait *trait, Context &amp;ctx)'],['../namespacehermes_1_1pubsub.html#a9e649d6223b2506acaa6eed4f3d9645e',1,'hermes::pubsub::attach()']]]
 ];

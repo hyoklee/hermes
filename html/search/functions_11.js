@@ -1,8 +1,13 @@
 var searchData=
 [
-  ['unlink_1139',['Unlink',['../classhermes_1_1api_1_1_v_bucket.html#af1ea7cd685b2264a405e1ced612088a9',1,'hermes::api::VBucket::Unlink(std::string blob_name, std::string bucket_name, Context &amp;ctx)'],['../classhermes_1_1api_1_1_v_bucket.html#a6329f7c88429dc6563eaee71318b3a1a',1,'hermes::api::VBucket::Unlink(std::string blob_name, std::string bucket_name)']]],
-  ['unlockbuffer_1140',['UnlockBuffer',['../buffer__pool_8cc.html#ac603747db7e14260874ae27119384326',1,'hermes']]],
-  ['unmapsharedmemory_1141',['UnmapSharedMemory',['../buffer__pool_8cc.html#a8330d4c1cab36eddd4085af9cdfb4e58',1,'hermes']]],
-  ['update_1142',['Update',['../classhermes_1_1adapter_1_1mpiio_1_1_metadata_manager.html#a07c5c32652f400b68ce9481c26b4932e',1,'hermes::adapter::mpiio::MetadataManager::Update()'],['../classhermes_1_1adapter_1_1posix_1_1_metadata_manager.html#ad4cd83902a8b1d2288c03b6bd4e2cb29',1,'hermes::adapter::posix::MetadataManager::Update()'],['../classhermes_1_1adapter_1_1pubsub_1_1_metadata_manager.html#aaaa53e1509fdcc8eb9eac03f04855861',1,'hermes::adapter::pubsub::MetadataManager::Update()'],['../classhermes_1_1adapter_1_1stdio_1_1_metadata_manager.html#a003573d76b0f752b35ee1dada880afc3',1,'hermes::adapter::stdio::MetadataManager::Update()']]],
-  ['updatebufferingcapacities_1143',['UpdateBufferingCapacities',['../buffer__pool_8cc.html#a29191e66c91e71f9084c4c128963568b',1,'hermes']]]
+  ['testclose_1153',['TestClose',['../namespacetest.html#a05c40fc96f5e702d07d15fa67090f03e',1,'test']]],
+  ['testmakecompactdataset_1154',['TestMakeCompactDataset',['../namespacetest.html#ae48a5db66cfff9d3af36ce9f3f2575ec',1,'test']]],
+  ['testopen_1155',['TestOpen',['../namespacetest.html#ae918e7203f3f633fd8f5ec7a3b620350',1,'test']]],
+  ['testread_1156',['TestRead',['../namespacetest.html#aac619727782720caf0e7b0ca002e91bc',1,'test']]],
+  ['testwritedataset_1157',['TestWriteDataset',['../namespacetest.html#a554d4a7b86ab1ae1ea4971f88128edea',1,'test']]],
+  ['testwritepartial1d_1158',['TestWritePartial1d',['../namespacetest.html#a1452d8f45ee51b90c5fb011970242d85',1,'test']]],
+  ['threadpool_1159',['ThreadPool',['../classhermes_1_1_thread_pool.html#a2ea2e01f51a45b0ab38abca4356fa7ed',1,'hermes::ThreadPool']]],
+  ['tovector_1160',['ToVector',['../classhermes_1_1_linear_program.html#a5ba5556851758ae704529afabe9e4d92',1,'hermes::LinearProgram']]],
+  ['trait_1161',['Trait',['../structhermes_1_1api_1_1_trait.html#ad9d8db7946ca59dda5fc44894693ad3c',1,'hermes::api::Trait::Trait()'],['../structhermes_1_1api_1_1_trait.html#a5844cec76e08b696edc28b9176483f81',1,'hermes::api::Trait::Trait(TraitID id, const std::vector&lt; TraitID &gt; &amp;conflict_traits, TraitType type)']]],
+  ['trybeginticketmutex_1162',['TryBeginTicketMutex',['../namespacehermes.html#a47b33a3c8b790c22e0b05cf2d78a064c',1,'hermes']]]
 ];

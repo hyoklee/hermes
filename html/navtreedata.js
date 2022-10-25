@@ -30,11 +30,12 @@ var NAVTREE =
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
+        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ]
+        [ "Enumerations", "namespacemembers_enum.html", null ],
+        [ "Enumerator", "namespacemembers_eval.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -61,11 +62,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classhermes_1_1adapter_1_1_singleton.html#a7628ad540d84a0e62635e0e3f2f71ad6",
-"functions_func_e.html",
-"namespacehermes_1_1adapter.html",
-"structhermes_1_1_metadata_manager.html#a15fa4432060507a039f4684ca4172d92",
-"structhermes_1_1adapter_1_1vfd_1_1test_1_1_hdf5_api.html#a315b27672a064e003bc41dc63da2003c"
+"classhermes_1_1_thread_pool.html#aeab1292b96bb1d26f3f22a7acb153afb",
+"classhermes_1_1adapter_1_1vfd_1_1test_1_1_mute_hdf5_errors.html#a3de247b8287298124b4978ee35842d92",
+"hermes__status_8h.html#a3067391b1d4dce80b340f088a5763bc5",
+"structhermes_1_1_blob.html#a8cc92c59acbe2d2af9ae7e7d622fd8be",
+"structhermes_1_1_system_view_state.html#ab9859fb1b37b1d833fe087b5a736c32e",
+"unionhermes_1_1_bo_args.html#abc6516fe89e60ac3355bc7f7553aeffe"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

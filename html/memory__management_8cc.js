@@ -27,7 +27,6 @@ var memory__management_8cc =
     [ "HeapRealloc", "memory__management_8cc.html#ae4831b5cb2cd6ffbbdad594c8e655bff", null ],
     [ "CoalesceFreeBlocks", "memory__management_8cc.html#ae052341ccabc4140f40abf6c68b4d909", null ],
     [ "TryBeginTicketMutex", "memory__management_8cc.html#a47b33a3c8b790c22e0b05cf2d78a064c", null ],
-    [ "BeginTicketMutexIfNoWait", "memory__management_8cc.html#af0eb934a0429adfeac04160e6c8422b3", null ],
     [ "BeginTicketMutex", "memory__management_8cc.html#aa154212f668ee2159c0b51ad134c7ffb", null ],
     [ "EndTicketMutex", "memory__management_8cc.html#a5a908f5a281483a42a19d4587eebc4da", null ],
     [ "BeginReaderLock", "memory__management_8cc.html#a2352149f1ac54de1b466fb13e679c162", null ],

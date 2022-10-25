@@ -32,7 +32,8 @@ var hermes__types_8h =
     [ "PlacementPolicy", "hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67", [
       [ "kRandom", "hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67aecd2373ff9952754683cb6e4aad76547", null ],
       [ "kRoundRobin", "hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67a7a845c82f996d3a318c023aee5e670af", null ],
-      [ "kMinimizeIoTime", "hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67ac0151625043e5fbf97bf8054a3417589", null ]
+      [ "kMinimizeIoTime", "hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67ac0151625043e5fbf97bf8054a3417589", null ],
+      [ "kNone", "hermes__types_8h.html#a66b9a7dd528375b0f2f0e77f72d66b67a35c3ace1970663a16e5c65baa5941b13", null ]
     ] ],
     [ "ProcessKind", "hermes__types_8h.html#ae9d9c6dc6ad00f09a7d78b5db7e106cb", [
       [ "kApp", "hermes__types_8h.html#ae9d9c6dc6ad00f09a7d78b5db7e106cbab8b7df6cd09a2b950f13e5f1ba0586b5", null ],

@@ -101,21 +101,19 @@ $(document).ready(function(){initNavTree('adapter__utils_8h_source.html',''); in
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;experimental/filesystem&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacehermes_1_1adapter.html">hermes::adapter</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacehermes.html">   15</a></span>&#160;<span class="keyword">namespace </span>hermes::adapter {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>fs = std::experimental::filesystem;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>stdfs = std::experimental::filesystem;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;fs::path <a class="code" href="namespacehermes_1_1adapter.html#a7aa4f7848443a096daf267345ae3df37">WeaklyCanonical</a>(<span class="keyword">const</span> fs::path&amp; p);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;fs::path <a class="code" href="namespacehermes_1_1adapter.html#a7aa4f7848443a096daf267345ae3df37">WeaklyCanonical</a>(<span class="keyword">const</span> fs::path&amp; p, std::error_code&amp; ec);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;stdfs::path WeaklyCanonical(<span class="keyword">const</span> stdfs::path&amp; p);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;stdfs::path WeaklyCanonical(<span class="keyword">const</span> stdfs::path&amp; p, std::error_code&amp; ec);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}  <span class="comment">// namespace hermes::adapter</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespacehermes_1_1adapter_html_a1c1be9e387da34fad6ea5ca61ddd2b97"><div class="ttname"><a href="namespacehermes_1_1adapter.html#a1c1be9e387da34fad6ea5ca61ddd2b97">hermes::adapter::LexicallyNormal</a></div><div class="ttdeci">fs::path LexicallyNormal(fs::path &amp;path)</div><div class="ttdef"><b>Definition:</b> adapter_utils.cc:41</div></div>
-<div class="ttc" id="anamespacehermes_1_1adapter_html_a7aa4f7848443a096daf267345ae3df37"><div class="ttname"><a href="namespacehermes_1_1adapter.html#a7aa4f7848443a096daf267345ae3df37">hermes::adapter::WeaklyCanonical</a></div><div class="ttdeci">fs::path WeaklyCanonical(const fs::path &amp;p)</div><div class="ttdef"><b>Definition:</b> adapter_utils.cc:132</div></div>
-<div class="ttc" id="anamespacehermes_1_1adapter_html_aa54a851e83081e6fa466bba5594035d2"><div class="ttname"><a href="namespacehermes_1_1adapter.html#aa54a851e83081e6fa466bba5594035d2">hermes::adapter::ReadGap</a></div><div class="ttdeci">void ReadGap(const std::string &amp;filename, size_t seek_offset, u8 *read_ptr, size_t read_size, size_t file_bounds)</div><div class="ttdef"><b>Definition:</b> adapter_utils.cc:213</div></div>
-<div class="ttc" id="ahermes__types_8h_html_a67dcf64ed55349e6beab0a38e641a389"><div class="ttname"><a href="hermes__types_8h.html#a67dcf64ed55349e6beab0a38e641a389">hermes::u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> hermes_types.h:40</div></div>
-<div class="ttc" id="anamespacehermes_1_1adapter_html"><div class="ttname"><a href="namespacehermes_1_1adapter.html">hermes::adapter</a></div><div class="ttdef"><b>Definition:</b> adapter_utils.cc:34</div></div>
+<div class="ttc" id="anamespacehermes_html_a67dcf64ed55349e6beab0a38e641a389"><div class="ttname"><a href="namespacehermes.html#a67dcf64ed55349e6beab0a38e641a389">hermes::u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> hermes_types.h:40</div></div>
+<div class="ttc" id="anamespacehermes_html"><div class="ttname"><a href="namespacehermes.html">hermes</a></div><div class="ttdef"><b>Definition:</b> adapter_utils.h:15</div></div>
+<div class="ttc" id="anamespacehermes_html_a69b3dba2cfb7c9768be7dc61c5cde1ef"><div class="ttname"><a href="namespacehermes.html#a69b3dba2cfb7c9768be7dc61c5cde1ef">hermes::FailedLibraryCall</a></div><div class="ttdeci">void FailedLibraryCall(std::string func)</div><div class="ttdef"><b>Definition:</b> utils.cc:132</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
