@@ -71,9 +71,10 @@ typedef std::vector<unsigned char> Blob;
 
 /** Supported data placement policies */
 enum class PlacementPolicy {
-  kRandom,         /**< Random blob placement */
-  kRoundRobin,     /**< Round-Robin (around devices) blob placement */
-  kMinimizeIoTime, /**< LP-based blob placement, minimize I/O time */
+  kRandom,          /**< Random blob placement */
+  kRoundRobin,      /**< Round-Robin (around devices) blob placement */
+  kMinimizeIoTime,  /**< LP-based blob placement, minimize I/O time */
+  kNone,            /**< No DPE for cases we want it disabled */
 };
 
 /**
@@ -93,8 +94,24 @@ class PlacementPolicyConv {
       case PlacementPolicy::kMinimizeIoTime: {
         return "PlacementPolicy::kMinimizeIoTime";
       }
+      case PlacementPolicy::kNone: {
+        return "PlacementPolicy::kNone";
+      }
     }
     return "PlacementPolicy::Invalid";
+  }
+
+  static PlacementPolicy to_enum(const std::string &policy) {
+    if (policy.find("kRandom") != std::string::npos) {
+      return PlacementPolicy::kRandom;
+    } else if (policy.find("kRoundRobin") != std::string::npos) {
+      return PlacementPolicy::kRoundRobin;
+    } else if (policy.find("kMinimizeIoTime") != std::string::npos) {
+      return PlacementPolicy::kMinimizeIoTime;
+    } else if (policy.find("kNone") != std::string::npos) {
+      return PlacementPolicy::kNone;
+    }
+    return PlacementPolicy::kNone;
   }
 };
 

@@ -534,22 +534,6 @@ Ticket TryBeginTicketMutex(TicketMutex *mutex, Ticket *existing_ticket) {
 }
 
 /**
-   begin ticket mutex if there's nothing waiting
- */
-bool BeginTicketMutexIfNoWait(TicketMutex *mutex) {
-  u32 serving = mutex->serving.load();
-  u32 ticket = mutex->ticket.load();
-  u32 next =  ticket + 1;
-
-  bool result = false;
-  if (serving == ticket) {
-    result = mutex->ticket.compare_exchange_strong(ticket, next);
-  }
-
-  return result;
-}
-
-/**
    begin ticket mutex
  */  
 void BeginTicketMutex(TicketMutex *mutex) {
