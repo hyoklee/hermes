@@ -135,7 +135,7 @@ typedef struct H5FD_hermes_fapl_t {
 #define SIZE_OVERFLOW(Z) ((Z) & ~(hsize_t)MAXADDR)
 #define REGION_OVERFLOW(A, Z)                                          \
   (ADDR_OVERFLOW(A) || SIZE_OVERFLOW(Z) || HADDR_UNDEF == (A) + (Z) || \
-   (off_t)((A) + (Z)) < (off_t)(A))
+  (off_t)((A) + (Z)) < (off_t)(A))
 
 /* Prototypes */
 static herr_t H5FD__hermes_term(void);
