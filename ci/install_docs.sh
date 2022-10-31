@@ -33,8 +33,10 @@ cmake                                                      \
     -DHERMES_ENABLE_VFD=ON                                 \
     -DBUILD_TESTING=ON                                     \
     ..
-make dox
+make dox >& out.txt
 # cmake --build . -- -j4
 # ctest -VV
-
 popd
+rec="$( grep warning build/out.txt | wc -l )"
+echo $rec
+
