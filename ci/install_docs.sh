@@ -39,5 +39,5 @@ make dox >& out.txt
 popd
 rec="$( grep warning build/out.txt | wc -l )"
 echo $rec
-return $rec
+exit $rec
 
