@@ -33,12 +33,12 @@ enum MapperType {
  A structure to represent BLOB placement
 */
 struct BlobPlacement {
-  int rank_;           /**< The rank of the process producing the BLOB */
-  size_t page_;        /**< The index in the array placements */
-  size_t bucket_off_;  /**< Offset from file start (for FS) */
-  size_t blob_off_;    /**< Offset from BLOB start */
-  size_t blob_size_;   /**< Size after offset to read */
-  int time_;           /**< The order of the blob in a list of blobs */
+  int rank_;          /**< The rank of the process producing the BLOB */
+  size_t page_;       /**< The index in the array placements */
+  size_t bucket_off_; /**< Offset from file start (for FS) */
+  size_t blob_off_;   /**< Offset from BLOB start */
+  size_t blob_size_;  /**< Size after offset to read */
+  int time_;          /**< The order of the blob in a list of blobs */
 
   /** create a BLOB name from index. */
   std::string CreateBlobName() const { return std::to_string(page_); }
