@@ -23,7 +23,7 @@
 
 namespace hermes {
 
-static const u32 kGlobalMutexNodeId = 1;
+static const u32 kGlobalMutexNodeId = 1; /**< global mutex node ID */
 
 struct RpcContext;
 
@@ -54,6 +54,7 @@ struct ShmemString {
   ShmemString &operator=(const ShmemString &&) = delete;
 };
 
+/** map type */
 enum MapType {
   kMapType_Bucket,
   kMapType_VBucket,
@@ -62,7 +63,9 @@ enum MapType {
   kMapType_Count
 };
 
+/** min/max threshold violation */
 enum class ThresholdViolation { kMin, kMax };
+
 /**
    A structure to represent violation information
 */
@@ -80,8 +83,7 @@ struct Stats {
   u32 frequency; /**< frequency */
 };
 
-const int kIdListChunkSize = 10;
-
+const int kIdListChunkSize = 10; /**< chunk size of ID list */
 /**
    A structure to represent ID list
 */
@@ -139,6 +141,7 @@ struct BucketInfo {
   bool active;                /**< is bucket active? */
 };
 
+/** maxinum number of traits per bucket */
 static constexpr int kMaxTraitsPerVBucket = 8;
 
 /**
@@ -450,95 +453,95 @@ bool IsNullVBucketId(VBucketID id);
 bool IsNullBlobId(BlobID id);
 
 /**
- *
+ * begin global ticket mutex
  */
 void BeginGlobalTicketMutex(SharedMemoryContext *context, RpcContext *rpc);
 
 /**
- *
+ * end global ticket mutex
  */
 void EndGlobalTicketMutex(SharedMemoryContext *context, RpcContext *rpc);
 
 /**
- *
+ * begin global ticket mutex locally
  */
 void LocalBeginGlobalTicketMutex(MetadataManager *mdm);
 
 /**
- *
+ * end global ticket mutex locally
  */
 void LocalEndGlobalTicketMutex(MetadataManager *mdm);
 
 /**
- *
+ * attach BLOB to VBucket
  */
 void AttachBlobToVBucket(SharedMemoryContext *context, RpcContext *rpc,
                          const char *blob_name, const char *bucket_name,
                          VBucketID vbucket_id);
 
 /**
- *
+ * remove BLOB from Bucket
  */
 void RemoveBlobFromBucketInfo(SharedMemoryContext *context, RpcContext *rpc,
                               BucketID bucket_id, BlobID blob_id);
 
 /**
- *
+ * remove BLOB from VBucket
  */
 void RemoveBlobFromVBucketInfo(SharedMemoryContext *context, RpcContext *rpc,
                                VBucketID vbucket_id, const char *blob_name,
                                const char *bucket_name);
 
 /**
- *
+ * get BLOB from VBucket
  */
 std::vector<BlobID> GetBlobsFromVBucketInfo(SharedMemoryContext *context,
                                             RpcContext *rpc,
                                             VBucketID vbucket_id);
 
 /**
- *
+ * get bucket name by bucket ID
  */
 std::string GetBucketNameById(SharedMemoryContext *context, RpcContext *rpc,
                               BucketID id);
 /**
- *
+ * increment BLOB stats
  */
 void IncrementBlobStats(SharedMemoryContext *context, RpcContext *rpc,
                         BlobID blob_id);
 
 /**
- *
+ * increment BLOB stats locally
  */
 void LocalIncrementBlobStats(MetadataManager *mdm, BlobID blob_id);
 
 /**
- *
+ * lock BLOB
  */
 bool LockBlob(SharedMemoryContext *context, RpcContext *rpc, BlobID blob_id);
 
 /**
- *
+ * unlock BLOB
  */
 bool UnlockBlob(SharedMemoryContext *context, RpcContext *rpc, BlobID blob_id);
 
 /**
- *
+ * lock BLOB locally
  */
 bool LocalLockBlob(SharedMemoryContext *context, BlobID blob_id);
 
 /**
- *
+ * unlock BLOB locally
  */
 bool LocalUnlockBlob(SharedMemoryContext *context, BlobID blob_id);
 
 /**
- *
+ * get local system view state 
  */
 SystemViewState *GetLocalSystemViewState(SharedMemoryContext *context);
 
 /**
- *
+ * replace BLOB ID in bucket locally
  */
 void LocalReplaceBlobIdInBucket(SharedMemoryContext *context,
                                 BucketID bucket_id, BlobID old_blob_id,
@@ -555,7 +558,7 @@ void ReplaceBlobIdInBucket(SharedMemoryContext *context, RpcContext *rpc,
  * Creates a ShmemString with the value @p val at location @p memory.
  *
  * @pre The address of @p sms must be lower than @p memory because the @p offset
- *      is from the beginning of the @sms.
+ *      is from the beginning of the \a sms.
  *
  * @param[out] sms The ShmemString instance to be filled out.
  * @param memory The location in shared memory to store the @p val.
