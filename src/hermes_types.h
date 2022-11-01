@@ -101,6 +101,7 @@ class PlacementPolicyConv {
     return "PlacementPolicy::Invalid";
   }
 
+  /** return enum value of \a policy  */
   static PlacementPolicy to_enum(const std::string &policy) {
     if (policy.find("kRandom") != std::string::npos) {
       return PlacementPolicy::kRandom;
