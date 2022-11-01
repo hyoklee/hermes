@@ -30,8 +30,8 @@ namespace hermes::adapter::fs {
  */
 class MetadataManager {
  private:
-  std::unordered_map<File, AdapterStat> metadata;
-  std::shared_ptr<hapi::Hermes> hermes;
+  std::unordered_map<File, AdapterStat> metadata; /**< map for metadata*/
+  std::shared_ptr<hapi::Hermes> hermes;           /**< pointers for hermes */
   /**
    * references of how many times hermes was tried to initialize.
    */
@@ -113,7 +113,7 @@ class MetadataManager {
 
   /**
    * Create a metadata entry for POSIX adapter for a given file handler.
-   * @param fh original file handler of the file on the destination
+   * @param f original file handler of the file on the destination
    * filesystem.
    * @param stat POSIX Adapter version of Stat data structure.
    * @return    true, if operation was successful.
@@ -123,7 +123,7 @@ class MetadataManager {
 
   /**
    * Update existing metadata entry for POSIX adapter for a given file handler.
-   * @param fh original file handler of the file on the destination.
+   * @param f original file handler of the file on the destination.
    * @param stat POSIX Adapter version of Stat data structure.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful or entry doesn't exist.
@@ -132,7 +132,7 @@ class MetadataManager {
 
   /**
    * Delete existing metadata entry for POSIX adapter for a given file handler.
-   * @param fh original file handler of the file on the destination.
+   * @param f original file handler of the file on the destination.
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
@@ -140,7 +140,7 @@ class MetadataManager {
 
   /**
    * Find existing metadata entry for POSIX adapter for a given file handler.
-   * @param fh original file handler of the file on the destination.
+   * @param f original file handler of the file on the destination.
    * @return    The metadata entry if exist.
    *            The bool in pair indicated whether metadata entry exists.
    */
