@@ -37,6 +37,7 @@ struct TargetInfo {
   u64 capacity;                 /**< capacity */
 };
 
+/** get buffer information locally */
 BufferInfo LocalGetBufferInfo(SharedMemoryContext *context,
                               BufferID buffer_id) {
   BufferInfo result = {};
@@ -54,6 +55,7 @@ BufferInfo LocalGetBufferInfo(SharedMemoryContext *context,
   return result;
 }
 
+/** get buffer information */
 BufferInfo GetBufferInfo(SharedMemoryContext *context, RpcContext *rpc,
                          BufferID buffer_id) {
   BufferInfo result = {};
@@ -69,6 +71,7 @@ BufferInfo GetBufferInfo(SharedMemoryContext *context, RpcContext *rpc,
   return result;
 }
 
+/** normalize access score from \a raw-score using \a size_mb */
 f32 NormalizeAccessScore(SharedMemoryContext *context, f32 raw_score,
                          f32 size_mb) {
   BufferPool *pool = GetBufferPoolFromContext(context);
@@ -119,6 +122,8 @@ f32 ComputeBlobAccessScore(SharedMemoryContext *context,
 
   return result;
 }
+
+/** sort buffer information */
 void SortBufferInfo(std::vector<BufferInfo> &buffer_info, bool increasing) {
 #define HERMES_BUFFER_INFO_COMPARATOR(direction, comp)    \
   auto direction##_buffer_info_comparator =               \
@@ -144,6 +149,7 @@ void SortBufferInfo(std::vector<BufferInfo> &buffer_info, bool increasing) {
 #undef HERMES_BUFFER_INFO_COMPARATOR
 }
 
+/** sort target information */
 void SortTargetInfo(std::vector<TargetInfo> &target_info, bool increasing) {
   auto increasing_target_info_comparator = [](const TargetInfo &lhs,
                                               const TargetInfo &rhs) {
@@ -763,6 +769,7 @@ Status PlaceInHierarchy(SharedMemoryContext *context, RpcContext *rpc,
   return result;
 }
 
+/** adjust flush coun locally */
 void LocalAdjustFlushCount(SharedMemoryContext *context,
                            const std::string &vbkt_name, int adjustment) {
   MetadataManager *mdm = GetMetadataManagerFromContext(context);
