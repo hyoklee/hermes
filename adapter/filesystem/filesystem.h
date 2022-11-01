@@ -103,14 +103,14 @@ struct AdapterStat {
    A structure to represent file
 */
 struct File {
-  int fd_;                      /**< file descriptor */
-  FILE *fh_;                    /**< file handler */
-  MPI_File mpi_fh_;             /**< MPI file handler */
+  int fd_;          /**< file descriptor */
+  FILE *fh_;        /**< file handler */
+  MPI_File mpi_fh_; /**< MPI file handler */
 
-  dev_t st_dev;                 /**< device */
-  ino_t st_ino;                 /**< inode */
-  bool status_;                 /**< status */
-  int mpi_status_;              /**< MPI status */
+  dev_t st_dev;    /**< device */
+  ino_t st_ino;    /**< inode */
+  bool status_;    /**< status */
+  int mpi_status_; /**< MPI status */
 
   /** default file constructor */
   File()
@@ -162,12 +162,12 @@ struct File {
    A structure to represent IO options
 */
 struct IoOptions {
-  PlacementPolicy dpe_;         /**< data placement policy */
-  bool coordinate_;             /**< use coordinate? */
-  bool seek_;                   /**< use seek? */
-  bool with_fallback_;          /**< use fallback? */
-  MPI_Datatype mpi_type_;       /**< MPI data type */
-  int count_;                   /**< option count */
+  PlacementPolicy dpe_;   /**< data placement policy */
+  bool coordinate_;       /**< use coordinate? */
+  bool seek_;             /**< use seek? */
+  bool with_fallback_;    /**< use fallback? */
+  MPI_Datatype mpi_type_; /**< MPI data type */
+  int count_;             /**< option count */
   IoOptions()
       : dpe_(PlacementPolicy::kNone),
         coordinate_(true),
@@ -206,9 +206,9 @@ struct IoOptions {
    A structure to represent IO status
 */
 struct IoStatus {
-  int mpi_ret_;                 /**< MPI return value */
-  MPI_Status mpi_status_;       /**< MPI status */
-  MPI_Status *mpi_status_ptr_;  /**< MPI status pointer */
+  int mpi_ret_;                /**< MPI return value */
+  MPI_Status mpi_status_;      /**< MPI status */
+  MPI_Status *mpi_status_ptr_; /**< MPI status pointer */
 
   IoStatus() : mpi_ret_(MPI_SUCCESS), mpi_status_ptr_(&mpi_status_) {}
 };
@@ -233,14 +233,14 @@ struct BlobPlacementIter {
   IoStatus &io_status_;                /**< IO status */
   IoOptions &opts_;                    /**< IO options */
 
-  std::string blob_name_;              /**< BLOB name */
-  u8 *mem_ptr_;                        /**< pointer to memory  */
-  size_t blob_start_;                  /**< BLOB start  */
-  hapi::Context ctx_;                  /**< context  */
-  hapi::Blob blob_;                    /**< BLOB */
-  int rank_;                           /**< MPI rank */
-  int nprocs_;                         /**< number of processes */
-  bool blob_exists_;                   /**< Does BLOB exist? */
+  std::string blob_name_; /**< BLOB name */
+  u8 *mem_ptr_;           /**< pointer to memory  */
+  size_t blob_start_;     /**< BLOB start  */
+  hapi::Context ctx_;     /**< context  */
+  hapi::Blob blob_;       /**< BLOB */
+  int rank_;              /**< MPI rank */
+  int nprocs_;            /**< number of processes */
+  bool blob_exists_;      /**< Does BLOB exist? */
 
   /** iterate \a p BLOB placement */
   explicit BlobPlacementIter(File &f, AdapterStat &stat,
