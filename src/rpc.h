@@ -23,9 +23,10 @@ namespace hermes {
 
 struct RpcContext;
 
-const int kMaxServerNameSize = 128;
-const int kMaxServerSuffixSize = 16;
+const int kMaxServerNameSize = 128;  /**< maximum size of server name */
+const int kMaxServerSuffixSize = 16; /**< maximum size of server suffix */
 
+/** start function for RPC server */
 typedef void (*StartFunc)(SharedMemoryContext *, RpcContext *, Arena *,
                           const char *, int);
 /**
