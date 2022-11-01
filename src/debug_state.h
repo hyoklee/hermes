@@ -23,6 +23,7 @@ struct DebugHeapAllocation {
   u32 size;   /**< heap size */
 };
 
+/** global debug maxium allocations */
 const int kGlobalDebugMaxAllocations = KILOBYTES(64);
 
 /**
@@ -36,9 +37,11 @@ struct DebugState {
   u32 allocation_count; /**< counter for allocation */
 };
 
-DebugState *global_debug_id_state;
-DebugState *global_debug_map_state;
+DebugState *global_debug_id_state;  /**< global debug id state */
+DebugState *global_debug_map_state; /**< global debug map state */
+/** name for global debug map heap */
 char global_debug_map_name[] = "/hermes_debug_map_heap";
+/** name for global debug id heap */
 char global_debug_id_name[] = "/hermes_debug_id_heap";
 
 }  // namespace hermes
