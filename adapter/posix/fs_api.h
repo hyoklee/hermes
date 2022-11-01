@@ -32,7 +32,7 @@ namespace hermes::adapter::posix {
 */
 class PosixFS : public hermes::adapter::fs::Filesystem {
  private:
-  API *real_api;                /**< pointer to real APIs */
+  API *real_api; /**< pointer to real APIs */
 
  public:
   PosixFS() { real_api = Singleton<API>::GetInstance(); }
