@@ -27,10 +27,12 @@ using hermes::adapter::fs::IoStatus;
 using hermes::adapter::posix::API;
 
 namespace hermes::adapter::posix {
-
+/**
+   A class to represent POSIX IO file system
+*/
 class PosixFS : public hermes::adapter::fs::Filesystem {
  private:
-  API *real_api;
+  API *real_api;                /**< pointer to real APIs */
 
  public:
   PosixFS() { real_api = Singleton<API>::GetInstance(); }
