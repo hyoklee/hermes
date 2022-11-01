@@ -54,30 +54,51 @@ typedef int (*close_t)(int fd);
 }
 
 namespace hermes::adapter::posix {
-
+/**
+   A class to represent POSIX API
+*/
 class API {
  public:
+  /** MPI_Init */
   int (*MPI_Init)(int *argc, char ***argv) = nullptr;
+  /** MPI_Finalize */
   int (*MPI_Finalize)(void) = nullptr;
+  /** open */
   int (*open)(const char *path, int flags, ...) = nullptr;
+  /** open64 */
   int (*open64)(const char *path, int flags, ...) = nullptr;
+  /** __open_2 */
   int (*__open_2)(const char *path, int oflag) = nullptr;
+  /** creat */
   int (*creat)(const char *path, mode_t mode) = nullptr;
+  /** creat64 */
   int (*creat64)(const char *path, mode_t mode) = nullptr;
+  /** read */
   ssize_t (*read)(int fd, void *buf, size_t count) = nullptr;
+  /** write */
   ssize_t (*write)(int fd, const void *buf, size_t count) = nullptr;
+  /** pread */
   ssize_t (*pread)(int fd, void *buf, size_t count, off_t offset) = nullptr;
+  /** pwrite */
   ssize_t (*pwrite)(int fd, const void *buf, size_t count,
                     off_t offset) = nullptr;
+  /** pread64 */
   ssize_t (*pread64)(int fd, void *buf, size_t count, off64_t offset) = nullptr;
+  /** pwrite64 */
   ssize_t (*pwrite64)(int fd, const void *buf, size_t count,
                       off64_t offset) = nullptr;
+  /** lseek */
   off_t (*lseek)(int fd, off_t offset, int whence) = nullptr;
+  /** lseek64 */
   off64_t (*lseek64)(int fd, off64_t offset, int whence) = nullptr;
+  /** __fxstat */
   int (*__fxstat)(int version, int fd, struct stat *buf) = nullptr;
+  /** fsync */
   int (*fsync)(int fd) = nullptr;
+  /** close */
   int (*close)(int fd) = nullptr;
 
+  /** API constructor that intercepts POSIX API calls */
   API() {
     void *is_intercepted = (void *)dlsym(RTLD_DEFAULT, "posix_intercepted");
     if (is_intercepted) {
