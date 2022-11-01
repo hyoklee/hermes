@@ -29,9 +29,10 @@ namespace tl = thallium;
 
 namespace hermes {
 
-const int kMaxServerNamePrefix = 32;
-const int kMaxServerNamePostfix = 8;
-const char kBoPrefix[] = "BO::";
+const int kMaxServerNamePrefix = 32; /**< max. server name prefix */
+const int kMaxServerNamePostfix = 8; /**< max. server name suffix */
+const char kBoPrefix[] = "BO::";     /**< buffer organizer prefix */
+/** buffer organizer prefix length */
 const int kBoPrefixLength = sizeof(kBoPrefix) - 1;
 
 /**
@@ -86,7 +87,7 @@ void serialize(A &ar, BucketID &bucket_id) {
  * This function is called implicitly by Thallium.
  *
  * @param ar An archive provided by Thallium.
- * @param bucket_id The VBucketID to serialize.
+ * @param vbucket_id The VBucketID to serialize.
  */
 template <typename A>
 void serialize(A &ar, VBucketID &vbucket_id) {
@@ -119,6 +120,7 @@ void serialize(A &ar, TargetID &target_id) {
   ar &target_id.as_int;
 }
 
+/** serialize \a swap_blob */
 template <typename A>
 void serialize(A &ar, SwapBlob &swap_blob) {
   ar &swap_blob.node_id;
@@ -127,6 +129,7 @@ void serialize(A &ar, SwapBlob &swap_blob) {
   ar &swap_blob.bucket_id;
 }
 
+/** serialize \a info */
 template <typename A>
 void serialize(A &ar, BufferInfo &info) {
   ar &info.id;
@@ -169,12 +172,14 @@ void load(A &ar, MapType &map_type) {
   map_type = (MapType)val;
 }
 
+/** save \a priority */
 template <typename A>
 void save(A &ar, BoPriority &priority) {
   int val = (int)priority;
   ar.write(&val, 1);
 }
 
+/** load \a priority */
 template <typename A>
 void load(A &ar, BoPriority &priority) {
   int val = 0;
@@ -182,12 +187,14 @@ void load(A &ar, BoPriority &priority) {
   priority = (BoPriority)val;
 }
 
+/** save \a violation */
 template <typename A>
 void save(A &ar, ThresholdViolation &violation) {
   int val = (int)violation;
   ar.write(&val, 1);
 }
 
+/** load \a violation */
 template <typename A>
 void load(A &ar, ThresholdViolation &violation) {
   int val = 0;
@@ -196,12 +203,14 @@ void load(A &ar, ThresholdViolation &violation) {
 }
 #endif  // #ifndef THALLIUM_USE_CEREAL
 
+/** save buffer organizer \a op */
 template <typename A>
 void save(A &ar, BoOperation &op) {
   int val = (int)op;
   ar.write(&val, 1);
 }
 
+/** load buffer organizer \a op */
 template <typename A>
 void load(A &ar, BoOperation &op) {
   int val = 0;
@@ -209,18 +218,21 @@ void load(A &ar, BoOperation &op) {
   op = (BoOperation)val;
 }
 
+/** serialize buffer organizer arguments */
 template <typename A>
 void serialize(A &ar, BoArgs &bo_args) {
   ar &bo_args.move_args.src;
   ar &bo_args.move_args.dest;
 }
 
+/** serialize buffer organizer task */
 template <typename A>
 void serialize(A &ar, BoTask &bo_task) {
   ar &bo_task.op;
   ar &bo_task.args;
 }
 
+/** serialize violation information */
 template <typename A>
 void serialize(A &ar, ViolationInfo &info) {
   ar &info.target_id;
@@ -250,19 +262,21 @@ void load(A &ar, api::Context &ctx) {
 
 std::string GetRpcAddress(RpcContext *rpc, Config *config, u32 node_id,
                           int port);
-
+/** get Thallium state */
 static inline ThalliumState *GetThalliumState(RpcContext *rpc) {
   ThalliumState *result = (ThalliumState *)rpc->state;
 
   return result;
 }
 
+/** get Thallium client state */
 static inline ClientThalliumState *GetClientThalliumState(RpcContext *rpc) {
   ClientThalliumState *result = (ClientThalliumState *)rpc->client_rpc.state;
 
   return result;
 }
 
+/** is \a func_name buffer organizer function? */
 static bool IsBoFunction(const char *func_name) {
   bool result = false;
   int i = 0;
@@ -281,6 +295,7 @@ static bool IsBoFunction(const char *func_name) {
   return result;
 }
 
+/** RPC call */
 template <typename ReturnType, typename... Ts>
 ReturnType RpcCall(RpcContext *rpc, u32 node_id, const char *func_name,
                    Ts... args) {
