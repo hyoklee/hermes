@@ -30,11 +30,13 @@ using hermes::adapter::fs::IoStatus;
 using hermes::adapter::stdio::API;
 
 namespace hermes::adapter::stdio {
-
+/**
+   A class to represent standard IO file system
+*/
 class StdioFS : public hermes::adapter::fs::Filesystem {
  private:
-  API *real_api;
-  hermes::adapter::posix::API *posix_api;
+  API *real_api;                          /**< pointer to real APIs */
+  hermes::adapter::posix::API *posix_api; /**< pointer to POSIX APIs */
 
  public:
   StdioFS() {
