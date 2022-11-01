@@ -536,7 +536,7 @@ bool LocalLockBlob(SharedMemoryContext *context, BlobID blob_id);
 bool LocalUnlockBlob(SharedMemoryContext *context, BlobID blob_id);
 
 /**
- * get local system view state 
+ * get local system view state
  */
 SystemViewState *GetLocalSystemViewState(SharedMemoryContext *context);
 
