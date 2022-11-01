@@ -62,40 +62,71 @@ typedef long int (*ftell_t)(FILE *fp);
 }
 
 namespace hermes::adapter::stdio {
-
+/**
+   A class to represent STDIO API
+*/
 class API {
  public:
+  /** MPI_Init */
   int (*MPI_Init)(int *argc, char ***argv) = nullptr;
+  /** MPI_Finalize */
   int (*MPI_Finalize)(void) = nullptr;
+  /** fopen */
   FILE *(*fopen)(const char *path, const char *mode) = nullptr;
+  /** fopen64 */
   FILE *(*fopen64)(const char *path, const char *mode) = nullptr;
+  /** fdopen */
   FILE *(*fdopen)(int fd, const char *mode) = nullptr;
+  /** freopen */
   FILE *(*freopen)(const char *path, const char *mode, FILE *stream) = nullptr;
+  /** freopen64 */
   FILE *(*freopen64)(const char *path, const char *mode,
                      FILE *stream) = nullptr;
+  /** fflush */
   int (*fflush)(FILE *fp) = nullptr;
+  /** fclose */
   int (*fclose)(FILE *fp) = nullptr;
+  /** fwrite */
   size_t (*fwrite)(const void *ptr, size_t size, size_t nmemb,
                    FILE *fp) = nullptr;
+  /** fputc */
   int (*fputc)(int c, FILE *fp) = nullptr;
+  /** fgetpos */
   int (*fgetpos)(FILE *fp, fpos_t *pos) = nullptr;
+  /** fgetpos64 */
   int (*fgetpos64)(FILE *fp, fpos64_t *pos) = nullptr;
+  /** putc */
   int (*putc)(int c, FILE *fp) = nullptr;
+  /** putw */
   int (*putw)(int w, FILE *fp) = nullptr;
+  /** fputs */
   int (*fputs)(const char *s, FILE *stream) = nullptr;
+  /** fread */
   size_t (*fread)(void *ptr, size_t size, size_t nmemb, FILE *stream) = nullptr;
+  /** fgetc */
   int (*fgetc)(FILE *stream) = nullptr;
+  /** getc */
   int (*getc)(FILE *stream) = nullptr;
+  /** getw */
   int (*getw)(FILE *stream) = nullptr;
+  /** fgets */
   char *(*fgets)(char *s, int size, FILE *stream) = nullptr;
+  /** rewind */
   void (*rewind)(FILE *stream) = nullptr;
+  /** fseek */
   int (*fseek)(FILE *stream, long offset, int whence) = nullptr;
+  /** fseeko */
   int (*fseeko)(FILE *stream, off_t offset, int whence) = nullptr;
+  /** fseeko64 */
   int (*fseeko64)(FILE *stream, off64_t offset, int whence) = nullptr;
+  /** fsetpos */
   int (*fsetpos)(FILE *stream, const fpos_t *pos) = nullptr;
+  /** fsetpos64 */
   int (*fsetpos64)(FILE *stream, const fpos64_t *pos) = nullptr;
+  /** ftell */
   long int (*ftell)(FILE *fp) = nullptr;
 
+  /** API constructor that intercepts STDIO API calls */
   API() {
     void *is_intercepted = (void *)dlsym(RTLD_DEFAULT, "stdio_intercepted");
     if (is_intercepted) {
