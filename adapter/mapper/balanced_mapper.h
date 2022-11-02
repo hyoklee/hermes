@@ -14,9 +14,7 @@
 #define HERMES_BALANCED_MAPPER_H
 
 #include <vector>
-
 #include "abstract_mapper.h"
-#include "stdio/constants.h"
 
 namespace hermes::adapter {
 /**
