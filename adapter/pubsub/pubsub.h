@@ -29,7 +29,7 @@
  */
 #include <bucket.h>
 #include <hermes.h>
-
+#include "metadata_manager.h"
 #include "../constants.h"
 #include "singleton.h"
 
