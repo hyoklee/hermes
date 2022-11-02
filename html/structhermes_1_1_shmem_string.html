@@ -120,7 +120,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Representation of a non-NULL-terminated string in shared memory.</p>
 <p>Both the <a class="el" href="structhermes_1_1_shmem_string.html">ShmemString</a> iteself and the memory for the string it represents must reside in the same shared memory segement, and the <a class="el" href="structhermes_1_1_shmem_string.html">ShmemString</a> must be stored at a lower address than the string memory because the offset is from the <a class="el" href="structhermes_1_1_shmem_string.html">ShmemString</a> instance itself. Here is a diagram:</p>
 <p>|--------&mdash;8 bytes offset ---------&mdash;| [ <a class="el" href="structhermes_1_1_shmem_string.html">ShmemString</a> | offset: 8 | size: 16 ] [ "string in memory" ]</p>
-<dl class="section see"><dt>See also</dt><dd>MakeShmemString() </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacehermes.html#af75b7059f9e32448f34758aab402d408">MakeShmemString()</a> </dd>
 <dd>
 <a class="el" href="namespacehermes.html#aeead20c73463fedaadfc2473f71340a1">GetShmemString()</a> </dd></dl>
 </div><h2 class="groupheader">Member Data Documentation</h2>

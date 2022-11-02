@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['y_1507',['y',['../struct_point.html#a2e1b5fb2b2a83571f5c0bc0f66a73cf7',1,'Point']]],
-  ['y_5foffset_1508',['y_offset',['../struct_heap_metadata.html#a42124832e43cdada4a0c226e36b2b07a',1,'HeapMetadata']]]
+  ['x_2324',['x',['../struct_point.html#a8c779e11e694b20e0946105a9f5de842',1,'Point']]]
 ];

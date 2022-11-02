@@ -1,11 +1,17 @@
 var searchData=
 [
-  ['path_5fexclusions_1399',['path_exclusions',['../structhermes_1_1_config.html#a034c3075cf5959b0cd7d195c9d0096d5',1,'hermes::Config']]],
-  ['path_5finclusions_1400',['path_inclusions',['../structhermes_1_1_config.html#a28548adbe7a769a342779dd218a1b5b0',1,'hermes::Config']]],
-  ['placement_5fratios_5f_1401',['placement_ratios_',['../classhermes_1_1_minimize_io_time.html#aed6e1d2f7e80c793785127384520a49a',1,'hermes::MinimizeIoTime']]],
-  ['policy_1402',['policy',['../structhermes_1_1api_1_1_context.html#a38439f5337dc4f0623d8f94e9aa33f03',1,'hermes::api::Context']]],
-  ['policy_5f_1403',['policy_',['../classhermes_1_1_d_p_e.html#a8da23ac46f33a29ac82ee9a7d43c249b',1,'hermes::DPE']]],
-  ['pool_1404',['pool',['../structhermes_1_1_buffer_organizer.html#ac51a643a2639bf3e6eab926d670fdc92',1,'hermes::BufferOrganizer']]],
-  ['port_1405',['port',['../structhermes_1_1_rpc_context.html#a91688994e798392630254ab3ea18b11a',1,'hermes::RpcContext']]],
-  ['proc_5fkind_1406',['proc_kind',['../structhermes_1_1_communication_context.html#a41de3edded73879fbf8a750761c9111c',1,'hermes::CommunicationContext']]]
+  ['offset_2173',['offset',['../structhermes_1_1_swap_blob.html#a76cbe35a781358ac8dcef0d46d5e55de',1,'hermes::SwapBlob::offset()'],['../structhermes_1_1_debug_heap_allocation.html#ac970577755eff510162540e5a35c7b3b',1,'hermes::DebugHeapAllocation::offset()'],['../structhermes_1_1_shmem_string.html#a0196d57c69696a5a7d350a396b608363',1,'hermes::ShmemString::offset()']]],
+  ['offset_5fmap_2174',['offset_map',['../structhermes_1_1api_1_1_persist_trait.html#a940073a3dfc8fc6d0eda3f9f37b26ad1',1,'hermes::api::PersistTrait']]],
+  ['old_5fclient_5fdata_2175',['old_client_data',['../classhermes_1_1adapter_1_1vfd_1_1test_1_1_mute_hdf5_errors.html#ae53088d026103076bd9be2a91039a0ff',1,'hermes::adapter::vfd::test::MuteHdf5Errors']]],
+  ['old_5ffunc_2176',['old_func',['../classhermes_1_1adapter_1_1vfd_1_1test_1_1_mute_hdf5_errors.html#abeb1ffbe9034fbc93ccbec1c47a69d58',1,'hermes::adapter::vfd::test::MuteHdf5Errors']]],
+  ['onattachfn_2177',['onAttachFn',['../structhermes_1_1api_1_1_trait.html#a6fa98dc6045501b210d1a57a4539115c',1,'hermes::api::Trait']]],
+  ['ondetachfn_2178',['onDetachFn',['../structhermes_1_1api_1_1_trait.html#a4137bf5d6efdae82a894d020efda38c4',1,'hermes::api::Trait']]],
+  ['ongetfn_2179',['onGetFn',['../structhermes_1_1api_1_1_trait.html#a58c300542aeb634e6430f5ea0cc3b8b3',1,'hermes::api::Trait']]],
+  ['onlinkfn_2180',['onLinkFn',['../structhermes_1_1api_1_1_trait.html#ab69dab2f0fdb5fb19923146bd6227eeb',1,'hermes::api::Trait']]],
+  ['onunlinkfn_2181',['onUnlinkFn',['../structhermes_1_1api_1_1_trait.html#a10aab21e381eefb44e9a7d4aaf0b0104',1,'hermes::api::Trait']]],
+  ['op_2182',['op',['../structhermes_1_1_bo_task.html#a6ebf7bd42b407ee6f026e54353fe817a',1,'hermes::BoTask']]],
+  ['open_2183',['open',['../classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#ac16358a9420ce11af4ceabe106ec5095',1,'hermes::adapter::posix::API']]],
+  ['open64_2184',['open64',['../classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#aaf93174153d9a530b3eb701d43d2819a',1,'hermes::adapter::posix::API']]],
+  ['open_5ffiles_2185',['open_files',['../structhermes_1_1_shared_memory_context.html#a0f28dc85400e828c6c90fa45eded8ad9',1,'hermes::SharedMemoryContext']]],
+  ['opts_5f_2186',['opts_',['../structhermes_1_1adapter_1_1fs_1_1_blob_placement_iter.html#a68ba00173c9a1f79b8f8cd83be6e4d32',1,'hermes::adapter::fs::BlobPlacementIter']]]
 ];
