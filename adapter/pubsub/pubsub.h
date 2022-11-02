@@ -29,8 +29,9 @@
  */
 #include <bucket.h>
 #include <hermes.h>
-#include "metadata_manager.h"
+
 #include "../constants.h"
+#include "metadata_manager.h"
 #include "singleton.h"
 
 namespace hermes::pubsub {
