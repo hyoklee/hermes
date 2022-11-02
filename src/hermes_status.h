@@ -108,7 +108,7 @@ class Status {
   std::string Msg() const {
     switch (status_) { RETURN_CODES(RETURN_TEXT) }
 
-    return "Unknown error";
+    return "Unknown error"; /**< status is unknown  */
   }
 
  private:
