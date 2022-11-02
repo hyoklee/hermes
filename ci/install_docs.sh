@@ -34,6 +34,7 @@ cmake                                                      \
     -DBUILD_TESTING=ON                                     \
     ..
 make dox >& out.txt
+cat out.txt
 # cmake --build . -- -j4
 # ctest -VV
 popd
