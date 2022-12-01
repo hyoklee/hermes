@@ -24,12 +24,12 @@
 #include "filesystem/metadata_manager.h"
 #include "interceptor.h"
 
-#define REQUIRE_API(api_name) \
-  if (api_name == nullptr) { \
-    LOG(FATAL) << "HERMES Adapter failed to map symbol: " \
-    #api_name << std::endl; \
-    std::exit(1); \
-   }
+#define REQUIRE_API(api_name)                                       \
+  if (api_name == nullptr) {                                        \
+    LOG(FATAL) << "HERMES Adapter failed to map symbol: " #api_name \
+               << std::endl;                                        \
+    std::exit(1);                                                   \
+  }
 
 extern "C" {
 typedef int (*MPI_Init_t)(int *argc, char ***argv);

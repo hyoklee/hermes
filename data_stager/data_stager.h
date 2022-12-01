@@ -20,10 +20,7 @@
 
 namespace hermes {
 
-enum class DataStagerType {
-  kPosix,
-  kHdf5
-};
+enum class DataStagerType { kPosix, kHdf5 };
 
 class DataStagerTypeConv {
  public:

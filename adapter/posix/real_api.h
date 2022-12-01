@@ -15,8 +15,8 @@
 #include <dlfcn.h>
 #include <fcntl.h>
 #include <glog/logging.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include <iostream>
@@ -26,30 +26,32 @@
 #include "filesystem/metadata_manager.h"
 #include "interceptor.h"
 
-#define REQUIRE_API(api_name) \
-  if (api_name == nullptr) { \
-    LOG(FATAL) << "HERMES Adapter failed to map symbol: " \
-    #api_name << std::endl; \
-    std::exit(1); \
-   }
+#define REQUIRE_API(api_name)                                       \
+  if (api_name == nullptr) {                                        \
+    LOG(FATAL) << "HERMES Adapter failed to map symbol: " #api_name \
+               << std::endl;                                        \
+    std::exit(1);                                                   \
+  }
 
 extern "C" {
-typedef int (*MPI_Init_t)(int * argc, char *** argv);
-typedef int (*MPI_Finalize_t)( void);
-typedef int (*open_t)(const char * path, int flags,  ...);
-typedef int (*open64_t)(const char * path, int flags,  ...);
-typedef int (*__open_2_t)(const char * path, int oflag);
-typedef int (*creat_t)(const char * path, mode_t mode);
-typedef int (*creat64_t)(const char * path, mode_t mode);
-typedef ssize_t (*read_t)(int fd, void * buf, size_t count);
-typedef ssize_t (*write_t)(int fd, const void * buf, size_t count);
-typedef ssize_t (*pread_t)(int fd, void * buf, size_t count, off_t offset);
-typedef ssize_t (*pwrite_t)(int fd, const void * buf, size_t count, off_t offset);
-typedef ssize_t (*pread64_t)(int fd, void * buf, size_t count, off64_t offset);
-typedef ssize_t (*pwrite64_t)(int fd, const void * buf, size_t count, off64_t offset);
+typedef int (*MPI_Init_t)(int *argc, char ***argv);
+typedef int (*MPI_Finalize_t)(void);
+typedef int (*open_t)(const char *path, int flags, ...);
+typedef int (*open64_t)(const char *path, int flags, ...);
+typedef int (*__open_2_t)(const char *path, int oflag);
+typedef int (*creat_t)(const char *path, mode_t mode);
+typedef int (*creat64_t)(const char *path, mode_t mode);
+typedef ssize_t (*read_t)(int fd, void *buf, size_t count);
+typedef ssize_t (*write_t)(int fd, const void *buf, size_t count);
+typedef ssize_t (*pread_t)(int fd, void *buf, size_t count, off_t offset);
+typedef ssize_t (*pwrite_t)(int fd, const void *buf, size_t count,
+                            off_t offset);
+typedef ssize_t (*pread64_t)(int fd, void *buf, size_t count, off64_t offset);
+typedef ssize_t (*pwrite64_t)(int fd, const void *buf, size_t count,
+                              off64_t offset);
 typedef off_t (*lseek_t)(int fd, off_t offset, int whence);
 typedef off64_t (*lseek64_t)(int fd, off64_t offset, int whence);
-typedef int (*__fxstat_t)(int __ver, int __filedesc, struct stat * __stat_buf);
+typedef int (*__fxstat_t)(int __ver, int __filedesc, struct stat *__stat_buf);
 typedef int (*fsync_t)(int fd);
 typedef int (*close_t)(int fd);
 }
@@ -98,7 +100,7 @@ class API {
 
   /** API constructor that intercepts POSIX API calls */
   API() {
-    void *is_intercepted = (void*)dlsym(RTLD_DEFAULT, "posix_intercepted");
+    void *is_intercepted = (void *)dlsym(RTLD_DEFAULT, "posix_intercepted");
     if (is_intercepted) {
       MPI_Init = (MPI_Init_t)dlsym(RTLD_NEXT, "MPI_Init");
     } else {

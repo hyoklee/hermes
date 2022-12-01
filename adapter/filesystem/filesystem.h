@@ -352,9 +352,8 @@ class Filesystem {
       size_t orig = stat.st_size;
       size_t bkt_size = stat.st_bkid->GetTotalBlobSize();
       stat.st_size = std::max(bkt_size, orig);
-      LOG(INFO) << "Since bucket exists, should reset its size to: "
-                << bkt_size << " or " << orig
-                << ", winner: " << stat.st_size << std::endl;
+      LOG(INFO) << "Since bucket exists, should reset its size to: " << bkt_size
+                << " or " << orig << ", winner: " << stat.st_size << std::endl;
     }
     if (stat.is_append) {
       stat.st_ptr = stat.st_size;
