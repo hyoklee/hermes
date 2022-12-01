@@ -10,32 +10,30 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef HERMES_DATA_STAGER_STAGE_FACTORY_H_
-#define HERMES_DATA_STAGER_STAGE_FACTORY_H_
+#ifndef HERMES_DATA_STAGER_STAGERS_POSIX_STAGE_H
+#define HERMES_DATA_STAGER_STAGERS_POSIX_STAGE_H
 
-#include "data_stager.h"
-#include "stagers/posix_stager.h"
+#include "../data_stager.h"
+#include "posix/fs_api.h"
 
 namespace hermes {
 
-class DataStagerFactory {
+class PosixStager : public DataStager {
  public:
-  static std::unique_ptr<DataStager> Get(const std::string& url) {
-    return Get(DataStagerTypeConv::from_url(url));
-  }
+  void StageIn(std::string url, PlacementPolicy dpe) override;
+  void FileStageIn(std::string path, PlacementPolicy dpe);
+  void DirectoryStageIn(std::string path, PlacementPolicy dpe);
 
-  static std::unique_ptr<DataStager> Get(DataStagerType stager) {
-    switch (stager) {
-      case DataStagerType::kPosix: {
-        return std::make_unique<PosixStager>();
-      }
-      default: {
-        return nullptr;
-      }
-    }
-  }
+  void StageIn(std::string url, off_t off, size_t size,
+               PlacementPolicy dpe) override;
+  void FileStageIn(std::string path, off_t off, size_t size,
+                   PlacementPolicy dpe);
+
+  void StageOut(std::string url) override;
+  void FileStageOut(std::string path);
+  void DirectoryStageOut(std::string path);
 };
 
 }  // namespace hermes
 
-#endif  // HERMES_DATA_STAGER_STAGE_FACTORY_H_
+#endif  // HERMES_DATA_STAGER_STAGERS_POSIX_STAGE_H
