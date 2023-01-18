@@ -17,8 +17,13 @@ echo "${HERMES_ROOT}"
 echo "${HERMES_BUILD}"
 echo "${HERMES_CONF}"
 
-mkdir -p /tmp/staging
-mkdir hermes_dir
+mkdir -p /tmp/staging/hermes_dir
+
+if ! command -v ior &> /dev/null
+then
+    echo "ior could not be found"
+    exit 1
+fi
 
 # Create files using IOR.
 #
@@ -81,5 +86,5 @@ if [ $? != 0 ]; then
   exit ${RET}
 fi
 
-rm -rf /tmp/staging
-rm -rf hermes_dir
+rm -rf /tmp/staging/hermes_dir
+
