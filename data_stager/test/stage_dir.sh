@@ -17,7 +17,8 @@ echo "${HERMES_ROOT}"
 echo "${HERMES_BUILD}"
 echo "${HERMES_CONF}"
 
-mkdir -p /tmp/staging/hermes_dir
+mkdir -p /tmp/staging
+mkdir hermes_dir
 
 if ! command -v ior &> /dev/null
 then
@@ -86,5 +87,6 @@ if [ $? != 0 ]; then
   exit ${RET}
 fi
 
-rm -rf /tmp/staging/hermes_dir
+rm -rf /tmp/staging
+rm -rf hermes_dir
 
