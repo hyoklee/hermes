@@ -17,6 +17,9 @@ echo "${HERMES_ROOT}"
 echo "${HERMES_BUILD}"
 echo "${HERMES_CONF}"
 
+rm -rf /tmp/staging
+rm -rf hermes_dir
+
 mkdir -p /tmp/staging
 mkdir hermes_dir
 
