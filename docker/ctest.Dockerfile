@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:latest
 ARG  DEBIAN_FRONTEND=noninteractive
 RUN apt update
 RUN apt-get install -y --no-install-recommends autoconf \
@@ -15,7 +15,7 @@ RUN apt-get install -y --no-install-recommends autoconf \
     cmake
 RUN python3 -m pip install cpplint==1.5.4
 
-RUN git clone https://github.com/HDFGroup/hermes
+RUN git clone https://github.com/hyoklee/hermes
 WORKDIR $PWD/hermes
 RUN git remote get-url origin
 RUN ci/install_deps.sh

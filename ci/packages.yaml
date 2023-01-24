@@ -3,22 +3,22 @@ packages:
     target: [x86_64]
   mpich:
     externals:
-    - spec: mpich@3.3.2
+    - spec: mpich@4.0
       prefix: /usr
     buildable: False
   cmake:
     externals:
-    - spec: cmake@3.23.2
-      prefix: /usr/local
+    - spec: cmake@3.22.1
+      prefix: /usr
     buildable: False
   autoconf:
     externals:
-    - spec: autoconf@2.69
+    - spec: autoconf@2.71
       prefix: /usr
     buildable: False
   automake:
     externals:
-    - spec: automake@1.16
+    - spec: automake@1.16.5
       prefix: /usr
     buildable: False
   libtool:
@@ -33,6 +33,6 @@ packages:
     buildable: False
   pkg-config:
     externals:
-    - spec: pkg-config@0.29.1
+    - spec: pkg-config@0.29.2
       prefix: /usr
     buildable: False
