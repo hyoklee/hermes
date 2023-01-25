@@ -196,7 +196,7 @@ class API {
     } else {
       fstat = (fstat_t)dlsym(RTLD_DEFAULT, "fstat");
     }
-    REQUIRE_API(__fxstat)
+    REQUIRE_API(fstat)
     if (is_intercepted) {
       fsync = (fsync_t)dlsym(RTLD_NEXT, "fsync");
     } else {
