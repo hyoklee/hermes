@@ -10,7 +10,7 @@ packages:
     externals:
     - spec: cmake@3.22.1
       prefix: /usr
-    buildable: False
+    buildable: True
   autoconf:
     externals:
     - spec: autoconf@2.71
