@@ -500,7 +500,7 @@ static H5FD_t *H5FD__hermes_open(const char *name, unsigned flags,
           name, myerrno, strerror(myerrno), flags, (unsigned)o_flags);
     }
 
-    if (__fxstat(_STAT_VER, fd, &sb) < 0) {
+    if (fstat(fd, &sb) < 0) {
       H5FD_HERMES_SYS_GOTO_ERROR(H5E_FILE, H5E_BADFILE, NULL,
                                  "unable to fstat file");
     }
