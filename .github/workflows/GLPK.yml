@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Get Sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Checkout Spack
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          repository: hyoklee/spack
+          repository: spack/spack
           path: ./spack
       - name: Install APT Dependencies
         run: |
@@ -73,13 +73,13 @@ jobs:
           spack load catch2
           spack install mochi-thallium@main~cereal
           spack load mochi-thallium@main~cereal
-          spack install hdf5@develop-1.13
+          spack install hdf5@1.13.3
           spack load hdf5
           cmake --version
           mkdir build
           cd build
-          cmake ..
-          make -j2
+          cmake -DHERMES_ENABLE_VFD=ON ..
+          make -j
           ctest .
           # ci/install_hermes_glpk.sh
           # pushd ci/cluster && ./multi_node_ci_test.sh
