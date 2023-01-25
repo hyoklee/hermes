@@ -11,9 +11,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include <sys/stat.h>
-#ifdef __APPLE__
-#define O_DIRECT O_WRONLY
-#endif
+
 TEST_CASE("Open", "[process=" + std::to_string(info.comm_size) +
                       "]"
                       "[operation=single_open]"
@@ -1468,7 +1466,7 @@ TEST_CASE("fstat") {
     REQUIRE(test::size_written_orig == args.request_size);
 
     struct stat buf = {};
-    int result = __fxstat(_STAT_VER, test::fh_orig, &buf);
+    int result = fstat(test::fh_orig, &buf);
     REQUIRE(result == 0);
     REQUIRE(buf.st_size == (off_t)test::size_written_orig);
 
