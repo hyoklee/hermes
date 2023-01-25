@@ -265,7 +265,7 @@ $(document).ready(function(){initNavTree('posix_2real__api_8h_source.html',''); 
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;      <a class="code" href="classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#a8c45df0d83c0da26881a1e06609ed5fa">fstat</a> = (fstat_t)dlsym(RTLD_DEFAULT, <span class="stringliteral">&quot;fstat&quot;</span>);</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    }</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    REQUIRE_API(__fxstat)</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    REQUIRE_API(<a class="code" href="classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#a8c45df0d83c0da26881a1e06609ed5fa">fstat</a>)</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">if</span> (is_intercepted) {</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;      <a class="code" href="classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#a33e014748ba3397f69153c847012eeb9">fsync</a> = (fsync_t)dlsym(RTLD_NEXT, <span class="stringliteral">&quot;fsync&quot;</span>);</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    } <span class="keywordflow">else</span> {</div>
