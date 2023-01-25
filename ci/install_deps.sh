@@ -35,9 +35,9 @@ mkdir -p ${INSTALL_DIR}
 
 # Spack
 git clone https://github.com/spack/spack ${SPACK_DIR}
-pushd ${SPACK_DIR}
-git checkout v${SPACK_VERSION}
-popd
+# pushd ${SPACK_DIR}
+# git checkout v${SPACK_VERSION}
+# popd
 
 set +x
 . ${SPACK_DIR}/share/spack/setup-env.sh
@@ -48,20 +48,21 @@ set -x
 # Modify ci/pckages.yaml to skip building compilers or build tools via Spack.
 cp ci/packages.yaml ${SPACK_DIR}/etc/spack/packages.yaml
 
-MOCHI_REPO=https://github.com/mochi-hpc/mochi-spack-packages.git
+# Thallium is part of Spack.
+# MOCHI_REPO=https://github.com/mochi-hpc/mochi-spack-packages.git
 # TODO(chogan): We pin this commit because in the past using the HEAD of 'main'
 # has been unstable. We update at controlled intervals rather than putting out
 # fires. The fewer moving pieces we have in CI, the easier it is to diagnose
 # errors.
-MOCHI_SPACK_PACKAGES_COMMIT=3c3d64d5e7265b44cb68433be061604c9e0ed739
-git clone ${MOCHI_REPO} ${MOCHI_REPO_DIR}
-pushd ${MOCHI_REPO_DIR}
-git checkout ${MOCHI_SPACK_PACKAGES_COMMIT}
-popd
+# MOCHI_SPACK_PACKAGES_COMMIT=3c3d64d5e7265b44cb68433be061604c9e0ed739
+# git clone ${MOCHI_REPO} ${MOCHI_REPO_DIR}
+# pushd ${MOCHI_REPO_DIR}
+# git checkout ${MOCHI_SPACK_PACKAGES_COMMIT}
+# popd
 
 # This will override Spack's default package repository to allow building
 # a custom package when the same package is available from Spack.
-spack repo add ${MOCHI_REPO_DIR}
+# spack repo add ${MOCHI_REPO_DIR}
 spack repo add ./ci/hermes
 
 THALLIUM_SPEC="mochi-thallium@${THALLIUM_VERSION} ^mercury~boostsys"
