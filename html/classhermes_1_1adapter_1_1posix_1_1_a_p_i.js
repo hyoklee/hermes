@@ -16,7 +16,7 @@ var classhermes_1_1adapter_1_1posix_1_1_a_p_i =
     [ "pwrite64", "classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#abc6a97e3ace6f6160eb87b9d0878cdb3", null ],
     [ "lseek", "classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#a1eaa48ceb662af93b1a06011fa6b6fc2", null ],
     [ "lseek64", "classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#ae75fcebcc548a16e7a1eaa94ddb8a08e", null ],
-    [ "__fxstat", "classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#aecabcf4079b86d1dd5eb70120a959518", null ],
+    [ "fstat", "classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#a8c45df0d83c0da26881a1e06609ed5fa", null ],
     [ "fsync", "classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#a33e014748ba3397f69153c847012eeb9", null ],
     [ "close", "classhermes_1_1adapter_1_1posix_1_1_a_p_i.html#af404f7a43164c782c3bbdfd5397b0233", null ]
 ];
