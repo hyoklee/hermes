@@ -155,6 +155,7 @@ static herr_t H5FD__hermes_write(H5FD_t *_file, H5FD_mem_t type, hid_t fapl_id,
                                  haddr_t addr, size_t size, const void *buf);
 
 static const H5FD_class_t H5FD_hermes_g = {
+    H5FD_CLASS_VERSION,
     H5FD_HERMES_VALUE,          /* value                */
     H5FD_HERMES_NAME,           /* name                 */
     MAXADDR,                    /* maxaddr              */
