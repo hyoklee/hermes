@@ -145,8 +145,6 @@ Public Member Functions</h2></td></tr>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a08edad6964cf4a455ef6b35e19050a28">Get</a> (const std::string &amp;name, <a class="el" href="classhermes_1_1api_1_1_bucket.html">Bucket</a> *bkt, void *user_blob, size_t blob_size, const <a class="el" href="structhermes_1_1api_1_1_context.html">Context</a> &amp;ctx)</td></tr>
 <tr class="memdesc:a08edad6964cf4a455ef6b35e19050a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve a <a class="el" href="structhermes_1_1_blob.html">Blob</a> into a user buffer. <br /></td></tr>
 <tr class="separator:a08edad6964cf4a455ef6b35e19050a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1508066ed6958e7980a82c5ccae328b9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a1508066ed6958e7980a82c5ccae328b9">GetLinks</a> ()</td></tr>
-<tr class="separator:a1508066ed6958e7980a82c5ccae328b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a279a396e728307fa96e0103d480b0aa7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a279a396e728307fa96e0103d480b0aa7">GetLinks</a> (<a class="el" href="structhermes_1_1api_1_1_context.html">Context</a> &amp;ctx)</td></tr>
 <tr class="separator:a279a396e728307fa96e0103d480b0aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26a6f00e07cdc495206c15314186a060"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classapi_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhermes_1_1api_1_1_v_bucket.html#a26a6f00e07cdc495206c15314186a060">Attach</a> (<a class="el" href="structhermes_1_1api_1_1_trait.html">Trait</a> *trait)</td></tr>
@@ -1020,26 +1018,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a1508066ed6958e7980a82c5ccae328b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1508066ed6958e7980a82c5ccae328b9">&#9670;&nbsp;</a></span>GetLinks() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; std::string &gt; hermes::api::VBucket::GetLinks </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>retrieves all blob links </p>
-
-</div>
-</div>
 <a id="a279a396e728307fa96e0103d480b0aa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a279a396e728307fa96e0103d480b0aa7">&#9670;&nbsp;</a></span>GetLinks() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a279a396e728307fa96e0103d480b0aa7">&#9670;&nbsp;</a></span>GetLinks()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1053,7 +1033,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>retrieves all blob links subject to a predicte in <em>ctx</em> </p>
+<p>retrieves the subset of blob links satisfying pred could return iterator </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

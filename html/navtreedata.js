@@ -67,12 +67,12 @@ var NAVTREEINDEX =
 "",
 "classhermes_1_1_thread_pool.html#a2ea2e01f51a45b0ab38abca4356fa7ed",
 "classhermes_1_1adapter_1_1stdio_1_1_stdio_f_s.html#adf7e36678b6710f1527de89d84cef899",
-"functions_vars_y.html",
-"namespacehermes.html#a0a588e65234b2504ed2ba0ec0f42f74a",
-"namespacehermes.html#a67ebab27ec18608dfdf3d20bbe2f13af",
-"namespacehermes.html#af8bfcb2d66a8c335c6d62b452c549f9f",
-"structhermes_1_1_config.html#adc876cfb62763cd57c27b1074dea419e",
-"structhermes_1_1adapter_1_1fs_1_1_file.html#a5a32431e6c593171ad43afcb82921070"
+"functions_w.html",
+"namespacehermes.html#a0a969993c0b9714c25f089125e9f4dbb",
+"namespacehermes.html#a691c72f9652625681bf0ea035161cdd3",
+"namespacehermes.html#af9192be0415eb65b473ecaec4a40ac8b",
+"structhermes_1_1_config.html#ade9f12eca7406edbadf611fa9fd49fa9",
+"structhermes_1_1adapter_1_1fs_1_1_file.html#a6925f7884369ede6cc543bf256ca474f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
