@@ -51,7 +51,7 @@ typedef ssize_t (*pwrite64_t)(int fd, const void *buf, size_t count,
                               off64_t offset);
 typedef off_t (*lseek_t)(int fd, off_t offset, int whence);
 typedef off64_t (*lseek64_t)(int fd, off64_t offset, int whence);
-typedef int (*__fxstat_t)(int __ver, int __filedesc, struct stat *__stat_buf);
+typedef int (*fstat_t)(int __filedesc, struct stat *__stat_buf);
 typedef int (*fsync_t)(int fd);
 typedef int (*close_t)(int fd);
 }
@@ -91,8 +91,8 @@ class API {
   lseek_t lseek = nullptr;
   /** lseek64 */
   lseek64_t lseek64 = nullptr;
-  /** __fxstat */
-  __fxstat_t __fxstat = nullptr;
+  /** fstat */
+  fstat_t fstat = nullptr;
   /** fsync */
   fsync_t fsync = nullptr;
   /** close */
@@ -192,9 +192,9 @@ class API {
     }
     REQUIRE_API(lseek64)
     if (is_intercepted) {
-      __fxstat = (__fxstat_t)dlsym(RTLD_NEXT, "__fxstat");
+      fstat = (fstat_t)dlsym(RTLD_NEXT, "fstat");
     } else {
-      __fxstat = (__fxstat_t)dlsym(RTLD_DEFAULT, "__fxstat");
+      fstat = (fstat_t)dlsym(RTLD_DEFAULT, "fstat");
     }
     REQUIRE_API(__fxstat)
     if (is_intercepted) {
