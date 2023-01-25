@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"namespacehermes.html#af8bfcb2d66a8c335c6d62b452c549f9f":[2,0,1,191],
 "namespacehermes.html#af9192be0415eb65b473ecaec4a40ac8b":[2,0,1,213],
 "namespacehermes.html#af945baa0aefde451845022c0517ad818":[2,0,1,220],
 "namespacehermes.html#afa2ef21cc72cd481af40f9cbaa58dd9a":[2,0,1,485],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "structhermes_1_1_config.html#a9fb4ccb10ce4dd4e3a4887dbb41b61ea":[3,0,1,32,27],
 "structhermes_1_1_config.html#abfd5eff09385a7ac6bb537ac15f0861a":[3,0,1,32,0],
 "structhermes_1_1_config.html#ac90e86144b866097d6d02cd1ef4dff66":[3,0,1,32,11],
-"structhermes_1_1_config.html#ad78adbdc7ff09ae101ce2851c1948728":[3,0,1,32,19],
-"structhermes_1_1_config.html#adc876cfb62763cd57c27b1074dea419e":[3,0,1,32,22]
+"structhermes_1_1_config.html#ad78adbdc7ff09ae101ce2851c1948728":[3,0,1,32,19]
 };

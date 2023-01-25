@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"classhermes_1_1adapter_1_1stdio_1_1_stdio_f_s.html#adf7e36678b6710f1527de89d84cef899":[3,0,1,0,4,0,5],
 "classhermes_1_1adapter_1_1stdio_1_1_stdio_f_s.html#ae25c8d0336dd9b52b54ab128d76a078f":[3,0,1,0,4,0,7],
 "classhermes_1_1adapter_1_1stdio_1_1_stdio_f_s.html#aeb0f8bf8fa351edaafbf8ccbaecaa8bd":[3,0,1,0,4,0,3],
 "classhermes_1_1adapter_1_1stdio_1_1_stdio_f_s.html#af5126c8648b05c18f934f0a34bdc96d7":[3,0,1,0,4,0,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "functions_vars_u.html":[3,3,2,21],
 "functions_vars_v.html":[3,3,2,22],
 "functions_vars_w.html":[3,3,2,23],
-"functions_vars_x.html":[3,3,2,24],
-"functions_vars_y.html":[3,3,2,25]
+"functions_vars_x.html":[3,3,2,24]
 };
