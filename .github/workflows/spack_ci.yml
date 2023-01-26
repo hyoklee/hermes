@@ -1,4 +1,4 @@
-name: GLPK2
+name: spack ci
 on:
   push:
     branches: [ master ]
@@ -6,12 +6,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Get Sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Checkout Spack
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: hyoklee/spack
           path: ./spack
@@ -20,22 +20,21 @@ jobs:
           sudo apt update
           sudo apt-get install -y autoconf
           sudo apt-get install -y automake
-          sudo apt-get install -y libtool
-          sudo apt-get install -y libtool-bin
-          sudo apt-get install -y mpich
-          sudo apt-get install -y lcov
-          sudo apt-get install -y zlib1g-dev
-          sudo apt-get install -y libsdl2-dev
           sudo apt-get install -y diffutils
           sudo apt-get install -y libdb-dev
           sudo apt-get install -y libedit-dev
           sudo apt-get install -y libncurses6
           sudo apt-get install -y libsigsegv-dev
           sudo apt-get install -y libxml2-dev
+          sudo apt-get install -y libsdl2-dev
+          sudo apt-get install -y libtool
+          sudo apt-get install -y libtool-bin
+          sudo apt-get install -y libyaml-cpp-dev          
+          sudo apt-get install -y lcov          
           sudo apt-get install -y mpich
           sudo apt-get install -y openssl
           sudo apt-get install -y xz-utils
-          sudo apt-get install -y libyaml-cpp-dev
+          sudo apt-get install -y zlib1g-dev          
           
       - name: Run Spack
         run: |

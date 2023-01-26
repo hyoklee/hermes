@@ -1,4 +1,4 @@
-name: u20.04 spack cmake
+name: spack ctest
 on:
   push:
     branches: [ master ]
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Get Sources
         uses: actions/checkout@v3
@@ -78,7 +78,7 @@ jobs:
           cmake --version
           mkdir build
           cd build
-          cmake -DHERMES_ENABLE_VFD=ON ..
+          cmake ..
           make -j
           ctest .
           # ci/install_hermes_glpk.sh
