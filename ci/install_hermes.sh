@@ -30,7 +30,6 @@ cmake                                                      \
     -DHERMES_BUILD_BENCHMARKS=ON                           \
     -DHERMES_COMMUNICATION_MPI=ON                          \
     -DHERMES_BUILD_BUFFER_POOL_VISUALIZER=ON               \
-    -DORTOOLS_DIR=${DEPENDENCY_PREFIX}                     \
     -DHERMES_USE_ADDRESS_SANITIZER=ON                      \
     -DHERMES_USE_THREAD_SANITIZER=OFF                      \
     -DHERMES_RPC_THALLIUM=ON                               \
