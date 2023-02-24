@@ -14,19 +14,19 @@
 #define SCS_SINGLETON_H
 
 #include <memory>
+
 #include "hermes_shm/thread/lock/mutex.h"
 
 namespace scs {
 
-template<typename T>
+template <typename T>
 class Singleton {
  private:
   static T obj_;
+
  public:
   Singleton() = default;
-  static T* GetInstance() {
-    return &obj_;
-  }
+  static T* GetInstance() { return &obj_; }
 };
 
 }  // namespace scs

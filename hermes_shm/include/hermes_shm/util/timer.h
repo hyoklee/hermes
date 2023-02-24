@@ -14,12 +14,12 @@
 #define HERMES_SHM_TIMER_H
 
 #include <chrono>
-#include <vector>
 #include <functional>
+#include <vector>
 
 namespace hermes_shm {
 
-template<typename T>
+template <typename T>
 class TimerBase {
  private:
   std::chrono::time_point<T> start_, end_;
@@ -28,9 +28,7 @@ class TimerBase {
  public:
   TimerBase() : time_ns_(0) {}
 
-  void Resume() {
-    start_ = T::now();
-  }
+  void Resume() { start_ = T::now(); }
   double Pause() {
     time_ns_ += GetNsecFromStart();
     return time_ns_;
@@ -40,50 +38,42 @@ class TimerBase {
     time_ns_ += dt;
     return time_ns_;
   }
-  void Reset() {
-    time_ns_ = 0;
-  }
+  void Reset() { time_ns_ = 0; }
 
   double GetNsecFromStart() {
     end_ = T::now();
-    double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
-        end_ - start_).count();
+    double elapsed =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end_ - start_)
+            .count();
     return elapsed;
   }
   double GetUsecFromStart() {
     end_ = T::now();
-    return std::chrono::duration_cast<std::chrono::microseconds>(
-        end_ - start_).count();
+    return std::chrono::duration_cast<std::chrono::microseconds>(end_ - start_)
+        .count();
   }
   double GetMsecFromStart() {
     end_ = T::now();
-    return std::chrono::duration_cast<std::chrono::milliseconds>(
-        end_ - start_).count();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(end_ - start_)
+        .count();
   }
   double GetSecFromStart() {
     end_ = T::now();
-    return std::chrono::duration_cast<std::chrono::seconds>(
-        end_ - start_).count();
+    return std::chrono::duration_cast<std::chrono::seconds>(end_ - start_)
+        .count();
   }
 
-  double GetNsec() const {
-    return time_ns_;
-  }
-  double GetUsec() const {
-    return time_ns_/1000;
-  }
-  double GetMsec() const {
-    return time_ns_/1000000;
-  }
-  double GetSec() const {
-    return time_ns_/1000000000;
-  }
+  double GetNsec() const { return time_ns_; }
+  double GetUsec() const { return time_ns_ / 1000; }
+  double GetMsec() const { return time_ns_ / 1000000; }
+  double GetSec() const { return time_ns_ / 1000000000; }
 
   double GetUsFromEpoch() const {
     std::chrono::time_point<std::chrono::system_clock> point =
         std::chrono::system_clock::now();
     return std::chrono::duration_cast<std::chrono::microseconds>(
-        point.time_since_epoch()).count();
+               point.time_since_epoch())
+        .count();
   }
 };
 

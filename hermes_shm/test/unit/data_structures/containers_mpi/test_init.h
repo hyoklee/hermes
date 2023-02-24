@@ -13,22 +13,23 @@
 #ifndef HERMES_SHM_TEST_UNIT_DATA_STRUCTURES_TEST_INIT_H_
 #define HERMES_SHM_TEST_UNIT_DATA_STRUCTURES_TEST_INIT_H_
 
-#include "hermes_shm/data_structures/data_structure.h"
 #include <mpi.h>
 
-using hermes_shm::ipc::PosixShmMmap;
-using hermes_shm::ipc::MemoryBackendType;
-using hermes_shm::ipc::MemoryBackend;
-using hermes_shm::ipc::allocator_id_t;
-using hermes_shm::ipc::AllocatorType;
-using hermes_shm::ipc::Allocator;
-using hermes_shm::ipc::Pointer;
+#include "hermes_shm/data_structures/data_structure.h"
 
-using hermes_shm::ipc::MemoryBackendType;
-using hermes_shm::ipc::MemoryBackend;
+using hermes_shm::ipc::Allocator;
 using hermes_shm::ipc::allocator_id_t;
 using hermes_shm::ipc::AllocatorType;
+using hermes_shm::ipc::MemoryBackend;
+using hermes_shm::ipc::MemoryBackendType;
+using hermes_shm::ipc::Pointer;
+using hermes_shm::ipc::PosixShmMmap;
+
 using hermes_shm::ipc::Allocator;
+using hermes_shm::ipc::allocator_id_t;
+using hermes_shm::ipc::AllocatorType;
+using hermes_shm::ipc::MemoryBackend;
+using hermes_shm::ipc::MemoryBackendType;
 using hermes_shm::ipc::MemoryManager;
 using hermes_shm::ipc::Pointer;
 

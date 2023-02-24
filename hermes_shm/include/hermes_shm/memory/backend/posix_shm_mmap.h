@@ -13,21 +13,21 @@
 #ifndef HERMES_SHM_INCLUDE_MEMORY_BACKEND_POSIX_SHM_MMAP_H
 #define HERMES_SHM_INCLUDE_MEMORY_BACKEND_POSIX_SHM_MMAP_H
 
-#include "memory_backend.h"
-#include <string>
-
+#include <fcntl.h>
+#include <hermes_shm/constants/macros.h>
+#include <hermes_shm/introspect/system_info.h>
+#include <hermes_shm/util/errors.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
+#include <sys/mman.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
-#include <sys/mman.h>
 #include <unistd.h>
 
-#include <hermes_shm/util/errors.h>
-#include <hermes_shm/constants/macros.h>
-#include <hermes_shm/introspect/system_info.h>
+#include <string>
+
+#include "memory_backend.h"
 
 namespace hermes_shm::ipc {
 
@@ -83,14 +83,10 @@ class PosixShmMmap : public MemoryBackend {
   }
 
   /** Detach the mapped memory */
-  void shm_detach() override {
-    _Detach();
-  }
+  void shm_detach() override { _Detach(); }
 
   /** Destroy the mapped memory */
-  void shm_destroy() override {
-    _Destroy();
-  }
+  void shm_destroy() override { _Destroy(); }
 
  protected:
   /** Reserve shared memory */
@@ -102,11 +98,10 @@ class PosixShmMmap : public MemoryBackend {
   }
 
   /** Map shared memory */
-  template<typename T=char>
+  template <typename T = char>
   T* _Map(size_t size, off64_t off) {
-    T *ptr = reinterpret_cast<T*>(
-      mmap64(nullptr, size, PROT_READ | PROT_WRITE,
-             MAP_SHARED, fd_, off));
+    T* ptr = reinterpret_cast<T*>(
+        mmap64(nullptr, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd_, off));
     if (ptr == MAP_FAILED) {
       throw SHMEM_CREATE_FAILED.format();
     }
@@ -115,7 +110,9 @@ class PosixShmMmap : public MemoryBackend {
 
   /** Unmap shared memory */
   void _Detach() {
-    if (!IsInitialized()) { return; }
+    if (!IsInitialized()) {
+      return;
+    }
     munmap(data_, data_size_);
     munmap(header_, HERMES_SHM_SYSTEM_INFO->page_size_);
     close(fd_);
@@ -124,7 +121,9 @@ class PosixShmMmap : public MemoryBackend {
 
   /** Destroy shared memory */
   void _Destroy() {
-    if (!IsInitialized()) { return; }
+    if (!IsInitialized()) {
+      return;
+    }
     _Detach();
     shm_unlink(url_.c_str());
     UnsetInitialized();

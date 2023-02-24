@@ -13,18 +13,16 @@
 #ifndef HERMES_SHM_THREAD_THREAD_H_
 #define HERMES_SHM_THREAD_THREAD_H_
 
-#include <vector>
+#include <atomic>
 #include <cstdint>
 #include <memory>
-#include <atomic>
+#include <vector>
 
 namespace hermes_shm {
 
 typedef uint32_t tid_t;
 
-enum class ThreadType {
-  kPthread
-};
+enum class ThreadType { kPthread };
 
 class Thread {
  public:

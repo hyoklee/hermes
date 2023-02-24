@@ -13,10 +13,11 @@
 #ifndef HERMES_SHM_MEMORY_MEMORY_MANAGER_H_
 #define HERMES_SHM_MEMORY_MEMORY_MANAGER_H_
 
-#include "hermes_shm/memory/allocator/allocator.h"
-#include "backend/memory_backend.h"
-#include "hermes_shm/memory/allocator/allocator_factory.h"
 #include <hermes_shm/constants/data_structure_singleton_macros.h>
+
+#include "backend/memory_backend.h"
+#include "hermes_shm/memory/allocator/allocator.h"
+#include "hermes_shm/memory/allocator/allocator_factory.h"
 
 namespace hipc = hermes_shm::ipc;
 
@@ -55,12 +56,10 @@ class MemoryManager {
    * There can be multiple slots per-backend, enabling multiple allocation
    * policies over a single memory region.
    * */
-  template<typename BackendT, typename ...Args>
-  MemoryBackend* CreateBackend(size_t size,
-                               const std::string &url,
-                               Args&& ...args) {
-    backends_.emplace(url,
-                      MemoryBackendFactory::shm_init<BackendT>(size, url),
+  template <typename BackendT, typename... Args>
+  MemoryBackend *CreateBackend(size_t size, const std::string &url,
+                               Args &&...args) {
+    backends_.emplace(url, MemoryBackendFactory::shm_init<BackendT>(size, url),
                       std::forward<Args>(args)...);
     auto backend = backends_[url].get();
     backend->Own();
@@ -70,8 +69,7 @@ class MemoryManager {
   /**
    * Attaches to an existing memory backend located at \a url url.
    * */
-  MemoryBackend* AttachBackend(MemoryBackendType type,
-                               const std::string &url) {
+  MemoryBackend *AttachBackend(MemoryBackendType type, const std::string &url) {
     backends_.emplace(url, MemoryBackendFactory::shm_deserialize(type, url));
     auto backend = backends_[url].get();
     ScanBackends();
@@ -82,7 +80,7 @@ class MemoryManager {
   /**
    * Returns a pointer to a backend that has already been attached.
    * */
-  MemoryBackend* GetBackend(const std::string &url);
+  MemoryBackend *GetBackend(const std::string &url);
 
   /**
    * Destroys the memory allocated by the entire backend.
@@ -103,18 +101,16 @@ class MemoryManager {
   /**
    * Create and register a memory allocator for a particular backend.
    * */
-  template<typename AllocT, typename ...Args>
-  Allocator* CreateAllocator(const std::string &url,
-                             allocator_id_t alloc_id,
-                             size_t custom_header_size,
-                             Args&& ...args) {
+  template <typename AllocT, typename... Args>
+  Allocator *CreateAllocator(const std::string &url, allocator_id_t alloc_id,
+                             size_t custom_header_size, Args &&...args) {
     auto backend = GetBackend(url);
     if (alloc_id.IsNull()) {
-      alloc_id = allocator_id_t(HERMES_SHM_SYSTEM_INFO->pid_,
-                                allocators_.size());
+      alloc_id =
+          allocator_id_t(HERMES_SHM_SYSTEM_INFO->pid_, allocators_.size());
     }
     auto alloc = AllocatorFactory::shm_init<AllocT>(
-      backend, alloc_id, custom_header_size, std::forward<Args>(args)...);
+        backend, alloc_id, custom_header_size, std::forward<Args>(args)...);
     RegisterAllocator(alloc);
     return GetAllocator(alloc_id);
   }
@@ -122,8 +118,10 @@ class MemoryManager {
   /**
    * Locates an allocator of a particular id
    * */
-  Allocator* GetAllocator(allocator_id_t alloc_id) {
-    if (alloc_id.IsNull()) { return nullptr; }
+  Allocator *GetAllocator(allocator_id_t alloc_id) {
+    if (alloc_id.IsNull()) {
+      return nullptr;
+    }
     if (alloc_id == root_allocator_.GetId()) {
       return &root_allocator_;
     }
@@ -131,42 +129,35 @@ class MemoryManager {
     if (iter == allocators_.end()) {
       ScanBackends();
     }
-    return reinterpret_cast<Allocator*>(allocators_[alloc_id].get());
+    return reinterpret_cast<Allocator *>(allocators_[alloc_id].get());
   }
 
   /**
    * Gets the allocator used for initializing other allocators.
    * */
-  Allocator* GetRootAllocator() {
-    return &root_allocator_;
-  }
+  Allocator *GetRootAllocator() { return &root_allocator_; }
 
   /**
    * Gets the allocator used by default when no allocator is
    * used to construct an object.
    * */
-  Allocator* GetDefaultAllocator() {
-    return default_allocator_;
-  }
+  Allocator *GetDefaultAllocator() { return default_allocator_; }
 
   /**
    * Sets the allocator used by default when no allocator is
    * used to construct an object.
    * */
-  void SetDefaultAllocator(Allocator *alloc) {
-    default_allocator_ = alloc;
-  }
+  void SetDefaultAllocator(Allocator *alloc) { default_allocator_ = alloc; }
 
   /**
    * Convert a process-independent pointer into a process-specific pointer.
    * */
-  template<typename T, typename POINTER_T=Pointer>
-  T* Convert(const POINTER_T &p) {
+  template <typename T, typename POINTER_T = Pointer>
+  T *Convert(const POINTER_T &p) {
     if (p.IsNull()) {
       return nullptr;
     }
-    return GetAllocator(p.allocator_id_)->template
-      Convert<T, POINTER_T>(p);
+    return GetAllocator(p.allocator_id_)->template Convert<T, POINTER_T>(p);
   }
 
   /**
@@ -175,10 +166,9 @@ class MemoryManager {
    * @param allocator_id the allocator the pointer belongs to
    * @param ptr the pointer to convert
    * */
-  template<typename T, typename POINTER_T=Pointer>
+  template <typename T, typename POINTER_T = Pointer>
   POINTER_T Convert(allocator_id_t allocator_id, T *ptr) {
-    return GetAllocator(allocator_id)->template
-      Convert<T, POINTER_T>(ptr);
+    return GetAllocator(allocator_id)->template Convert<T, POINTER_T>(ptr);
   }
 
   /**
@@ -187,12 +177,11 @@ class MemoryManager {
    *
    * @param ptr the pointer to convert
    * */
-  template<typename T, typename POINTER_T=Pointer>
+  template <typename T, typename POINTER_T = Pointer>
   POINTER_T Convert(T *ptr) {
     for (auto &[alloc_id, alloc] : allocators_) {
       if (alloc->ContainsPtr(ptr)) {
-        return alloc->template
-          Convert<T, POINTER_T>(ptr);
+        return alloc->template Convert<T, POINTER_T>(ptr);
       }
     }
     return Pointer::GetNull();

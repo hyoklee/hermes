@@ -14,8 +14,8 @@
 #define HERMES_SHM_MEMORY_ALLOCATOR_ALLOCATOR_FACTORY_H_
 
 #include "allocator.h"
-#include "stack_allocator.h"
 #include "malloc_allocator.h"
+#include "stack_allocator.h"
 
 namespace hermes_shm::ipc {
 
@@ -24,25 +24,21 @@ class AllocatorFactory {
   /**
    * Create a new memory allocator
    * */
-  template<typename AllocT, typename ...Args>
+  template <typename AllocT, typename... Args>
   static std::unique_ptr<Allocator> shm_init(MemoryBackend *backend,
                                              allocator_id_t alloc_id,
                                              size_t custom_header_size,
-                                             Args&& ...args) {
-    if constexpr(std::is_same_v<StackAllocator, AllocT>) {
+                                             Args &&...args) {
+    if constexpr (std::is_same_v<StackAllocator, AllocT>) {
       // StackAllocator
       auto alloc = std::make_unique<StackAllocator>();
-      alloc->shm_init(backend,
-                      alloc_id,
-                      custom_header_size,
+      alloc->shm_init(backend, alloc_id, custom_header_size,
                       std::forward<Args>(args)...);
       return alloc;
-    } else if constexpr(std::is_same_v<MallocAllocator, AllocT>) {
+    } else if constexpr (std::is_same_v<MallocAllocator, AllocT>) {
       // Malloc Allocator
       auto alloc = std::make_unique<MallocAllocator>();
-      alloc->shm_init(backend,
-                      alloc_id,
-                      custom_header_size,
+      alloc->shm_init(backend, alloc_id, custom_header_size,
                       std::forward<Args>(args)...);
       return alloc;
     } else {
@@ -55,7 +51,7 @@ class AllocatorFactory {
    * Deserialize the allocator managing this backend.
    * */
   static std::unique_ptr<Allocator> shm_deserialize(MemoryBackend *backend) {
-    auto header_ = reinterpret_cast<AllocatorHeader*>(backend->data_);
+    auto header_ = reinterpret_cast<AllocatorHeader *>(backend->data_);
     switch (static_cast<AllocatorType>(header_->allocator_type_)) {
       // Stack Allocator
       case AllocatorType::kStackAllocator: {
@@ -69,7 +65,8 @@ class AllocatorFactory {
         alloc->shm_deserialize(backend);
         return alloc;
       }
-      default: return nullptr;
+      default:
+        return nullptr;
     }
   }
 };

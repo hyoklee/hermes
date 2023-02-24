@@ -25,16 +25,16 @@
 
 namespace hermes_shm::ipc {
 
-template<typename ContainerT>
+template <typename ContainerT>
 class ShmContainerExtendExample;
 
-template<typename ContainerT>
+template <typename ContainerT>
 class ShmHeader<ShmContainerExtendExample<ContainerT>>
-: public ShmWrapperHeader {
+    : public ShmWrapperHeader {
   typename ContainerT::header_t obj_;
 };
 
-template<typename ContainerT>
+template <typename ContainerT>
 class ShmContainerExtendExample : public ShmContainer {
  public:
   /**====================================
@@ -43,7 +43,7 @@ class ShmContainerExtendExample : public ShmContainer {
 
   typedef TYPED_HEADER header_t; /**< Required by all ShmContainers */
   header_t *header_; /**< The shared-memory header for this container */
-  ContainerT obj_; /**< The object being wrapped around */
+  ContainerT obj_;   /**< The object being wrapped around */
 
  public:
   /**====================================
@@ -54,19 +54,15 @@ class ShmContainerExtendExample : public ShmContainer {
   CLASS_NAME() = default;
 
   /** Default shm constructor */
-  void shm_init_main(TYPED_HEADER *header,
-                     Allocator *alloc) {
-  }
+  void shm_init_main(TYPED_HEADER *header, Allocator *alloc) {}
 
   /** Move constructor */
-  void shm_weak_move_main(TYPED_HEADER *header,
-                          Allocator *alloc, CLASS_NAME &other) {
-  }
+  void shm_weak_move_main(TYPED_HEADER *header, Allocator *alloc,
+                          CLASS_NAME &other) {}
 
   /** Copy constructor */
-  void shm_strong_copy_main(TYPED_HEADER *header,
-                            Allocator *alloc, const CLASS_NAME &other) {
-  }
+  void shm_strong_copy_main(TYPED_HEADER *header, Allocator *alloc,
+                            const CLASS_NAME &other) {}
 
   /** Destroy the shared-memory data. */
   void shm_destroy_main() {}
@@ -82,15 +78,14 @@ class ShmContainerExtendExample : public ShmContainer {
    * ===================================*/
 
   /** Constructor. Allocate header with default allocator. */
-  template<typename ...Args>
+  template <typename... Args>
   explicit CLASS_NAME(Args &&...args) {
     shm_init(std::forward<Args>(args)...);
   }
 
   /** Constructor. Allocate header with default allocator. */
-  template<typename ...Args>
-  void shm_init(Args &&...args) {
-  }
+  template <typename... Args>
+  void shm_init(Args &&...args) {}
 
   /**====================================
    * Serialization
@@ -129,41 +124,39 @@ class ShmContainerExtendExample : public ShmContainer {
   }
 
   /** Deserialize object from allocator + header */
-  bool shm_deserialize(Allocator *alloc,
-                       TYPED_HEADER *header) {
+  bool shm_deserialize(Allocator *alloc, TYPED_HEADER *header) {
     return obj_.shm_deserialize(alloc, header);
   }
 
   /** Constructor. Deserialize the object from the reference. */
-  template<typename ...Args>
+  template <typename... Args>
   void shm_init(hipc::ShmRef<TYPED_CLASS> &obj) {
     shm_deserialize(obj->GetAllocator(), obj->header_);
   }
 
   /** Override >> operators */
-  SHM_DESERIALIZE_OPS ((TYPED_CLASS))
+  SHM_DESERIALIZE_OPS((TYPED_CLASS))
 
   /**====================================
    * Destructors
    * ===================================*/
 
   /** Destructor */
-  ~CLASS_NAME() {
-    obj_.shm_destroy(true);
-  }
+  ~CLASS_NAME() { obj_.shm_destroy(true); }
 
   /** Shm Destructor */
   void shm_destroy(bool destroy_header = true) {
     obj_.shm_destroy(false);
-    if (!IsValid()) { return; }
+    if (!IsValid()) {
+      return;
+    }
     if (IsDataValid()) {
       shm_destroy_main();
     }
     UnsetDataValid();
     if (destroy_header &&
-      obj_.header_->OrBits(SHM_CONTAINER_HEADER_DESTRUCTABLE)) {
-      GetAllocator()->template
-        FreePtr<TYPED_HEADER>(header_);
+        obj_.header_->OrBits(SHM_CONTAINER_HEADER_DESTRUCTABLE)) {
+      GetAllocator()->template FreePtr<TYPED_HEADER>(header_);
       UnsetValid();
     }
   }
@@ -173,25 +166,22 @@ class ShmContainerExtendExample : public ShmContainer {
    * ===================================*/
 
   /** Move constructor */
-  CLASS_NAME(CLASS_NAME &&other) noexcept
-  : obj_(std::move(other)) {}
+  CLASS_NAME(CLASS_NAME &&other) noexcept : obj_(std::move(other)) {}
 
   /** Move assignment operator */
-  CLASS_NAME& operator=(CLASS_NAME &&other) noexcept {
+  CLASS_NAME &operator=(CLASS_NAME &&other) noexcept {
     obj_ = std::move(other.obj_);
     return *this;
   }
 
   /** Move shm_init constructor */
-  void shm_init_main(TYPED_HEADER *header,
-                     hipc::Allocator *alloc,
+  void shm_init_main(TYPED_HEADER *header, hipc::Allocator *alloc,
                      CLASS_NAME &&other) noexcept {
     shm_weak_move(header, alloc, other);
   }
 
   /** Move operation */
-  void shm_weak_move(TYPED_HEADER *header,
-                     hipc::Allocator *alloc,
+  void shm_weak_move(TYPED_HEADER *header, hipc::Allocator *alloc,
                      CLASS_NAME &other) {
     obj_.shm_weak_move(header, alloc, other);
   }
@@ -201,24 +191,19 @@ class ShmContainerExtendExample : public ShmContainer {
    * ===================================*/
 
   /** Copy constructor */
-  CLASS_NAME(const CLASS_NAME &other) noexcept {
-    shm_init(other);
-  }
+  CLASS_NAME(const CLASS_NAME &other) noexcept { shm_init(other); }
 
   /** Copy assignment constructor */
   CLASS_NAME &operator=(const CLASS_NAME &other) {
     if (this != &other) {
-      shm_strong_copy(
-        typed_nullptr<TYPED_HEADER >(),
-        typed_nullptr<Allocator>(),
-        other);
+      shm_strong_copy(typed_nullptr<TYPED_HEADER>(), typed_nullptr<Allocator>(),
+                      other);
     }
     return *this;
   }
 
   /** Copy shm_init constructor */
-  void shm_init_main(TYPED_HEADER *header,
-                     hipc::Allocator *alloc,
+  void shm_init_main(TYPED_HEADER *header, hipc::Allocator *alloc,
                      const CLASS_NAME &other) {
     shm_strong_copy(header, alloc, other);
   }
@@ -226,7 +211,9 @@ class ShmContainerExtendExample : public ShmContainer {
   /** Strong Copy operation */
   void shm_strong_copy(TYPED_HEADER *header, hipc::Allocator *alloc,
                        const CLASS_NAME &other) {
-    if (other.IsNull()) { return; }
+    if (other.IsNull()) {
+      return;
+    }
     shm_destroy(false);
     shm_strong_copy_main(header, alloc, other);
     SetDestructable();
@@ -237,54 +224,37 @@ class ShmContainerExtendExample : public ShmContainer {
    * ===================================*/
 
   /** Sets this object as destructable */
-  void SetDestructable() {
-    obj_.SetDestructable();
-  }
+  void SetDestructable() { obj_.SetDestructable(); }
 
   /** Sets this object as not destructable */
-  void UnsetDestructable() {
-    obj_.UnsetDestructable();
-  }
+  void UnsetDestructable() { obj_.UnsetDestructable(); }
 
   /** Check if this container is destructable */
-  bool IsDestructable() const {
-    return obj_.IsDestructable();
-  }
+  bool IsDestructable() const { return obj_.IsDestructable(); }
 
   /** Check if container has a valid header */
-  bool IsValid() const {
-    return obj_.IsValid();
-  }
+  bool IsValid() const { return obj_.IsValid(); }
 
   /** Set container header invalid */
-  void UnsetValid() {
-    obj_.UnsetValid();
-  }
+  void UnsetValid() { obj_.UnsetValid(); }
 
   /**====================================
    * Header Flag Operations
    * ===================================*/
 
   /** Check if header's data is valid */
-  bool IsDataValid() const {
-    return obj_.IsDataValid();
-  }
+  bool IsDataValid() const { return obj_.IsDataValid(); }
 
   /** Check if header's data is valid */
-  void UnsetDataValid() const {
-    return obj_.UnsetDataValid();
-  }
+  void UnsetDataValid() const { return obj_.UnsetDataValid(); }
 
   /** Check if null */
-  bool IsNull() const {
-    return obj_.IsNull();
-  }
+  bool IsNull() const { return obj_.IsNull(); }
 
   /** Get a typed pointer to the object */
-  template<typename POINTER_T>
+  template <typename POINTER_T>
   POINTER_T GetShmPointer() const {
-    return GetAllocator()->template
-      Convert<TYPED_HEADER, POINTER_T>(header_);
+    return GetAllocator()->template Convert<TYPED_HEADER, POINTER_T>(header_);
   }
 
   /**====================================
@@ -292,19 +262,13 @@ class ShmContainerExtendExample : public ShmContainer {
    * ===================================*/
 
   /** Get the allocator for this container */
-  Allocator* GetAllocator() {
-    return obj_.GetAllocator();
-  }
+  Allocator *GetAllocator() { return obj_.GetAllocator(); }
 
   /** Get the allocator for this container */
-  Allocator* GetAllocator() const {
-    return obj_.GetAllocator();
-  }
+  Allocator *GetAllocator() const { return obj_.GetAllocator(); }
 
   /** Get the shared-memory allocator id */
-  allocator_id_t GetAllocatorId() const {
-    return GetAllocator()->GetId();
-  }
+  allocator_id_t GetAllocatorId() const { return GetAllocator()->GetId(); }
 };
 
 }  // namespace hermes_shm::ipc
@@ -313,4 +277,4 @@ class ShmContainerExtendExample : public ShmContainer {
 #undef TYPED_CLASS
 #undef TYPED_HEADER
 
-#endif //HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_INTERNAL_SHM_CONTAINER_INHERIT_EXAMPLE_H_
+#endif  // HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_INTERNAL_SHM_CONTAINER_INHERIT_EXAMPLE_H_

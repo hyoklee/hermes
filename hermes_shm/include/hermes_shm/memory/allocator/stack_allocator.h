@@ -25,10 +25,8 @@ struct StackAllocatorHeader : public AllocatorHeader {
 
   StackAllocatorHeader() = default;
 
-  void Configure(allocator_id_t alloc_id,
-                 size_t custom_header_size,
-                 size_t region_off,
-                 size_t region_size) {
+  void Configure(allocator_id_t alloc_id, size_t custom_header_size,
+                 size_t region_off, size_t region_size) {
     AllocatorHeader::Configure(alloc_id, AllocatorType::kStackAllocator,
                                custom_header_size);
     region_off_ = region_off;
@@ -45,21 +43,17 @@ class StackAllocator : public Allocator {
   /**
    * Allocator constructor
    * */
-  StackAllocator()
-  : header_(nullptr) {}
+  StackAllocator() : header_(nullptr) {}
 
   /**
    * Get the ID of this allocator from shared memory
    * */
-  allocator_id_t GetId() override {
-    return header_->allocator_id_;
-  }
+  allocator_id_t GetId() override { return header_->allocator_id_; }
 
   /**
    * Initialize the allocator in shared memory
    * */
-  void shm_init(MemoryBackend *backend,
-                allocator_id_t id,
+  void shm_init(MemoryBackend *backend, allocator_id_t id,
                 size_t custom_header_size);
 
   /**
@@ -84,8 +78,8 @@ class StackAllocator : public Allocator {
    *
    * @return whether or not the pointer p was changed
    * */
-  OffsetPointer ReallocateOffsetNoNullCheck(
-    OffsetPointer p, size_t new_size) override;
+  OffsetPointer ReallocateOffsetNoNullCheck(OffsetPointer p,
+                                            size_t new_size) override;
 
   /**
    * Free \a ptr pointer. Null check is performed elsewhere.

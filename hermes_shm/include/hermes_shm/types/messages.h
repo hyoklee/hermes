@@ -15,9 +15,7 @@
 
 namespace hermes_shm {
 
-enum {
-  HERMES_SHM_ADMIN_REGISTER_QP
-};
+enum { HERMES_SHM_ADMIN_REGISTER_QP };
 
 struct admin_request {
   int op_;

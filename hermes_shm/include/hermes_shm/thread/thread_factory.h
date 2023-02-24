@@ -13,12 +13,12 @@
 #ifndef HERMES_SHM_THREAD_THREAD_FACTORY_H_
 #define HERMES_SHM_THREAD_THREAD_FACTORY_H_
 
-#include "thread.h"
 #include "pthread.h"
+#include "thread.h"
 
 namespace hermes_shm {
 
-template<typename BIND>
+template <typename BIND>
 class ThreadFactory {
  private:
   ThreadType type_;
@@ -26,12 +26,14 @@ class ThreadFactory {
 
  public:
   explicit ThreadFactory(ThreadType type, BIND bind)
-  : type_(type), bind_(bind) {}
+      : type_(type), bind_(bind) {}
 
   std::unique_ptr<Thread> Get() {
     switch (type_) {
-      case ThreadType::kPthread: return std::make_unique<Pthread<BIND>>(bind_);
-      default: return nullptr;
+      case ThreadType::kPthread:
+        return std::make_unique<Pthread<BIND>>(bind_);
+      default:
+        return nullptr;
     }
   }
 };
@@ -40,8 +42,10 @@ class ThreadStaticFactory {
  public:
   static std::unique_ptr<ThreadStatic> Get(ThreadType type) {
     switch (type) {
-      case ThreadType::kPthread: return std::make_unique<PthreadStatic>();
-      default: return nullptr;
+      case ThreadType::kPthread:
+        return std::make_unique<PthreadStatic>();
+      default:
+        return nullptr;
     }
   }
 };

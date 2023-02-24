@@ -13,21 +13,21 @@
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_BACKEND_ARRAY_BACKEND_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_BACKEND_ARRAY_BACKEND_H_
 
-#include "memory_backend.h"
-#include <string>
-
+#include <fcntl.h>
+#include <hermes_shm/constants/macros.h>
+#include <hermes_shm/introspect/system_info.h>
+#include <hermes_shm/util/errors.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
+#include <sys/mman.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
-#include <sys/mman.h>
 #include <unistd.h>
 
-#include <hermes_shm/util/errors.h>
-#include <hermes_shm/constants/macros.h>
-#include <hermes_shm/introspect/system_info.h>
+#include <string>
+
+#include "memory_backend.h"
 
 namespace hermes_shm::ipc {
 
@@ -51,7 +51,7 @@ class ArrayBackend : public MemoryBackend {
   }
 
   bool shm_deserialize(std::string url) override {
-    (void) url;
+    (void)url;
     throw SHMEM_NOT_SUPPORTED.format();
   }
 

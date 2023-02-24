@@ -26,21 +26,13 @@ union RwLockPayload {
 
   RwLockPayload() = default;
 
-  RwLockPayload(const RwLockPayload &other) {
-    as_int_ = other.as_int_;
-  }
+  RwLockPayload(const RwLockPayload &other) { as_int_ = other.as_int_; }
 
-  RwLockPayload(uint64_t other) {
-    as_int_ = other;
-  }
+  RwLockPayload(uint64_t other) { as_int_ = other; }
 
-  bool IsWriteLocked() const {
-    return bits_.w_ > 0;
-  }
+  bool IsWriteLocked() const { return bits_.w_ > 0; }
 
-  bool IsReadLocked() const {
-    return bits_.r_ > 0;
-  }
+  bool IsReadLocked() const { return bits_.r_ > 0; }
 };
 
 struct RwLock {
@@ -48,16 +40,13 @@ struct RwLock {
 
   RwLock() : payload_(0) {}
 
-  void Init() {
-    payload_ = 0;
-  }
+  void Init() { payload_ = 0; }
 
   RwLock(const RwLock &other) = delete;
 
-  RwLock(RwLock &&other) noexcept
-  : payload_(other.payload_.load()) {}
+  RwLock(RwLock &&other) noexcept : payload_(other.payload_.load()) {}
 
-  RwLock& operator=(RwLock &&other) {
+  RwLock &operator=(RwLock &&other) {
     payload_ = other.payload_.load();
     return (*this);
   }

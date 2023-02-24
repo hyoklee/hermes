@@ -15,7 +15,7 @@
 
 #include "list.h"
 
-template<typename T, typename Container>
+template <typename T, typename Container>
 class VectorTestSuite : public ListTestSuite<T, Container> {
  public:
   using ListTestSuite<T, Container>::obj_;
@@ -23,7 +23,7 @@ class VectorTestSuite : public ListTestSuite<T, Container> {
  public:
   /// Constructor
   VectorTestSuite(Container &obj, Allocator *alloc)
-  : ListTestSuite<T, Container>(obj, alloc) {}
+      : ListTestSuite<T, Container>(obj, alloc) {}
 
   /// Test vector index operator
   void IndexTest() {
@@ -34,4 +34,4 @@ class VectorTestSuite : public ListTestSuite<T, Container> {
   }
 };
 
-#endif //HERMES_SHM_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_VECTOR_H_
+#endif  // HERMES_SHM_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_VECTOR_H_

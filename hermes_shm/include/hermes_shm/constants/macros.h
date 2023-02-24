@@ -13,18 +13,18 @@
 #ifndef HERMES_SHM_MACROS_H
 #define HERMES_SHM_MACROS_H
 
-#define KILOBYTES(n) ((size_t)(n) * (1<<10))
-#define MEGABYTES(n) ((size_t)(n) * (1<<20))
-#define GIGABYTES(n) ((size_t)(n) * (1<<30))
+#define KILOBYTES(n) ((size_t)(n) * (1 << 10))
+#define MEGABYTES(n) ((size_t)(n) * (1 << 20))
+#define GIGABYTES(n) ((size_t)(n) * (1 << 30))
 
-#define TYPE_BITS(type) ((sizeof(type)*8))
+#define TYPE_BITS(type) ((sizeof(type) * 8))
 
 #define TYPE_WRAP(...) (__VA_ARGS__)
 
 #define TYPE_UNWRAP(X) ESC(ISH X)
 #define ISH(...) ISH __VA_ARGS__
 #define ESC(...) ESC_(__VA_ARGS__)
-#define ESC_(...) VAN ## __VA_ARGS__
+#define ESC_(...) VAN##__VA_ARGS__
 #define VANISH
 
 #endif  // HERMES_SHM_MACROS_H

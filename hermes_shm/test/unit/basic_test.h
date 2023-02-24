@@ -19,8 +19,8 @@
 namespace cl = Catch::Clara;
 cl::Parser define_options();
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 static bool VerifyBuffer(char *ptr, size_t size, char nonce) {
   for (size_t i = 0; i < size; ++i) {
@@ -33,33 +33,33 @@ static bool VerifyBuffer(char *ptr, size_t size, char nonce) {
 }
 
 /** var = TYPE(val) */
-#define SET_VAR_TO_INT_OR_STRING(TYPE, VAR, VAL)\
-  if constexpr(std::is_same_v<TYPE, hipc::string>) {\
-    VAR = hipc::string(std::to_string(VAL));\
-  } else if constexpr(std::is_same_v<TYPE, std::string>) {\
-    VAR = std::string(std::to_string(VAL));\
-  } else {\
-    VAR = VAL;\
+#define SET_VAR_TO_INT_OR_STRING(TYPE, VAR, VAL)            \
+  if constexpr (std::is_same_v<TYPE, hipc::string>) {       \
+    VAR = hipc::string(std::to_string(VAL));                \
+  } else if constexpr (std::is_same_v<TYPE, std::string>) { \
+    VAR = std::string(std::to_string(VAL));                 \
+  } else {                                                  \
+    VAR = VAL;                                              \
   }
 
 /** TYPE VAR = TYPE(VAL) */
-#define CREATE_SET_VAR_TO_INT_OR_STRING(TYPE, VAR, VAL)\
-  TYPE VAR;\
+#define CREATE_SET_VAR_TO_INT_OR_STRING(TYPE, VAR, VAL) \
+  TYPE VAR;                                             \
   SET_VAR_TO_INT_OR_STRING(TYPE, VAR, VAL);
 
 /** RET = int(TYPE(VAR)); */
-#define GET_INT_FROM_VAR(TYPE, RET, VAR)\
-  if constexpr(std::is_same_v<TYPE, hipc::string>) {\
-    RET = atoi((VAR).str().c_str());\
-  } else if constexpr(std::is_same_v<TYPE, std::string>) {\
-    RET = atoi((VAR).c_str());\
-  } else {\
-    RET = VAR;\
+#define GET_INT_FROM_VAR(TYPE, RET, VAR)                    \
+  if constexpr (std::is_same_v<TYPE, hipc::string>) {       \
+    RET = atoi((VAR).str().c_str());                        \
+  } else if constexpr (std::is_same_v<TYPE, std::string>) { \
+    RET = atoi((VAR).c_str());                              \
+  } else {                                                  \
+    RET = VAR;                                              \
   }
 
 /** int RET = int(TYPE(VAR)); */
-#define CREATE_GET_INT_FROM_VAR(TYPE, RET, VAR)\
-  int RET;\
+#define CREATE_GET_INT_FROM_VAR(TYPE, RET, VAR) \
+  int RET;                                      \
   GET_INT_FROM_VAR(TYPE, RET, VAR)
 
 void MainPretest();

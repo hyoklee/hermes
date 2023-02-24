@@ -18,7 +18,7 @@
 
 namespace hermes_shm::ipc {
 
-template<typename T, typename PointerT>
+template <typename T, typename PointerT>
 class SmartPtrTestSuite {
  public:
   PointerT ptr_;
@@ -81,4 +81,4 @@ class SmartPtrTestSuite {
 
 }  // namespace hermes_shm::ipc
 
-#endif //HERMES_SHM_TEST_UNIT_ptr__STRUCTURES_CONTAINERS_SMART_PTR_H_
+#endif  // HERMES_SHM_TEST_UNIT_ptr__STRUCTURES_CONTAINERS_SMART_PTR_H_

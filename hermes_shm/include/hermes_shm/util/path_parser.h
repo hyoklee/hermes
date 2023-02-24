@@ -14,9 +14,9 @@
 #define HERMES_SHM_PATH_PARSER_H
 
 #include <cstdlib>
-#include <string>
-#include <regex>
 #include <list>
+#include <regex>
+#include <string>
 
 namespace scs {
 
@@ -28,7 +28,7 @@ std::string path_parser(std::string path) {
   }
   for (auto &env_name_re : env_names) {
     std::string to_replace = std::string(env_name_re);
-    std::string env_name = to_replace.substr(2, to_replace.size()-3);
+    std::string env_name = to_replace.substr(2, to_replace.size() - 3);
     std::string env_val = env_name;
     try {
       char *ret = getenv(env_name.c_str());
@@ -37,7 +37,7 @@ std::string path_parser(std::string path) {
       } else {
         continue;
       }
-    } catch(...) {
+    } catch (...) {
     }
     std::regex replace_expr("\\$\\{" + env_name + "\\}");
     path = std::regex_replace(path, replace_expr, env_val);

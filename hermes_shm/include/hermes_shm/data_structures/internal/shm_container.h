@@ -13,13 +13,13 @@
 #ifndef HERMES_SHM_SHM_CONTAINER_H_
 #define HERMES_SHM_SHM_CONTAINER_H_
 
-#include "hermes_shm/memory/memory_manager.h"
 #include "hermes_shm/constants/macros.h"
-#include "shm_container_macro.h"
-#include "shm_macros.h"
+#include "hermes_shm/memory/memory_manager.h"
 #include "shm_archive.h"
-#include "shm_ref.h"
+#include "shm_container_macro.h"
 #include "shm_deserialize.h"
+#include "shm_macros.h"
+#include "shm_ref.h"
 
 namespace hipc = hermes_shm::ipc;
 
@@ -36,7 +36,7 @@ namespace hermes_shm::ipc {
 #define SHM_CONTAINER_DESTRUCTABLE BIT_OPT(uint16_t, 3)
 
 /** The shared-memory header used for data structures */
-template<typename T>
+template <typename T>
 struct ShmHeader;
 
 /** The ShmHeader used for base containers */
@@ -50,9 +50,7 @@ struct ShmBaseHeader {
   ShmBaseHeader(const ShmBaseHeader &other) {}
 
   /** Copy assignment operator */
-  ShmBaseHeader& operator=(const ShmBaseHeader &other) {
-    return *this;
-  }
+  ShmBaseHeader &operator=(const ShmBaseHeader &other) { return *this; }
 
   /**
    * Disable copying of the flag field, as all flags
@@ -74,9 +72,9 @@ struct ShmWrapperHeader {};
 class ShmContainer : public ShmArchiveable {};
 
 /** Typed nullptr */
-template<typename T>
-static inline T* typed_nullptr() {
-  return reinterpret_cast<T*>(NULL);
+template <typename T>
+static inline T *typed_nullptr() {
+  return reinterpret_cast<T *>(NULL);
 }
 
 }  // namespace hermes_shm::ipc

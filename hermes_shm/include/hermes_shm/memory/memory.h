@@ -13,11 +13,11 @@
 #ifndef HERMES_SHM_MEMORY_MEMORY_H_
 #define HERMES_SHM_MEMORY_MEMORY_H_
 
-#include <hermes_shm/types/basic.h>
 #include <hermes_shm/constants/data_structure_singleton_macros.h>
 #include <hermes_shm/introspect/system_info.h>
-#include <hermes_shm/types/bitfield.h>
 #include <hermes_shm/types/atomic.h>
+#include <hermes_shm/types/basic.h>
+#include <hermes_shm/types/bitfield.h>
 
 namespace hermes_shm::ipc {
 
@@ -47,9 +47,7 @@ union allocator_id_t {
   /**
    * Set this allocator to null
    * */
-  void SetNull() {
-    int_ = 0;
-  }
+  void SetNull() { int_ = 0; }
 
   /**
    * Check if this is the null allocator
@@ -79,10 +77,11 @@ typedef uint32_t slot_id_t;  // Uniquely ids a MemoryBackend slot
  * Stores an offset into a memory region. Assumes the developer knows
  * which allocator the pointer comes from.
  * */
-template<bool ATOMIC=false>
+template <bool ATOMIC = false>
 struct OffsetPointerBase {
-  typedef typename std::conditional<ATOMIC,
-    atomic<size_t>, nonatomic<size_t>>::type atomic_t;
+  typedef
+      typename std::conditional<ATOMIC, atomic<size_t>, nonatomic<size_t>>::type
+          atomic_t;
   atomic_t off_; /**< Offset within the allocator's slot */
 
   /** Default constructor */
@@ -96,20 +95,19 @@ struct OffsetPointerBase {
 
   /** Pointer constructor */
   explicit OffsetPointerBase(allocator_id_t alloc_id, size_t off) : off_(off) {
-    (void) alloc_id;
+    (void)alloc_id;
   }
 
   /** Copy constructor */
-  OffsetPointerBase(const OffsetPointerBase &other)
-  : off_(other.off_.load()) {}
+  OffsetPointerBase(const OffsetPointerBase &other) : off_(other.off_.load()) {}
 
   /** Other copy constructor */
   OffsetPointerBase(const OffsetPointerBase<!ATOMIC> &other)
-  : off_(other.off_.load()) {}
+      : off_(other.off_.load()) {}
 
   /** Move constructor */
   OffsetPointerBase(OffsetPointerBase &&other) noexcept
-    : off_(other.off_.load()) {
+      : off_(other.off_.load()) {
     other.SetNull();
   }
 
@@ -119,14 +117,10 @@ struct OffsetPointerBase {
   }
 
   /** Set to null */
-  void SetNull() {
-    off_ = -1;
-  }
+  void SetNull() { off_ = -1; }
 
   /** Check if null */
-  bool IsNull() const {
-    return off_ == -1;
-  }
+  bool IsNull() const { return off_ == -1; }
 
   /** Get the null pointer */
   static OffsetPointerBase GetNull() {
@@ -136,27 +130,27 @@ struct OffsetPointerBase {
 
   /** Atomic load wrapper */
   inline size_t load(
-    std::memory_order order = std::memory_order_seq_cst) const {
+      std::memory_order order = std::memory_order_seq_cst) const {
     return off_.load(order);
   }
 
   /** Atomic exchange wrapper */
-  inline void exchange(
-    size_t count, std::memory_order order = std::memory_order_seq_cst) {
+  inline void exchange(size_t count,
+                       std::memory_order order = std::memory_order_seq_cst) {
     off_.exchange(count, order);
   }
 
   /** Atomic compare exchange weak wrapper */
-  inline bool compare_exchange_weak(size_t& expected, size_t desired,
-                                    std::memory_order order =
-                                    std::memory_order_seq_cst) {
+  inline bool compare_exchange_weak(
+      size_t &expected, size_t desired,
+      std::memory_order order = std::memory_order_seq_cst) {
     return off_.compare_exchange_weak(expected, desired, order);
   }
 
   /** Atomic compare exchange strong wrapper */
-  inline bool compare_exchange_strong(size_t& expected, size_t desired,
-                                      std::memory_order order =
-                                      std::memory_order_seq_cst) {
+  inline bool compare_exchange_strong(
+      size_t &expected, size_t desired,
+      std::memory_order order = std::memory_order_seq_cst) {
     return off_.compare_exchange_weak(expected, desired, order);
   }
 
@@ -171,25 +165,25 @@ struct OffsetPointerBase {
   }
 
   /** Atomic add assign operator */
-  inline OffsetPointerBase& operator+=(size_t count) {
+  inline OffsetPointerBase &operator+=(size_t count) {
     off_ += count;
     return *this;
   }
 
   /** Atomic subtract assign operator */
-  inline OffsetPointerBase& operator-=(size_t count) {
+  inline OffsetPointerBase &operator-=(size_t count) {
     off_ -= count;
     return *this;
   }
 
   /** Atomic assign operator */
-  inline OffsetPointerBase& operator=(size_t count) {
+  inline OffsetPointerBase &operator=(size_t count) {
     off_ = count;
     return *this;
   }
 
   /** Atomic copy assign operator */
-  inline OffsetPointerBase& operator=(const OffsetPointerBase &count) {
+  inline OffsetPointerBase &operator=(const OffsetPointerBase &count) {
     off_ = count.load();
     return *this;
   }
@@ -212,44 +206,44 @@ typedef OffsetPointerBase<false> OffsetPointer;
 typedef OffsetPointerBase<true> AtomicOffsetPointer;
 
 /** Typed offset pointer */
-template<typename T>
+template <typename T>
 using TypedOffsetPointer = OffsetPointer;
 
 /** Typed atomic pointer */
-template<typename T>
+template <typename T>
 using TypedAtomicOffsetPointer = AtomicOffsetPointer;
 
 /**
  * A process-independent pointer, which stores both the allocator's
  * information and the offset within the allocator's region
  * */
-template<bool ATOMIC=false>
+template <bool ATOMIC = false>
 struct PointerBase {
-  allocator_id_t allocator_id_;     /// Allocator the pointer comes from
-  OffsetPointerBase<ATOMIC> off_;   /// Offset within the allocator's slot
+  allocator_id_t allocator_id_;    /// Allocator the pointer comes from
+  OffsetPointerBase<ATOMIC> off_;  /// Offset within the allocator's slot
 
   /** Default constructor */
   PointerBase() = default;
 
   /** Full constructor */
-  explicit PointerBase(allocator_id_t id, size_t off) :
-    allocator_id_(id), off_(off) {}
+  explicit PointerBase(allocator_id_t id, size_t off)
+      : allocator_id_(id), off_(off) {}
 
   /** Full constructor using offset pointer */
-  explicit PointerBase(allocator_id_t id, OffsetPointer off) :
-    allocator_id_(id), off_(off) {}
+  explicit PointerBase(allocator_id_t id, OffsetPointer off)
+      : allocator_id_(id), off_(off) {}
 
   /** Copy constructor */
   PointerBase(const PointerBase &other)
-  : allocator_id_(other.allocator_id_), off_(other.off_) {}
+      : allocator_id_(other.allocator_id_), off_(other.off_) {}
 
   /** Other copy constructor */
   PointerBase(const PointerBase<!ATOMIC> &other)
-  : allocator_id_(other.allocator_id_), off_(other.off_.load()) {}
+      : allocator_id_(other.allocator_id_), off_(other.off_.load()) {}
 
   /** Move constructor */
   PointerBase(PointerBase &&other) noexcept
-  : allocator_id_(other.allocator_id_), off_(other.off_) {
+      : allocator_id_(other.allocator_id_), off_(other.off_) {
     other.SetNull();
   }
 
@@ -259,14 +253,10 @@ struct PointerBase {
   }
 
   /** Set to null */
-  void SetNull() {
-    allocator_id_.SetNull();
-  }
+  void SetNull() { allocator_id_.SetNull(); }
 
   /** Check if null */
-  bool IsNull() const {
-    return allocator_id_.IsNull();
-  }
+  bool IsNull() const { return allocator_id_.IsNull(); }
 
   /** Get the null pointer */
   static PointerBase GetNull() {
@@ -276,7 +266,7 @@ struct PointerBase {
   }
 
   /** Copy assignment operator */
-  PointerBase& operator=(const PointerBase &other) {
+  PointerBase &operator=(const PointerBase &other) {
     if (this != &other) {
       allocator_id_ = other.allocator_id_;
       off_ = other.off_;
@@ -285,7 +275,7 @@ struct PointerBase {
   }
 
   /** Move assignment operator */
-  PointerBase& operator=(PointerBase &&other) {
+  PointerBase &operator=(PointerBase &&other) {
     if (this != &other) {
       allocator_id_ = other.allocator_id_;
       off_.exchange(other.off_.load());
@@ -311,13 +301,13 @@ struct PointerBase {
   }
 
   /** Addition assignment operator */
-  PointerBase& operator+=(size_t size) {
+  PointerBase &operator+=(size_t size) {
     off_ += size;
     return *this;
   }
 
   /** Subtraction assignment operator */
-  PointerBase& operator-=(size_t size) {
+  PointerBase &operator-=(size_t size) {
     off_ -= size;
     return *this;
   }
@@ -340,11 +330,11 @@ typedef PointerBase<false> Pointer;
 typedef PointerBase<true> AtomicPointer;
 
 /** Typed pointer */
-template<typename T>
+template <typename T>
 using TypedPointer = Pointer;
 
 /** Typed atomic pointer */
-template<typename T>
+template <typename T>
 using TypedAtomicPointer = AtomicPointer;
 
 /** Round up to the nearest multiple of the alignment */
@@ -378,6 +368,5 @@ struct hash<hermes_shm::ipc::allocator_id_t> {
 };
 
 }  // namespace std
-
 
 #endif  // HERMES_SHM_MEMORY_MEMORY_H_

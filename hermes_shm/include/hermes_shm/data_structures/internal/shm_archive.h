@@ -74,31 +74,31 @@ class ShmArchiveable : public ShmPredictable {
 /**
  * Enables a specific TypedPointer type to be serialized
  * */
-#define SHM_SERIALIZE_OPS(TYPED_CLASS)\
-  void operator>>(hipc::TypedPointer<TYPE_UNWRAP(TYPED_CLASS)> &ar) const {\
-    shm_serialize(ar);\
-  }\
-  void operator>>(hipc::TypedAtomicPointer<TYPE_UNWRAP(TYPED_CLASS)> &ar) const {\
-    shm_serialize(ar);\
+#define SHM_SERIALIZE_OPS(TYPED_CLASS)                                      \
+  void operator>>(hipc::TypedPointer<TYPE_UNWRAP(TYPED_CLASS)> &ar) const { \
+    shm_serialize(ar);                                                      \
+  }                                                                         \
+  void operator>>(hipc::TypedAtomicPointer<TYPE_UNWRAP(TYPED_CLASS)> &ar)   \
+      const {                                                               \
+    shm_serialize(ar);                                                      \
   }
 
 /**
  * Enables a specific TypedPointer type to be deserialized
  * */
-#define SHM_DESERIALIZE_OPS(TYPED_CLASS)\
-  void operator<<(const hipc::TypedPointer<TYPE_UNWRAP(TYPED_CLASS)> &ar) {\
-    shm_deserialize(ar);\
-  }\
-  void operator<<(\
-    const hipc::TypedAtomicPointer<TYPE_UNWRAP(TYPED_CLASS)> &ar) {\
-    shm_deserialize(ar);\
+#define SHM_DESERIALIZE_OPS(TYPED_CLASS)                                    \
+  void operator<<(const hipc::TypedPointer<TYPE_UNWRAP(TYPED_CLASS)> &ar) { \
+    shm_deserialize(ar);                                                    \
+  }                                                                         \
+  void operator<<(                                                          \
+      const hipc::TypedAtomicPointer<TYPE_UNWRAP(TYPED_CLASS)> &ar) {       \
+    shm_deserialize(ar);                                                    \
   }
 
 /** Enables serialization + deserialization for data structures */
-#define SHM_SERIALIZE_DESERIALIZE_OPS(AR_TYPE)\
-  SHM_SERIALIZE_OPS(AR_TYPE)\
+#define SHM_SERIALIZE_DESERIALIZE_OPS(AR_TYPE) \
+  SHM_SERIALIZE_OPS(AR_TYPE)                   \
   SHM_DESERIALIZE_OPS(AR_TYPE)
-
 
 }  // namespace hermes_shm::ipc
 

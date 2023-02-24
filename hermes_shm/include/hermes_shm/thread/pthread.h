@@ -13,25 +13,26 @@
 #ifndef HERMES_SHM_THREAD_PTHREAD_H_
 #define HERMES_SHM_THREAD_PTHREAD_H_
 
-#include "thread.h"
 #include <errno.h>
 #include <hermes_shm/util/errors.h>
 
+#include "thread.h"
+
 namespace hermes_shm {
 
-template<typename BIND> class Pthread;
+template <typename BIND>
+class Pthread;
 
-template<typename BIND>
+template <typename BIND>
 struct PthreadParams {
   BIND bind_;
   Pthread<BIND> *pthread_;
 
-  PthreadParams(Pthread<BIND> *pthread, BIND bind) :
-    bind_(bind),
-    pthread_(pthread) {}
+  PthreadParams(Pthread<BIND> *pthread, BIND bind)
+      : bind_(bind), pthread_(pthread) {}
 };
 
-template<typename BIND>
+template <typename BIND>
 class Pthread : public Thread {
  private:
   pthread_t pthread_;
@@ -43,13 +44,12 @@ class Pthread : public Thread {
   Pthread() = default;
   explicit Pthread(BIND bind) : started_(false), pthread_(-1) {
     PthreadParams<BIND> params(this, bind);
-    int ret = pthread_create(&pthread_, nullptr,
-                             DoWork,
-                             &params);
+    int ret = pthread_create(&pthread_, nullptr, DoWork, &params);
     if (ret != 0) {
       throw PTHREAD_CREATE_FAILED.format();
     }
-    while (!started_) {}
+    while (!started_) {
+    }
   }
 
   void Pause() override {}
@@ -69,8 +69,8 @@ class Pthread : public Thread {
   }
 
  private:
-  static void* DoWork(void *void_params) {
-    auto params = (*reinterpret_cast<PthreadParams<BIND>*>(void_params));
+  static void *DoWork(void *void_params) {
+    auto params = (*reinterpret_cast<PthreadParams<BIND> *>(void_params));
     params.pthread_->started_ = true;
     params.bind_();
     return nullptr;
@@ -86,13 +86,9 @@ class Pthread : public Thread {
 
 class PthreadStatic : public ThreadStatic {
  public:
-  void Yield() override {
-    pthread_yield();
-  }
+  void Yield() override { pthread_yield(); }
 
-  tid_t GetTid() override {
-    return static_cast<tid_t>(pthread_self());
-  }
+  tid_t GetTid() override { return static_cast<tid_t>(pthread_self()); }
 };
 
 }  // namespace hermes_shm

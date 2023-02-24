@@ -28,11 +28,12 @@
 
 #ifdef __cplusplus
 
-#include "stdio.h"
-#include "hermes_shm/util/timer.h"
-#include "hermes_shm/util/formatter.h"
 #include <sched.h>
 #include <unistd.h>
+
+#include "hermes_shm/util/formatter.h"
+#include "hermes_shm/util/timer.h"
+#include "stdio.h"
 
 namespace hermes_shm {
 
@@ -44,8 +45,8 @@ class AutoTrace {
   hermes_shm::HighResMonotonicTimer t_total_;
 
  public:
-  template<typename ...Args>
-  AutoTrace(bool tracepoint, Args&& ...args) : tracepoint_(tracepoint) {
+  template <typename... Args>
+  AutoTrace(bool tracepoint, Args&&... args) : tracepoint_(tracepoint) {
     // TODO(llogan): Redo with good argpack
     std::stringstream ss;
     base_text_ = ss.str();
@@ -62,9 +63,9 @@ class AutoTrace {
     if (!tracepoint_) {
       t_cpu_.Pause();
       t_total_.Pause();
-      base_text_ += "cpu-time-us;" +
-          std::to_string(t_cpu_.GetUsec()) + ";total-time-us;" +
-          std::to_string(t_total_.GetUsec()) + ";";
+      base_text_ += "cpu-time-us;" + std::to_string(t_cpu_.GetUsec()) +
+                    ";total-time-us;" + std::to_string(t_total_.GetUsec()) +
+                    ";";
       printf("%s\n", (base_text_ + "end").c_str());
     }
   }

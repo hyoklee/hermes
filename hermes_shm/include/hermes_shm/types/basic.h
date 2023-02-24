@@ -19,10 +19,11 @@
 using std::size_t;
 
 #include <stdint.h>
-#include <string>
+
 #include <cstring>
-#include <unordered_map>
 #include <limits>
+#include <string>
+#include <unordered_map>
 
 namespace hermes_shm {
 
@@ -34,7 +35,7 @@ struct RealNumber {
   uint32_t numerator_;
   static const uint32_t precision = 65536;
 
-  RealNumber() =  default;
+  RealNumber() = default;
 
   /**
    * Converts numerator / denomintor ->
@@ -71,10 +72,9 @@ struct RealNumber {
     RealNumber res;
     // d1 * d2
     res.decimal_ = other.decimal_ * decimal_;
-    uint64_t frac =
-      (decimal_ * other.numerator_) + // d1 * n2
-      (other.decimal_ * numerator_) + // d2 * n1
-      (numerator_ * other.numerator_) / precision; // n1 * n2 / p
+    uint64_t frac = (decimal_ * other.numerator_) +               // d1 * n2
+                    (other.decimal_ * numerator_) +               // d2 * n1
+                    (numerator_ * other.numerator_) / precision;  // n1 * n2 / p
     res.decimal_ += frac / precision;
     res.numerator_ = frac % precision;
     return res;
@@ -90,9 +90,7 @@ struct RealNumber {
     return *this;
   }
 
-  size_t as_int() const {
-    return decimal_ + numerator_ / precision;
-  }
+  size_t as_int() const { return decimal_ + numerator_ / precision; }
 };
 
 struct id {
@@ -102,7 +100,7 @@ struct id {
   explicit id(const std::string &key_str) {
     snprintf(key_, MODULE_KEY_SIZE, "%s", key_str.c_str());
   }
-  explicit id(const char* key_str) {
+  explicit id(const char *key_str) {
     snprintf(key_, MODULE_KEY_SIZE, "%s", key_str);
   }
   bool operator==(const id &other) const {
@@ -112,9 +110,7 @@ struct id {
     memcpy(key_, str.c_str(), str.size());
     key_[str.size()] = 0;
   }
-  const char& operator[](int i) {
-    return key_[i];
-  }
+  const char &operator[](int i) { return key_[i]; }
 };
 
 typedef int32_t off_t;
@@ -122,13 +118,15 @@ typedef int32_t off_t;
 }  // namespace hermes_shm
 
 namespace std {
-template<>
+template <>
 struct hash<hermes_shm::id> {
   size_t operator()(const hermes_shm::id &id) const {
     size_t sum = 0;
     int len = strnlen(id.key_, MODULE_KEY_SIZE);
     for (int i = 0; i < len; ++i) {
-      if (id.key_[i] == 0) { break; }
+      if (id.key_[i] == 0) {
+        break;
+      }
       sum += id.key_[i] << (i % 8);
     }
     return sum;

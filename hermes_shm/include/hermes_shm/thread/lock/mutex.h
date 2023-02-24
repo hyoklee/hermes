@@ -22,9 +22,7 @@ struct Mutex {
 
   Mutex() : lock_(0) {}
 
-  void Init() {
-    lock_ = 0;
-  }
+  void Init() { lock_ = 0; }
   void Lock();
   bool TryLock();
   void Unlock();

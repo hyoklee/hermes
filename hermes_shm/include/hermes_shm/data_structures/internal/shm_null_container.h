@@ -13,8 +13,9 @@
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_INTERNAL_SHM_NULL_CONTAINER_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_INTERNAL_SHM_NULL_CONTAINER_H_
 
-#include "shm_container.h"
 #include <string>
+
+#include "shm_container.h"
 
 namespace hermes_shm::ipc {
 
@@ -30,18 +31,16 @@ class NullContainer;
 #define TYPED_HEADER ShmHeader<NullContainer>
 
 /** string shared-memory header */
-template<>
+template <>
 struct ShmHeader<NullContainer> : public ShmBaseHeader {
   /** Default constructor */
   ShmHeader() = default;
 
   /** Copy constructor */
-  ShmHeader(const ShmHeader &other) {
-    strong_copy(other);
-  }
+  ShmHeader(const ShmHeader &other) { strong_copy(other); }
 
   /** Copy assignment operator */
-  ShmHeader& operator=(const ShmHeader &other) {
+  ShmHeader &operator=(const ShmHeader &other) {
     if (this != &other) {
       strong_copy(other);
     }
@@ -52,12 +51,10 @@ struct ShmHeader<NullContainer> : public ShmBaseHeader {
   void strong_copy(const ShmHeader &other) {}
 
   /** Move constructor */
-  ShmHeader(ShmHeader &&other) {
-    weak_move(other);
-  }
+  ShmHeader(ShmHeader &&other) { weak_move(other); }
 
   /** Move operator */
-  ShmHeader& operator=(ShmHeader &&other) {
+  ShmHeader &operator=(ShmHeader &&other) {
     if (this != &other) {
       weak_move(other);
     }
@@ -65,9 +62,7 @@ struct ShmHeader<NullContainer> : public ShmBaseHeader {
   }
 
   /** Move operation */
-  void weak_move(ShmHeader &other) {
-    strong_copy(other);
-  }
+  void weak_move(ShmHeader &other) { strong_copy(other); }
 };
 
 /**
@@ -86,20 +81,17 @@ class NullContainer : public ShmContainer {
   NullContainer() = default;
 
   /** Default shm constructor */
-  void shm_init_main(TYPED_HEADER *header,
-                     Allocator *alloc) {
+  void shm_init_main(TYPED_HEADER *header, Allocator *alloc) {
     shm_init_allocator(alloc);
     shm_init_header(header);
   }
 
   /** Move constructor */
-  void shm_weak_move_main(TYPED_HEADER *header,
-                          Allocator *alloc,
+  void shm_weak_move_main(TYPED_HEADER *header, Allocator *alloc,
                           NullContainer &other) {}
 
   /** Copy constructor */
-  void shm_strong_copy_main(TYPED_HEADER *header,
-                            Allocator *alloc,
+  void shm_strong_copy_main(TYPED_HEADER *header, Allocator *alloc,
                             const NullContainer &other) {}
 
   /**
@@ -116,12 +108,10 @@ class NullContainer : public ShmContainer {
 
 }  // namespace hermes_shm::ipc
 
-namespace std {
-
-}  // namespace std
+namespace std {}  // namespace std
 
 #undef CLASS_NAME
 #undef TYPED_CLASS
 #undef TYPED_HEADER
 
-#endif //HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_INTERNAL_SHM_NULL_CONTAINER_H_
+#endif  // HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_INTERNAL_SHM_NULL_CONTAINER_H_

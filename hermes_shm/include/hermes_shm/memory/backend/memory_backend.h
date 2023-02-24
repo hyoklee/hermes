@@ -13,12 +13,14 @@
 #ifndef HERMES_SHM_MEMORY_H
 #define HERMES_SHM_MEMORY_H
 
-#include <cstdint>
-#include <vector>
-#include <string>
 #include <hermes_shm/memory/memory.h>
-#include "hermes_shm/constants/macros.h"
+
+#include <cstdint>
 #include <limits>
+#include <string>
+#include <vector>
+
+#include "hermes_shm/constants/macros.h"
 
 namespace hermes_shm::ipc {
 
@@ -49,34 +51,22 @@ class MemoryBackend {
   virtual ~MemoryBackend() = default;
 
   /** Mark data as valid */
-  void SetInitialized() {
-    flags_.SetBits(MEMORY_BACKEND_INITIALIZED);
-  }
+  void SetInitialized() { flags_.SetBits(MEMORY_BACKEND_INITIALIZED); }
 
   /** Check if data is valid */
-  bool IsInitialized() {
-    return flags_.OrBits(MEMORY_BACKEND_INITIALIZED);
-  }
+  bool IsInitialized() { return flags_.OrBits(MEMORY_BACKEND_INITIALIZED); }
 
   /** Mark data as invalid */
-  void UnsetInitialized() {
-    flags_.UnsetBits(MEMORY_BACKEND_INITIALIZED);
-  }
+  void UnsetInitialized() { flags_.UnsetBits(MEMORY_BACKEND_INITIALIZED); }
 
   /** This is the process which destroys the backend */
-  void Own() {
-    flags_.SetBits(MEMORY_BACKEND_OWNED);
-  }
+  void Own() { flags_.SetBits(MEMORY_BACKEND_OWNED); }
 
   /** This is owned */
-  bool IsOwned() {
-    return flags_.OrBits(MEMORY_BACKEND_OWNED);
-  }
+  bool IsOwned() { return flags_.OrBits(MEMORY_BACKEND_OWNED); }
 
   /** This is not the process which destroys the backend */
-  void Disown() {
-    flags_.UnsetBits(MEMORY_BACKEND_OWNED);
-  }
+  void Disown() { flags_.UnsetBits(MEMORY_BACKEND_OWNED); }
 
   /// Each allocator must define its own shm_init.
   // virtual bool shm_init(size_t size, ...) = 0;

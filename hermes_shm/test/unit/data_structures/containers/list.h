@@ -13,19 +13,19 @@
 #ifndef HERMES_SHM_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_LIST_H_
 #define HERMES_SHM_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_LIST_H_
 
-#include "basic_test.h"
-#include "test_init.h"
 #include <hermes_shm/data_structures/string.h>
 
-template<typename T, typename Container>
+#include "basic_test.h"
+#include "test_init.h"
+
+template <typename T, typename Container>
 class ListTestSuite {
  public:
   Container &obj_;
   Allocator *alloc_;
 
   /// Constructor
-  ListTestSuite(Container &obj, Allocator *alloc)
-  : obj_(obj), alloc_(alloc) {}
+  ListTestSuite(Container &obj, Allocator *alloc) : obj_(obj), alloc_(alloc) {}
 
   /// Emplace elements
   void EmplaceTest(int count = 30) {
@@ -144,9 +144,7 @@ class ListTestSuite {
 
  private:
   /// Verify copy construct/assign worked
-  void VerifyCopy(Container &obj,
-                  Container &cpy,
-                  int count) {
+  void VerifyCopy(Container &obj, Container &cpy, int count) {
     REQUIRE(obj_.size() == count);
     REQUIRE(cpy.size() == count);
 
@@ -172,9 +170,7 @@ class ListTestSuite {
   }
 
   /// Verify move worked
-  void VerifyMove(Container &orig_obj,
-                  Container &new_obj,
-                  int count) {
+  void VerifyMove(Container &orig_obj, Container &new_obj, int count) {
     // Verify move into cpy worked
     {
       int fcur = 0;
@@ -189,4 +185,4 @@ class ListTestSuite {
   }
 };
 
-#endif //HERMES_SHM_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_LIST_H_
+#endif  // HERMES_SHM_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_LIST_H_

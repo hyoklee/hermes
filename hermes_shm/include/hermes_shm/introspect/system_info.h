@@ -13,8 +13,8 @@
 #ifndef HERMES_SHM_SYSINFO_INFO_H_
 #define HERMES_SHM_SYSINFO_INFO_H_
 
-#include <unistd.h>
 #include <sys/sysinfo.h>
+#include <unistd.h>
 
 namespace hermes_shm {
 

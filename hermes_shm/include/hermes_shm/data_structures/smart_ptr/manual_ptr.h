@@ -13,9 +13,9 @@
 #ifndef HERMES_SHM_DATA_STRUCTURES_PTR_H_
 #define HERMES_SHM_DATA_STRUCTURES_PTR_H_
 
-#include "hermes_shm/memory/memory.h"
 #include "hermes_shm/data_structures/data_structure.h"
 #include "hermes_shm/data_structures/internal/shm_archive_or_t.h"
+#include "hermes_shm/memory/memory.h"
 
 namespace hermes_shm::ipc {
 
@@ -29,7 +29,7 @@ namespace hermes_shm::ipc {
  * Creates a unique instance of a shared-memory data structure
  * and deletes eventually.
  * */
-template<typename T>
+template <typename T>
 class manual_ptr : public ShmSmartPtr<T> {
  public:
   SHM_SMART_PTR_TEMPLATE(T);
@@ -39,24 +39,20 @@ class manual_ptr : public ShmSmartPtr<T> {
   manual_ptr() = default;
 
   /** Allocates + constructs an object in shared memory */
-  template<typename ...Args>
-  void shm_init(Args&& ...args) {
+  template <typename... Args>
+  void shm_init(Args &&...args) {
     obj_.shm_init(std::forward<Args>(args)...);
     obj_.UnsetDestructable();
   }
 
   /** Destructor. Does not free data. */
-  ~manual_ptr() {
-    obj_.UnsetDestructable();
-  }
+  ~manual_ptr() { obj_.UnsetDestructable(); }
 
   /** Copy constructor */
-  manual_ptr(const manual_ptr &other) {
-    obj_.shm_deserialize(other.obj_);
-  }
+  manual_ptr(const manual_ptr &other) { obj_.shm_deserialize(other.obj_); }
 
   /** Copy assignment operator */
-  manual_ptr<T>& operator=(const manual_ptr<T> &other) {
+  manual_ptr<T> &operator=(const manual_ptr<T> &other) {
     if (this != &other) {
       obj_.shm_deserialize(other.obj_);
     }
@@ -64,9 +60,7 @@ class manual_ptr : public ShmSmartPtr<T> {
   }
 
   /** Move constructor */
-  manual_ptr(manual_ptr&& other) noexcept {
-    obj_ = std::move(other.obj_);
-  }
+  manual_ptr(manual_ptr &&other) noexcept { obj_ = std::move(other.obj_); }
 
   /** Constructor. From a TypedPointer<T> */
   explicit manual_ptr(const TypedPointer<TYPED_CLASS> &ar) {
@@ -82,11 +76,11 @@ class manual_ptr : public ShmSmartPtr<T> {
   SHM_SERIALIZE_DESERIALIZE_WRAPPER((T));
 };
 
-template<typename T>
+template <typename T>
 using mptr = manual_ptr<T>;
 
-template<typename T, typename ...Args>
-static mptr<T> make_mptr(Args&& ...args) {
+template <typename T, typename... Args>
+static mptr<T> make_mptr(Args &&...args) {
   mptr<T> ptr;
   ptr.shm_init(std::forward<Args>(args)...);
   return ptr;
@@ -100,7 +94,7 @@ static mptr<T> make_mptr(Args&& ...args) {
 namespace std {
 
 /** Hash function for ptr */
-template<typename T>
+template <typename T>
 struct hash<hermes_shm::ipc::manual_ptr<T>> {
   size_t operator()(const hermes_shm::ipc::manual_ptr<T> &obj) const {
     return std::hash<T>{}(obj.get_ref_const());

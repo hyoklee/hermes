@@ -13,9 +13,10 @@
 #ifndef HERMES_SHM_THREAD_THREAD_MANAGER_H_
 #define HERMES_SHM_THREAD_THREAD_MANAGER_H_
 
+#include <hermes_shm/constants/data_structure_singleton_macros.h>
+
 #include "thread.h"
 #include "thread_factory.h"
-#include <hermes_shm/constants/data_structure_singleton_macros.h>
 
 namespace hermes_shm {
 
@@ -26,9 +27,7 @@ class ThreadManager {
 
   ThreadManager() : type_(ThreadType::kPthread) {}
 
-  void SetThreadType(ThreadType type) {
-    type_ = type;
-  }
+  void SetThreadType(ThreadType type) { type_ = type; }
 
   ThreadStatic* GetThreadStatic() {
     if (!thread_static_) {

@@ -31,9 +31,7 @@
  * SHM_X_OR_Y: X if T is SHM_SERIALIZEABLE, Y otherwise
  * */
 #define SHM_X_OR_Y(T, X, Y) \
-  typename std::conditional<         \
-    IS_SHM_ARCHIVEABLE(T), \
-    X, Y>::type
+  typename std::conditional<IS_SHM_ARCHIVEABLE(T), X, Y>::type
 
 /**
  * SHM_T_OR_PTR_T: Returns T if SHM_ARCHIVEABLE, and T* otherwise. Used
@@ -41,8 +39,7 @@
  *
  * @param T: The type being stored in the shmem data structure
  * */
-#define SHM_T_OR_PTR_T(T) \
-  SHM_X_OR_Y(T, T, T*)
+#define SHM_T_OR_PTR_T(T) SHM_X_OR_Y(T, T, T*)
 
 /**
  * ShmHeaderOrT: Returns TypedPointer<T> if SHM_ARCHIVEABLE, and T
@@ -50,8 +47,7 @@
  *
  * @param T The type being stored in the shmem data structure
  * */
-#define SHM_ARCHIVE_OR_T(T) \
-  SHM_X_OR_Y(T, hipc::TypedPointer<T>, T)
+#define SHM_ARCHIVE_OR_T(T) SHM_X_OR_Y(T, hipc::TypedPointer<T>, T)
 
 /**
  * SHM_T_OR_SHM_STRUCT_T: Used by unique_ptr and manual_ptr to internally
@@ -59,22 +55,18 @@
  *
  * @param T: The type being stored in the shmem data structure
  * */
-#define SHM_T_OR_SHM_STRUCT_T(T) \
-  SHM_X_OR_Y(T, T, ShmStruct<T>)
+#define SHM_T_OR_SHM_STRUCT_T(T) SHM_X_OR_Y(T, T, ShmStruct<T>)
 
 /**
  * SHM_T_OR_CONST_T: Determines whether or not an object should be
  * a constant or not.
  * */
 #define SHM_CONST_T_OR_T(T, IS_CONST) \
-  typename std::conditional<         \
-    IS_CONST, \
-    const T, T>::type
+  typename std::conditional<IS_CONST, const T, T>::type
 
 /**
  * SHM_ARCHIVE_OR_REF: Return value of shm_ar::internal_ref().
  * */
-#define SHM_ARCHIVE_OR_REF(T)\
-  SHM_X_OR_Y(T, TypedPointer<T>, T&)
+#define SHM_ARCHIVE_OR_REF(T) SHM_X_OR_Y(T, TypedPointer<T>, T&)
 
 #endif  // HERMES_SHM_MEMORY_SHM_MACROS_H_
