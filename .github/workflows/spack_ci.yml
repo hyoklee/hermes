@@ -73,7 +73,7 @@ jobs:
           spack load mpi
           spack install mochi-thallium@main~cereal
           spack load mochi-thallium@main~cereal
-          spack install hdf5@develop-1.13 ^mpi ^mpich
+          spack install hdf5@develop ^mpi ^mpich
           spack load hdf5
           cmake --version
           ci/install_hermes_glpk.sh
