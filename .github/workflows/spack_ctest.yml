@@ -73,7 +73,7 @@ jobs:
           spack load catch2
           spack install mochi-thallium@main~cereal
           spack load mochi-thallium@main~cereal
-          spack install hdf5@1.13.3
+          spack install hdf5@develop ^mpi ^mpich
           spack load hdf5
           cmake --version
           mkdir build
