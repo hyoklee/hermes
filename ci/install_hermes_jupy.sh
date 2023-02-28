@@ -57,12 +57,9 @@ spack external find xz
 
 spack install mpi ^mpich
 spack compiler find
-# spack repo add mochi-spack-packages
-spack repo add hermes/ci/hermes
-# spack install hdf5 ^mpich
-# spack load hdf5
-spack install or-tools
-spack load or-tools
+spack install hdf5 ^mpich
+spack load hdf5
+spack install hermes
 # spack install ior+hermes+hdf5
 # spack load ior+hermes+hdf5
 # ior
