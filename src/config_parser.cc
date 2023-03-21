@@ -89,7 +89,7 @@ void PrintExpectedAndFail(const std::string &expected, u32 line_number = 0) {
 
 /** log an error message when the number of devices is 0 in \a config */
 void RequireNumDevices(Config *config) {
-  if (config->num_devices == 0) {
+  if (config->num_devices[0] == 0) {
     LOG(FATAL) << "The configuration variable 'num_devices' must be defined "
                << "first" << std::endl;
   }
@@ -97,7 +97,7 @@ void RequireNumDevices(Config *config) {
 
 /** log an error message when the number of slabs is 0 in \a config  */
 void RequireNumSlabs(Config *config) {
-  if (config->num_slabs == 0) {
+  if (config->num_slabs[0] == 0) {
     LOG(FATAL) << "The configuration variable 'num_slabs' must be defined first"
                << std::endl;
   }
