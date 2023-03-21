@@ -89,7 +89,7 @@ void PrintExpectedAndFail(const std::string &expected, u32 line_number = 0) {
 
 /** log an error message when the number of devices is 0 in \a config */
 void RequireNumDevices(Config *config) {
-  if (config->num_devices[0] == 0) {
+  if (config->num_devices < 1) {
     LOG(FATAL) << "The configuration variable 'num_devices' must be defined "
                << "first" << std::endl;
   }
