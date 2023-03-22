@@ -82,19 +82,19 @@ jobs:
       - name: Multi-node Test
         run: pushd ci/cluster && ./multi_node_ci_test.sh
 
-      - name: Generate coverage file
-        run: |
-          COVERAGE_DIR=${GITHUB_WORKSPACE}/coverage
-          mkdir -p ${COVERAGE_DIR}
-          pushd ${GITHUB_WORKSPACE}/build
-          lcov -c -d . -o "${COVERAGE_DIR}/tmp.info"
-          lcov --remove "${COVERAGE_DIR}/tmp.info"   \
-                        "/usr/include/*"             \
-                        "${HOME}/${LOCAL}/*"         \
-                        "*/stb_ds.h"                 \
-                        -o ${COVERAGE_DIR}/lcov.info
+      # - name: Generate coverage file
+      #   run: |
+      #     COVERAGE_DIR=${GITHUB_WORKSPACE}/coverage
+      #     mkdir -p ${COVERAGE_DIR}
+      #     pushd ${GITHUB_WORKSPACE}/build
+      #     lcov -c -d . -o "${COVERAGE_DIR}/tmp.info"
+      #     lcov --remove "${COVERAGE_DIR}/tmp.info"   \
+      #                   "/usr/include/*"             \
+      #                   "${HOME}/${LOCAL}/*"         \
+      #                   "*/stb_ds.h"                 \
+      #                   -o ${COVERAGE_DIR}/lcov.info
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Coveralls
+      #   uses: coverallsapp/github-action@master
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
