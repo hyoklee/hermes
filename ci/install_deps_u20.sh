@@ -47,7 +47,7 @@ set -x
 # This will allow Spack to skip building some packages that are directly
 # available from the system. For example, autoconf, cmake, m4, etc.
 # Modify ci/pckages.yaml to skip building compilers or build tools via Spack.
-cp ci/packages_u20.yaml ${SPACK_DIR}/etc/spack/packages_u20.yaml
+cp ci/packages_u20.yaml ${SPACK_DIR}/etc/spack/packages.yaml
 
 spack spec cmake ^openssl@1.1.1f ^ncurses@6.2.20200212+symlinks+termlib abi=6
 spack install cmake ^openssl@1.1.1f ^ncurses@6.2.20200212+symlinks+termlib abi=6
