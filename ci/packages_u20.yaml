@@ -1,0 +1,46 @@
+packages:
+  all:
+    target: [x86_64]
+  mpich:
+    externals:
+    - spec: mpich@3.3.2
+      prefix: /usr
+    buildable: False
+  autoconf:
+    externals:
+    - spec: autoconf@2.71
+      prefix: /usr
+    buildable: False
+  automake:
+    externals:
+    - spec: automake@1.16.5
+      prefix: /usr
+    buildable: False
+  libtool:
+    externals:
+    - spec: libtool@2.4.6
+      prefix: /usr
+    buildable: False
+  m4:
+    externals:
+    - spec: m4@1.4.18
+      prefix: /usr
+    buildable: False
+  ncurses:
+    externals:
+    - spec: ncurses@6.2.20200212
+      prefix: /usr
+  openssl:
+    externals:
+    - spec: openssl@1.1.1f
+      prefix: /usr
+  pkg-config:
+    externals:
+    - spec: pkg-config@0.29.2
+      prefix: /usr
+    buildable: False
+  perl:
+    externals:
+    - spec: perl@5.30.0
+      prefix: /usr
+    buildable: False

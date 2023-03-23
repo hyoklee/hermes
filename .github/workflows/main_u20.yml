@@ -48,6 +48,7 @@ jobs:
           sudo apt update
           sudo apt-get install -y autoconf
           sudo apt-get install -y automake
+          sudo apt-get install -y cpanminus
           sudo apt-get install -y libtool
           sudo apt-get install -y libtool-bin
           sudo apt-get install -y mpich
@@ -57,15 +58,18 @@ jobs:
           sudo apt-get install -y diffutils
           sudo apt-get install -y libdb-dev
           sudo apt-get install -y libedit-dev
+          sudo apt-get install -y libgdbm-dev          
           sudo apt-get install -y libncurses6
+          sudo apt-get install -y libreadline-dev
           sudo apt-get install -y libsigsegv-dev
           sudo apt-get install -y libxml2-dev
           sudo apt-get install -y openssl
+          sudo apt-get install -y pkgconf
           sudo apt-get install -y xz-utils
 
       - name: Build And Install Dependencies
         # if: steps.spack-cache.outputs.cache-hit != 'true'
-        run: ci/install_deps.sh
+        run: ci/install_deps_u20.sh
 
       - name: Build and Test
         run: ci/install_hermes.sh
