@@ -49,6 +49,7 @@ set -x
 # Modify ci/pckages.yaml to skip building compilers or build tools via Spack.
 cp ci/packages_u20.yaml ${SPACK_DIR}/etc/spack/packages_u20.yaml
 
+spack spec cmake ^openssl@1.1.1f ^ncurses@6.2.20200212+symlinks+termlib abi=6
 spack install cmake ^openssl@1.1.1f ^ncurses@6.2.20200212+symlinks+termlib abi=6
 spack load cmake
 

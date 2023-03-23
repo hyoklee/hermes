@@ -46,26 +46,26 @@ jobs:
       - name: Install APT Dependencies
         run: |
           sudo apt update
-          sudo apt-get install -y autoconf
-          sudo apt-get install -y automake
-          sudo apt-get install -y cpanminus
-          sudo apt-get install -y libtool
-          sudo apt-get install -y libtool-bin
-          sudo apt-get install -y mpich
-          sudo apt-get install -y lcov
-          sudo apt-get install -y zlib1g-dev
-          sudo apt-get install -y libsdl2-dev
-          sudo apt-get install -y diffutils
-          sudo apt-get install -y libdb-dev
-          sudo apt-get install -y libedit-dev
-          sudo apt-get install -y libgdbm-dev          
-          sudo apt-get install -y libncurses6
-          sudo apt-get install -y libreadline-dev
-          sudo apt-get install -y libsigsegv-dev
-          sudo apt-get install -y libxml2-dev
-          sudo apt-get install -y openssl
-          sudo apt-get install -y pkgconf
-          sudo apt-get install -y xz-utils
+          sudo apt-get install -y -q autoconf
+          sudo apt-get install -y -q automake
+          sudo apt-get install -y -q cpanminus
+          sudo apt-get install -y -q libtool
+          sudo apt-get install -y -q libtool-bin
+          sudo apt-get install -y -q mpich
+          sudo apt-get install -y -q lcov
+          sudo apt-get install -y -q zlib1g-dev
+          sudo apt-get install -y -q libsdl2-dev
+          sudo apt-get install -y -q diffutils
+          sudo apt-get install -y -q libdb-dev
+          sudo apt-get install -y -q libedit-dev
+          sudo apt-get install -y -q libgdbm-dev          
+          sudo apt-get install -y -q libncurses6
+          sudo apt-get install -y -q libreadline-dev
+          sudo apt-get install -y -q libsigsegv-dev
+          sudo apt-get install -y -q libxml2-dev
+          sudo apt-get install -y -q openssl
+          sudo apt-get install -y -q pkgconf
+          sudo apt-get install -y -q xz-utils
 
       - name: Build And Install Dependencies
         # if: steps.spack-cache.outputs.cache-hit != 'true'
