@@ -15,9 +15,8 @@
 
 #define CATCH_CONFIG_RUNNER
 #include <catch2/catch_all.hpp>
-#include "test_utils.h"
 
-#include <catch2/catch_all.hpp>
+#include "test_utils.h"
 
 namespace cl = Catch::Clara;
 cl::Parser define_options();

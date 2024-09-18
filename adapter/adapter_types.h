@@ -16,23 +16,10 @@
 namespace hermes::adapter {
 
 /** Adapter types */
-enum class AdapterType {
-  kNone,
-  kPosix,
-  kStdio,
-  kMpiio,
-  kPubsub,
-  kVfd
-};
+enum class AdapterType { kNone, kPosix, kStdio, kMpiio, kPubsub, kVfd };
 
 /** Adapter modes */
-enum class AdapterMode {
-  kNone,
-  kDefault,
-  kBypass,
-  kScratch,
-  kWorkflow
-};
+enum class AdapterMode { kNone, kDefault, kBypass, kScratch, kWorkflow };
 
 /**
  * Per-Object Adapter Settings.
@@ -79,7 +66,6 @@ class AdapterModeConv {
     return AdapterMode::kDefault;
   }
 };
-
 
 }  // namespace hermes::adapter
 

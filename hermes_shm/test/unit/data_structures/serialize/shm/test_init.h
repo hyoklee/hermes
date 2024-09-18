@@ -16,19 +16,19 @@
 #include "hermes_shm/data_structures/data_structure.h"
 #include "hermes_shm/data_structures/serialization/shm_serialize.h"
 
-using hshm::ipc::PosixShmMmap;
-using hshm::ipc::MemoryBackendType;
-using hshm::ipc::MemoryBackend;
+using hshm::ipc::Allocator;
 using hshm::ipc::allocator_id_t;
 using hshm::ipc::AllocatorType;
-using hshm::ipc::Allocator;
+using hshm::ipc::MemoryBackend;
+using hshm::ipc::MemoryBackendType;
 using hshm::ipc::Pointer;
+using hshm::ipc::PosixShmMmap;
 
-using hshm::ipc::MemoryBackendType;
-using hshm::ipc::MemoryBackend;
+using hshm::ipc::Allocator;
 using hshm::ipc::allocator_id_t;
 using hshm::ipc::AllocatorType;
-using hshm::ipc::Allocator;
+using hshm::ipc::MemoryBackend;
+using hshm::ipc::MemoryBackendType;
 using hshm::ipc::MemoryManager;
 using hshm::ipc::Pointer;
 

@@ -34,17 +34,11 @@ class Status {
     msg_ = other.msg_;
   }
 
-  const char* Msg() const {
-    return msg_;
-  }
+  const char *Msg() const { return msg_; }
 
-  bool Success() {
-    return code_ == 0;
-  }
+  bool Success() { return code_ == 0; }
 
-  bool Fail() {
-    return code_ != 0;
-  }
+  bool Fail() { return code_ != 0; }
 };
 
 }  // namespace hermes::api

@@ -10,18 +10,18 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_DATA_STRUCTURES_LOCKLESS_STRING_H_
 #define HERMES_DATA_STRUCTURES_LOCKLESS_STRING_H_
 
-#include "hermes_shm/data_structures/ipc/internal/shm_internal.h"
-#include "hermes_shm/data_structures/containers/charbuf.h"
 #include <string>
+
+#include "hermes_shm/data_structures/containers/charbuf.h"
+#include "hermes_shm/data_structures/ipc/internal/shm_internal.h"
 
 namespace hshm::ipc {
 
 /** forward declaration for string */
-template<size_t SSO>
+template <size_t SSO>
 class string_templ;
 
 /**
@@ -33,7 +33,7 @@ class string_templ;
 #define TYPED_HEADER ShmHeader<string_templ<SSO>>
 
 /** string shared-memory header */
-template<size_t SSO>
+template <size_t SSO>
 struct ShmHeader<string_templ<SSO>> {
   SHM_CONTAINER_HEADER_TEMPLATE(ShmHeader)
   size_t length_;
@@ -53,7 +53,7 @@ struct ShmHeader<string_templ<SSO>> {
 /**
  * A string of characters.
  * */
-template<size_t SSO>
+template <size_t SSO>
 class string_templ : public ShmContainer {
  public:
   SHM_CONTAINER_TEMPLATE((CLASS_NAME), (TYPED_CLASS))
@@ -79,8 +79,7 @@ class string_templ : public ShmContainer {
    * ===================================*/
 
   /** SHM Constructor. Just allocate space. */
-  explicit string_templ(Allocator *alloc,
-                        size_t length) {
+  explicit string_templ(Allocator *alloc, size_t length) {
     shm_init_container(alloc);
     _create_str(length);
   }
@@ -90,57 +89,52 @@ class string_templ : public ShmContainer {
    * ===================================*/
 
   /** SHM Constructor. From const char* */
-  explicit string_templ(Allocator *alloc,
-                        const char *text) {
+  explicit string_templ(Allocator *alloc, const char *text) {
     shm_init_container(alloc);
     size_t length = strlen(text);
     _create_str(text, length);
   }
 
   /** SHM Constructor. From const char* and size */
-  explicit string_templ(Allocator *alloc,
-                        const char *text, size_t length) {
+  explicit string_templ(Allocator *alloc, const char *text, size_t length) {
     shm_init_container(alloc);
     _create_str(text, length);
   }
 
   /** SHM Constructor. From std::string */
-  explicit string_templ(Allocator *alloc,
-                        const std::string &text) {
+  explicit string_templ(Allocator *alloc, const std::string &text) {
     shm_init_container(alloc);
     _create_str(text.data(), text.size());
   }
 
   /** SHM copy assignment operator. From std::string. */
-  string_templ& operator=(const std::string &other) {
+  string_templ &operator=(const std::string &other) {
     shm_destroy();
     _create_str(other.data(), other.size());
     return *this;
   }
 
   /** SHM Constructor. From std::string */
-  explicit string_templ(Allocator *alloc,
-                        const hshm::charbuf &text) {
+  explicit string_templ(Allocator *alloc, const hshm::charbuf &text) {
     shm_init_container(alloc);
     _create_str(text.data(), text.size());
   }
 
   /** SHM copy assignment operator. From std::string. */
-  string_templ& operator=(const hshm::charbuf &other) {
+  string_templ &operator=(const hshm::charbuf &other) {
     shm_destroy();
     _create_str(other.data(), other.size());
     return *this;
   }
 
   /** SHM copy constructor. From string. */
-  explicit string_templ(Allocator *alloc,
-                        const string_templ &other) {
+  explicit string_templ(Allocator *alloc, const string_templ &other) {
     shm_init_container(alloc);
     _create_str(other.data(), other.size());
   }
 
   /** SHM copy assignment operator. From string. */
-  string_templ& operator=(const string_templ &other) {
+  string_templ &operator=(const string_templ &other) {
     if (this != &other) {
       shm_destroy();
       _create_str(other.data(), other.size());
@@ -174,7 +168,7 @@ class string_templ : public ShmContainer {
   }
 
   /** SHM move assignment operator. */
-  string_templ& operator=(string_templ &&other) noexcept {
+  string_templ &operator=(string_templ &&other) noexcept {
     if (this != &other) {
       shm_destroy();
       if (GetAllocator() == other.GetAllocator()) {
@@ -193,9 +187,7 @@ class string_templ : public ShmContainer {
    * ===================================*/
 
   /** Check if this string is NULL */
-  HSHM_ALWAYS_INLINE bool IsNull() const {
-    return length_ == 0;
-  }
+  HSHM_ALWAYS_INLINE bool IsNull() const { return length_ == 0; }
 
   /** Set this string to NULL */
   HSHM_ALWAYS_INLINE void SetNull() {
@@ -215,32 +207,24 @@ class string_templ : public ShmContainer {
    * ===================================*/
 
   /** Get character at index i in the string */
-  HSHM_ALWAYS_INLINE char& operator[](size_t i) {
-    return data()[i];
-  }
+  HSHM_ALWAYS_INLINE char &operator[](size_t i) { return data()[i]; }
 
   /** Get character at index i in the string */
-  HSHM_ALWAYS_INLINE const char& operator[](size_t i) const {
+  HSHM_ALWAYS_INLINE const char &operator[](size_t i) const {
     return data()[i];
   }
 
   /** Convert into a std::string */
-  HSHM_ALWAYS_INLINE std::string str() const {
-    return {c_str(), length_};
-  }
+  HSHM_ALWAYS_INLINE std::string str() const { return {c_str(), length_}; }
 
   /** Get the size of the current string */
-  HSHM_ALWAYS_INLINE size_t size() const {
-    return length_;
-  }
+  HSHM_ALWAYS_INLINE size_t size() const { return length_; }
 
   /** Get a constant reference to the C-style string */
-  HSHM_ALWAYS_INLINE const char* c_str() const {
-    return data();
-  }
+  HSHM_ALWAYS_INLINE const char *c_str() const { return data(); }
 
   /** Get a constant reference to the C-style string */
-  HSHM_ALWAYS_INLINE const char* data() const {
+  HSHM_ALWAYS_INLINE const char *data() const {
     if (length_ < SSO) {
       return sso_;
     } else {
@@ -249,7 +233,7 @@ class string_templ : public ShmContainer {
   }
 
   /** Get a mutable reference to the C-style string */
-  HSHM_ALWAYS_INLINE char* data() {
+  HSHM_ALWAYS_INLINE char *data() {
     if (length_ < SSO) {
       return sso_;
     } else {
@@ -273,8 +257,7 @@ class string_templ : public ShmContainer {
    * Comparison Operations
    * ===================================*/
 
-  int _strncmp(const char *a, size_t len_a,
-               const char *b, size_t len_b) const {
+  int _strncmp(const char *a, size_t len_a, const char *b, size_t len_b) const {
     if (len_a != len_b) {
       return int((int64_t)len_a - (int64_t)len_b);
     }
@@ -286,21 +269,21 @@ class string_templ : public ShmContainer {
     return 0;
   }
 
-#define HERMES_STR_CMP_OPERATOR(op) \
-  bool operator op(const char *other) const { \
-    return _strncmp(data(), size(), other, strlen(other)) op 0; \
-  } \
-  bool operator op(const std::string &other) const { \
+#define HERMES_STR_CMP_OPERATOR(op)                                   \
+  bool operator op(const char *other) const {                         \
+    return _strncmp(data(), size(), other, strlen(other)) op 0;       \
+  }                                                                   \
+  bool operator op(const std::string &other) const {                  \
     return _strncmp(data(), size(), other.data(), other.size()) op 0; \
-  } \
-  bool operator op(const string_templ &other) const { \
+  }                                                                   \
+  bool operator op(const string_templ &other) const {                 \
     return _strncmp(data(), size(), other.data(), other.size()) op 0; \
   }
 
   HERMES_STR_CMP_OPERATOR(==)  // NOLINT
   HERMES_STR_CMP_OPERATOR(!=)  // NOLINT
-  HERMES_STR_CMP_OPERATOR(<)  // NOLINT
-  HERMES_STR_CMP_OPERATOR(>)  // NOLINT
+  HERMES_STR_CMP_OPERATOR(<)   // NOLINT
+  HERMES_STR_CMP_OPERATOR(>)   // NOLINT
   HERMES_STR_CMP_OPERATOR(<=)  // NOLINT
   HERMES_STR_CMP_OPERATOR(>=)  // NOLINT
 
@@ -335,14 +318,14 @@ typedef string charbuf;
 namespace std {
 
 /** Hash function for string */
-template<size_t SSO>
+template <size_t SSO>
 struct hash<hshm::ipc::string_templ<SSO>> {
   size_t operator()(const hshm::ipc::string_templ<SSO> &text) const {
     size_t sum = 0;
     for (size_t i = 0; i < text.size(); ++i) {
       auto shift = static_cast<size_t>(i % sizeof(size_t));
       auto c = static_cast<size_t>((unsigned char)text[i]);
-      sum = 31*sum + (c << shift);
+      sum = 31 * sum + (c << shift);
     }
     return sum;
   }

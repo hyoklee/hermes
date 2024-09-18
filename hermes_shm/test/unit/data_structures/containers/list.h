@@ -14,10 +14,7 @@
 #define HERMES_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_LIST_H_
 
 #include "basic_test.h"
-#include "test_init.h"
 #include "hermes_shm/data_structures/ipc/string.h"
-
-#include "basic_test.h"
 #include "test_init.h"
 
 template <typename T, typename Container>
@@ -53,7 +50,7 @@ class ListTestSuite {
     const Container &obj = obj_;
     size_t fcur = 0;
     for (auto iter = obj.cbegin(); iter != obj.cend(); ++iter) {
-      T& num = *iter;
+      T &num = *iter;
       CREATE_SET_VAR_TO_INT_OR_STRING(T, fcur_conv, fcur);
       REQUIRE(num == fcur_conv);
       ++fcur;
@@ -146,9 +143,7 @@ class ListTestSuite {
 
  private:
   /// Verify copy construct/assign worked
-  void VerifyCopy(Container &obj,
-                  Container &cpy,
-                  size_t count) {
+  void VerifyCopy(Container &obj, Container &cpy, size_t count) {
     REQUIRE(obj_.size() == count);
     REQUIRE(cpy.size() == count);
 
@@ -174,9 +169,7 @@ class ListTestSuite {
   }
 
   /// Verify move worked
-  void VerifyMove(Container &orig_obj,
-                  Container &new_obj,
-                  size_t count) {
+  void VerifyMove(Container &orig_obj, Container &new_obj, size_t count) {
     // Verify move into cpy worked
     {
       size_t fcur = 0;

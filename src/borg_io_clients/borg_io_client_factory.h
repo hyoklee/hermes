@@ -14,9 +14,9 @@
 #define HERMES_SRC_BORG_IO_CLIENTS_IO_CLIENT_FACTORY_H
 
 #include "borg_io_client.h"
-#include "metadata_types.h"
 #include "borg_posix_client.h"
 #include "borg_ram_client.h"
+#include "metadata_types.h"
 
 namespace hermes::borg {
 

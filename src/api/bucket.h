@@ -13,9 +13,9 @@
 #ifndef HERMES_SRC_API_BUCKET_H_
 #define HERMES_SRC_API_BUCKET_H_
 
+#include "buffer_pool.h"
 #include "hermes_types.h"
 #include "status.h"
-#include "buffer_pool.h"
 
 namespace hermes::api {
 
@@ -39,8 +39,7 @@ class Bucket {
    * Called from hermes.h in GetBucket(). Should not
    * be used directly.
    * */
-  explicit Bucket(const std::string &bkt_name,
-                  Context &ctx,
+  explicit Bucket(const std::string &bkt_name, Context &ctx,
                   size_t backend_size = 0);
 
   /**
@@ -51,9 +50,7 @@ class Bucket {
   /**
    * Check if the bucket was created in the constructor
    * */
-  bool DidCreate() {
-    return did_create_;
-  }
+  bool DidCreate() { return did_create_; }
 
   /** Default constructor */
   Bucket() = default;
@@ -62,36 +59,30 @@ class Bucket {
   Bucket(const Bucket &other) = default;
 
   /** Default copy assign */
-  Bucket& operator=(const Bucket &other) = default;
+  Bucket &operator=(const Bucket &other) = default;
 
   /** Default move constructor */
   Bucket(Bucket &&other) = default;
 
   /** Default move assign */
-  Bucket& operator=(Bucket &&other) = default;
+  Bucket &operator=(Bucket &&other) = default;
 
  public:
   /**
    * Get the name of this bucket. Name is cached instead of
    * making an RPC. Not coherent if Rename is called.
    * */
-  const std::string& GetName() const {
-    return name_;
-  }
+  const std::string &GetName() const { return name_; }
 
   /**
    * Get the identifier of this bucket
    * */
-  TagId GetId() const {
-    return id_;
-  }
+  TagId GetId() const { return id_; }
 
   /**
    * Get the context object of this bucket
    * */
-  Context& GetContext() {
-    return ctx_;
-  }
+  Context &GetContext() { return ctx_; }
 
   /**
    * Attach a trait to the bucket
@@ -137,9 +128,7 @@ class Bucket {
   /**
    * Check if this bucket is valid
    * */
-  bool IsNull() {
-    return id_.IsNull();
-  }
+  bool IsNull() { return id_.IsNull(); }
 
  public:
   /**====================================
@@ -164,7 +153,6 @@ class Bucket {
    * */
   std::string GetBlobName(const BlobId &blob_id);
 
-
   /**
    * Get the score of a blob from the blob id
    *
@@ -186,36 +174,29 @@ class Bucket {
   /**
    * Create \a blob_name EMPTY BLOB if it does not already exist.
    * */
-  Status TryCreateBlob(const std::string &blob_name,
-                       BlobId &blob_id,
+  Status TryCreateBlob(const std::string &blob_name, BlobId &blob_id,
                        Context &ctx);
 
   /**
    * Label \a blob_id blob with \a tag_name TAG
    * */
-  Status TagBlob(BlobId &blob_id,
-                 TagId &tag_id);
+  Status TagBlob(BlobId &blob_id, TagId &tag_id);
 
   /**
    * Put \a blob_name Blob into the bucket
    * */
-  Status Put(std::string blob_name,
-             const Blob &blob,
-             BlobId &blob_id,
+  Status Put(std::string blob_name, const Blob &blob, BlobId &blob_id,
              Context &ctx);
 
   /**
    * Get \a blob_id Blob from the bucket
    * */
-  Status Get(BlobId blob_id,
-             Blob &blob,
-             Context &ctx);
+  Status Get(BlobId blob_id, Blob &blob, Context &ctx);
 
   /**
    * Determine if the bucket contains \a blob_id BLOB
    * */
-  bool ContainsBlob(const std::string &blob_name,
-                    BlobId &blob_id);
+  bool ContainsBlob(const std::string &blob_name, BlobId &blob_id);
 
   /**
    * Determine if the bucket contains \a blob_id BLOB

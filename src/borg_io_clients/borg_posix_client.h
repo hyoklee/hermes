@@ -13,10 +13,10 @@
 #ifndef HERMES_SRC_BORG_IO_CLIENTS_POSIX_H
 #define HERMES_SRC_BORG_IO_CLIENTS_POSIX_H
 
-#include "borg_io_client.h"
-#include "adapter/posix/posix_api.h"
-
 #include <filesystem>
+
+#include "adapter/posix/posix_api.h"
+#include "borg_io_client.h"
 
 namespace stdfs = std::filesystem;
 
@@ -28,52 +28,50 @@ class PosixIoClient : public BorgIoClient {
 
   bool Init(DeviceInfo &dev_info) override {
     auto api = HERMES_POSIX_API;
-    std::string text = (*dev_info.mount_dir_).str() +
-                        "/" + "slab_" + (*dev_info.dev_name_).str();
+    std::string text = (*dev_info.mount_dir_).str() + "/" + "slab_" +
+                       (*dev_info.dev_name_).str();
     auto canon = stdfs::weakly_canonical(text).string();
     (*dev_info.mount_point_) = canon;
-    int fd = api->open((*dev_info.mount_point_).c_str(),
-                       O_TRUNC | O_CREAT, 0666);
-    if (fd < 0) { return false; }
+    int fd =
+        api->open((*dev_info.mount_point_).c_str(), O_TRUNC | O_CREAT, 0666);
+    if (fd < 0) {
+      return false;
+    }
     api->close(fd);
     return true;
   }
 
-  bool Write(DeviceInfo &dev_info, const char *data,
-             size_t off, size_t size) override {
+  bool Write(DeviceInfo &dev_info, const char *data, size_t off,
+             size_t size) override {
     auto api = HERMES_POSIX_API;
     auto mount_point = (*dev_info.mount_point_).str();
     int fd = api->open(mount_point.c_str(), O_RDWR);
     if (fd < 0) {
-      HELOG(kError, "Failed to open (write): {}",
-            dev_info.mount_point_->str())
+      HELOG(kError, "Failed to open (write): {}", dev_info.mount_point_->str())
       return false;
     }
     size_t count = api->pwrite(fd, data, size, off);
     api->close(fd);
     if (count != size) {
-      HELOG(kError, "BORG: wrote {} bytes, but expected {}",
-            count, size);
+      HELOG(kError, "BORG: wrote {} bytes, but expected {}", count, size);
       return false;
     }
     return true;
   }
 
-  bool Read(DeviceInfo &dev_info, char *data,
-            size_t off, size_t size) override {
+  bool Read(DeviceInfo &dev_info, char *data, size_t off,
+            size_t size) override {
     auto api = HERMES_POSIX_API;
     auto mount_point = (*dev_info.mount_point_).str();
     int fd = api->open(mount_point.c_str(), O_RDWR);
     if (fd < 0) {
-      HELOG(kError, "Failed to open (read): {}",
-            dev_info.mount_point_->str())
+      HELOG(kError, "Failed to open (read): {}", dev_info.mount_point_->str())
       return false;
     }
     size_t count = api->pread(fd, data, size, off);
     api->close(fd);
     if (count != size) {
-      HELOG(kError, "BORG: read {} bytes, but expected {}",
-            count, size);
+      HELOG(kError, "BORG: read {} bytes, but expected {}", count, size);
       return false;
     }
     return true;

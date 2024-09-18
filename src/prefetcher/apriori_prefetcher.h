@@ -13,8 +13,9 @@
 #ifndef HERMES_SRC_PREFETCHER_APRIORI_PREFETCHER_H_
 #define HERMES_SRC_PREFETCHER_APRIORI_PREFETCHER_H_
 
-#include "prefetcher.h"
 #include <vector>
+
+#include "prefetcher.h"
 
 namespace hermes {
 

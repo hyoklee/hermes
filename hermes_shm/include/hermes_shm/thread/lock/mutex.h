@@ -10,7 +10,6 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_THREAD_MUTEX_H_
 #define HERMES_THREAD_MUTEX_H_
 
@@ -28,9 +27,7 @@ struct Mutex {
   Mutex() : lock_(0) {}
 
   /** Explicit initialization */
-  void Init() {
-    lock_ = 0;
-  }
+  void Init() { lock_ = 0; }
 
   /** Acquire lock */
   void Lock(uint32_t owner);

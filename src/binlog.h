@@ -14,19 +14,21 @@
 #define HERMES_SRC_BINLOG_H_
 
 #include <hermes_shm/types/bitfield.h>
-#include "data_structures.h"
-#include <vector>
-#include <string>
+
 #include <cereal/archives/binary.hpp>
 #include <cereal/types/vector.hpp>
 #include <sstream>
+#include <string>
+#include <vector>
+
+#include "data_structures.h"
 
 namespace hermes {
 
-template<typename T>
+template <typename T>
 struct BinaryLogRank {
-  std::vector<T> log_;  /**< Cached log entries */
-  size_t backend_off_;  /**< Entry offset in the backend file */
+  std::vector<T> log_; /**< Cached log entries */
+  size_t backend_off_; /**< Entry offset in the backend file */
 
   BinaryLogRank() : backend_off_(0) {}
 };
@@ -38,21 +40,20 @@ struct BinaryLogRank {
  * This assumes only a single thread modifies or reads
  * from the log. Intended for internal use by prefetcher.
  * */
-template<typename T>
+template <typename T>
 class BinaryLog {
  public:
-  std::vector<BinaryLogRank<T>> cache_;  /**< The cached log entries */
-  size_t max_ingest_;  /**< Max number of elements to cache before flush */
-  size_t cur_entry_count_;  /**< Total number of cached entries */
-  std::string path_;  /**< Path to the backing log file */
+  std::vector<BinaryLogRank<T>> cache_; /**< The cached log entries */
+  size_t max_ingest_;      /**< Max number of elements to cache before flush */
+  size_t cur_entry_count_; /**< Total number of cached entries */
+  std::string path_;       /**< Path to the backing log file */
 
  public:
   /** Default Constructor*/
   BinaryLog() : max_ingest_(0), cur_entry_count_(0) {}
 
   /** Constructor. */
-  void Init(const std::string &path,
-            size_t max_ingest_bytes) {
+  void Init(const std::string &path, size_t max_ingest_bytes) {
     max_ingest_ = max_ingest_bytes / sizeof(T);
     path_ = path;
     // Create + truncate the file

@@ -12,16 +12,16 @@
 
 #include <filesystem>
 
-#include "catch_config.h"
-#include "adapter_constants.h"
-#include "src/hermes_types.h"
-#include "mapper/mapper_factory.h"
 #include "adapter/stdio/stdio_fs_api.h"
+#include "adapter_constants.h"
+#include "catch_config.h"
+#include "mapper/mapper_factory.h"
+#include "src/hermes_types.h"
 
 using hermes::adapter::BlobPlacements;
+using hermes::adapter::kMapperType;
 using hermes::adapter::MapperFactory;
 using hermes::adapter::MapperType;
-using hermes::adapter::kMapperType;
 using hermes::adapter::fs::MetadataManager;
 
 namespace stdfs = std::filesystem;

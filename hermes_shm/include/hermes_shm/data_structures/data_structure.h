@@ -10,18 +10,16 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_DATA_STRUCTURES_DATA_STRUCTURE_H_
 #define HERMES_DATA_STRUCTURES_DATA_STRUCTURE_H_
 
 #include "hermes_shm/data_structures/ipc/internal/shm_internal.h"
-#include "hermes_shm/memory/memory_manager.h"
 #include "hermes_shm/data_structures/ipc/pair.h"
 #include "hermes_shm/data_structures/ipc/string.h"
-#include "ipc/list.h"
-#include "ipc/vector.h"
-#include "ipc/unordered_map.h"
 #include "hermes_shm/memory/memory_manager.h"
+#include "ipc/list.h"
+#include "ipc/unordered_map.h"
+#include "ipc/vector.h"
 
 namespace hipc = hshm::ipc;
 

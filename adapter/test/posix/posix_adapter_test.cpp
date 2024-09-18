@@ -12,15 +12,15 @@
 
 #include <fcntl.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <unistd.h>
 
 #include <filesystem>
 #include <iostream>
-#include "hermes.h"
-#include <stdio.h>
 
-#include "catch_config.h"
 #include "adapter/posix/posix_api.h"
+#include "catch_config.h"
+#include "hermes.h"
 
 #if HERMES_INTERCEPT == 1
 #include "adapter/posix/posix_fs_api.h"
@@ -42,15 +42,15 @@ struct Info {
   bool supports_tmpfile;
   std::vector<char> write_data;
   std::vector<char> read_data;
-  std::string new_file;       // Tracked by Hermes
-  std::string existing_file;  // Tracked by Hermes
-  std::string new_file_cmp;   // NOT tracked by Hermes
+  std::string new_file;           // Tracked by Hermes
+  std::string existing_file;      // Tracked by Hermes
+  std::string new_file_cmp;       // NOT tracked by Hermes
   std::string existing_file_cmp;  // NOT tracekd by Hermes
   size_t num_iterations = 64;
   unsigned int offset_seed = 1;
   unsigned int rs_seed = 1;
   unsigned int temporal_interval_seed = 5;
-  size_t total_size;    // The size of the EXISTING file
+  size_t total_size;  // The size of the EXISTING file
   size_t stride_size = 1024;
   unsigned int temporal_interval_ms = 1;
   size_t small_min = 1, small_max = 4 * 1024;
@@ -106,7 +106,7 @@ void TrackFiles() {
 #endif
 }
 
-void RemoveFile(const std::string &path) {
+void RemoveFile(const std::string& path) {
   stdfs::remove(path);
   if (stdfs::exists(path)) {
     HELOG(kFatal, "Failed to remove: {}", path)
@@ -236,9 +236,9 @@ int posttest(bool compare_data = true) {
         }
       }
       if (char_mismatch != 0) {
-        std::cout << "The files " <<  info.existing_file
-                  << " and " << info.existing_file_cmp
-                  << " had mismatched characters" << std::endl;
+        std::cout << "The files " << info.existing_file << " and "
+                  << info.existing_file_cmp << " had mismatched characters"
+                  << std::endl;
       }
       REQUIRE(char_mismatch == 0);
     }

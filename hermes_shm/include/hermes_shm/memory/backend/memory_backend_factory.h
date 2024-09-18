@@ -10,7 +10,6 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_MEMORY_BACKEND_MEMORY_BACKEND_FACTORY_H_
 #define HERMES_MEMORY_BACKEND_MEMORY_BACKEND_FACTORY_H_
 

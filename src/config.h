@@ -15,14 +15,15 @@
 
 #include <string.h>
 #include <yaml-cpp/yaml.h>
+
 #include <iomanip>
-#include <ostream>
-#include <vector>
-#include <sstream>
 #include <limits>
+#include <ostream>
+#include <sstream>
+#include <vector>
+
 #include "data_structures.h"
 #include "hermes_shm/util/config_parse.h"
-
 #include "hermes_types.h"
 #include "utils.h"
 
@@ -35,7 +36,9 @@ class BaseConfig {
  public:
   /** load configuration from a string */
   void LoadText(const std::string &config_string, bool with_default = true) {
-    if (with_default) { LoadDefault(); }
+    if (with_default) {
+      LoadDefault();
+    }
     if (config_string.size() == 0) {
       return;
     }
@@ -45,7 +48,9 @@ class BaseConfig {
 
   /** load configuration from file */
   void LoadFromFile(const std::string &path, bool with_default = true) {
-    if (with_default) { LoadDefault(); }
+    if (with_default) {
+      LoadDefault();
+    }
     if (path.size() == 0) {
       return;
     }
@@ -65,7 +70,7 @@ class BaseConfig {
 
  public:
   /** parse \a list_node vector from configuration file in YAML */
-  template<typename T, typename VEC_TYPE = std::vector<T>>
+  template <typename T, typename VEC_TYPE = std::vector<T>>
   static void ParseVector(YAML::Node list_node, VEC_TYPE &list) {
     for (auto val_node : list_node) {
       list.emplace_back(val_node.as<T>());

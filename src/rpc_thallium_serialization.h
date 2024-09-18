@@ -14,30 +14,30 @@
 #define HERMES_SRC_RPC_THALLIUM_SERIALIZATION_H_
 
 #include <thallium.hpp>
+#include <thallium/serialization/stl/list.hpp>
 #include <thallium/serialization/stl/pair.hpp>
 #include <thallium/serialization/stl/string.hpp>
 #include <thallium/serialization/stl/vector.hpp>
-#include <thallium/serialization/stl/list.hpp>
 
-#include "hermes_types.h"
 #include "adapter/adapter_types.h"
-#include "statuses.h"
-#include "metadata_types.h"
 #include "data_structures.h"
 #include "hermes_shm/data_structures/serialization/thallium.h"
+#include "hermes_types.h"
+#include "metadata_types.h"
+#include "statuses.h"
 
 /** Lets thallium know how to serialize an enum */
-#define SERIALIZE_ENUM(T)\
-  template <typename A>\
-  void save(A &ar, T &mode) {\
-    int cast = static_cast<int>(mode);\
-    ar << cast;\
-  }\
-  template <typename A>\
-  void load(A &ar, T &mode) {\
-    int cast;\
-    ar >> cast;\
-    mode = static_cast<T>(cast);\
+#define SERIALIZE_ENUM(T)              \
+  template <typename A>                \
+  void save(A &ar, T &mode) {          \
+    int cast = static_cast<int>(mode); \
+    ar << cast;                        \
+  }                                    \
+  template <typename A>                \
+  void load(A &ar, T &mode) {          \
+    int cast;                          \
+    ar >> cast;                        \
+    mode = static_cast<T>(cast);       \
   }
 
 namespace hermes {

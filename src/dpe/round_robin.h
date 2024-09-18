@@ -30,8 +30,7 @@ class RoundRobin : public DPE {
   RoundRobin() : counter_(0) {}
 
   Status Placement(const std::vector<size_t> &blob_sizes,
-                   std::vector<TargetInfo> &targets,
-                   api::Context &ctx,
+                   std::vector<TargetInfo> &targets, api::Context &ctx,
                    std::vector<PlacementSchema> &output);
 };
 

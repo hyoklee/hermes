@@ -10,7 +10,6 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_MEMORY_ALLOCATOR_STACK_ALLOCATOR_H_
 #define HERMES_MEMORY_ALLOCATOR_STACK_ALLOCATOR_H_
 
@@ -49,23 +48,18 @@ class StackAllocator : public Allocator {
   /**
    * Get the ID of this allocator from shared memory
    * */
-  allocator_id_t &GetId() override {
-    return header_->allocator_id_;
-  }
+  allocator_id_t &GetId() override { return header_->allocator_id_; }
 
   /**
    * Initialize the allocator in shared memory
    * */
-  void shm_init(allocator_id_t id,
-                size_t custom_header_size,
-                char *buffer,
+  void shm_init(allocator_id_t id, size_t custom_header_size, char *buffer,
                 size_t buffer_size);
 
   /**
    * Attach an existing allocator from shared memory
    * */
-  void shm_deserialize(char *buffer,
-                       size_t buffer_size) override;
+  void shm_deserialize(char *buffer, size_t buffer_size) override;
 
   /**
    * Allocate a memory of \a size size. The page allocator cannot allocate

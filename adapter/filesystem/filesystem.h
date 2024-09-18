@@ -19,15 +19,15 @@
 
 #include <ftw.h>
 #include <mpi.h>
+
+#include <filesystem>
 #include <future>
 #include <set>
 #include <string>
 
 #include "bucket.h"
-#include "hermes.h"
-
 #include "filesystem_io_client.h"
-#include <filesystem>
+#include "hermes.h"
 
 namespace hapi = hermes::api;
 
@@ -53,7 +53,7 @@ class Filesystem {
  public:
   /** Constructor */
   explicit Filesystem(FilesystemIoClient *io_client, AdapterType type)
-  : io_client_(io_client), type_(type) {}
+      : io_client_(io_client), type_(type) {}
 
   /** open \a path */
   File Open(AdapterStat &stat, const std::string &path);
@@ -75,15 +75,10 @@ class Filesystem {
    * @param opts specific configuration of the I/O to perform
    * @param ctx any additional information
    * */
-  Status PartialPutOrCreate(hapi::Bucket &bkt,
-                            const std::string &blob_name,
-                            const Blob &blob,
-                            size_t blob_off,
-                            size_t page_size,
-                            BlobId &blob_id,
-                            IoStatus &status,
-                            const FsIoOptions &opts,
-                            Context &ctx);
+  Status PartialPutOrCreate(hapi::Bucket &bkt, const std::string &blob_name,
+                            const Blob &blob, size_t blob_off, size_t page_size,
+                            BlobId &blob_id, IoStatus &status,
+                            const FsIoOptions &opts, Context &ctx);
 
   /** write */
   size_t Write(File &f, AdapterStat &stat, const void *ptr, size_t off,
@@ -104,21 +99,15 @@ class Filesystem {
    * @param opts specific configuration of the I/O to perform
    * @param ctx any additional information
    * */
-  Status PartialGetOrCreate(hapi::Bucket &bkt,
-                            const std::string &blob_name,
-                            Blob &blob,
-                            size_t blob_off,
-                            size_t blob_size,
-                            size_t page_size,
-                            BlobId &blob_id,
-                            IoStatus &status,
-                            const FsIoOptions &opts,
-                            Context &ctx);
+  Status PartialGetOrCreate(hapi::Bucket &bkt, const std::string &blob_name,
+                            Blob &blob, size_t blob_off, size_t blob_size,
+                            size_t page_size, BlobId &blob_id, IoStatus &status,
+                            const FsIoOptions &opts, Context &ctx);
 
   /** read */
-  size_t Read(File &f, AdapterStat &stat, void *ptr,
-              size_t off, size_t total_size,
-              IoStatus &io_status, FsIoOptions opts = FsIoOptions());
+  size_t Read(File &f, AdapterStat &stat, void *ptr, size_t off,
+              size_t total_size, IoStatus &io_status,
+              FsIoOptions opts = FsIoOptions());
 
   /** write asynchronously */
   HermesRequest *AWrite(File &f, AdapterStat &stat, const void *ptr, size_t off,

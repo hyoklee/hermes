@@ -13,7 +13,7 @@
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_UTIL_STATIC_SWITCH_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_UTIL_STATIC_SWITCH_H_
 
-#include  <functional>
+#include <functional>
 
 namespace hshm {
 
@@ -29,19 +29,16 @@ class EndTypeSwitch {};
  * @param Case a case of the switch (i.e., case Case:)
  * @param Val the body of the case
  * */
-template<typename T, typename Default,
-  typename Case = EndTypeSwitch,
-  typename Val = EndTypeSwitch,
-  typename ...Args>
+template <typename T, typename Default, typename Case = EndTypeSwitch,
+          typename Val = EndTypeSwitch, typename... Args>
 struct type_switch {
   typedef typename std::conditional<
-    std::is_same_v<T, Case>,
-    Val,
-    typename type_switch<T, Default, Args...>::type>::type type;
+      std::is_same_v<T, Case>, Val,
+      typename type_switch<T, Default, Args...>::type>::type type;
 };
 
 /** The default case */
-template<typename T, typename Default>
+template <typename T, typename Default>
 struct type_switch<T, Default, EndTypeSwitch, EndTypeSwitch> {
   typedef Default type;
 };

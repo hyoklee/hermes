@@ -12,16 +12,15 @@ extern "C" {
  * Method:    create
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_hermes_java_Hermes_create
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_hermes_java_Hermes_create(JNIEnv *, jobject);
 
 /*
  * Class:     src_main_Hermes
  * Method:    getBucket
  * Signature: (Ljava/lang/String;)Lsrc/main/Bucket;
  */
-JNIEXPORT jobject JNICALL Java_hermes_java_Hermes_getBucket
-  (JNIEnv *, jobject, jstring);
+JNIEXPORT jobject JNICALL Java_hermes_java_Hermes_getBucket(JNIEnv *, jobject,
+                                                            jstring);
 
 #ifdef __cplusplus
 }

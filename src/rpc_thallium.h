@@ -14,12 +14,12 @@
 #define HERMES_RPC_THALLIUM_H_
 
 #include <thallium.hpp>
-#include "rpc_thallium_serialization.h"
-#include "config.h"
-#include "utils.h"
-#include "hermes_shm/data_structures/serialization/thallium.h"
 
+#include "config.h"
+#include "hermes_shm/data_structures/serialization/thallium.h"
 #include "rpc.h"
+#include "rpc_thallium_serialization.h"
+#include "utils.h"
 
 namespace tl = thallium;
 
@@ -28,9 +28,9 @@ namespace hermes {
 /**
    A structure to represent Thallium state
 */
-class ThalliumRpc  : public RpcContext {
+class ThalliumRpc : public RpcContext {
  public:
-  std::atomic<bool> kill_requested_; /**< is kill requested? */
+  std::atomic<bool> kill_requested_;          /**< is kill requested? */
   std::unique_ptr<tl::engine> client_engine_; /**< pointer to client engine */
   std::unique_ptr<tl::engine> server_engine_; /**< pointer to server engine */
 
@@ -44,14 +44,14 @@ class ThalliumRpc  : public RpcContext {
   void StopDaemon();
   std::string GetServerName(i32 node_id);
 
-  template<typename RpcLambda>
+  template <typename RpcLambda>
   void RegisterRpc(const char *name, RpcLambda &&lambda) {
     server_engine_->define(name, std::forward<RpcLambda>(lambda));
   }
 
   /** RPC call */
   template <typename ReturnType, typename... Args>
-  ReturnType Call(i32 node_id, const char *func_name, Args&&... args) {
+  ReturnType Call(i32 node_id, const char *func_name, Args &&...args) {
     HILOG(kDebug, "Calling {} {} -> {}", func_name, node_id_, node_id)
     try {
       std::string server_name = GetServerName(node_id);
@@ -66,16 +66,16 @@ class ThalliumRpc  : public RpcContext {
         return result;
       }
     } catch (tl::margo_exception &err) {
-      HELOG(kFatal, "Thallium failed on function: {}\n{}",
-            func_name, err.what())
+      HELOG(kFatal, "Thallium failed on function: {}\n{}", func_name,
+            err.what())
       exit(1);
     }
   }
 
   /** I/O transfers */
-  template<typename ReturnType, typename ...Args>
-  ReturnType IoCall(i32 node_id, const char *func_name,
-                    IoType type, char *data, size_t size, Args&& ...args) {
+  template <typename ReturnType, typename... Args>
+  ReturnType IoCall(i32 node_id, const char *func_name, IoType type, char *data,
+                    size_t size, Args &&...args) {
     HILOG(kDebug, "Calling {} {} -> {}", func_name, node_id_, node_id)
     std::string server_name = GetServerName(node_id);
     tl::bulk_mode flag;
@@ -100,12 +100,12 @@ class ThalliumRpc  : public RpcContext {
     tl::remote_procedure remote_proc = client_engine_->define(func_name);
     tl::endpoint server = client_engine_->lookup(server_name);
 
-    std::vector<std::pair<void*, size_t>> segments(1);
-    segments[0].first  = data;
+    std::vector<std::pair<void *, size_t>> segments(1);
+    segments[0].first = data;
     segments[0].second = size;
 
     tl::bulk bulk = client_engine_->expose(segments, flag);
-    if constexpr(std::is_same_v<ReturnType, void>) {
+    if constexpr (std::is_same_v<ReturnType, void>) {
       remote_proc.on(server)(bulk, std::forward<Args>(args)...);
     } else {
       return remote_proc.on(server)(bulk, std::forward<Args>(args)...);
@@ -113,8 +113,8 @@ class ThalliumRpc  : public RpcContext {
   }
 
   /** Io transfer at the server */
-  size_t IoCallServer(const tl::request &req, tl::bulk &bulk,
-                      IoType type, char *data, size_t size) {
+  size_t IoCallServer(const tl::request &req, tl::bulk &bulk, IoType type,
+                      char *data, size_t size) {
     tl::bulk_mode flag = tl::bulk_mode::write_only;
     switch (type) {
       case IoType::kRead: {
@@ -134,8 +134,8 @@ class ThalliumRpc  : public RpcContext {
     }
 
     tl::endpoint endpoint = req.get_endpoint();
-    std::vector<std::pair<void*, size_t>> segments(1);
-    segments[0].first  = data;
+    std::vector<std::pair<void *, size_t>> segments(1);
+    segments[0].first = data;
     segments[0].second = size;
     tl::bulk local_bulk = server_engine_->expose(segments, flag);
     size_t io_bytes = 0;

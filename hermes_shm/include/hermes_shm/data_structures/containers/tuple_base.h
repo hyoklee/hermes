@@ -14,8 +14,9 @@
 #define HERMES_INCLUDE_HERMES_DATA_STRUCTURES_TupleBase_H_
 
 #include <utility>
-#include "hermes_shm/types/real_number.h"
+
 #include "hermes_shm/types/argpack.h"
+#include "hermes_shm/types/real_number.h"
 
 namespace hshm {
 
@@ -24,11 +25,8 @@ template <typename T>
 using NullWrap = T;
 
 /** Recurrence used to create argument pack */
-template<
-  template<typename> typename Wrap,
-  size_t idx,
-  typename T = EndTemplateRecurrence,
-  typename ...Args>
+template <template <typename> typename Wrap, size_t idx,
+          typename T = EndTemplateRecurrence, typename... Args>
 struct TupleBaseRecur {
   Wrap<T> arg_;                                  /**< The element stored */
   TupleBaseRecur<Wrap, idx + 1, Args...> recur_; /**< Remaining args */

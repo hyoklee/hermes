@@ -25,10 +25,11 @@ namespace hermes::adapter::fs {
 /** A class to represent POSIX IO file system */
 class PosixFs : public hermes::adapter::fs::Filesystem {
  public:
-  PosixFs() : hermes::adapter::fs::Filesystem(HERMES_POSIX_IO_CLIENT,
-                                              AdapterType::kPosix) {}
+  PosixFs()
+      : hermes::adapter::fs::Filesystem(HERMES_POSIX_IO_CLIENT,
+                                        AdapterType::kPosix) {}
 
-  template<typename StatT>
+  template <typename StatT>
   int Stat(File &f, StatT *buf) {
     auto mdm = HERMES_FS_METADATA_MANAGER;
     auto existing = mdm->Find(f);
@@ -58,7 +59,7 @@ class PosixFs : public hermes::adapter::fs::Filesystem {
     }
   }
 
-  template<typename StatT>
+  template <typename StatT>
   int Stat(const char *__filename, StatT *buf) {
     bool stat_exists;
     AdapterStat stat;
@@ -106,7 +107,7 @@ class PosixFs : public hermes::adapter::fs::Filesystem {
 /** Simplify access to the stateless PosixFs Singleton */
 #define HERMES_POSIX_FS \
   hshm::EasySingleton<hermes::adapter::fs::PosixFs>::GetInstance()
-#define HERMES_POSIX_FS_T hermes::adapter::fs::PosixFs*
+#define HERMES_POSIX_FS_T hermes::adapter::fs::PosixFs *
 
 }  // namespace hermes::adapter::fs
 

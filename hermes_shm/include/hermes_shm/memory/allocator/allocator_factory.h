@@ -10,7 +10,6 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_MEMORY_ALLOCATOR_ALLOCATOR_FACTORY_H_
 #define HERMES_MEMORY_ALLOCATOR_ALLOCATOR_FACTORY_H_
 
@@ -25,37 +24,28 @@ class AllocatorFactory {
   /**
    * Create a new memory allocator
    * */
-  template<typename AllocT, typename ...Args>
+  template <typename AllocT, typename... Args>
   static std::unique_ptr<Allocator> shm_init(allocator_id_t alloc_id,
                                              size_t custom_header_size,
                                              MemoryBackend *backend,
-                                             Args&& ...args) {
-    if constexpr(std::is_same_v<StackAllocator, AllocT>) {
+                                             Args &&...args) {
+    if constexpr (std::is_same_v<StackAllocator, AllocT>) {
       // StackAllocator
       auto alloc = std::make_unique<StackAllocator>();
-      alloc->shm_init(alloc_id,
-                      custom_header_size,
-                      backend->data_,
-                      backend->data_size_,
-                      std::forward<Args>(args)...);
+      alloc->shm_init(alloc_id, custom_header_size, backend->data_,
+                      backend->data_size_, std::forward<Args>(args)...);
       return alloc;
     } else if constexpr (std::is_same_v<MallocAllocator, AllocT>) {
       // Malloc Allocator
       auto alloc = std::make_unique<MallocAllocator>();
-      alloc->shm_init(alloc_id,
-                      custom_header_size,
-                      backend->data_,
-                      backend->data_size_,
-                      std::forward<Args>(args)...);
+      alloc->shm_init(alloc_id, custom_header_size, backend->data_,
+                      backend->data_size_, std::forward<Args>(args)...);
       return alloc;
-    } else if constexpr(std::is_same_v<ScalablePageAllocator, AllocT>) {
+    } else if constexpr (std::is_same_v<ScalablePageAllocator, AllocT>) {
       // Scalable Page Allocator
       auto alloc = std::make_unique<ScalablePageAllocator>();
-      alloc->shm_init(alloc_id,
-                      custom_header_size,
-                      backend->data_,
-                      backend->data_size_,
-                      std::forward<Args>(args)...);
+      alloc->shm_init(alloc_id, custom_header_size, backend->data_,
+                      backend->data_size_, std::forward<Args>(args)...);
       return alloc;
     } else {
       // Default
@@ -72,22 +62,19 @@ class AllocatorFactory {
       // Stack Allocator
       case AllocatorType::kStackAllocator: {
         auto alloc = std::make_unique<StackAllocator>();
-        alloc->shm_deserialize(backend->data_,
-                               backend->data_size_);
+        alloc->shm_deserialize(backend->data_, backend->data_size_);
         return alloc;
       }
       // Malloc Allocator
       case AllocatorType::kMallocAllocator: {
         auto alloc = std::make_unique<MallocAllocator>();
-        alloc->shm_deserialize(backend->data_,
-                               backend->data_size_);
+        alloc->shm_deserialize(backend->data_, backend->data_size_);
         return alloc;
       }
       // Scalable Page Allocator
       case AllocatorType::kScalablePageAllocator: {
         auto alloc = std::make_unique<ScalablePageAllocator>();
-        alloc->shm_deserialize(backend->data_,
-                               backend->data_size_);
+        alloc->shm_deserialize(backend->data_, backend->data_size_);
         return alloc;
       }
       default:

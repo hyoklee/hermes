@@ -13,10 +13,10 @@
 #ifndef HERMES_THREAD_THREAD_FACTORY_H_
 #define HERMES_THREAD_THREAD_FACTORY_H_
 
-#include "thread_model.h"
-#include "pthread.h"
 #include "argobots.h"
 #include "hermes_shm/util/logging.h"
+#include "pthread.h"
+#include "thread_model.h"
 
 namespace hshm::thread_model {
 

@@ -17,15 +17,15 @@
 #include <filesystem>
 #include <iostream>
 
+#include "adapter/stdio/stdio_api.h"
 #include "adapter_test_utils.h"
 #include "catch_config.h"
-#include "adapter/stdio/stdio_api.h"
 #if HERMES_INTERCEPT == 1
 #include "adapter/stdio/stdio_fs_api.h"
 #endif
 
-#include "hermes_shm/util/logging.h"
 #include "adapter_test_utils.h"
+#include "hermes_shm/util/logging.h"
 
 namespace stdfs = std::filesystem;
 
@@ -92,7 +92,7 @@ void TrackFiles() {
 #endif
 }
 
-void RemoveFile(const std::string &path) {
+void RemoveFile(const std::string& path) {
   stdfs::remove(path);
   if (stdfs::exists(path)) {
     HELOG(kFatal, "Failed to remove: {}", path)

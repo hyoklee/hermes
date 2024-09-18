@@ -13,24 +13,22 @@
 #ifndef HERMES_SRC_API_HERMES_H_
 #define HERMES_SRC_API_HERMES_H_
 
+#include "bucket.h"
+#include "buffer_organizer.h"
+#include "buffer_pool.h"
 #include "config_client.h"
 #include "config_server.h"
-#include "hermes_types.h"
-#include "utils.h"
-
-#include "rpc.h"
-#include "metadata_manager.h"
-#include "buffer_pool.h"
-#include "buffer_organizer.h"
-#include "prefetcher.h"
-#include "trait_manager.h"
-#include "bucket.h"
-
 #include "hermes_shm/util/singleton.h"
+#include "hermes_types.h"
+#include "metadata_manager.h"
+#include "prefetcher.h"
+#include "rpc.h"
+#include "trait_manager.h"
+#include "utils.h"
 
 // Singleton macros
 #define HERMES hshm::Singleton<hermes::api::Hermes>::GetInstance()
-#define HERMES_T hermes::api::Hermes*
+#define HERMES_T hermes::api::Hermes *
 
 namespace hapi = hermes::api;
 
@@ -74,10 +72,11 @@ class Hermes {
    * ===================================*/
 
   /** Default constructor */
-  Hermes() : is_being_initialized_(false),
-             is_initialized_(false),
-             is_terminated_(false),
-             is_transparent_(false) {}
+  Hermes()
+      : is_being_initialized_(false),
+        is_initialized_(false),
+        is_terminated_(false),
+        is_transparent_(false) {}
 
   /** Destructor */
   ~Hermes() {}
@@ -92,7 +91,7 @@ class Hermes {
   bool IsTerminated() { return is_terminated_; }
 
   /** Initialize Hermes explicitly */
-  static Hermes* Create(HermesType mode = HermesType::kClient,
+  static Hermes *Create(HermesType mode = HermesType::kClient,
                         std::string server_config_path = "",
                         std::string client_config_path = "") {
     auto hermes = HERMES;
@@ -120,8 +119,7 @@ class Hermes {
    * ===================================*/
 
   /** Get or create a Bucket in Hermes */
-  Bucket GetBucket(std::string name,
-                   Context ctx = Context(),
+  Bucket GetBucket(std::string name, Context ctx = Context(),
                    size_t backend_size = 0);
 
   /** Get an existing Bucket in Hermes */
@@ -160,7 +158,7 @@ class Hermes {
    * ===================================*/
 
   /** Create a trait */
-  template<typename TraitT, typename ...Args>
+  template <typename TraitT, typename... Args>
   TraitId RegisterTrait(TraitT *trait) {
     TraitId id = GetTraitId(trait->GetTraitUuid());
     if (!id.IsNull()) {
@@ -170,15 +168,14 @@ class Hermes {
     HILOG(kDebug, "Registering a new trait: {}", trait->GetTraitUuid())
     id = HERMES->mdm_.GlobalRegisterTrait(TraitId::GetNull(),
                                           trait->trait_info_);
-    HILOG(kDebug, "Giving trait {} id {}.{}",
-          trait->GetTraitUuid(), id.node_id_, id.unique_)
+    HILOG(kDebug, "Giving trait {} id {}.{}", trait->GetTraitUuid(),
+          id.node_id_, id.unique_)
     return id;
   }
 
   /** Create a trait */
-  template<typename TraitT, typename ...Args>
-  TraitId RegisterTrait(const std::string &trait_uuid,
-                        Args&& ...args) {
+  template <typename TraitT, typename... Args>
+  TraitId RegisterTrait(const std::string &trait_uuid, Args &&...args) {
     TraitId id = GetTraitId(trait_uuid);
     if (!id.IsNull()) {
       HILOG(kDebug, "Found existing trait trait: {}", trait_uuid)
@@ -186,10 +183,9 @@ class Hermes {
     }
     HILOG(kDebug, "Registering new trait: {}", trait_uuid)
     TraitT obj(trait_uuid, std::forward<Args>(args)...);
-    id = HERMES->mdm_.GlobalRegisterTrait(TraitId::GetNull(),
-                                           obj.trait_info_);
-    HILOG(kDebug, "Giving trait \"{}\" id {}.{}",
-          trait_uuid, id.node_id_, id.unique_)
+    id = HERMES->mdm_.GlobalRegisterTrait(TraitId::GetNull(), obj.trait_info_);
+    HILOG(kDebug, "Giving trait \"{}\" id {}.{}", trait_uuid, id.node_id_,
+          id.unique_)
     return id;
   }
 
@@ -199,9 +195,7 @@ class Hermes {
   }
 
   /** Get the trait */
-  Trait* GetTrait(TraitId trait_id) {
-    return mdm_.GlobalGetTrait(trait_id);
-  }
+  Trait *GetTrait(TraitId trait_id) { return mdm_.GlobalGetTrait(trait_id); }
 
   /** Attach a trait to a tag */
   void AttachTrait(TagId tag_id, TraitId trait_id) {
@@ -209,15 +203,17 @@ class Hermes {
   }
 
   /** Get traits attached to tag */
-  std::vector<Trait*> GetTraits(TagId tag_id,
-                                uint32_t flags = ALL_BITS(uint32_t)) {
+  std::vector<Trait *> GetTraits(TagId tag_id,
+                                 uint32_t flags = ALL_BITS(uint32_t)) {
     // HILOG(kDebug, "Getting the traits for tag {}", tag_id)
     std::vector<TraitId> trait_ids = HERMES->mdm_.GlobalTagGetTraits(tag_id);
-    std::vector<Trait*> traits;
+    std::vector<Trait *> traits;
     traits.reserve(trait_ids.size());
     for (TraitId &trait_id : trait_ids) {
       auto trait = GetTrait(trait_id);
-      if (!trait) { continue; }
+      if (!trait) {
+        continue;
+      }
       if (trait->GetTraitFlags().Any(flags)) {
         traits.emplace_back(trait);
       }
@@ -261,12 +257,11 @@ class Hermes {
   void FinalizeClient();
 };
 
-#define TRANSPARENT_HERMES\
-  if (!HERMES->IsInitialized() && \
-      !HERMES->IsBeingInitialized() && \
-      !HERMES->IsTerminated()) {\
-    HERMES->Create(hermes::HermesType::kClient);\
-    HERMES->is_transparent_ = true;\
+#define TRANSPARENT_HERMES                                         \
+  if (!HERMES->IsInitialized() && !HERMES->IsBeingInitialized() && \
+      !HERMES->IsTerminated()) {                                   \
+    HERMES->Create(hermes::HermesType::kClient);                   \
+    HERMES->is_transparent_ = true;                                \
   }
 
 }  // namespace hermes::api

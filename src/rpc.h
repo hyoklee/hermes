@@ -21,11 +21,11 @@
 #include <string>
 #include <vector>
 
-#include "hermes_types.h"
-#include "decorator.h"
 #include "config_server.h"
-#include "utils.h"
+#include "decorator.h"
+#include "hermes_types.h"
 #include "thread_manager.h"
+#include "utils.h"
 
 namespace hermes::api {
 class Hermes;
@@ -37,15 +37,13 @@ class MetadataManager;
 using api::Hermes;
 
 /** RPC types */
-enum class RpcType {
-  kThallium
-};
+enum class RpcType { kThallium };
 
 /** Uniquely identify a host machine */
 struct HostInfo {
-  i32 node_id_;           /**< Hermes-assigned node id */
-  std::string hostname_;  /**< Host name */
-  std::string ip_addr_;   /**< Host IP address */
+  i32 node_id_;          /**< Hermes-assigned node id */
+  std::string hostname_; /**< Host name */
+  std::string ip_addr_;  /**< Host IP address */
 
   HostInfo() = default;
   explicit HostInfo(const std::string &hostname, const std::string &ip_addr)
@@ -57,10 +55,10 @@ class RpcContext {
  public:
   ServerConfig *config_;
   MetadataManager *mdm_;
-  int port_;  /**< port number */
-  i32 node_id_; /**< the ID of this node*/
+  int port_;                    /**< port number */
+  i32 node_id_;                 /**< the ID of this node*/
   std::vector<HostInfo> hosts_; /**< Hostname and ip addr per-node */
-  HermesType mode_; /**< The current mode hermes is executing in */
+  HermesType mode_;             /**< The current mode hermes is executing in */
 
  public:
   RpcContext() = default;
@@ -106,28 +104,26 @@ class RpcContext {
 
 }  // namespace hermes
 
-
 /** Decide the node to send an RPC based on a UniqueId template */
-#define UNIQUE_ID_TO_NODE_ID_LAMBDA \
-  [](auto &&param) { return param.GetNodeId(); }
+#define UNIQUE_ID_TO_NODE_ID_LAMBDA [](auto &&param) { return param.GetNodeId(); }
 
 /** Decide the node to send an RPC based on a std::string */
-#define STRING_HASH_LAMBDA \
-  [this](auto &&param) {   \
+#define STRING_HASH_LAMBDA                       \
+  [this](auto &&param) {                         \
     auto hash = std::hash<std::string>{}(param); \
-    hash %= this->rpc_->hosts_.size(); \
-    return hash + 1; \
+    hash %= this->rpc_->hosts_.size();           \
+    return hash + 1;                             \
   }
 
 /** Decide the node to send an RPC based on serialized trait parameters */
-#define TRAIT_PARAMS_HASH_LAMBDA \
-  [this](auto &&param) { \
-      TraitHeader *hdr = reinterpret_cast<TraitHeader*>(param.data()); \
-      std::string trait_uuid = hdr->trait_uuid_; \
-      auto hash = std::hash<std::string>{}(trait_uuid); \
-      hash %= this->rpc_->hosts_.size(); \
-      return hash + 1; \
-    }
+#define TRAIT_PARAMS_HASH_LAMBDA                                      \
+  [this](auto &&param) {                                              \
+    TraitHeader *hdr = reinterpret_cast<TraitHeader *>(param.data()); \
+    std::string trait_uuid = hdr->trait_uuid_;                        \
+    auto hash = std::hash<std::string>{}(trait_uuid);                 \
+    hash %= this->rpc_->hosts_.size();                                \
+    return hash + 1;                                                  \
+  }
 
 /** A helper to test RPCs in hermes */
 #ifdef HERMES_ONLY_RPC
@@ -150,51 +146,44 @@ class RpcContext {
  * @param hashfn the hash function used to actually compute the node id.
  * E.g., STRING_HASH_LAMBDA
  * */
-#define DEFINE_RPC(RET, BaseName, tuple_idx, hashfn)\
-  template<typename ...Args>\
-  TYPE_UNWRAP(RET) Global##BaseName(Args&& ...args) {\
-    if constexpr(std::is_same_v<TYPE_UNWRAP(RET), void>) {\
-      _Global##BaseName(\
-          hshm::make_argpack(std::forward<Args>(args)...));\
-    } else {\
-      return _Global##BaseName(\
-          hshm::make_argpack(std::forward<Args>(args)...));\
-    }\
-  }\
-  template<typename ArgPackT>\
-  TYPE_UNWRAP(RET) _Global##BaseName(ArgPackT &&pack) {\
-    i32 node_id = hashfn(pack.template              \
-                         Forward<tuple_idx>()); \
-    if (NODE_ID_IS_LOCAL(node_id)) {\
-      if constexpr(std::is_same_v<TYPE_UNWRAP(RET), void>) {\
-        hshm::PassArgPack::Call(\
-            std::forward<ArgPackT>(pack), \
-            [this](auto &&...args) constexpr {\
-              this->Local##BaseName(std::forward<decltype(args)>(args)...);\
-            });\
-      } else {\
-        return hshm::PassArgPack::Call(\
-            std::forward<ArgPackT>(pack), \
-            [this](auto &&...args) constexpr {\
-              return this->Local##BaseName( \
-                  std::forward<decltype(args)>(args)...);\
-            });\
-      } \
-    } else { \
-      return hshm::PassArgPack::Call( \
-          std::forward<ArgPackT>(pack), \
-          [this, node_id](auto&& ...args) constexpr { \
-            if constexpr(std::is_same_v<TYPE_UNWRAP(RET), void>) { \
-              this->rpc_->Call<TYPE_UNWRAP(RET)>( \
-                  node_id, "Rpc" #BaseName, \
-                  std::forward<decltype(args)>(args)...); \
-            } else { \
-              return this->rpc_->Call<TYPE_UNWRAP(RET)>( \
-                  node_id, "Rpc" #BaseName, \
-                  std::forward<decltype(args)>(args)...); \
-            } \
-          }); \
-    } \
+#define DEFINE_RPC(RET, BaseName, tuple_idx, hashfn)                                            \
+  template <typename... Args>                                                                   \
+  TYPE_UNWRAP(RET)                                                                              \
+  Global##BaseName(Args &&...args) {                                                            \
+    if constexpr (std::is_same_v<TYPE_UNWRAP(RET), void>) {                                     \
+      _Global##BaseName(hshm::make_argpack(std::forward<Args>(args)...));                       \
+    } else {                                                                                    \
+      return _Global##BaseName(hshm::make_argpack(std::forward<Args>(args)...));                \
+    }                                                                                           \
+  }                                                                                             \
+  template <typename ArgPackT>                                                                  \
+  TYPE_UNWRAP(RET)                                                                              \
+  _Global##BaseName(ArgPackT &&pack) {                                                          \
+    i32 node_id = hashfn(pack.template Forward<tuple_idx>());                                   \
+    if (NODE_ID_IS_LOCAL(node_id)) {                                                            \
+      if constexpr (std::is_same_v<TYPE_UNWRAP(RET), void>) {                                   \
+        hshm::PassArgPack::Call(                                                                \
+            std::forward<ArgPackT>(pack), [this](auto &&...args) constexpr {                    \
+              this->Local##BaseName(std::forward<decltype(args)>(args)...);                     \
+            });                                                                                 \
+      } else {                                                                                  \
+        return hshm::PassArgPack::Call(                                                         \
+            std::forward<ArgPackT>(pack), [this](auto &&...args) constexpr {                    \
+              return this->Local##BaseName(std::forward<decltype(args)>(args)...);              \
+            });                                                                                 \
+      }                                                                                         \
+    } else {                                                                                    \
+      return hshm::PassArgPack::Call(                                                           \
+          std::forward<ArgPackT>(pack), [ this, node_id ](auto &&...args) constexpr {           \
+            if constexpr (std::is_same_v<TYPE_UNWRAP(RET), void>) {                             \
+              this->rpc_->Call<TYPE_UNWRAP(RET)>(node_id, "Rpc" #BaseName,                      \
+                                                 std::forward<decltype(args)>(args)...);        \
+            } else {                                                                            \
+              return this->rpc_->Call<TYPE_UNWRAP(RET)>(node_id, "Rpc" #BaseName,               \
+                                                        std::forward<decltype(args)>(args)...); \
+            }                                                                                   \
+          });                                                                                   \
+    }                                                                                           \
   }
 #include "rpc_factory.h"
 

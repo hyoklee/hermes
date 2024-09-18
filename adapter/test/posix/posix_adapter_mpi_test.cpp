@@ -17,9 +17,8 @@
 #include <filesystem>
 #include <iostream>
 
-#include "catch_config.h"
-
 #include "adapter_test_utils.h"
+#include "catch_config.h"
 
 #if HERMES_INTERCEPT == 1
 #include "adapter/posix/posix_api.h"
@@ -194,8 +193,8 @@ int pretest() {
 #if HERMES_INTERCEPT == 1
   HERMES->client_config_.SetAdapterPathTracking(info.existing_file_cmp, false);
   HERMES->client_config_.SetAdapterPathTracking(info.new_file_cmp, false);
-  HERMES->client_config_.SetAdapterPathTracking(
-      info.existing_shared_file_cmp, false);
+  HERMES->client_config_.SetAdapterPathTracking(info.existing_shared_file_cmp,
+                                                false);
 #endif
   return 0;
 }
@@ -210,8 +209,8 @@ int posttest(bool compare_data = true) {
 #if HERMES_INTERCEPT == 1
   HERMES->client_config_.SetAdapterPathTracking(info.existing_file, false);
   HERMES->client_config_.SetAdapterPathTracking(info.new_file, false);
-  HERMES->client_config_.SetAdapterPathTracking(
-      info.existing_shared_file, false);
+  HERMES->client_config_.SetAdapterPathTracking(info.existing_shared_file,
+                                                false);
 #endif
   if (compare_data && stdfs::exists(info.new_file) &&
       stdfs::exists(info.new_file_cmp)) {
@@ -315,16 +314,16 @@ int posttest(bool compare_data = true) {
   }
   Clear();
 
-  #if HERMES_INTERCEPT == 1
-    HERMES->client_config_.SetAdapterPathTracking(info.existing_file_cmp, true);
-    HERMES->client_config_.SetAdapterPathTracking(info.new_file_cmp, true);
-    HERMES->client_config_.SetAdapterPathTracking(info.new_file, true);
-    HERMES->client_config_.SetAdapterPathTracking(info.existing_file, true);
-    HERMES->client_config_.SetAdapterPathTracking(
-        info.existing_shared_file, true);
-    HERMES->client_config_.SetAdapterPathTracking(
-        info.existing_shared_file_cmp, true);
-  #endif
+#if HERMES_INTERCEPT == 1
+  HERMES->client_config_.SetAdapterPathTracking(info.existing_file_cmp, true);
+  HERMES->client_config_.SetAdapterPathTracking(info.new_file_cmp, true);
+  HERMES->client_config_.SetAdapterPathTracking(info.new_file, true);
+  HERMES->client_config_.SetAdapterPathTracking(info.existing_file, true);
+  HERMES->client_config_.SetAdapterPathTracking(info.existing_shared_file,
+                                                true);
+  HERMES->client_config_.SetAdapterPathTracking(info.existing_shared_file_cmp,
+                                                true);
+#endif
   return 0;
 }
 

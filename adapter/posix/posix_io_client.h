@@ -18,11 +18,11 @@
 #include "adapter/filesystem/filesystem_io_client.h"
 #include "posix_api.h"
 
-using hshm::Singleton;
 using hermes::adapter::fs::AdapterStat;
 using hermes::adapter::fs::FsIoOptions;
 using hermes::adapter::fs::IoStatus;
 using hermes::adapter::fs::PosixApi;
+using hshm::Singleton;
 
 namespace hermes::adapter::fs {
 
@@ -30,8 +30,7 @@ namespace hermes::adapter::fs {
 struct PosixIoClientHeader : public TraitHeader {
   explicit PosixIoClientHeader(const std::string &trait_uuid,
                                const std::string &trait_name)
-      : TraitHeader(trait_uuid, trait_name,
-                    HERMES_TRAIT_FLUSH) {}
+      : TraitHeader(trait_uuid, trait_name, HERMES_TRAIT_FLUSH) {}
 };
 
 /** A class to represent POSIX IO file system */
@@ -51,7 +50,7 @@ class PosixIoClient : public hermes::adapter::fs::FilesystemIoClient {
 
   /** Trait deserialization constructor */
   explicit PosixIoClient(hshm::charbuf &params) {
-    (void) params;
+    (void)params;
     real_api = HERMES_POSIX_API;
     CreateHeader<PosixIoClientHeader>("posix_io_client_", trait_name_);
   }
@@ -61,9 +60,7 @@ class PosixIoClient : public hermes::adapter::fs::FilesystemIoClient {
 
  public:
   /** Allocate an fd for the file f */
-  void RealOpen(File &f,
-                AdapterStat &stat,
-                const std::string &path) override;
+  void RealOpen(File &f, AdapterStat &stat, const std::string &path) override;
 
   /**
    * Called after real open. Allocates the Hermes representation of
@@ -71,24 +68,20 @@ class PosixIoClient : public hermes::adapter::fs::FilesystemIoClient {
    * and hermes file handler. These are not the same as POSIX file
    * descriptor and STDIO file handler.
    * */
-  void HermesOpen(File &f,
-                  const AdapterStat &stat,
+  void HermesOpen(File &f, const AdapterStat &stat,
                   FilesystemIoClientState &fs_mdm) override;
 
   /** Synchronize \a file FILE f */
-  int RealSync(const File &f,
-               const AdapterStat &stat) override;
+  int RealSync(const File &f, const AdapterStat &stat) override;
 
   /** Close \a file FILE f */
-  int RealClose(const File &f,
-                AdapterStat &stat) override;
+  int RealClose(const File &f, AdapterStat &stat) override;
 
   /**
    * Called before RealClose. Releases information provisioned during
    * the allocation phase.
    * */
-  void HermesClose(File &f,
-                   const AdapterStat &stat,
+  void HermesClose(File &f, const AdapterStat &stat,
                    FilesystemIoClientState &fs_mdm) override;
 
   /** Remove \a file FILE f */
@@ -98,16 +91,12 @@ class PosixIoClient : public hermes::adapter::fs::FilesystemIoClient {
   size_t GetSize(const hipc::charbuf &bkt_name) override;
 
   /** Write blob to backend */
-  void WriteBlob(const std::string &bkt_name,
-                 const Blob &full_blob,
-                 const FsIoOptions &opts,
-                 IoStatus &status) override;
+  void WriteBlob(const std::string &bkt_name, const Blob &full_blob,
+                 const FsIoOptions &opts, IoStatus &status) override;
 
   /** Read blob from the backend */
-  void ReadBlob(const std::string &bkt_name,
-                Blob &full_blob,
-                const FsIoOptions &opts,
-                IoStatus &status) override;
+  void ReadBlob(const std::string &bkt_name, Blob &full_blob,
+                const FsIoOptions &opts, IoStatus &status) override;
 };
 
 }  // namespace hermes::adapter::fs
@@ -115,6 +104,6 @@ class PosixIoClient : public hermes::adapter::fs::FilesystemIoClient {
 /** Simplify access to the stateless PosixIoClient Singleton */
 #define HERMES_POSIX_IO_CLIENT \
   hshm::EasySingleton<hermes::adapter::fs::PosixIoClient>::GetInstance()
-#define HERMES_POSIX_IO_CLIENT_T hermes::adapter::fs::PosixIoClient*
+#define HERMES_POSIX_IO_CLIENT_T hermes::adapter::fs::PosixIoClient *
 
 #endif  // HERMES_ADAPTER_POSIX_POSIX_IO_CLIENT_H_

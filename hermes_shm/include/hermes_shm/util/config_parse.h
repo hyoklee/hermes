@@ -13,19 +13,20 @@
 #ifndef HERMES_CONFIG_PARSE_PARSER_H
 #define HERMES_CONFIG_PARSE_PARSER_H
 
-#include <cstdlib>
-#include <string>
-#include <regex>
-#include <list>
-#include "formatter.h"
-#include "logging.h"
-#include "hermes_shm/constants/macros.h"
-
-#include <iomanip>
 #include <float.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <cstdlib>
+#include <iomanip>
+#include <list>
+#include <regex>
+#include <string>
+
+#include "formatter.h"
+#include "hermes_shm/constants/macros.h"
+#include "logging.h"
 
 namespace hshm {
 
@@ -146,11 +147,12 @@ class ConfigParse {
       }
       break;
     }
-    return std::string(num_text.begin() + i, num_text.end());;
+    return std::string(num_text.begin() + i, num_text.end());
+    ;
   }
 
   /** parse the number of \a num_text NUMBER text */
-  template<typename T>
+  template <typename T>
   static T ParseNumber(const std::string &num_text) {
     T size;
     if (num_text == "inf") {
@@ -218,7 +220,7 @@ class ConfigParse {
     }
     for (auto &env_name_re : env_names) {
       std::string to_replace = std::string(env_name_re);
-      std::string env_name = to_replace.substr(2, to_replace.size()-3);
+      std::string env_name = to_replace.substr(2, to_replace.size() - 3);
       std::string env_val = env_name;
       try {
         char *ret = getenv(env_name.c_str());
@@ -227,7 +229,7 @@ class ConfigParse {
         } else {
           continue;
         }
-      } catch(...) {
+      } catch (...) {
       }
       std::regex replace_expr("\\$\\{" + env_name + "\\}");
       path = std::regex_replace(path, replace_expr, env_val);

@@ -10,15 +10,16 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_THREAD_THREAD_MANAGER_H_
 #define HERMES_THREAD_THREAD_MANAGER_H_
 
-#include "hermes_shm/thread/thread_model/thread_model.h"
-#include "hermes_shm/thread/thread_model/thread_model_factory.h"
 #include <hermes_shm/constants/data_structure_singleton_macros.h>
 #include <hermes_shm/introspect/system_info.h>
+
 #include <mutex>
+
+#include "hermes_shm/thread/thread_model/thread_model.h"
+#include "hermes_shm/thread/thread_model/thread_model_factory.h"
 
 #define US_TO_CLOCKS(x) (x * 56)
 
@@ -30,13 +31,11 @@ class ThreadModelManager {
  public:
   ThreadType type_; /**< The type of threads used in this program */
   std::unique_ptr<thread_model::ThreadModel>
-    thread_static_; /**< Functions static to all threads */
-  std::mutex lock_; /**< Synchronize */
+      thread_static_; /**< Functions static to all threads */
+  std::mutex lock_;   /**< Synchronize */
 
   /** Default constructor */
-  ThreadModelManager() {
-    SetThreadModel(ThreadType::kPthread);
-  }
+  ThreadModelManager() { SetThreadModel(ThreadType::kPthread); }
 
   /** Set the threading model of this application */
   void SetThreadModel(ThreadType type) {
@@ -54,19 +53,13 @@ class ThreadModelManager {
   }
 
   /** Sleep for a period of time (microseconds) */
-  void SleepForUs(size_t us) {
-    thread_static_->SleepForUs(us);
-  }
+  void SleepForUs(size_t us) { thread_static_->SleepForUs(us); }
 
   /** Call Yield */
-  void Yield() {
-    thread_static_->Yield();
-  }
+  void Yield() { thread_static_->Yield(); }
 
   /** Call GetTid */
-  tid_t GetTid() {
-    return thread_static_->GetTid();
-  }
+  tid_t GetTid() { return thread_static_->GetTid(); }
 };
 
 /** A unique identifier of this thread across processes */
@@ -84,9 +77,7 @@ union NodeThreadId {
   }
 
   /** Hash function */
-  uint32_t hash() {
-    return as_int_;
-  }
+  uint32_t hash() { return as_int_; }
 };
 
 }  // namespace hshm

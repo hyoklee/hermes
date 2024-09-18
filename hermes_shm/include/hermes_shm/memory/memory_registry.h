@@ -1,20 +1,20 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Distributed under BSD 3-Clause license.                                   *
-* Copyright by The HDF Group.                                               *
-* Copyright by the Illinois Institute of Technology.                        *
-* All rights reserved.                                                      *
-*                                                                           *
-* This file is part of Hermes. The full Hermes copyright notice, including  *
-* terms governing use, modification, and redistribution, is contained in    *
-* the COPYING file, which can be found at the top directory. If you do not  *
-* have access to the file, you may request a copy from help@hdfgroup.org.   *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ * Distributed under BSD 3-Clause license.                                   *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Illinois Institute of Technology.                        *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of Hermes. The full Hermes copyright notice, including  *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the COPYING file, which can be found at the top directory. If you do not  *
+ * have access to the file, you may request a copy from help@hdfgroup.org.   *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_MEMORY_REGISTRY_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_MEMORY_REGISTRY_H_
 
-#include "hermes_shm/memory/allocator/allocator.h"
 #include "backend/memory_backend.h"
+#include "hermes_shm/memory/allocator/allocator.h"
 #include "hermes_shm/memory/allocator/stack_allocator.h"
 #include "hermes_shm/memory/backend/posix_mmap.h"
 
@@ -43,7 +43,7 @@ class MemoryRegistry {
   MemoryRegistry();
 
   /** Register a memory backend */
-  MemoryBackend* RegisterBackend(const std::string &url,
+  MemoryBackend *RegisterBackend(const std::string &url,
                                  std::unique_ptr<MemoryBackend> &backend) {
     auto ptr = backend.get();
     if (backends_.find(url) != backends_.end()) {
@@ -54,14 +54,12 @@ class MemoryRegistry {
   }
 
   /** Unregister memory backend */
-  void UnregisterBackend(const std::string &url) {
-    backends_.erase(url);
-  }
+  void UnregisterBackend(const std::string &url) { backends_.erase(url); }
 
   /**
    * Returns a pointer to a backend that has already been attached.
    * */
-  MemoryBackend* GetBackend(const std::string &url) {
+  MemoryBackend *GetBackend(const std::string &url) {
     auto iter = backends_.find(url);
     if (iter == backends_.end()) {
       return nullptr;
@@ -70,7 +68,7 @@ class MemoryRegistry {
   }
 
   /** Registers an allocator. */
-  Allocator* RegisterAllocator(std::unique_ptr<Allocator> &alloc) {
+  Allocator *RegisterAllocator(std::unique_ptr<Allocator> &alloc) {
     if (default_allocator_ == nullptr ||
         default_allocator_ == &root_allocator_ ||
         default_allocator_->GetId() == alloc->GetId()) {
@@ -100,23 +98,21 @@ class MemoryRegistry {
   /**
    * Locates an allocator of a particular id
    * */
-  HSHM_ALWAYS_INLINE Allocator* GetAllocator(allocator_id_t alloc_id) {
+  HSHM_ALWAYS_INLINE Allocator *GetAllocator(allocator_id_t alloc_id) {
     return allocators_[alloc_id.ToIndex()];
   }
 
   /**
    * Gets the allocator used for initializing other allocators.
    * */
-  HSHM_ALWAYS_INLINE Allocator* GetRootAllocator() {
-    return &root_allocator_;
-  }
+  HSHM_ALWAYS_INLINE Allocator *GetRootAllocator() { return &root_allocator_; }
 
   /**
    * Gets the allocator used by default when no allocator is
    * used to construct an object.
    * */
-  HSHM_ALWAYS_INLINE Allocator* GetDefaultAllocator() {
-    return reinterpret_cast<Allocator*>(default_allocator_);
+  HSHM_ALWAYS_INLINE Allocator *GetDefaultAllocator() {
+    return reinterpret_cast<Allocator *>(default_allocator_);
   }
 
   /**

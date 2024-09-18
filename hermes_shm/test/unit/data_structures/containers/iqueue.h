@@ -13,13 +13,14 @@
 #ifndef HERMES_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_IQUEUE_H_
 #define HERMES_TEST_UNIT_DATA_STRUCTURES_CONTAINERS_IQUEUE_H_
 
+#include <hermes_shm/memory/allocator/mp_page.h>
+
 #include "basic_test.h"
 #include "test_init.h"
-#include <hermes_shm/memory/allocator/mp_page.h>
 
 using hipc::MpPage;
 
-template<typename T, typename Container>
+template <typename T, typename Container>
 class IqueueTestSuite {
  public:
   Container &obj_;
@@ -27,14 +28,13 @@ class IqueueTestSuite {
 
   /// Constructor
   IqueueTestSuite(Container &obj, Allocator *alloc)
-  : obj_(obj), alloc_(alloc) {}
+      : obj_(obj), alloc_(alloc) {}
 
   /// Enqueue elements
   void EnqueueTest(size_t count = 30) {
     for (size_t i = 0; i < count; ++i) {
       hipc::OffsetPointer p;
-      auto page = alloc_->template
-        AllocateConstructObjs<T>(1, p);
+      auto page = alloc_->template AllocateConstructObjs<T>(1, p);
       page->page_size_ = count - i - 1;
       obj_.enqueue(page);
     }
@@ -43,7 +43,7 @@ class IqueueTestSuite {
 
   /// Dequeue and then re-enqueue
   void DequeueTest(size_t count = 30) {
-    std::vector<T*> tmp(count);
+    std::vector<T *> tmp(count);
     for (size_t i = 0; i < count; ++i) {
       tmp[i] = obj_.dequeue();
     }
@@ -93,7 +93,7 @@ class IqueueTestSuite {
 
   /// Verify erase
   void EraseTest() {
-    std::vector<T*> tmp;
+    std::vector<T *> tmp;
     for (T *page : obj_) {
       tmp.emplace_back(page);
     }

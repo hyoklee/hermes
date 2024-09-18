@@ -1,14 +1,14 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Distributed under BSD 3-Clause license.                                   *
-* Copyright by The HDF Group.                                               *
-* Copyright by the Illinois Institute of Technology.                        *
-* All rights reserved.                                                      *
-*                                                                           *
-* This file is part of Hermes. The full Hermes copyright notice, including  *
-* terms governing use, modification, and redistribution, is contained in    *
-* the COPYING file, which can be found at the top directory. If you do not  *
-* have access to the file, you may request a copy from help@hdfgroup.org.   *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ * Distributed under BSD 3-Clause license.                                   *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Illinois Institute of Technology.                        *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of Hermes. The full Hermes copyright notice, including  *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the COPYING file, which can be found at the top directory. If you do not  *
+ * have access to the file, you may request a copy from help@hdfgroup.org.   *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_IPC_QUEUE_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_IPC_QUEUE_H_
@@ -32,14 +32,10 @@ struct qtok_t {
   qtok_t(const qtok_t &other) : id_(other.id_) {}
 
   /** Move constructor */
-  qtok_t(qtok_t &&other) : id_(other.id_) {
-    other.SetNull();
-  }
+  qtok_t(qtok_t &&other) : id_(other.id_) { other.SetNull(); }
 
   /** Set to the null qtok */
-  void SetNull() {
-    id_ = qtok_t::GetNull().id_;
-  }
+  void SetNull() { id_ = qtok_t::GetNull().id_; }
 
   /** Get the null qtok */
   static qtok_t GetNull() {
@@ -48,9 +44,7 @@ struct qtok_t {
   }
 
   /** Check if null */
-  bool IsNull() const {
-    return id_ == GetNull().id_;
-  }
+  bool IsNull() const { return id_ == GetNull().id_; }
 };
 
 }  // namespace hshm

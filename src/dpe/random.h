@@ -13,9 +13,10 @@
 #ifndef HERMES_SRC_DPE_RANDOM_H_
 #define HERMES_SRC_DPE_RANDOM_H_
 
-#include "data_placement_engine.h"
 #include <cstdlib>
 #include <ctime>
+
+#include "data_placement_engine.h"
 
 namespace hermes {
 /**
@@ -29,8 +30,7 @@ class Random : public DPE {
   }
   ~Random() = default;
   Status Placement(const std::vector<size_t> &blob_sizes,
-                   std::vector<TargetInfo> &targets,
-                   api::Context &ctx,
+                   std::vector<TargetInfo> &targets, api::Context &ctx,
                    std::vector<PlacementSchema> &output) override;
 };
 

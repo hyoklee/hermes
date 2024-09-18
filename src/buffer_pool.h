@@ -30,47 +30,41 @@ struct BpCoin {
 };
 
 struct BpSlot {
-  size_t t_off_;    /**< Offset of the buffer in the target */
-  size_t t_size_;   /**< Size of the buffer in the target*/
+  size_t t_off_;  /**< Offset of the buffer in the target */
+  size_t t_size_; /**< Size of the buffer in the target*/
 
   BpSlot() : t_size_(0) {}
 
   BpSlot(size_t t_off, size_t t_size) : t_off_(t_off), t_size_(t_size) {}
 
-  bool IsNull() {
-    return t_size_ == 0;
-  }
+  bool IsNull() { return t_size_ == 0; }
 };
 
 struct BpFreeListStat {
   std::atomic<size_t> region_off_;  /**< Current offset in the target */
   std::atomic<size_t> region_size_; /**< Current space remaining in the tgt */
-  size_t page_size_;  /**< The size of page in this buffer list */
-  size_t cur_count_;  /**< Current number of pages allocated */
-  size_t max_count_;  /**< Max pages allocated at one time */
-  Mutex lock_;        /**< The modifier lock for this slot */
+  size_t page_size_;                /**< The size of page in this buffer list */
+  size_t cur_count_;                /**< Current number of pages allocated */
+  size_t max_count_;                /**< Max pages allocated at one time */
+  Mutex lock_;                      /**< The modifier lock for this slot */
 
   /** Default constructor */
   BpFreeListStat() = default;
 
   /** Copy constructor */
-  BpFreeListStat(const BpFreeListStat &other) {
-    strong_copy(other);
-  }
+  BpFreeListStat(const BpFreeListStat &other) { strong_copy(other); }
 
   /** Copy assignment operator */
-  BpFreeListStat& operator=(const BpFreeListStat &other) {
+  BpFreeListStat &operator=(const BpFreeListStat &other) {
     strong_copy(other);
     return *this;
   }
 
   /** Move constructor */
-  BpFreeListStat(BpFreeListStat &&other) {
-    strong_copy(other);
-  }
+  BpFreeListStat(BpFreeListStat &&other) { strong_copy(other); }
 
   /** Move assignment operator */
-  BpFreeListStat& operator=(BpFreeListStat &&other) {
+  BpFreeListStat &operator=(BpFreeListStat &&other) {
     strong_copy(other);
     return *this;
   }
@@ -174,19 +168,16 @@ class BufferPool {
   /**
    * Allocate buffers from the targets according to the schema
    * */
-  RPC std::vector<BufferInfo>
-  LocalAllocateAndSetBuffers(PlacementSchema &schema,
-                             const Blob &blob);
-  std::vector<BufferInfo>
-  GlobalAllocateAndSetBuffers(PlacementSchema &schema,
-                              const Blob &blob);
+  RPC std::vector<BufferInfo> LocalAllocateAndSetBuffers(
+      PlacementSchema &schema, const Blob &blob);
+  std::vector<BufferInfo> GlobalAllocateAndSetBuffers(PlacementSchema &schema,
+                                                      const Blob &blob);
 
   /**
    * Determines a reasonable allocation of buffers based on the size of I/O.
    * Returns the number of each slab size to allocate
    * */
-  std::vector<BpCoin> CoinSelect(DeviceInfo &dev_info,
-                                 size_t total_size,
+  std::vector<BpCoin> CoinSelect(DeviceInfo &dev_info, size_t total_size,
                                  size_t &buffer_count);
 
   /**
@@ -202,11 +193,8 @@ class BufferPool {
    * @param blob_off [out] The current size of the blob which has been placed
    * @param buffers [out] The buffers which were allocated
    * */
-  void AllocateBuffers(size_t total_size,
-                       std::vector<BpCoin> &coins,
-                       TargetId tid,
-                       int cpu,
-                       size_t &blob_off,
+  void AllocateBuffers(size_t total_size, std::vector<BpCoin> &coins,
+                       TargetId tid, int cpu, size_t &blob_off,
                        std::vector<BufferInfo> &buffers);
 
   /**
@@ -220,13 +208,8 @@ class BufferPool {
    * @param blob_off [out] The current size of the blob which has been placed
    * @param buffers [out] The buffers which were allocated
    * */
-  void AllocateSlabs(size_t &rem_size,
-                     size_t slab_size,
-                     size_t &slab_count,
-                     size_t slab_id,
-                     TargetId tid,
-                     int cpu,
-                     size_t &blob_off,
+  void AllocateSlabs(size_t &rem_size, size_t slab_size, size_t &slab_count,
+                     size_t slab_id, TargetId tid, int cpu, size_t &blob_off,
                      std::vector<BufferInfo> &buffers);
 
   /**
@@ -239,12 +222,8 @@ class BufferPool {
    * @return returns a BufferPool (BP) slot. The slot is NULL if the
    * target didn't have enough remaining space.
    * */
-  BpSlot AllocateSlabSize(int cpu,
-                          size_t slab_size,
-                          BpFreeList *free_list,
-                          BpFreeListStat *stat,
-                          BpFreeListStat *target_stat);
-
+  BpSlot AllocateSlabSize(int cpu, size_t slab_size, BpFreeList *free_list,
+                          BpFreeListStat *stat, BpFreeListStat *target_stat);
 
   /**====================================
    * Free Buffers
@@ -262,17 +241,16 @@ class BufferPool {
 
   /** Get a free list reference */
   void GetFreeListForCpu(u16 target_id, int cpu, int slab_id,
-                         BpFreeList* &free_list,
-                         BpFreeListStat* &free_list_stat);
+                         BpFreeList *&free_list,
+                         BpFreeListStat *&free_list_stat);
 
   /** Get the stack allocator from the cpu */
   void GetTargetStatForCpu(u16 target_id, int cpu,
-                           BpFreeListStat* &target_stat);
+                           BpFreeListStat *&target_stat);
 
   /** Find instance of unique target if it exists */
-  static std::vector<std::pair<i32, size_t>>::iterator
-  FindUniqueNodeId(std::vector<std::pair<i32, size_t>> &unique_nodes,
-                   i32 node_id) {
+  static std::vector<std::pair<i32, size_t>>::iterator FindUniqueNodeId(
+      std::vector<std::pair<i32, size_t>> &unique_nodes, i32 node_id) {
     for (auto iter = unique_nodes.begin(); iter != unique_nodes.end(); ++iter) {
       if (iter->first == node_id) {
         return iter;
@@ -282,8 +260,8 @@ class BufferPool {
   }
 
   /** Get the unique set of targets */
-  static std::vector<std::pair<i32, size_t>>
-  GroupByNodeId(std::vector<BufferInfo> &buffers, size_t &total_size) {
+  static std::vector<std::pair<i32, size_t>> GroupByNodeId(
+      std::vector<BufferInfo> &buffers, size_t &total_size) {
     total_size = 0;
     std::vector<std::pair<i32, size_t>> unique_nodes;
     for (BufferInfo &info : buffers) {
@@ -299,8 +277,8 @@ class BufferPool {
   }
 
   /** Get the unique set of targets */
-  static std::vector<std::pair<i32, size_t>>
-  GroupByNodeId(PlacementSchema &schema, size_t &total_size) {
+  static std::vector<std::pair<i32, size_t>> GroupByNodeId(
+      PlacementSchema &schema, size_t &total_size) {
     total_size = 0;
     std::vector<std::pair<i32, size_t>> unique_nodes;
     for (auto &plcmnt : schema.plcmnts_) {

@@ -15,8 +15,8 @@
 
 #include <memory>
 
-#include "hermes_shm/thread/lock/mutex.h"
 #include "hermes_shm/constants/macros.h"
+#include "hermes_shm/thread/lock/mutex.h"
 
 namespace hshm {
 
@@ -25,17 +25,17 @@ namespace hshm {
  * Requires user to define the static storage of obj_ in separate file.
  * @tparam T
  */
-template<typename T>
+template <typename T>
 class Singleton {
  private:
-  static T *obj_;
-  static hshm::Mutex *lock_;
+  static T* obj_;
+  static hshm::Mutex* lock_;
 
  public:
   Singleton() = default;
 
   /** Get or create an instance of type T */
-  inline static T *GetInstance() {
+  inline static T* GetInstance() {
     if (!obj_) {
       hshm::ScopedMutex lock(*lock_, 0);
       if (obj_ == nullptr) {
@@ -46,62 +46,61 @@ class Singleton {
   }
 
   /** Static initialization method for obj */
-  static T *_GetObj();
+  static T* _GetObj();
 
   /** Static initialization method for lock */
-  static hshm::Mutex *_GetLock();
+  static hshm::Mutex* _GetLock();
 };
-template<typename T>
+template <typename T>
 T* Singleton<T>::obj_ = Singleton<T>::_GetObj();
-template<typename T>
+template <typename T>
 hshm::Mutex* Singleton<T>::lock_ = Singleton<T>::_GetLock();
-#define DEFINE_SINGLETON_CC(T)\
-  template<> T* hshm::Singleton<T>::_GetObj() {\
-    return nullptr;\
-  }\
-  template<> hshm::Mutex* hshm::Singleton<T>::_GetLock() {\
-    static hshm::Mutex lock;\
-    return &lock;\
+#define DEFINE_SINGLETON_CC(T)                  \
+  template <>                                   \
+  T* hshm::Singleton<T>::_GetObj() {            \
+    return nullptr;                             \
+  }                                             \
+  template <>                                   \
+  hshm::Mutex* hshm::Singleton<T>::_GetLock() { \
+    static hshm::Mutex lock;                    \
+    return &lock;                               \
   }
 
 /**
  * Makes a singleton. Constructs during initialization of program.
  * Requires user to define the static storage of obj_ in separate file.
  * */
-template<typename T>
+template <typename T>
 class GlobalSingleton {
  public:
-  static T *obj_;
+  static T* obj_;
 
  public:
   GlobalSingleton() = default;
 
   /** Get instance of type T */
-  HSHM_ALWAYS_INLINE static T* GetInstance() {
-    return obj_;
-  }
+  HSHM_ALWAYS_INLINE static T* GetInstance() { return obj_; }
 
   /** Get ref of type T */
-  HSHM_ALWAYS_INLINE static T& GetRef() {
-    return *obj_;
-  }
+  HSHM_ALWAYS_INLINE static T& GetRef() { return *obj_; }
 
   /** Static initialization method for obj */
   static T& _GetObj();
 };
-template<typename T>
+template <typename T>
 T* GlobalSingleton<T>::obj_ = &GlobalSingleton<T>::_GetObj();
-#define DEFINE_GLOBAL_SINGLETON_CC(T)\
-  template<> T& hshm::GlobalSingleton<T>::_GetObj() {\
-    static T obj; \
-    return obj;\
+#define DEFINE_GLOBAL_SINGLETON_CC(T)      \
+  template <>                              \
+  T& hshm::GlobalSingleton<T>::_GetObj() { \
+    static T obj;                          \
+    return obj;                            \
   }
 
 /**
  * A class to represent singleton pattern
  * Does not require specific initialization of the static variable
  * */
-template<typename T>
+template <typename T>
 class EasySingleton {
  protected:
   /** static instance. */
@@ -114,8 +113,8 @@ class EasySingleton {
    * @tparam T
    * @return instance of T
    */
-  template<typename ...Args>
-  static T* GetInstance(Args&& ...args) {
+  template <typename... Args>
+  static T* GetInstance(Args&&... args) {
     if (obj_ == nullptr) {
       hshm::ScopedMutex lock(lock_, 0);
       if (obj_ == nullptr) {
@@ -134,15 +133,14 @@ hshm::Mutex EasySingleton<T>::lock_ = hshm::Mutex();
  * Makes a singleton. Constructs during initialization of program.
  * Does not require specific initialization of the static variable.
  * */
-template<typename T>
+template <typename T>
 class EasyGlobalSingleton {
  private:
   static T obj_;
+
  public:
   EasyGlobalSingleton() = default;
-  static T* GetInstance() {
-    return &obj_;
-  }
+  static T* GetInstance() { return &obj_; }
 };
 template <typename T>
 T EasyGlobalSingleton<T>::obj_;

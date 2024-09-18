@@ -34,7 +34,7 @@ class DPEFactory {
    *            data placement engine factory.
    * @return pointer to DataPlacementEngine given \a type PlacementPolicy.
    */
-  static DPE* Get(const PlacementPolicy &type) {
+  static DPE* Get(const PlacementPolicy& type) {
     switch (type) {
       case PlacementPolicy::kRandom: {
         return hshm::EasySingleton<Random>::GetInstance();

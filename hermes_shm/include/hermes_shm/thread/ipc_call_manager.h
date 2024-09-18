@@ -13,11 +13,12 @@
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_THREAD_IPCALL_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_THREAD_IPCALL_H_
 
-#include <vector>
-#include <hermes_shm/types/real_number.h>
-#include <functional>
-#include <hermes_shm/data_structures/ipc/vector.h>
 #include <hermes_shm/data_structures/ipc/mpsc_queue.h>
+#include <hermes_shm/data_structures/ipc/vector.h>
+#include <hermes_shm/types/real_number.h>
+
+#include <functional>
+#include <vector>
 
 namespace hshm::ipc {
 
@@ -33,12 +34,10 @@ struct IpcFuture {
 
   /** Emplace constructor */
   explicit IpcFuture(char *ptr) {
-    completion_ = reinterpret_cast<bitfield32_t*>(ptr);
+    completion_ = reinterpret_cast<bitfield32_t *>(ptr);
   }
 
-  bool IsComplete() {
-    return (*completion_).Any(1);
-  }
+  bool IsComplete() { return (*completion_).Any(1); }
 };
 
 /**
@@ -61,7 +60,7 @@ class IpcCallManager {
 
  public:
   /** Register an IPC to be called server-side */
-  template<typename FUNC>
+  template <typename FUNC>
   void RegisterIpc(ipc_call_id_t id, FUNC &&lambda) {
     if (id >= ipcs_.size()) {
       size_t new_size = (RealNumber(5, 4) * (id + 16)).as_int();
@@ -71,14 +70,14 @@ class IpcCallManager {
   }
 
   /** Call a function asynchronously */
-  template<typename ...Args>
-  IpcFuture AsyncCall(ipc_call_id_t id, Args&& ...args) {
+  template <typename... Args>
+  IpcFuture AsyncCall(ipc_call_id_t id, Args &&...args) {
     bitfield32_t completion;
 
     // Get size of serialized message
     size_t size = 0;
     auto lambda1 = [&size](auto i, auto &&arg) {
-      if constexpr(std::is_pod<decltype(arg)>()) {
+      if constexpr (std::is_pod<decltype(arg)>()) {
         size += sizeof(arg);
       } else if constexpr (IS_SHM_ARCHIVEABLE(decltype(arg))) {
         size += sizeof(hipc::OffsetPointer);
@@ -87,8 +86,7 @@ class IpcCallManager {
       }
     };
     hshm::ForwardIterateArgpack::Apply(
-      make_argpack(completion, id, std::forward<Args>(args)...),
-      lambda1);
+        make_argpack(completion, id, std::forward<Args>(args)...), lambda1);
 
     // Allocate SHM message
     hipc::OffsetPointer p;
@@ -96,19 +94,18 @@ class IpcCallManager {
 
     // Serialize id + args into a buffer
     auto lambda2 = [&ptr](auto i, auto &&arg) {
-      if constexpr(std::is_pod<decltype(arg)>()) {
-        *reinterpret_cast<decltype(arg)*>(ptr) = arg;
+      if constexpr (std::is_pod<decltype(arg)>()) {
+        *reinterpret_cast<decltype(arg) *>(ptr) = arg;
         ptr += sizeof(arg);
       } else if constexpr (IS_SHM_ARCHIVEABLE(decltype(arg))) {
-        arg >> *reinterpret_cast<hipc::OffsetPointer*>(ptr);
+        arg >> *reinterpret_cast<hipc::OffsetPointer *>(ptr);
         ptr += sizeof(hipc::OffsetPointer);
       } else {
         throw IPC_ARGS_NOT_SHM_COMPATIBLE.format();
       }
     };
     hshm::ForwardIterateArgpack::Apply(
-      make_argpack(completion, id, std::forward<Args>(args)...),
-      lambda2);
+        make_argpack(completion, id, std::forward<Args>(args)...), lambda2);
 
     // Submit request into a queue
     queue_->emplace(ptr);
@@ -119,13 +116,11 @@ class IpcCallManager {
   }
 
   /** Process this read event if possible */
-  template<typename RetT>
-  void ProcessRead() {
-  }
+  template <typename RetT>
+  void ProcessRead() {}
 
   /** Process an event in the queue */
-  void ProcessWrite() {
-  }
+  void ProcessWrite() {}
 };
 
 }  // namespace hshm::ipc

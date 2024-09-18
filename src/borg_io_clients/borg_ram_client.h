@@ -13,8 +13,8 @@
 #ifndef HERMES_SRC_BORG_IO_CLIENTS_RAM_H_
 #define HERMES_SRC_BORG_IO_CLIENTS_RAM_H_
 
-#include "borg_io_client.h"
 #include "adapter/posix/posix_api.h"
+#include "borg_io_client.h"
 #include "hermes.h"
 
 namespace hermes::borg {
@@ -26,16 +26,15 @@ class RamIoClient : public BorgIoClient {
   bool Init(DeviceInfo &dev_info) override {
     auto &hermes_header = HERMES->header_;
     auto &main_alloc = HERMES->main_alloc_;
-    hermes_header->ram_tier_ = main_alloc->
-                               Allocate(dev_info.capacity_);
+    hermes_header->ram_tier_ = main_alloc->Allocate(dev_info.capacity_);
     if (hermes_header->ram_tier_.IsNull()) {
       HELOG(kFatal, BUFFER_POOL_OUT_OF_RAM.Msg());
     }
     return true;
   }
 
-  bool Write(DeviceInfo &dev_info, const char *data,
-             size_t off, size_t size) override {
+  bool Write(DeviceInfo &dev_info, const char *data, size_t off,
+             size_t size) override {
     auto &hermes_header = HERMES->header_;
     auto &main_alloc = HERMES->main_alloc_;
     char *ram_ptr = main_alloc->Convert<char>(hermes_header->ram_tier_);
@@ -48,8 +47,8 @@ class RamIoClient : public BorgIoClient {
     return true;
   }
 
-  bool Read(DeviceInfo &dev_info, char *data,
-            size_t off, size_t size) override {
+  bool Read(DeviceInfo &dev_info, char *data, size_t off,
+            size_t size) override {
     auto &hermes_header = HERMES->header_;
     auto &main_alloc = HERMES->main_alloc_;
     char *ram_ptr = main_alloc->Convert<char>(hermes_header->ram_tier_);

@@ -12,10 +12,11 @@
 
 #ifndef HERMES_ADAPTER_TEST_UTILS_H
 #define HERMES_ADAPTER_TEST_UTILS_H
+#include <test/basic_test.h>
+
 #include <cmath>
 #include <cstdio>
 #include <string>
-#include <test/basic_test.h>
 
 bool FilesystemSupportsTmpfile() {
   bool result = false;

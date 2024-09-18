@@ -22,10 +22,7 @@ struct DeviceInfo; /** Forward declaration of DeviceInfo */
 /**
  * The type of interface the device exposes
  * */
-enum class IoInterface {
-  kRam,
-  kPosix
-};
+enum class IoInterface { kRam, kPosix };
 
 /**
  * DeviceInfo shared-memory representation
@@ -74,8 +71,7 @@ class DeviceInfo : public hipc::ShmContainer {
    * ===================================*/
 
   /** SHM copy constructor. From DeviceInfo. */
-  explicit DeviceInfo(hipc::Allocator *alloc,
-                      const DeviceInfo &other) {
+  explicit DeviceInfo(hipc::Allocator *alloc, const DeviceInfo &other) {
     shm_init_container(alloc);
     shm_strong_copy_constructor_main(alloc, other);
   }
@@ -103,7 +99,7 @@ class DeviceInfo : public hipc::ShmContainer {
   }
 
   /** SHM copy assignment operator. From DeviceInfo. */
-  DeviceInfo& operator=(const DeviceInfo &other) {
+  DeviceInfo &operator=(const DeviceInfo &other) {
     if (this != &other) {
       shm_destroy();
       shm_strong_copy_op_main(other);
@@ -125,8 +121,7 @@ class DeviceInfo : public hipc::ShmContainer {
    * ===================================*/
 
   /** SHM move constructor. */
-  DeviceInfo(hipc::Allocator *alloc,
-             DeviceInfo &&other) {
+  DeviceInfo(hipc::Allocator *alloc, DeviceInfo &&other) {
     shm_init_container(alloc);
     if (GetAllocator() == other.GetAllocator()) {
       strong_copy(other);
@@ -142,7 +137,7 @@ class DeviceInfo : public hipc::ShmContainer {
   }
 
   /** SHM move assignment operator. */
-  DeviceInfo& operator=(DeviceInfo &&other) noexcept {
+  DeviceInfo &operator=(DeviceInfo &&other) noexcept {
     if (this != &other) {
       shm_destroy();
       if (GetAllocator() == other.GetAllocator()) {

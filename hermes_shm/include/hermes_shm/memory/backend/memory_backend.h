@@ -54,9 +54,7 @@ class MemoryBackend {
   void SetInitialized() { flags_.SetBits(MEMORY_BACKEND_INITIALIZED); }
 
   /** Check if data is valid */
-  bool IsInitialized() {
-    return flags_.Any(MEMORY_BACKEND_INITIALIZED);
-  }
+  bool IsInitialized() { return flags_.Any(MEMORY_BACKEND_INITIALIZED); }
 
   /** Mark data as invalid */
   void UnsetInitialized() { flags_.UnsetBits(MEMORY_BACKEND_INITIALIZED); }
@@ -65,9 +63,7 @@ class MemoryBackend {
   void Own() { flags_.SetBits(MEMORY_BACKEND_OWNED); }
 
   /** This is owned */
-  bool IsOwned() {
-    return flags_.Any(MEMORY_BACKEND_OWNED);
-  }
+  bool IsOwned() { return flags_.Any(MEMORY_BACKEND_OWNED); }
 
   /** This is not the process which destroys the backend */
   void Disown() { flags_.UnsetBits(MEMORY_BACKEND_OWNED); }

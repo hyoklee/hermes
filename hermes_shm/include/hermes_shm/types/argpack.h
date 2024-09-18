@@ -13,8 +13,9 @@
 #ifndef HERMES_INCLUDE_HERMES_TYPES_ARGPACK_H_
 #define HERMES_INCLUDE_HERMES_TYPES_ARGPACK_H_
 
+#include <functional>
+
 #include "real_number.h"
-#include  <functional>
 
 namespace hshm {
 
@@ -25,10 +26,7 @@ struct PiecewiseConstruct {};
 struct EndTemplateRecurrence {};
 
 /** Recurrence used to create argument pack */
-template<
-  size_t idx,
-  typename T = EndTemplateRecurrence,
-  typename ...Args>
+template <size_t idx, typename T = EndTemplateRecurrence, typename... Args>
 struct ArgPackRecur {
   constexpr static bool is_rval = std::is_rvalue_reference<T>();
   typedef typename std::conditional<is_rval, T &&, T &>::type ElementT;
@@ -80,8 +78,8 @@ struct ArgPack {
   static constexpr const size_t size_ = sizeof...(Args);
 
   /** General Constructor. */
-  ArgPack(Args&& ...args)  // NOLINT
-  : recur_(std::forward<Args>(args)...) {}
+  ArgPack(Args &&...args)  // NOLINT
+      : recur_(std::forward<Args>(args)...) {}
 
   /** Get forward reference */
   template <size_t idx>
@@ -107,8 +105,7 @@ ArgPack<Args &&...> make_argpack(Args &&...args) {
   std::forward<FORWARD_ARGPACK_FULL_TYPE(pack, i)>(pack.template Forward<i>())
 
 /** Forward an argpack */
-#define FORWARD_ARGPACK(pack) \
-  std::forward<decltype(pack)>(pack)
+#define FORWARD_ARGPACK(pack) std::forward<decltype(pack)>(pack)
 
 /** Used to pass an argument pack to a function or class method */
 class PassArgPack {
@@ -148,14 +145,13 @@ class MergeArgPacks {
   /** Unpacks the C++ parameter pack of ArgPacks */
   template <size_t cur_pack, typename ArgPacksT, typename... CurArgs>
   constexpr static decltype(auto) _MergePacksRecur(ArgPacksT &&packs,
-                                         CurArgs&& ...args) {
-    if constexpr(cur_pack < ArgPacksT::Size()) {
-      return _MergeRecur<
-        cur_pack, ArgPacksT, 0>(
-        // End template parameters
-        std::forward<ArgPacksT>(packs),
-        FORWARD_ARGPACK_PARAM(packs, cur_pack),
-        std::forward<CurArgs>(args)...);
+                                                   CurArgs &&...args) {
+    if constexpr (cur_pack < ArgPacksT::Size()) {
+      return _MergeRecur<cur_pack, ArgPacksT, 0>(
+          // End template parameters
+          std::forward<ArgPacksT>(packs),
+          FORWARD_ARGPACK_PARAM(packs, cur_pack),
+          std::forward<CurArgs>(args)...);
     } else {
       return make_argpack(std::forward<CurArgs>(args)...);
     }
@@ -211,30 +207,28 @@ class ProductArgPacks {
 };
 
 /** Used to emulate constexpr to lambda */
-template<typename T, T Val>
+template <typename T, T Val>
 struct MakeConstexpr {
   constexpr static T val_ = Val;
-  constexpr static T Get() {
-    return val_;
-  }
+  constexpr static T Get() { return val_; }
 };
 
 /** Apply a function over an entire TupleBase / tuple */
-template<bool reverse>
+template <bool reverse>
 class IterateArgpack {
  public:
   /** Apply a function to every element of a tuple */
-  template<typename TupleT, typename F>
+  template <typename TupleT, typename F>
   constexpr static void Apply(TupleT &&pack, F &&f) {
     _Apply<0, TupleT, F>(std::forward<TupleT>(pack), std::forward<F>(f));
   }
 
  private:
   /** Apply the function recursively */
-  template<size_t i, typename TupleT, typename F>
+  template <size_t i, typename TupleT, typename F>
   constexpr static void _Apply(TupleT &&pack, F &&f) {
-    if constexpr(i < TupleT::Size()) {
-      if constexpr(reverse) {
+    if constexpr (i < TupleT::Size()) {
+      if constexpr (reverse) {
         _Apply<i + 1, TupleT, F>(std::forward<TupleT>(pack),
                                  std::forward<F>(f));
         f(MakeConstexpr<size_t, i>(), pack.template Forward<i>());

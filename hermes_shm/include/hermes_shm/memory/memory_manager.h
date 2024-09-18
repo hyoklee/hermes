@@ -13,11 +13,12 @@
 #ifndef HERMES_MEMORY_MEMORY_MANAGER_H_
 #define HERMES_MEMORY_MEMORY_MANAGER_H_
 
-#include "hermes_shm/memory/backend/memory_backend_factory.h"
-#include "hermes_shm/memory/allocator/allocator_factory.h"
-#include "hermes_shm/memory/memory_registry.h"
-#include "hermes_shm/constants/macros.h"
 #include <hermes_shm/constants/data_structure_singleton_macros.h>
+
+#include "hermes_shm/constants/macros.h"
+#include "hermes_shm/memory/allocator/allocator_factory.h"
+#include "hermes_shm/memory/backend/memory_backend_factory.h"
+#include "hermes_shm/memory/memory_registry.h"
 
 namespace hipc = hshm::ipc;
 
@@ -39,12 +40,11 @@ class MemoryManager {
    * There can be multiple slots per-backend, enabling multiple allocation
    * policies over a single memory region.
    * */
-  template<typename BackendT, typename ...Args>
-  MemoryBackend* CreateBackend(size_t size,
-                               const std::string &url,
-                               Args&& ...args) {
+  template <typename BackendT, typename... Args>
+  MemoryBackend *CreateBackend(size_t size, const std::string &url,
+                               Args &&...args) {
     auto backend_u = MemoryBackendFactory::shm_init<BackendT>(
-      size, url, std::forward<Args>(args)...);
+        size, url, std::forward<Args>(args)...);
     auto backend = HERMES_MEMORY_REGISTRY_REF.RegisterBackend(url, backend_u);
     backend->Own();
     return backend;
@@ -53,8 +53,7 @@ class MemoryManager {
   /**
    * Attaches to an existing memory backend located at \a url url.
    * */
-  MemoryBackend* AttachBackend(MemoryBackendType type,
-                               const std::string &url) {
+  MemoryBackend *AttachBackend(MemoryBackendType type, const std::string &url) {
     auto backend_u = MemoryBackendFactory::shm_deserialize(type, url);
     auto backend = HERMES_MEMORY_REGISTRY_REF.RegisterBackend(url, backend_u);
     ScanBackends();
@@ -65,7 +64,7 @@ class MemoryManager {
   /**
    * Returns a pointer to a backend that has already been attached.
    * */
-  MemoryBackend* GetBackend(const std::string &url) {
+  MemoryBackend *GetBackend(const std::string &url) {
     return HERMES_MEMORY_REGISTRY_REF.GetBackend(url);
   }
 
@@ -124,7 +123,7 @@ class MemoryManager {
       HELOG(kFatal, "Allocator cannot be created with a NIL ID");
     }
     auto alloc = AllocatorFactory::shm_init<AllocT>(
-      alloc_id, custom_header_size, backend, std::forward<Args>(args)...);
+        alloc_id, custom_header_size, backend, std::forward<Args>(args)...);
     RegisterAllocator(alloc);
     return GetAllocator(alloc_id);
   }
@@ -132,14 +131,14 @@ class MemoryManager {
   /**
    * Locates an allocator of a particular id
    * */
-  HSHM_ALWAYS_INLINE Allocator* GetAllocator(allocator_id_t alloc_id) {
+  HSHM_ALWAYS_INLINE Allocator *GetAllocator(allocator_id_t alloc_id) {
     return HERMES_MEMORY_REGISTRY_REF.GetAllocator(alloc_id);
   }
 
   /**
    * Gets the allocator used for initializing other allocators.
    * */
-  HSHM_ALWAYS_INLINE Allocator* GetRootAllocator() {
+  HSHM_ALWAYS_INLINE Allocator *GetRootAllocator() {
     return HERMES_MEMORY_REGISTRY_REF.GetRootAllocator();
   }
 
@@ -147,7 +146,7 @@ class MemoryManager {
    * Gets the allocator used by default when no allocator is
    * used to construct an object.
    * */
-  HSHM_ALWAYS_INLINE Allocator* GetDefaultAllocator() {
+  HSHM_ALWAYS_INLINE Allocator *GetDefaultAllocator() {
     return HERMES_MEMORY_REGISTRY_REF.GetDefaultAllocator();
   }
 
@@ -162,8 +161,8 @@ class MemoryManager {
   /**
    * Convert a process-independent pointer into a process-specific pointer.
    * */
-  template<typename T, typename POINTER_T = Pointer>
-  T* Convert(const POINTER_T &p) {
+  template <typename T, typename POINTER_T = Pointer>
+  T *Convert(const POINTER_T &p) {
     if (p.IsNull()) {
       return nullptr;
     }
@@ -176,7 +175,7 @@ class MemoryManager {
    * @param allocator_id the allocator the pointer belongs to
    * @param ptr the pointer to convert
    * */
-  template<typename T, typename POINTER_T = Pointer>
+  template <typename T, typename POINTER_T = Pointer>
   POINTER_T Convert(allocator_id_t allocator_id, T *ptr) {
     return GetAllocator(allocator_id)->template Convert<T, POINTER_T>(ptr);
   }
@@ -187,12 +186,11 @@ class MemoryManager {
    *
    * @param ptr the pointer to convert
    * */
-  template<typename T, typename POINTER_T = Pointer>
+  template <typename T, typename POINTER_T = Pointer>
   POINTER_T Convert(T *ptr) {
     for (auto &alloc : HERMES_MEMORY_REGISTRY_REF.allocators_) {
       if (alloc && alloc->ContainsPtr(ptr)) {
-        return alloc->template
-          Convert<T, POINTER_T>(ptr);
+        return alloc->template Convert<T, POINTER_T>(ptr);
       }
     }
     return Pointer::GetNull();

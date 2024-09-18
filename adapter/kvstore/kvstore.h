@@ -15,6 +15,7 @@
 
 #include <string>
 #include <unordered_map>
+
 #include "hermes.h"
 
 namespace hermes::adapter {
@@ -30,21 +31,21 @@ struct BlobSerializeCounter {
   BlobSerializeCounter() : size_(0) {}
 
   /** Serialize std::string into blob */
-  BlobSerializeCounter& operator<<(const std::string &data) {
+  BlobSerializeCounter &operator<<(const std::string &data) {
     (*this) << data.size();
     size_ += data.size();
     return *this;
   }
 
   /** Serialize blob into blob */
-  BlobSerializeCounter& operator<<(const hapi::Blob &data) {
+  BlobSerializeCounter &operator<<(const hapi::Blob &data) {
     (*this) << data.size();
     size_ += data.size();
     return *this;
   }
 
   /** Serialize size_t into blob */
-  BlobSerializeCounter& operator<<(const size_t &data) {
+  BlobSerializeCounter &operator<<(const size_t &data) {
     size_ += sizeof(size_t);
     return *this;
   }
@@ -59,7 +60,7 @@ struct BlobSerializer {
   explicit BlobSerializer(hapi::Blob &blob) : blob_(blob), off_(0) {}
 
   /** Serialize a string type */
-  template<typename StringT>
+  template <typename StringT>
   void SerializeString(const StringT &data) {
     (*this) << data.size();
     memcpy(blob_.data() + off_, data.data(), data.size());
@@ -67,7 +68,7 @@ struct BlobSerializer {
   }
 
   /** Deserialize a string type */
-  template<typename StringT>
+  template <typename StringT>
   void DeserializeString(StringT &data) {
     size_t size;
     (*this) >> size;
@@ -77,38 +78,38 @@ struct BlobSerializer {
   }
 
   /** Serialize std::string into blob */
-  BlobSerializer& operator<<(const std::string &data) {
+  BlobSerializer &operator<<(const std::string &data) {
     SerializeString<std::string>(data);
     return *this;
   }
 
   /** Deserialize std::string from blob */
-  BlobSerializer& operator>>(std::string &data) {
+  BlobSerializer &operator>>(std::string &data) {
     DeserializeString<std::string>(data);
     return *this;
   }
 
   /** Serialize blob into blob */
-  BlobSerializer& operator<<(const hapi::Blob &data) {
+  BlobSerializer &operator<<(const hapi::Blob &data) {
     SerializeString<hapi::Blob>(data);
     return *this;
   }
 
   /** Deserialize blob from blob */
-  BlobSerializer& operator>>(hapi::Blob &data) {
+  BlobSerializer &operator>>(hapi::Blob &data) {
     DeserializeString<hapi::Blob>(data);
     return *this;
   }
 
   /** Serialize size_t into blob */
-  BlobSerializer& operator<<(const size_t &data) {
+  BlobSerializer &operator<<(const size_t &data) {
     memcpy(blob_.data() + off_, &data, sizeof(size_t));
     off_ += sizeof(size_t);
     return *this;
   }
 
   /** Deserialize size_t from blob */
-  BlobSerializer& operator>>(size_t &data) {
+  BlobSerializer &operator>>(size_t &data) {
     memcpy(&data, blob_.data() + off_, sizeof(size_t));
     off_ += sizeof(size_t);
     return *this;

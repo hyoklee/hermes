@@ -24,8 +24,7 @@ class MinimizeIoTime : public DPE {
   MinimizeIoTime() = default;
   ~MinimizeIoTime() = default;
   Status Placement(const std::vector<size_t> &blob_sizes,
-                   std::vector<TargetInfo> &targets,
-                   api::Context &ctx,
+                   std::vector<TargetInfo> &targets, api::Context &ctx,
                    std::vector<PlacementSchema> &output);
 };
 

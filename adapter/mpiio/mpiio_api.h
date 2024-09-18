@@ -13,11 +13,13 @@
 #ifndef HERMES_ADAPTER_MPIIO_H
 #define HERMES_ADAPTER_MPIIO_H
 #include <dlfcn.h>
-#include <iostream>
-#include "hermes_shm/util/logging.h"
 #include <mpi.h>
 #include <mpio.h>
+
+#include <iostream>
+
 #include "adapter/real_api.h"
+#include "hermes_shm/util/logging.h"
 
 #ifndef MPI_MODE_TRUNCATE
 #define MPI_MODE_TRUNCATE 0
@@ -163,59 +165,74 @@ class MpiioApi : public RealApi {
     REQUIRE_API(MPI_File_open)
     MPI_File_close = (MPI_File_close_t)dlsym(real_lib_, "MPI_File_close");
     REQUIRE_API(MPI_File_close)
-    MPI_File_seek_shared = (MPI_File_seek_shared_t)dlsym(real_lib_, "MPI_File_seek_shared");
+    MPI_File_seek_shared =
+        (MPI_File_seek_shared_t)dlsym(real_lib_, "MPI_File_seek_shared");
     REQUIRE_API(MPI_File_seek_shared)
     MPI_File_seek = (MPI_File_seek_t)dlsym(real_lib_, "MPI_File_seek");
     REQUIRE_API(MPI_File_seek)
-    MPI_File_get_position = (MPI_File_get_position_t)dlsym(real_lib_, "MPI_File_get_position");
+    MPI_File_get_position =
+        (MPI_File_get_position_t)dlsym(real_lib_, "MPI_File_get_position");
     REQUIRE_API(MPI_File_get_position)
-    MPI_File_read_all = (MPI_File_read_all_t)dlsym(real_lib_, "MPI_File_read_all");
+    MPI_File_read_all =
+        (MPI_File_read_all_t)dlsym(real_lib_, "MPI_File_read_all");
     REQUIRE_API(MPI_File_read_all)
-    MPI_File_read_at_all = (MPI_File_read_at_all_t)dlsym(real_lib_, "MPI_File_read_at_all");
+    MPI_File_read_at_all =
+        (MPI_File_read_at_all_t)dlsym(real_lib_, "MPI_File_read_at_all");
     REQUIRE_API(MPI_File_read_at_all)
     MPI_File_read_at = (MPI_File_read_at_t)dlsym(real_lib_, "MPI_File_read_at");
     REQUIRE_API(MPI_File_read_at)
     MPI_File_read = (MPI_File_read_t)dlsym(real_lib_, "MPI_File_read");
     REQUIRE_API(MPI_File_read)
-    MPI_File_read_ordered = (MPI_File_read_ordered_t)dlsym(real_lib_, "MPI_File_read_ordered");
+    MPI_File_read_ordered =
+        (MPI_File_read_ordered_t)dlsym(real_lib_, "MPI_File_read_ordered");
     REQUIRE_API(MPI_File_read_ordered)
-    MPI_File_read_shared = (MPI_File_read_shared_t)dlsym(real_lib_, "MPI_File_read_shared");
+    MPI_File_read_shared =
+        (MPI_File_read_shared_t)dlsym(real_lib_, "MPI_File_read_shared");
     REQUIRE_API(MPI_File_read_shared)
-    MPI_File_write_all = (MPI_File_write_all_t)dlsym(real_lib_, "MPI_File_write_all");
+    MPI_File_write_all =
+        (MPI_File_write_all_t)dlsym(real_lib_, "MPI_File_write_all");
     REQUIRE_API(MPI_File_write_all)
-    MPI_File_write_at_all = (MPI_File_write_at_all_t)dlsym(real_lib_, "MPI_File_write_at_all");
+    MPI_File_write_at_all =
+        (MPI_File_write_at_all_t)dlsym(real_lib_, "MPI_File_write_at_all");
     REQUIRE_API(MPI_File_write_at_all)
-    MPI_File_write_at = (MPI_File_write_at_t)dlsym(real_lib_, "MPI_File_write_at");
+    MPI_File_write_at =
+        (MPI_File_write_at_t)dlsym(real_lib_, "MPI_File_write_at");
     REQUIRE_API(MPI_File_write_at)
     MPI_File_write = (MPI_File_write_t)dlsym(real_lib_, "MPI_File_write");
     REQUIRE_API(MPI_File_write)
-    MPI_File_write_ordered = (MPI_File_write_ordered_t)dlsym(real_lib_, "MPI_File_write_ordered");
+    MPI_File_write_ordered =
+        (MPI_File_write_ordered_t)dlsym(real_lib_, "MPI_File_write_ordered");
     REQUIRE_API(MPI_File_write_ordered)
-    MPI_File_write_shared = (MPI_File_write_shared_t)dlsym(real_lib_, "MPI_File_write_shared");
+    MPI_File_write_shared =
+        (MPI_File_write_shared_t)dlsym(real_lib_, "MPI_File_write_shared");
     REQUIRE_API(MPI_File_write_shared)
-    MPI_File_iread_at = (MPI_File_iread_at_t)dlsym(real_lib_, "MPI_File_iread_at");
+    MPI_File_iread_at =
+        (MPI_File_iread_at_t)dlsym(real_lib_, "MPI_File_iread_at");
     REQUIRE_API(MPI_File_iread_at)
     MPI_File_iread = (MPI_File_iread_t)dlsym(real_lib_, "MPI_File_iread");
     REQUIRE_API(MPI_File_iread)
-    MPI_File_iread_shared = (MPI_File_iread_shared_t)dlsym(real_lib_, "MPI_File_iread_shared");
+    MPI_File_iread_shared =
+        (MPI_File_iread_shared_t)dlsym(real_lib_, "MPI_File_iread_shared");
     REQUIRE_API(MPI_File_iread_shared)
-    MPI_File_iwrite_at = (MPI_File_iwrite_at_t)dlsym(real_lib_, "MPI_File_iwrite_at");
+    MPI_File_iwrite_at =
+        (MPI_File_iwrite_at_t)dlsym(real_lib_, "MPI_File_iwrite_at");
     REQUIRE_API(MPI_File_iwrite_at)
     MPI_File_iwrite = (MPI_File_iwrite_t)dlsym(real_lib_, "MPI_File_iwrite");
     REQUIRE_API(MPI_File_iwrite)
-    MPI_File_iwrite_shared = (MPI_File_iwrite_shared_t)dlsym(real_lib_, "MPI_File_iwrite_shared");
+    MPI_File_iwrite_shared =
+        (MPI_File_iwrite_shared_t)dlsym(real_lib_, "MPI_File_iwrite_shared");
     REQUIRE_API(MPI_File_iwrite_shared)
     MPI_File_sync = (MPI_File_sync_t)dlsym(real_lib_, "MPI_File_sync");
     REQUIRE_API(MPI_File_sync)
   }
 };
-}  // namespace hermes::adapter::mpiio
+}  // namespace hermes::adapter::fs
 
 #include "hermes_shm/util/singleton.h"
 
 /** Simplify access to the stateless MpiioFs Singleton */
 #define HERMES_MPIIO_API \
   hshm::EasySingleton<hermes::adapter::fs::MpiioApi>::GetInstance()
-#define HERMES_MPIIO_API_T hermes::adapter::fs::MpiioApi*
+#define HERMES_MPIIO_API_T hermes::adapter::fs::MpiioApi *
 
 #endif  // HERMES_ADAPTER_MPIIO_H

@@ -14,6 +14,7 @@
 #define HERMES_SYSINFO_INFO_H_
 
 #include <sys/sysinfo.h>
+
 #include "hermes_shm/constants/data_structure_singleton_macros.h"
 
 namespace hshm {

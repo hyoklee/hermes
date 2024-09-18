@@ -13,11 +13,12 @@
 #ifndef HERMES_THREAD_PTHREAD_H_
 #define HERMES_THREAD_PTHREAD_H_
 
-#include "thread_model.h"
 #include <errno.h>
-#include "hermes_shm/util/errors.h"
 #include <omp.h>
+
 #include "hermes_shm/introspect/system_info.h"
+#include "hermes_shm/util/errors.h"
+#include "thread_model.h"
 
 namespace hshm::thread_model {
 
@@ -30,14 +31,10 @@ class Pthread : public ThreadModel {
   virtual ~Pthread() = default;
 
   /** Yield the thread for a period of time */
-  void SleepForUs(size_t us) override {
-    usleep(us);
-  }
+  void SleepForUs(size_t us) override { usleep(us); }
 
   /** Yield thread time slice */
-  void Yield() override {
-    sched_yield();
-  }
+  void Yield() override { sched_yield(); }
 
   /** Get the TID of the current thread */
   tid_t GetTid() override {

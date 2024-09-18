@@ -16,17 +16,13 @@
 #include <atomic>
 #include <cstdint>
 #include <memory>
-#include <atomic>
+
 #include "hermes_shm/types/bitfield.h"
 
 namespace hshm {
 
 /** Available threads that are mapped */
-enum class ThreadType {
-  kNone,
-  kPthread,
-  kArgobots
-};
+enum class ThreadType { kNone, kPthread, kArgobots };
 
 /** Used to represent tid */
 typedef uint64_t tid_t;

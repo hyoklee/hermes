@@ -34,17 +34,12 @@ class StatusTable {
     Define(301, "The read exceeds the size of the backend's data (PartialPut)");
   }
 
-  void Define(int code, const char *msg) {
-    table_.emplace_back(code, msg);
-  }
+  void Define(int code, const char *msg) { table_.emplace_back(code, msg); }
 
-  Status Get(int code) {
-    return table_[code];
-  }
+  Status Get(int code) { return table_[code]; }
 };
-#define HERMES_STATUS \
-  hshm::EasySingleton<hermes::StatusTable>::GetInstance()
-#define HERMES_STATUS_T hermes::StatusTable*
+#define HERMES_STATUS hshm::EasySingleton<hermes::StatusTable>::GetInstance()
+#define HERMES_STATUS_T hermes::StatusTable *
 
 const Status NOT_IMPLEMENTED = HERMES_STATUS->Get(0);
 const Status DPE_PLACEMENT_SCHEMA_EMPTY = HERMES_STATUS->Get(100);

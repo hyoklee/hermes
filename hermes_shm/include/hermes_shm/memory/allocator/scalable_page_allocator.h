@@ -10,48 +10,43 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_MEMORY_ALLOCATOR_SCALABLE_PAGE_ALLOCATOR_H
 #define HERMES_MEMORY_ALLOCATOR_SCALABLE_PAGE_ALLOCATOR_H
 
+#include <hermes_shm/memory/allocator/stack_allocator.h>
+
 #include "allocator.h"
-#include "hermes_shm/thread/lock.h"
-#include "hermes_shm/data_structures/ipc/pair.h"
-#include "hermes_shm/data_structures/ipc/vector.h"
 #include "hermes_shm/data_structures/ipc/list.h"
 #include "hermes_shm/data_structures/ipc/pair.h"
-#include <hermes_shm/memory/allocator/stack_allocator.h>
+#include "hermes_shm/data_structures/ipc/vector.h"
+#include "hermes_shm/thread/lock.h"
 #include "mp_page.h"
 
 namespace hshm::ipc {
 
 struct FreeListStats {
-  size_t page_size_;  /**< Page size stored in this free list */
-  size_t cur_alloc_;  /**< Number of pages currently allocated */
-  size_t max_alloc_;  /**< Maximum number of pages allocated at a time */
-  Mutex lock_;        /**< The enqueue / dequeue lock */
+  size_t page_size_; /**< Page size stored in this free list */
+  size_t cur_alloc_; /**< Number of pages currently allocated */
+  size_t max_alloc_; /**< Maximum number of pages allocated at a time */
+  Mutex lock_;       /**< The enqueue / dequeue lock */
 
   /** Default constructor */
   FreeListStats() = default;
 
   /** Copy constructor */
-  FreeListStats(const FreeListStats &other) {
-    strong_copy(other);
-  }
+  FreeListStats(const FreeListStats &other) { strong_copy(other); }
 
   /** Copy assignment operator */
-  FreeListStats& operator=(const FreeListStats &other) {
+  FreeListStats &operator=(const FreeListStats &other) {
     strong_copy(other);
     return *this;
   }
 
   /** Move constructor */
-  FreeListStats(FreeListStats &&other) {
-    strong_copy(other);
-  }
+  FreeListStats(FreeListStats &&other) { strong_copy(other); }
 
   /** Move assignment operator */
-  FreeListStats& operator=(FreeListStats &&other) {
+  FreeListStats &operator=(FreeListStats &&other) {
     strong_copy(other);
     return *this;
   }
@@ -72,9 +67,7 @@ struct FreeListStats {
   }
 
   /** Decrement allocation count */
-  void AddFree() {
-    cur_alloc_ -= 1;
-  }
+  void AddFree() { cur_alloc_ -= 1; }
 };
 
 struct ScalablePageAllocatorHeader : public AllocatorHeader {
@@ -86,14 +79,10 @@ struct ScalablePageAllocatorHeader : public AllocatorHeader {
 
   ScalablePageAllocatorHeader() = default;
 
-  void Configure(allocator_id_t alloc_id,
-                 size_t custom_header_size,
-                 Allocator *alloc,
-                 size_t buffer_size,
-                 RealNumber coalesce_trigger,
-                 size_t coalesce_window) {
-    AllocatorHeader::Configure(alloc_id,
-                               AllocatorType::kScalablePageAllocator,
+  void Configure(allocator_id_t alloc_id, size_t custom_header_size,
+                 Allocator *alloc, size_t buffer_size,
+                 RealNumber coalesce_trigger, size_t coalesce_window) {
+    AllocatorHeader::Configure(alloc_id, AllocatorType::kScalablePageAllocator,
                                custom_header_size);
     HSHM_MAKE_AR0(free_lists_, alloc)
     total_alloc_ = 0;
@@ -128,22 +117,17 @@ class ScalablePageAllocator : public Allocator {
   /**
    * Allocator constructor
    * */
-  ScalablePageAllocator()
-    : header_(nullptr) {}
+  ScalablePageAllocator() : header_(nullptr) {}
 
   /**
    * Get the ID of this allocator from shared memory
    * */
-  allocator_id_t &GetId() override {
-    return header_->allocator_id_;
-  }
+  allocator_id_t &GetId() override { return header_->allocator_id_; }
 
   /**
    * Initialize the allocator in shared memory
    * */
-  void shm_init(allocator_id_t id,
-                size_t custom_header_size,
-                char *buffer,
+  void shm_init(allocator_id_t id, size_t custom_header_size, char *buffer,
                 size_t buffer_size,
                 RealNumber coalesce_trigger = RealNumber(1, 5),
                 size_t coalesce_window = MEGABYTES(1));
@@ -151,8 +135,7 @@ class ScalablePageAllocator : public Allocator {
   /**
    * Attach an existing allocator from shared memory
    * */
-  void shm_deserialize(char *buffer,
-                       size_t buffer_size) override;
+  void shm_deserialize(char *buffer, size_t buffer_size) override;
 
   /**
    * Allocate a memory of \a size size. The page allocator cannot allocate
@@ -162,25 +145,20 @@ class ScalablePageAllocator : public Allocator {
 
  private:
   /** Check if a cached page on this core can be re-used */
-  MpPage* CheckLocalCaches(size_t size_mp, uint32_t cpu);
+  MpPage *CheckLocalCaches(size_t size_mp, uint32_t cpu);
 
   /**
    * Find the first fit of an element in a free list
    * */
-  MpPage* FindFirstFit(size_t size_mp,
-                       FreeListStats &stats,
+  MpPage *FindFirstFit(size_t size_mp, FreeListStats &stats,
                        iqueue<MpPage> &free_list);
 
   /**
    * Divide a page into smaller pages and cache them
    * */
-  void DividePage(FreeListStats &stats,
-                  iqueue<MpPage> &free_list,
-                  MpPage *fit_page,
-                  MpPage *&rem_page,
-                  size_t size_mp,
+  void DividePage(FreeListStats &stats, iqueue<MpPage> &free_list,
+                  MpPage *fit_page, MpPage *&rem_page, size_t size_mp,
                   size_t max_divide);
-
 
  public:
   /**
@@ -194,8 +172,8 @@ class ScalablePageAllocator : public Allocator {
    *
    * @return whether or not the pointer p was changed
    * */
-  OffsetPointer ReallocateOffsetNoNullCheck(
-    OffsetPointer p, size_t new_size) override;
+  OffsetPointer ReallocateOffsetNoNullCheck(OffsetPointer p,
+                                            size_t new_size) override;
 
   /**
    * Free \a ptr pointer. Null check is performed elsewhere.

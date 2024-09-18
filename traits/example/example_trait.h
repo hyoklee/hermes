@@ -1,14 +1,14 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Distributed under BSD 3-Clause license.                                   *
-* Copyright by The HDF Group.                                               *
-* Copyright by the Illinois Institute of Technology.                        *
-* All rights reserved.                                                      *
-*                                                                           *
-* This file is part of Hermes. The full Hermes copyright notice, including  *
-* terms governing use, modification, and redistribution, is contained in    *
-* the COPYING file, which can be found at the top directory. If you do not  *
-* have access to the file, you may request a copy from help@hdfgroup.org.   *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ * Distributed under BSD 3-Clause license.                                   *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Illinois Institute of Technology.                        *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of Hermes. The full Hermes copyright notice, including  *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the COPYING file, which can be found at the top directory. If you do not  *
+ * have access to the file, you may request a copy from help@hdfgroup.org.   *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef HERMES_TRAITS_EXAMPLE_EXAMPLE_TRAIT_H_
 #define HERMES_TRAITS_EXAMPLE_EXAMPLE_TRAIT_H_
@@ -20,8 +20,7 @@ namespace hermes::api {
 struct ExampleTraitHeader : public TraitHeader {
   int hello_;
   explicit ExampleTraitHeader(const std::string &trait_uuid,
-                              const std::string &trait_name,
-                              int hello)
+                              const std::string &trait_name, int hello)
       : TraitHeader(trait_uuid, trait_name, HERMES_TRAIT_PUT_GET),
         hello_(hello) {}
 };

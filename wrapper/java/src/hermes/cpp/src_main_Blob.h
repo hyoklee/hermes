@@ -13,8 +13,7 @@ extern "C" {
  * Method:    freeNative
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_hermes_java_Blob_freeNative
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_hermes_java_Blob_freeNative(JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

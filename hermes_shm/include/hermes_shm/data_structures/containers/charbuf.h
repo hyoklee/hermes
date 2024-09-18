@@ -13,9 +13,10 @@
 #ifndef HERMES_INCLUDE_HERMES_TYPES_CHARBUF_H_
 #define HERMES_INCLUDE_HERMES_TYPES_CHARBUF_H_
 
-#include "hermes_shm/types/real_number.h"
-#include "hermes_shm/memory/memory_registry.h"
 #include <string>
+
+#include "hermes_shm/memory/memory_registry.h"
+#include "hermes_shm/types/real_number.h"
 
 namespace hshm {
 
@@ -59,12 +60,12 @@ struct charbuf {
   }
 
   /**====================================
-  * Reference Constructors
-  * ===================================*/
+   * Reference Constructors
+   * ===================================*/
 
   /** Reference constructor. From char* + size */
   explicit charbuf(char *data, size_t size)
-    : alloc_(nullptr), data_(data), size_(size), destructable_(false) {}
+      : alloc_(nullptr), data_(data), size_(size), destructable_(false) {}
 
   /**
    * Reference constructor. From const char*
@@ -72,8 +73,10 @@ struct charbuf {
    * we must cast away the const anyway.
    * */
   explicit charbuf(const char *data, size_t size)
-    : alloc_(nullptr), data_(const_cast<char*>(data)),
-      size_(size), destructable_(false) {}
+      : alloc_(nullptr),
+        data_(const_cast<char *>(data)),
+        size_(size),
+        destructable_(false) {}
 
   /**====================================
    * Copy Constructors
@@ -122,7 +125,7 @@ struct charbuf {
   }
 
   /** Move assignment operator */
-  charbuf& operator=(charbuf &&other) {
+  charbuf &operator=(charbuf &&other) {
     if (this != &other) {
       Free();
       alloc_ = other.alloc_;
@@ -167,14 +170,10 @@ struct charbuf {
   size_t size() const { return size_; }
 
   /** Get allocator */
-  hipc::Allocator* GetAllocator() {
-    return alloc_;
-  }
+  hipc::Allocator *GetAllocator() { return alloc_; }
 
   /** Convert to std::string */
-  std::string str() {
-    return std::string(data(), size());
-  }
+  std::string str() { return std::string(data(), size()); }
 
   /**====================================
    * Comparison Operators
@@ -192,11 +191,11 @@ struct charbuf {
     return 0;
   }
 
-#define HERMES_STR_CMP_OPERATOR(op) \
-  bool operator TYPE_UNWRAP(op)(const char *other) const { \
-    return _strncmp(data(), size(), other, strlen(other)) op 0; \
-  } \
-  bool operator op(const std::string &other) const { \
+#define HERMES_STR_CMP_OPERATOR(op)                                   \
+  bool operator TYPE_UNWRAP(op)(const char *other) const {            \
+    return _strncmp(data(), size(), other, strlen(other)) op 0;       \
+  }                                                                   \
+  bool operator op(const std::string &other) const {                  \
     return _strncmp(data(), size(), other.data(), other.size()) op 0; \
   }                                                                   \
   bool operator op(const charbuf &other) const {                      \
@@ -205,8 +204,8 @@ struct charbuf {
 
   HERMES_STR_CMP_OPERATOR(==)  // NOLINT
   HERMES_STR_CMP_OPERATOR(!=)  // NOLINT
-  HERMES_STR_CMP_OPERATOR(<)  // NOLINT
-  HERMES_STR_CMP_OPERATOR(>)  // NOLINT
+  HERMES_STR_CMP_OPERATOR(<)   // NOLINT
+  HERMES_STR_CMP_OPERATOR(>)   // NOLINT
   HERMES_STR_CMP_OPERATOR(<=)  // NOLINT
   HERMES_STR_CMP_OPERATOR(>=)  // NOLINT
 

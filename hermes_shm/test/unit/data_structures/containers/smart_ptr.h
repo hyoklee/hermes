@@ -21,17 +21,15 @@ namespace hshm::ipc {
 template <typename T, typename PointerT>
 class SmartPtrTestSuite {
  public:
-  PointerT &ptr_;     /**< Allocated. Used for all tests. */
-  PointerT &ptr2_;    /**< Unallocated. Used for move tests. */
+  PointerT &ptr_;  /**< Allocated. Used for all tests. */
+  PointerT &ptr2_; /**< Unallocated. Used for move tests. */
 
-  explicit SmartPtrTestSuite(PointerT &ptr,
-                             PointerT &ptr2) : ptr_(ptr), ptr2_(ptr2) {}
+  explicit SmartPtrTestSuite(PointerT &ptr, PointerT &ptr2)
+      : ptr_(ptr), ptr2_(ptr2) {}
 
  public:
   // Test dereference
-  void DereferenceTest(T &num) {
-    REQUIRE(*ptr_ == num);
-  }
+  void DereferenceTest(T &num) { REQUIRE(*ptr_ == num); }
 
   // Test move constructor
   void MoveConstructorTest(T &num) {

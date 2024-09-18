@@ -15,8 +15,9 @@
 
 #include <cstdio>
 #include <unordered_map>
-#include "filesystem_io_client.h"
+
 #include "filesystem.h"
+#include "filesystem_io_client.h"
 #include "thread_pool.h"
 
 namespace hermes::adapter::fs {
@@ -47,13 +48,13 @@ class MetadataManager {
   }
 
   /** Get the adapter mode for a particular file */
-  AdapterMode GetAdapterMode(const std::string &path) {
+  AdapterMode GetAdapterMode(const std::string& path) {
     ScopedRwReadLock md_lock(lock_, kFS_GetAdapterMode);
     return HERMES->client_config_.GetAdapterConfig(path).mode_;
   }
 
   /** Get the adapter page size for a particular file */
-  size_t GetAdapterPageSize(const std::string &path) {
+  size_t GetAdapterPageSize(const std::string& path) {
     ScopedRwReadLock md_lock(lock_, kFS_GetAdapterPageSize);
     return HERMES->client_config_.GetAdapterConfig(path).page_size_;
   }
@@ -66,7 +67,7 @@ class MetadataManager {
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
-  bool Create(const File& f, std::shared_ptr<AdapterStat> &stat);
+  bool Create(const File& f, std::shared_ptr<AdapterStat>& stat);
 
   /**
    * Update existing metadata entry for filesystem adapters.
@@ -83,14 +84,14 @@ class MetadataManager {
    * @return    true, if operation was successful.
    *            false, if operation was unsuccessful.
    */
-  bool Delete(const std::string &path, const File& f);
+  bool Delete(const std::string& path, const File& f);
 
   /**
    * Find the hermes file relating to a path.
    * @param path the path being checked
    * @return The hermes file.
    * */
-  std::list<File>* Find(const std::string &path);
+  std::list<File>* Find(const std::string& path);
 
   /**
    * Find existing metadata entry for filesystem adapters.

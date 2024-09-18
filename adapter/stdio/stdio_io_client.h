@@ -49,7 +49,7 @@ class StdioIoClient : public hermes::adapter::fs::FilesystemIoClient {
 
   /** Trait deserialization constructor */
   explicit StdioIoClient(hshm::charbuf &params) {
-    (void) params;
+    (void)params;
     real_api = HERMES_STDIO_API;
     CreateHeader<StdioIoClientHeader>(trait_name_, trait_name_);
   }
@@ -59,9 +59,7 @@ class StdioIoClient : public hermes::adapter::fs::FilesystemIoClient {
 
  public:
   /** Allocate an fd for the file f */
-  void RealOpen(File &f,
-                AdapterStat &stat,
-                const std::string &path) override;
+  void RealOpen(File &f, AdapterStat &stat, const std::string &path) override;
 
   /**
    * Called after real open. Allocates the Hermes representation of
@@ -69,24 +67,20 @@ class StdioIoClient : public hermes::adapter::fs::FilesystemIoClient {
    * and hermes file handler. These are not the same as STDIO file
    * descriptor and STDIO file handler.
    * */
-  void HermesOpen(File &f,
-                  const AdapterStat &stat,
+  void HermesOpen(File &f, const AdapterStat &stat,
                   FilesystemIoClientState &fs_mdm) override;
 
   /** Synchronize \a file FILE f */
-  int RealSync(const File &f,
-               const AdapterStat &stat) override;
+  int RealSync(const File &f, const AdapterStat &stat) override;
 
   /** Close \a file FILE f */
-  int RealClose(const File &f,
-                AdapterStat &stat) override;
+  int RealClose(const File &f, AdapterStat &stat) override;
 
   /**
    * Called before RealClose. Releases information provisioned during
    * the allocation phase.
    * */
-  void HermesClose(File &f,
-                   const AdapterStat &stat,
+  void HermesClose(File &f, const AdapterStat &stat,
                    FilesystemIoClientState &fs_mdm) override;
 
   /** Remove \a file FILE f */
@@ -96,16 +90,12 @@ class StdioIoClient : public hermes::adapter::fs::FilesystemIoClient {
   size_t GetSize(const hipc::charbuf &bkt_name) override;
 
   /** Write blob to backend */
-  void WriteBlob(const std::string &bkt_name,
-                 const Blob &full_blob,
-                 const FsIoOptions &opts,
-                 IoStatus &status) override;
+  void WriteBlob(const std::string &bkt_name, const Blob &full_blob,
+                 const FsIoOptions &opts, IoStatus &status) override;
 
   /** Read blob from the backend */
-  void ReadBlob(const std::string &bkt_name,
-                Blob &full_blob,
-                const FsIoOptions &opts,
-                IoStatus &status) override;
+  void ReadBlob(const std::string &bkt_name, Blob &full_blob,
+                const FsIoOptions &opts, IoStatus &status) override;
 };
 
 }  // namespace hermes::adapter::fs
@@ -113,6 +103,6 @@ class StdioIoClient : public hermes::adapter::fs::FilesystemIoClient {
 /** Simplify access to the stateless StdioIoClient Singleton */
 #define HERMES_STDIO_IO_CLIENT \
   hshm::EasySingleton<hermes::adapter::fs::StdioIoClient>::GetInstance()
-#define HERMES_STDIO_IO_CLIENT_T hermes::adapter::fs::StdioIoClient*
+#define HERMES_STDIO_IO_CLIENT_T hermes::adapter::fs::StdioIoClient *
 
 #endif  // HERMES_ADAPTER_STDIO_STDIO_IO_CLIENT_H_

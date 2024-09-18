@@ -13,8 +13,6 @@
 #ifndef HERMES_TYPES_H_
 #define HERMES_TYPES_H_
 
-#include "hermes_shm/util/logging.h"
-#include "hermes_shm/constants/macros.h"
 #include <stdint.h>
 
 #include <functional>
@@ -23,6 +21,8 @@
 #include <vector>
 
 #include "data_structures.h"
+#include "hermes_shm/constants/macros.h"
+#include "hermes_shm/util/logging.h"
 
 /**
  * \file hermes_types.h
@@ -49,35 +49,28 @@ typedef double f64;   /**< 64-bit float */
 extern const hipc::allocator_id_t main_alloc_id;
 
 /** Hermes server environment variable */
-extern const char* kHermesServerConf;
+extern const char *kHermesServerConf;
 
 /** Hermes client environment variable */
-extern const char* kHermesClientConf;
+extern const char *kHermesClientConf;
 
 /** Hermes adapter mode environment variable */
-extern const char* kHermesAdapterMode;
+extern const char *kHermesAdapterMode;
 
 /** Filesystem page size environment variable */
-extern const char* kHermesPageSize;
+extern const char *kHermesPageSize;
 
 /** Stop daemon environment variable */
-extern const char* kHermesStopDaemon;
+extern const char *kHermesStopDaemon;
 
 /** Maximum path length environment variable */
 extern const size_t kMaxPathLength;
 
 /** The mode Hermes is launched in */
-enum class HermesType {
-  kNone,
-  kServer,
-  kClient
-};
+enum class HermesType { kNone, kServer, kClient };
 
 /** The flushing mode */
-enum class FlushingMode {
-  kSync,
-  kAsync
-};
+enum class FlushingMode { kSync, kAsync };
 
 /** Convert flushing modes to strings */
 class FlushingModeConv {
@@ -94,11 +87,7 @@ class FlushingModeConv {
 };
 
 /** The types of I/O that can be performed (for IoCall RPC) */
-enum class IoType {
-  kRead,
-  kWrite,
-  kNone
-};
+enum class IoType { kRead, kWrite, kNone };
 
 typedef u16 DeviceID; /**< device id in unsigned 16-bit integer */
 
@@ -112,10 +101,10 @@ enum class TopologyType {
 };
 
 /** Represents unique ID for BlobId and TagId */
-template<int TYPE>
+template <int TYPE>
 struct UniqueId {
-  u64 unique_;   /**< A unique id for the blob */
-  i32 node_id_;  /**< The node the content is on */
+  u64 unique_;  /**< A unique id for the blob */
+  i32 node_id_; /**< The node the content is on */
 
   /** Default constructor */
   UniqueId() = default;
@@ -130,7 +119,7 @@ struct UniqueId {
   }
 
   /** Copy assignment */
-  UniqueId& operator=(const UniqueId &other) {
+  UniqueId &operator=(const UniqueId &other) {
     if (this != &other) {
       unique_ = other.unique_;
       node_id_ = other.node_id_;
@@ -145,7 +134,7 @@ struct UniqueId {
   }
 
   /** Move assignment */
-  UniqueId& operator=(UniqueId &&other) {
+  UniqueId &operator=(UniqueId &&other) {
     if (this != &other) {
       unique_ = other.unique_;
       node_id_ = other.node_id_;
@@ -192,10 +181,10 @@ typedef UniqueId<2> TagId;
 typedef UniqueId<3> TraitId;
 
 /** Allow unique ids to be printed as strings */
-template<int num>
+template <int num>
 std::ostream &operator<<(std::ostream &os, UniqueId<num> const &obj) {
-  return os << (std::to_string(obj.node_id_) + "."
-               + std::to_string(obj.unique_));
+  return os << (std::to_string(obj.node_id_) + "." +
+                std::to_string(obj.unique_));
 }
 
 /** Indicates a PUT or GET for a particular blob */
@@ -210,12 +199,10 @@ struct IoStat {
   IoStat() = default;
 
   /** Copy constructor */
-  IoStat(const IoStat &other) {
-    Copy(other);
-  }
+  IoStat(const IoStat &other) { Copy(other); }
 
   /** Copy assignment */
-  IoStat& operator=(const IoStat &other) {
+  IoStat &operator=(const IoStat &other) {
     if (this != &other) {
       Copy(other);
     }
@@ -223,12 +210,10 @@ struct IoStat {
   }
 
   /** Move constructor */
-  IoStat(IoStat &&other) {
-    Copy(other);
-  }
+  IoStat(IoStat &&other) { Copy(other); }
 
   /** Move assignment */
-  IoStat& operator=(IoStat &&other) {
+  IoStat &operator=(IoStat &&other) {
     if (this != &other) {
       Copy(other);
     }
@@ -245,7 +230,7 @@ struct IoStat {
   }
 
   /** Serialize */
-  template<class Archive>
+  template <class Archive>
   void save(Archive &ar) const {
     int type = static_cast<int>(type_);
     u64 ids[2] = {blob_id_.unique_, tag_id_.unique_};
@@ -254,16 +239,11 @@ struct IoStat {
   }
 
   /** Deserialize */
-  template<class Archive>
+  template <class Archive>
   void load(Archive &ar) {
     int type;
-    ar(type,
-       blob_id_.unique_,
-       blob_id_.node_id_,
-       tag_id_.unique_,
-       tag_id_.node_id_,
-       blob_size_,
-       rank_);
+    ar(type, blob_id_.unique_, blob_id_.node_id_, tag_id_.unique_,
+       tag_id_.node_id_, blob_size_, rank_);
     type_ = static_cast<IoType>(type);
   }
 };
@@ -281,8 +261,7 @@ struct IoTrace {
 };
 
 /** A definition for logging something that is not yet implemented */
-#define HERMES_NOT_IMPLEMENTED_YET \
-  HELOG(kFatal, "not implemented yet")
+#define HERMES_NOT_IMPLEMENTED_YET HELOG(kFatal, "not implemented yet")
 
 /** A TargetId uniquely identifies a buffering target within the system. */
 union TargetId {
@@ -308,23 +287,15 @@ union TargetId {
     bits_.index_ = index;
   }
 
-  TargetId(const TargetId &other) {
-    as_int_ = other.as_int_;
-  }
+  TargetId(const TargetId &other) { as_int_ = other.as_int_; }
 
-  i32 GetNodeId() {
-    return bits_.node_id_;
-  }
+  i32 GetNodeId() { return bits_.node_id_; }
 
-  u16 GetDeviceId() {
-    return bits_.device_id_;
-  }
+  u16 GetDeviceId() { return bits_.device_id_; }
 
-  u16 GetIndex() {
-    return bits_.index_;
-  }
+  u16 GetIndex() { return bits_.index_; }
 
-  bool IsNull() const  { return as_int_ == 0; }
+  bool IsNull() const { return as_int_ == 0; }
 
   bool operator==(const TargetId &other) const {
     return as_int_ == other.as_int_;
@@ -340,13 +311,12 @@ union TargetId {
  * on a particular target during data placement
  * */
 struct SubPlacement {
-  size_t size_;   /**< Size (bytes) */
-  TargetId tid_;  /**< Target destination of data */
+  size_t size_;  /**< Size (bytes) */
+  TargetId tid_; /**< Target destination of data */
 
   SubPlacement() = default;
 
-  explicit SubPlacement(size_t size, TargetId tid)
-      : size_(size), tid_(tid) {}
+  explicit SubPlacement(size_t size, TargetId tid) : size_(size), tid_(tid) {}
 };
 
 /**
@@ -360,9 +330,7 @@ struct PlacementSchema {
     plcmnts_.emplace_back(size, tid);
   }
 
-  void Clear() {
-    plcmnts_.clear();
-  }
+  void Clear() { plcmnts_.clear(); }
 };
 
 /**
@@ -374,7 +342,6 @@ struct Thresholds {
 };
 
 }  // namespace hermes
-
 
 namespace hermes::api {
 
@@ -496,7 +463,6 @@ using api::Context;
 
 }  // namespace hermes
 
-
 /**
  * HASH FUNCTIONS
  * */
@@ -505,9 +471,8 @@ namespace std {
 template <int TYPE>
 struct hash<hermes::UniqueId<TYPE>> {
   std::size_t operator()(const hermes::UniqueId<TYPE> &key) const {
-    return
-        std::hash<hermes::u64>{}(key.unique_) +
-        std::hash<hermes::i32>{}(key.node_id_);
+    return std::hash<hermes::u64>{}(key.unique_) +
+           std::hash<hermes::i32>{}(key.node_id_);
   }
 };
 }  // namespace std

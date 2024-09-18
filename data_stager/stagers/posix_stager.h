@@ -14,8 +14,8 @@
 #define HERMES_DATA_STAGER_STAGERS_POSIX_STAGE_H
 
 #include "../data_stager.h"
-#include "posix/posix_fs_api.h"
 #include "posix/posix_api.h"
+#include "posix/posix_fs_api.h"
 
 namespace hermes {
 

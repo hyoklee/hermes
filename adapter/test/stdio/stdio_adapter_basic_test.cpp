@@ -741,9 +741,8 @@ TEST_CASE("BatchedUpdateStrideNegative",
     REQUIRE(test::fh_orig != nullptr);
     std::string data(args.request_size, '1');
     for (size_t i = 0; i < info.num_iterations; ++i) {
-      auto offset =
-          info.total_size - args.request_size -
-          ((i * info.stride_size) % info.total_size);
+      auto offset = info.total_size - args.request_size -
+                    ((i * info.stride_size) % info.total_size);
       test::test_fseek(offset, SEEK_SET);
       REQUIRE(test::status_orig == 0);
       test::test_fread(data.data(), args.request_size);

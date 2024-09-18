@@ -13,21 +13,19 @@
 #ifndef HERMES_SRC_METADATA_TYPES_H_
 #define HERMES_SRC_METADATA_TYPES_H_
 
-#include "hermes_types.h"
 #include "config_server.h"
+#include "hermes_types.h"
 
 namespace hermes {
 
-#define TEXT_HASH(text) \
-  std::hash<lipc::charbuf>{}(text);
-#define ID_HASH(id) \
-  id.bits_.node_id_
+#define TEXT_HASH(text) std::hash<lipc::charbuf>{}(text);
+#define ID_HASH(id) id.bits_.node_id_
 #define BUCKET_HASH TEXT_HASH(bkt_name)
 #define BLOB_HASH TEXT_HASH(blob_name)
 
-using api::Blob;       /**< Namespace simplification for blob */
-struct TagInfo;     /**< Forward declaration of TagInfo */
-struct BlobInfo;       /**< Forward declaration of BlobInfo */
+using api::Blob; /**< Namespace simplification for blob */
+struct TagInfo;  /**< Forward declaration of TagInfo */
+struct BlobInfo; /**< Forward declaration of BlobInfo */
 
 /** Any statistics which need to be globally maintained across ranks */
 struct GlobalIoClientState {
@@ -41,67 +39,69 @@ using config::IoInterface;
 
 /** Lock type used for internal metadata */
 enum class MdLockType {
-  kInternalRead,    /**< Internal read lock used by Hermes */
-  kInternalWrite,   /**< Internal write lock by Hermes */
-  kExternalRead,    /**< External is used by programs */
-  kExternalWrite,   /**< External is used by programs */
+  kInternalRead,  /**< Internal read lock used by Hermes */
+  kInternalWrite, /**< Internal write lock by Hermes */
+  kExternalRead,  /**< External is used by programs */
+  kExternalWrite, /**< External is used by programs */
 };
 
 /** Represents the current status of a target */
 struct TargetInfo {
-  TargetId id_;         /**< unique Target ID */
-  size_t max_cap_;      /**< maximum capacity of the target */
-  size_t rem_cap_;      /**< remaining capacity of the target */
-  double bandwidth_;    /**< the bandwidth of the device */
-  double latency_;      /**< the latency of the device */
-  float score_;         /**< Relative importance of this tier */
+  TargetId id_;      /**< unique Target ID */
+  size_t max_cap_;   /**< maximum capacity of the target */
+  size_t rem_cap_;   /**< remaining capacity of the target */
+  double bandwidth_; /**< the bandwidth of the device */
+  double latency_;   /**< the latency of the device */
+  float score_;      /**< Relative importance of this tier */
 
   /** Default constructor */
   TargetInfo() = default;
 
   /** Primary constructor */
-  TargetInfo(TargetId id, size_t max_cap, size_t rem_cap,
-             double bandwidth, double latency)
-      : id_(id), max_cap_(max_cap), rem_cap_(rem_cap),
-        bandwidth_(bandwidth), latency_(latency) {}
+  TargetInfo(TargetId id, size_t max_cap, size_t rem_cap, double bandwidth,
+             double latency)
+      : id_(id),
+        max_cap_(max_cap),
+        rem_cap_(rem_cap),
+        bandwidth_(bandwidth),
+        latency_(latency) {}
 };
 
 /** Represents an allocated fraction of a target */
 struct BufferInfo {
-  TargetId tid_;        /**< The destination target */
-  int t_slab_;          /**< The index of the slab in the target */
-  size_t t_off_;        /**< Offset in the target */
-  size_t t_size_;       /**< Size in the target */
-  size_t blob_off_;     /**< Offset in the blob */
-  size_t blob_size_;    /**< The amount of the blob being placed */
+  TargetId tid_;     /**< The destination target */
+  int t_slab_;       /**< The index of the slab in the target */
+  size_t t_off_;     /**< Offset in the target */
+  size_t t_size_;    /**< Size in the target */
+  size_t blob_off_;  /**< Offset in the blob */
+  size_t blob_size_; /**< The amount of the blob being placed */
 
   /** Default constructor */
   BufferInfo() = default;
 
   /** Primary constructor */
-  BufferInfo(TargetId tid, size_t t_off, size_t t_size,
-             size_t blob_off, size_t blob_size)
-      : tid_(tid), t_off_(t_off), t_size_(t_size),
-        blob_off_(blob_off), blob_size_(blob_size) {}
+  BufferInfo(TargetId tid, size_t t_off, size_t t_size, size_t blob_off,
+             size_t blob_size)
+      : tid_(tid),
+        t_off_(t_off),
+        t_size_(t_size),
+        blob_off_(blob_off),
+        blob_size_(blob_size) {}
 
   /** Copy constructor */
-  BufferInfo(const BufferInfo &other) {
-    Copy(other);
-  }
+  BufferInfo(const BufferInfo &other) { Copy(other); }
 
   /** Move constructor */
-  BufferInfo(BufferInfo &&other) {
-    Copy(other);
-  }
+  BufferInfo(BufferInfo &&other) { Copy(other); }
 
   /** Copy assignment */
-  BufferInfo& operator=(const BufferInfo &other) {
+  BufferInfo &operator=(const BufferInfo &other) {
     Copy(other);
     return *this;
   }
 
   /** Move assignment */
-  BufferInfo& operator=(BufferInfo &&other) {
+  BufferInfo &operator=(BufferInfo &&other) {
     Copy(other);
     return *this;
   }
@@ -121,21 +121,19 @@ struct BufferInfo {
 struct BlobInfo : public hipc::ShmContainer {
   SHM_CONTAINER_TEMPLATE(BlobInfo, BlobInfo)
 
-  BlobId blob_id_;   /**< The identifier of this blob */
-  TagId tag_id_;  /**< The bucket containing the blob */
-  hipc::ShmArchive<hipc::string>
-      name_;      /**< SHM pointer to name string */
+  BlobId blob_id_;                      /**< The identifier of this blob */
+  TagId tag_id_;                        /**< The bucket containing the blob */
+  hipc::ShmArchive<hipc::string> name_; /**< SHM pointer to name string */
   hipc::ShmArchive<hipc::vector<BufferInfo>>
-      buffers_;   /**< SHM pointer to BufferInfo vector */
-  hipc::ShmArchive<hipc::slist<TagId>>
-      tags_;        /**< SHM pointer to tag list */
-  RwLock lock_[2];     /**< Ensures BlobInfo access is synchronized */
-  size_t blob_size_;   /**< The overall size of the blob */
-  float score_;        /**< The priority of this blob */
-  std::atomic<u32> access_freq_;  /**< Number of times blob accessed in epoch */
-  u64 last_access_;  /**< Last time blob accessed */
-  std::atomic<size_t> mod_count_;   /**< The number of times blob modified */
-  std::atomic<size_t> last_flush_;  /**< The last mod that was flushed */
+      buffers_; /**< SHM pointer to BufferInfo vector */
+  hipc::ShmArchive<hipc::slist<TagId>> tags_; /**< SHM pointer to tag list */
+  RwLock lock_[2];               /**< Ensures BlobInfo access is synchronized */
+  size_t blob_size_;             /**< The overall size of the blob */
+  float score_;                  /**< The priority of this blob */
+  std::atomic<u32> access_freq_; /**< Number of times blob accessed in epoch */
+  u64 last_access_;              /**< Last time blob accessed */
+  std::atomic<size_t> mod_count_;  /**< The number of times blob modified */
+  std::atomic<size_t> last_flush_; /**< The last mod that was flushed */
 
   /**====================================
    * Default Constructor
@@ -154,8 +152,7 @@ struct BlobInfo : public hipc::ShmContainer {
    * ===================================*/
 
   /** SHM copy constructor. From DeviceInfo. */
-  explicit BlobInfo(hipc::Allocator *alloc,
-                    const BlobInfo &other) {
+  explicit BlobInfo(hipc::Allocator *alloc, const BlobInfo &other) {
     shm_init_container(alloc);
     shm_strong_copy_constructor_main(alloc, other);
   }
@@ -180,7 +177,7 @@ struct BlobInfo : public hipc::ShmContainer {
   }
 
   /** SHM copy assignment operator. From DeviceInfo. */
-  BlobInfo& operator=(const BlobInfo &other) {
+  BlobInfo &operator=(const BlobInfo &other) {
     if (this != &other) {
       shm_destroy();
       shm_strong_copy_op_main(other);
@@ -216,7 +213,7 @@ struct BlobInfo : public hipc::ShmContainer {
   }
 
   /** SHM move assignment operator. */
-  BlobInfo& operator=(BlobInfo &&other) noexcept {
+  BlobInfo &operator=(BlobInfo &&other) noexcept {
     if (this != &other) {
       shm_destroy();
       if (GetAllocator() == other.GetAllocator()) {
@@ -264,7 +261,7 @@ struct BlobInfo : public hipc::ShmContainer {
     struct timespec currentTime;
     clock_gettime(CLOCK_MONOTONIC, &currentTime);
     unsigned long long nanoseconds =
-      currentTime.tv_sec * 1000000000ULL + currentTime.tv_nsec;
+        currentTime.tv_sec * 1000000000ULL + currentTime.tv_nsec;
     return nanoseconds;
   }
 };
@@ -272,16 +269,13 @@ struct BlobInfo : public hipc::ShmContainer {
 /** Represents TagInfo in shared memory */
 struct TagInfo : public hipc::ShmContainer {
   SHM_CONTAINER_TEMPLATE(TagInfo, TagInfo)
-  TagId tag_id_;           /**< ID of the tag */
-  hipc::ShmArchive<hipc::string>
-      name_;               /**< Archive of tag name */
-  hipc::ShmArchive<hipc::slist<BlobId>>
-      blobs_;              /**< Archive of blob list */
-  hipc::ShmArchive<hipc::slist<TraitId>>
-      traits_;             /**< Archive of trait list */
-  size_t internal_size_;   /**< Current bucket size */
-  bool owner_;             /**< Whether this tag owns the blobs */
-  RwLock lock_[2];         /**< Lock the bucket */
+  TagId tag_id_;                                  /**< ID of the tag */
+  hipc::ShmArchive<hipc::string> name_;           /**< Archive of tag name */
+  hipc::ShmArchive<hipc::slist<BlobId>> blobs_;   /**< Archive of blob list */
+  hipc::ShmArchive<hipc::slist<TraitId>> traits_; /**< Archive of trait list */
+  size_t internal_size_;                          /**< Current bucket size */
+  bool owner_;     /**< Whether this tag owns the blobs */
+  RwLock lock_[2]; /**< Lock the bucket */
 
   /**====================================
    * Default Constructor
@@ -300,8 +294,7 @@ struct TagInfo : public hipc::ShmContainer {
    * ===================================*/
 
   /** SHM copy constructor. From DeviceInfo. */
-  explicit TagInfo(hipc::Allocator *alloc,
-                   const TagInfo &other) {
+  explicit TagInfo(hipc::Allocator *alloc, const TagInfo &other) {
     shm_init_container(alloc);
     shm_strong_copy_constructor_main(alloc, other);
   }
@@ -322,7 +315,7 @@ struct TagInfo : public hipc::ShmContainer {
   }
 
   /** SHM copy assignment operator. From DeviceInfo. */
-  TagInfo& operator=(const TagInfo &other) {
+  TagInfo &operator=(const TagInfo &other) {
     if (this != &other) {
       shm_destroy();
       shm_strong_copy_op_main(other);
@@ -343,8 +336,7 @@ struct TagInfo : public hipc::ShmContainer {
    * ===================================*/
 
   /** SHM move constructor. */
-  TagInfo(hipc::Allocator *alloc,
-          TagInfo &&other) {
+  TagInfo(hipc::Allocator *alloc, TagInfo &&other) {
     shm_init_container(alloc);
     if (GetAllocator() == other.GetAllocator()) {
       strong_copy(other);
@@ -359,7 +351,7 @@ struct TagInfo : public hipc::ShmContainer {
   }
 
   /** SHM move assignment operator. */
-  TagInfo& operator=(TagInfo &&other) noexcept {
+  TagInfo &operator=(TagInfo &&other) noexcept {
     if (this != &other) {
       shm_destroy();
       if (GetAllocator() == other.GetAllocator()) {

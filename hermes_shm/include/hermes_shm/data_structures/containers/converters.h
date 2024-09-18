@@ -13,14 +13,15 @@
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_IPC_CONVERTERS_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_DATA_STRUCTURES_IPC_CONVERTERS_H_
 
-#include "hermes_shm/data_structures/data_structure.h"
-#include <vector>
 #include <list>
+#include <vector>
+
+#include "hermes_shm/data_structures/data_structure.h"
 
 namespace hshm {
 
 /** Convert an iterable object into a vector */
-template<typename T, typename SharedT>
+template <typename T, typename SharedT>
 std::vector<T> to_stl_vector(const SharedT &other) {
   std::vector<T> vec;
   vec.reserve(other.size());
@@ -33,19 +34,19 @@ std::vector<T> to_stl_vector(const SharedT &other) {
 }
 
 /** Convert an iterable object into a list */
-template<typename T, typename SharedT>
+template <typename T, typename SharedT>
 std::list<T> to_stl_list(const SharedT &other) {
   std::list<T> vec;
   auto end = other.cend();
   for (auto iter = other.cbegin(); iter != end; ++iter) {
-    T& obj = (*iter);
+    T &obj = (*iter);
     vec.emplace_back(obj);
   }
   return vec;
 }
 
 /** Convert a string to an hshm::charbuf */
-template<typename StringT>
+template <typename StringT>
 hshm::charbuf to_charbuf(StringT &other) {
   hshm::charbuf text(other.size());
   memcpy(text.data(), other.data(), other.size());

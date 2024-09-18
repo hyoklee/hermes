@@ -10,15 +10,14 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_MEMORY_MEMORY_H_
 #define HERMES_MEMORY_MEMORY_H_
 
-#include <hermes_shm/types/real_number.h>
 #include <hermes_shm/constants/data_structure_singleton_macros.h>
+#include <hermes_shm/constants/macros.h>
 #include <hermes_shm/introspect/system_info.h>
 #include <hermes_shm/types/atomic.h>
-#include <hermes_shm/constants/macros.h>
+#include <hermes_shm/types/real_number.h>
 
 namespace hshm::ipc {
 
@@ -45,9 +44,7 @@ union allocator_id_t {
   /**
    * Set this allocator to null
    * */
-  HSHM_ALWAYS_INLINE void SetNull() {
-    int_ = 0;
-  }
+  HSHM_ALWAYS_INLINE void SetNull() { int_ = 0; }
 
   /**
    * Check if this is the null allocator
@@ -82,7 +79,7 @@ typedef uint32_t slot_id_t;  // Uniquely ids a MemoryBackend slot
  * Stores an offset into a memory region. Assumes the developer knows
  * which allocator the pointer comes from.
  * */
-template<bool ATOMIC = false>
+template <bool ATOMIC = false>
 struct OffsetPointerBase {
   typedef
       typename std::conditional<ATOMIC, atomic<size_t>, nonatomic<size_t>>::type
@@ -122,14 +119,10 @@ struct OffsetPointerBase {
   }
 
   /** Set to null */
-  void SetNull() {
-    off_ = (size_t)-1;
-  }
+  void SetNull() { off_ = (size_t)-1; }
 
   /** Check if null */
-  bool IsNull() const {
-    return off_.load() == (size_t)-1;
-  }
+  bool IsNull() const { return off_.load() == (size_t)-1; }
 
   /** Get the null pointer */
   static OffsetPointerBase GetNull() {
@@ -226,7 +219,7 @@ using TypedAtomicOffsetPointer = AtomicOffsetPointer;
  * A process-independent pointer, which stores both the allocator's
  * information and the offset within the allocator's region
  * */
-template<bool ATOMIC = false>
+template <bool ATOMIC = false>
 struct PointerBase {
   allocator_id_t allocator_id_;    /// Allocator the pointer comes from
   OffsetPointerBase<ATOMIC> off_;  /// Offset within the allocator's slot
@@ -377,6 +370,5 @@ struct hash<hshm::ipc::allocator_id_t> {
 };
 
 }  // namespace std
-
 
 #endif  // HERMES_MEMORY_MEMORY_H_

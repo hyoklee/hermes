@@ -13,8 +13,8 @@
 #ifndef HERMES_ADAPTER_UTILS_H_
 #define HERMES_ADAPTER_UTILS_H_
 
-#include "hermes.h"
 #include "adapter/filesystem/filesystem_mdm.h"
+#include "hermes.h"
 
 namespace stdfs = std::filesystem;
 

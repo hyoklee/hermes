@@ -15,12 +15,12 @@
 
 #include "decorator.h"
 #include "hermes_types.h"
-#include "status.h"
-#include "rpc.h"
 #include "metadata_types.h"
-#include "trait_manager.h"
-#include "statuses.h"
+#include "rpc.h"
 #include "rpc_thallium_serialization.h"
+#include "status.h"
+#include "statuses.h"
+#include "trait_manager.h"
 
 namespace hermes {
 
@@ -96,7 +96,7 @@ class MetadataManager {
   BLOB_MAP_T *blob_map_;
   TAG_MAP_T *tag_map_;
   TRAIT_MAP_T *trait_map_;
-  std::unordered_map<TraitId, Trait*> local_trait_map_;
+  std::unordered_map<TraitId, Trait *> local_trait_map_;
   RwLock local_lock_;
 
   /**====================================
@@ -126,8 +126,7 @@ class MetadataManager {
 
   /** Default constructor */
   void shm_init(hipc::ShmArchive<MetadataManagerShm> &header,
-                hipc::Allocator *alloc,
-                ServerConfig *config);
+                hipc::Allocator *alloc, ServerConfig *config);
 
   /**====================================
    * SHM Deserialize
@@ -156,9 +155,9 @@ class MetadataManager {
   /**
    * Create a unique blob name using TagId
    * */
-  template<typename StringT>
-  static hipc::uptr<hipc::charbuf> CreateBlobName(
-      TagId bkt_id, const StringT &blob_name) {
+  template <typename StringT>
+  static hipc::uptr<hipc::charbuf> CreateBlobName(TagId bkt_id,
+                                                  const StringT &blob_name) {
     auto new_name = hipc::make_uptr<hipc::charbuf>(
         sizeof(uint64_t) + sizeof(uint32_t) + blob_name.size());
     size_t off = 0;
@@ -230,8 +229,7 @@ class MetadataManager {
    * */
   std::pair<BlobId, bool> LocalTryCreateBlob(TagId bkt_id,
                                              const std::string &blob_name);
-  DEFINE_RPC((std::pair<BlobId, bool>), TryCreateBlob, 1,
-             STRING_HASH_LAMBDA)
+  DEFINE_RPC((std::pair<BlobId, bool>), TryCreateBlob, 1, STRING_HASH_LAMBDA)
 
   /**
    * Tag a blob
@@ -252,8 +250,7 @@ class MetadataManager {
    * Get \a blob_name BLOB from \a bkt_id bucket
    * */
   RPC BlobId LocalGetBlobId(TagId bkt_id, const std::string &blob_name);
-  DEFINE_RPC(BlobId, GetBlobId, 1,
-             STRING_HASH_LAMBDA)
+  DEFINE_RPC(BlobId, GetBlobId, 1, STRING_HASH_LAMBDA)
 
   /**
    * Get \a blob_name BLOB name from \a blob_id BLOB id
@@ -355,10 +352,8 @@ class MetadataManager {
                                              bool owner,
                                              std::vector<TraitId> &traits,
                                              size_t backend_size);
-  DEFINE_RPC((std::pair<TagId, bool>),
-             GetOrCreateTag, 0, STRING_HASH_LAMBDA)
-  TagId GlobalCreateTag(const std::string &tag_name,
-                        bool owner,
+  DEFINE_RPC((std::pair<TagId, bool>), GetOrCreateTag, 0, STRING_HASH_LAMBDA)
+  TagId GlobalCreateTag(const std::string &tag_name, bool owner,
                         std::vector<TraitId> &traits) {
     return LocalGetOrCreateTag(tag_name, owner, traits, 0).first;
   }
@@ -440,15 +435,13 @@ class MetadataManager {
    * Get trait parameters
    * */
   RPC hshm::charbuf LocalGetTraitParams(TraitId trait_id);
-  DEFINE_RPC((hshm::charbuf),
-             GetTraitParams, 0,
-             UNIQUE_ID_TO_NODE_ID_LAMBDA);
+  DEFINE_RPC((hshm::charbuf), GetTraitParams, 0, UNIQUE_ID_TO_NODE_ID_LAMBDA);
 
   /**
    * Get an existing trait. Will load the trait into this process's
    * address space if necessary.
    * */
-  Trait* GlobalGetTrait(TraitId trait_id);
+  Trait *GlobalGetTrait(TraitId trait_id);
 
   /**====================================
    * Statistics Operations
@@ -463,9 +456,8 @@ class MetadataManager {
 
  private:
   /** Acquire the external lock to Bucket or Blob */
-  template<typename MapFirst, typename MapSecond, typename IdT>
-  bool LockMdObject(hipc::unordered_map<MapFirst, MapSecond> &map,
-                    IdT id,
+  template <typename MapFirst, typename MapSecond, typename IdT>
+  bool LockMdObject(hipc::unordered_map<MapFirst, MapSecond> &map, IdT id,
                     MdLockType lock_type) {
     auto iter = map.find(id);
     if (iter == map.end()) {
@@ -489,9 +481,8 @@ class MetadataManager {
   }
 
   /** Release the external lock to Bucket or Blob */
-  template<typename MapFirst, typename MapSecond, typename IdT>
-  bool UnlockMdObject(hipc::unordered_map<MapFirst, MapSecond> &map,
-                      IdT id,
+  template <typename MapFirst, typename MapSecond, typename IdT>
+  bool UnlockMdObject(hipc::unordered_map<MapFirst, MapSecond> &map, IdT id,
                       MdLockType lock_type) {
     auto iter = map.find(id);
     if (iter == map.end()) {
@@ -521,10 +512,8 @@ class MetadataManager {
   void PrintDeviceInfo() {
     int id = 0;
     for (DeviceInfo &dev_info : *devices_) {
-      HILOG(kInfo, "Device {} is mounted on {} with capacity {} bytes",
-            id,
-            dev_info.mount_point_->str(),
-            dev_info.capacity_)
+      HILOG(kInfo, "Device {} is mounted on {} with capacity {} bytes", id,
+            dev_info.mount_point_->str(), dev_info.capacity_)
       ++id;
     }
   }

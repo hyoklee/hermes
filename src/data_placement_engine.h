@@ -16,9 +16,9 @@
 #include <map>
 
 #include "hermes.h"
-#include "status.h"
 #include "hermes_types.h"
 #include "metadata_manager.h"
+#include "status.h"
 
 namespace hermes {
 
@@ -44,8 +44,7 @@ class DPE {
    * algorithm given a context.
    * */
   virtual Status Placement(const std::vector<size_t> &blob_sizes,
-                           std::vector<TargetInfo> &targets,
-                           api::Context &ctx,
+                           std::vector<TargetInfo> &targets, api::Context &ctx,
                            std::vector<PlacementSchema> &output) = 0;
 
   /**

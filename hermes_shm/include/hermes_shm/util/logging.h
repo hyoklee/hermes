@@ -13,17 +13,17 @@
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_UTIL_LOGGING_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_UTIL_LOGGING_H_
 
-#include <sys/types.h>
 #include <sys/syscall.h>
-
+#include <sys/types.h>
 #include <unistd.h>
-#include <climits>
 
-#include <vector>
-#include <iostream>
+#include <climits>
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
-#include <filesystem>
+#include <iostream>
+#include <vector>
+
 #include "formatter.h"
 #include "singleton.h"
 
@@ -50,20 +50,19 @@ namespace hshm {
 #define HERMES_LOG hshm::EasySingleton<hshm::Logger>::GetInstance()
 
 /** Information Logging levels */
-#define kDebug 10  /**< Low-priority debugging information*/
+#define kDebug 10 /**< Low-priority debugging information*/
 // ... may want to add more levels here
-#define kInfo 1    /**< Useful information the user should know */
+#define kInfo 1 /**< Useful information the user should know */
 
 /** Error Logging Levels */
 #define kFatal 0   /**< A fatal error has occurred */
 #define kError 1   /**< A non-fatal error has occurred */
-#define kWarning 2   /**< Something might be wrong */
+#define kWarning 2 /**< Something might be wrong */
 
 /**
  * Hermes Print. Like printf, except types are inferred
  * */
-#define HIPRINT(...) \
-  HERMES_LOG->Print(__VA_ARGS__);
+#define HIPRINT(...) HERMES_LOG->Print(__VA_ARGS__);
 
 /**
  * Hermes Info (HI) Log
@@ -71,10 +70,9 @@ namespace hshm {
  * LOG_LEVEL 0 is considered required
  * LOG_LEVEL 10 is considered debugging priority.
  * */
-#define HILOG(LOG_LEVEL, ...) \
-  if constexpr(LOG_LEVEL <= HERMES_LOG_VERBOSITY) { \
-    HERMES_LOG->InfoLog(LOG_LEVEL, __FILE__,        \
-    __func__, __LINE__, __VA_ARGS__); \
+#define HILOG(LOG_LEVEL, ...)                                                  \
+  if constexpr (LOG_LEVEL <= HERMES_LOG_VERBOSITY) {                           \
+    HERMES_LOG->InfoLog(LOG_LEVEL, __FILE__, __func__, __LINE__, __VA_ARGS__); \
   }
 
 /**
@@ -83,10 +81,10 @@ namespace hshm {
  * LOG_LEVEL 0 is considered required
  * LOG_LEVEL 10 is considered debugging priority.
  * */
-#define HELOG(LOG_LEVEL, ...) \
-  if constexpr(LOG_LEVEL <= HERMES_LOG_VERBOSITY) { \
-    HERMES_LOG->ErrorLog(LOG_LEVEL, __FILE__,       \
-    __func__, __LINE__, __VA_ARGS__); \
+#define HELOG(LOG_LEVEL, ...)                                     \
+  if constexpr (LOG_LEVEL <= HERMES_LOG_VERBOSITY) {              \
+    HERMES_LOG->ErrorLog(LOG_LEVEL, __FILE__, __func__, __LINE__, \
+                         __VA_ARGS__);                            \
   }
 
 class Logger {
@@ -123,45 +121,37 @@ class Logger {
     }
   }
 
-  template<typename ...Args>
-  void Print(const char *fmt,
-             Args&& ...args) {
-    std::string out =
-      hshm::Formatter::format(fmt, std::forward<Args>(args)...);
+  template <typename... Args>
+  void Print(const char *fmt, Args &&...args) {
+    std::string out = hshm::Formatter::format(fmt, std::forward<Args>(args)...);
     std::cout << out;
     if (fout_) {
       fwrite(out.data(), 1, out.size(), fout_);
     }
   }
 
-  template<typename ...Args>
-  void InfoLog(int LOG_LEVEL,
-               const char *path,
-               const char *func,
-               int line,
-               const char *fmt,
-               Args&& ...args) {
-    if (LOG_LEVEL > verbosity_) { return; }
-    std::string msg =
-      hshm::Formatter::format(fmt, std::forward<Args>(args)...);
+  template <typename... Args>
+  void InfoLog(int LOG_LEVEL, const char *path, const char *func, int line,
+               const char *fmt, Args &&...args) {
+    if (LOG_LEVEL > verbosity_) {
+      return;
+    }
+    std::string msg = hshm::Formatter::format(fmt, std::forward<Args>(args)...);
     int tid = GetTid();
-    std::string out = hshm::Formatter::format(
-      "{}:{} {} {} {}\n",
-      path, line, tid, func, msg);
+    std::string out =
+        hshm::Formatter::format("{}:{} {} {} {}\n", path, line, tid, func, msg);
     std::cerr << out;
     if (fout_) {
       fwrite(out.data(), 1, out.size(), fout_);
     }
   }
 
-  template<typename ...Args>
-  void ErrorLog(int LOG_LEVEL,
-                const char *path,
-                const char *func,
-                int line,
-                const char *fmt,
-                Args&& ...args) {
-    if (LOG_LEVEL > verbosity_) { return; }
+  template <typename... Args>
+  void ErrorLog(int LOG_LEVEL, const char *path, const char *func, int line,
+                const char *fmt, Args &&...args) {
+    if (LOG_LEVEL > verbosity_) {
+      return;
+    }
     std::string level;
     switch (LOG_LEVEL) {
       case kWarning: {
@@ -182,12 +172,10 @@ class Logger {
       }
     }
 
-    std::string msg =
-      hshm::Formatter::format(fmt, std::forward<Args>(args)...);
+    std::string msg = hshm::Formatter::format(fmt, std::forward<Args>(args)...);
     int tid = GetTid();
-    std::string out = hshm::Formatter::format(
-      "{}:{} {} {} {} {}\n",
-      path, line, level, tid, func, msg);
+    std::string out = hshm::Formatter::format("{}:{} {} {} {} {}\n", path, line,
+                                              level, tid, func, msg);
     std::cerr << out;
     if (fout_) {
       fwrite(out.data(), 1, out.size(), fout_);
@@ -201,7 +189,7 @@ class Logger {
 #ifdef SYS_gettid
     return (pid_t)syscall(SYS_gettid);
 #else
-    #warning "GetTid is not defined"
+#warning "GetTid is not defined"
     return GetPid();
 #endif
   }
@@ -210,7 +198,7 @@ class Logger {
 #ifdef SYS_getpid
     return (pid_t)syscall(SYS_getpid);
 #else
-    #warning "GetPid is not defined"
+#warning "GetPid is not defined"
     return 0;
 #endif
   }

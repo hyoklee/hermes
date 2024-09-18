@@ -23,7 +23,7 @@ namespace hshm {
 /**
  * A generic bitfield template
  * */
-template<typename T = uint32_t>
+template <typename T = uint32_t>
 struct bitfield {
   T bits_;
 
@@ -31,27 +31,19 @@ struct bitfield {
 
   explicit bitfield(T mask) : bits_(mask) {}
 
-  inline void SetBits(T mask) {
-    bits_ |= mask;
-  }
+  inline void SetBits(T mask) { bits_ |= mask; }
 
   inline void UnsetBits(T mask) { bits_ &= ~mask; }
 
-  inline bool Any(T mask) const {
-    return bits_ & mask;
-  }
+  inline bool Any(T mask) const { return bits_ & mask; }
 
-  inline bool All(T mask) const {
-    return Any(mask) == mask;
-  }
+  inline bool All(T mask) const { return Any(mask) == mask; }
 
   inline void CopyBits(bitfield field, T mask) {
     bits_ &= (field.bits_ & mask);
   }
 
-  inline void Clear() {
-    bits_ = 0;
-  }
+  inline void Clear() { bits_ = 0; }
 
   static T MakeMask(int start, int length) {
     return ((((T)1) << length) - 1) << start;
@@ -64,7 +56,7 @@ typedef bitfield<uint32_t> bitfield32_t;
 /**
  * A helper type needed for std::conditional
  * */
-template<size_t LEN>
+template <size_t LEN>
 struct len_bits {
   static constexpr size_t value = LEN;
 };
@@ -72,19 +64,16 @@ struct len_bits {
 /**
  * A generic bitfield template
  * */
-template<size_t NUM_BITS,
-  typename LEN = typename std::conditional<
-    ((NUM_BITS % 32 == 0) && (NUM_BITS > 0)),
-    len_bits<(NUM_BITS / 32)>,
-    len_bits<(NUM_BITS / 32) + 1>>::type>
+template <size_t NUM_BITS,
+          typename LEN = typename std::conditional<
+              ((NUM_BITS % 32 == 0) && (NUM_BITS > 0)),
+              len_bits<(NUM_BITS / 32)>, len_bits<(NUM_BITS / 32) + 1>>::type>
 struct big_bitfield {
   bitfield32_t bits_[LEN::value];
 
   big_bitfield() : bits_() {}
 
-  inline size_t size() const {
-    return LEN::value;
-  }
+  inline size_t size() const { return LEN::value; }
 
   inline void SetBits(int start, int length) {
     int bf_idx = start / 32;

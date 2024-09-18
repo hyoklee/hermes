@@ -29,7 +29,7 @@ class NullContainer;
 #define TYPED_HEADER ShmHeader<NullContainer>
 
 /** string shared-memory header */
-template<>
+template <>
 struct ShmHeader<NullContainer> {
   /** Default constructor */
   ShmHeader() = default;
@@ -85,9 +85,8 @@ class NullContainer : public ShmContainer {
   }
 
   /** Move constructor */
-  void shm_strong_move_main(TYPED_HEADER *header,
-                          Allocator *alloc,
-                          NullContainer &other) {}
+  void shm_strong_move_main(TYPED_HEADER *header, Allocator *alloc,
+                            NullContainer &other) {}
 
   /** Copy constructor */
   void shm_strong_copy_main(TYPED_HEADER *header, Allocator *alloc,

@@ -10,7 +10,6 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HERMES_THREAD_RWLOCK_H_
 #define HERMES_THREAD_RWLOCK_H_
 
@@ -30,24 +29,16 @@ union RwLockPayload {
   RwLockPayload() = default;
 
   /** Copy constructor */
-  RwLockPayload(const RwLockPayload &other) {
-    as_int_ = other.as_int_;
-  }
+  RwLockPayload(const RwLockPayload &other) { as_int_ = other.as_int_; }
 
   /** Copy constructor. From uint64_t. */
-  explicit RwLockPayload(uint64_t other) {
-    as_int_ = other;
-  }
+  explicit RwLockPayload(uint64_t other) { as_int_ = other; }
 
   /** Check if write locked */
-  bool IsWriteLocked() const {
-    return bits_.w_ > 0;
-  }
+  bool IsWriteLocked() const { return bits_.w_ > 0; }
 
   /** Check if read locked */
-  bool IsReadLocked() const {
-    return bits_.r_ > 0;
-  }
+  bool IsReadLocked() const { return bits_.r_ > 0; }
 };
 
 /** A reader-writer lock implementation */
@@ -61,19 +52,16 @@ struct RwLock {
   RwLock() : payload_(0) {}
 
   /** Explicit constructor */
-  void Init() {
-    payload_ = 0;
-  }
+  void Init() { payload_ = 0; }
 
   /** Delete copy constructor */
   RwLock(const RwLock &other) = delete;
 
   /** Move constructor */
-  RwLock(RwLock &&other) noexcept
-  : payload_(other.payload_.load()) {}
+  RwLock(RwLock &&other) noexcept : payload_(other.payload_.load()) {}
 
   /** Move assignment operator */
-  RwLock& operator=(RwLock &&other) noexcept {
+  RwLock &operator=(RwLock &&other) noexcept {
     payload_ = other.payload_.load();
     return (*this);
   }

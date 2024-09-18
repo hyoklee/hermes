@@ -13,12 +13,14 @@
 #ifndef HERMES_SHM_INCLUDE_HERMES_SHM_THREAD_THALLIUM_H_
 #define HERMES_SHM_INCLUDE_HERMES_SHM_THREAD_THALLIUM_H_
 
-#include "thread_model.h"
-#include <thallium.hpp>
 #include <errno.h>
-#include "hermes_shm/util/errors.h"
 #include <omp.h>
+
+#include <thallium.hpp>
+
 #include "hermes_shm/introspect/system_info.h"
+#include "hermes_shm/util/errors.h"
+#include "thread_model.h"
 
 namespace hshm::thread_model {
 
@@ -31,14 +33,10 @@ class Argobots : public ThreadModel {
   virtual ~Argobots() = default;
 
   /** Yield the current thread for a period of time */
-  void SleepForUs(size_t us) override {
-    usleep(us);
-  }
+  void SleepForUs(size_t us) override { usleep(us); }
 
   /** Yield thread time slice */
-  void Yield() override {
-    ABT_thread_yield();
-  }
+  void Yield() override { ABT_thread_yield(); }
 
   /** Get the TID of the current thread */
   tid_t GetTid() override {

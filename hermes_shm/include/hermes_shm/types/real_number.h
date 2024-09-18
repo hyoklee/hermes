@@ -13,8 +13,8 @@
 #ifndef HERMES_BASICS_H
 #define HERMES_BASICS_H
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 
 #ifdef __cplusplus
 
@@ -65,10 +65,9 @@ struct RealNumber {
     RealNumber res;
     // d1 * d2
     res.decimal_ = other.decimal_ * decimal_;
-    uint64_t frac =
-      (decimal_ * other.numerator_) +  // d1 * n2
-      (other.decimal_ * numerator_) +  // d2 * n1
-      (numerator_ * other.numerator_) / precision;  // n1 * n2 / p
+    uint64_t frac = (decimal_ * other.numerator_) +               // d1 * n2
+                    (other.decimal_ * numerator_) +               // d2 * n1
+                    (numerator_ * other.numerator_) / precision;  // n1 * n2 / p
     res.decimal_ += frac / precision;
     res.numerator_ = frac % precision;
     return res;
@@ -90,7 +89,5 @@ struct RealNumber {
 }  // namespace hshm
 
 #endif
-
-
 
 #endif  // HERMES_BASICS_H

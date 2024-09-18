@@ -157,10 +157,10 @@ int pretest() {
 #if HERMES_INTERCEPT == 1
   HERMES->client_config_.SetAdapterPathTracking(info.existing_file_cmp, false);
   HERMES->client_config_.SetAdapterPathTracking(info.new_file_cmp, false);
-  HERMES->client_config_.SetAdapterPathTracking(
-      info.shared_new_file_cmp, false);
-  HERMES->client_config_.SetAdapterPathTracking(
-      info.shared_existing_file_cmp, false);
+  HERMES->client_config_.SetAdapterPathTracking(info.shared_new_file_cmp,
+                                                false);
+  HERMES->client_config_.SetAdapterPathTracking(info.shared_existing_file_cmp,
+                                                false);
 #endif
   return 0;
 }

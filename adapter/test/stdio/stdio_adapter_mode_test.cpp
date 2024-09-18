@@ -102,7 +102,7 @@ void TrackFiles() {
 #endif
 }
 
-void RemoveFile(const std::string &path) {
+void RemoveFile(const std::string& path) {
   stdfs::remove(path);
   if (stdfs::exists(path)) {
     HELOG(kFatal, "Failed to remove: {}", path)
