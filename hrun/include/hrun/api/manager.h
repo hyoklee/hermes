@@ -13,10 +13,10 @@
 #ifndef HRUN_INCLUDE_HRUN_MANAGER_MANAGER_H_
 #define HRUN_INCLUDE_HRUN_MANAGER_MANAGER_H_
 
+#include "hrun/hrun_types.h"
+#include "hrun/hrun_constants.h"
 #include "hrun/config/config_client.h"
 #include "hrun/config/config_server.h"
-#include "hrun/hrun_constants.h"
-#include "hrun/hrun_types.h"
 #include "hrun/queue_manager/queue_manager.h"
 
 namespace hrun {
@@ -53,11 +53,10 @@ class ConfigurationManager {
   hshm::ThreadType thread_type_;
 
   /** Default constructor */
-  ConfigurationManager()
-      : is_being_initialized_(false),
-        is_initialized_(false),
-        is_terminated_(false),
-        is_transparent_(false) {}
+  ConfigurationManager() : is_being_initialized_(false),
+                           is_initialized_(false),
+                           is_terminated_(false),
+                           is_transparent_(false) {}
 
   /** Destructor */
   ~ConfigurationManager() {}

@@ -13,15 +13,15 @@
 #ifndef HRUN_INCLUDE_HRUN_CLIENT_HRUN_SERVER_H_
 #define HRUN_INCLUDE_HRUN_CLIENT_HRUN_SERVER_H_
 
-#include "hrun/network/rpc.h"
-#include "hrun/network/rpc_thallium.h"
-#include "hrun/queue_manager/queue_manager_runtime.h"
 #include "hrun/task_registry/task_registry.h"
 #include "hrun/work_orchestrator/work_orchestrator.h"
+#include "hrun/queue_manager/queue_manager_runtime.h"
 #include "hrun_admin/hrun_admin.h"
+#include "remote_queue/remote_queue.h"
 #include "hrun_client.h"
 #include "manager.h"
-#include "remote_queue/remote_queue.h"
+#include "hrun/network/rpc.h"
+#include "hrun/network/rpc_thallium.h"
 
 // Singleton macros
 #define HRUN_RUNTIME hshm::Singleton<hrun::Runtime>::GetInstance()
@@ -68,7 +68,7 @@ class Runtime : public ConfigurationManager {
   void StopDaemon();
 
   /** Get the set of DomainIds */
-  std::vector<DomainId> ResolveDomainId(const DomainId& domain_id);
+  std::vector<DomainId> ResolveDomainId(const DomainId &domain_id);
 };
 
 }  // namespace hrun
