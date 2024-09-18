@@ -500,21 +500,12 @@ TEST_CASE("fseeko", "[process=" + std::to_string(TESTER->comm_size_) +
   }
   TESTER->Posttest(false);
 }
-<<<<<<< HEAD:adapter/test/stdio/stdio_adapter_func_test.cpp
-#ifndef __APPLE__
-TEST_CASE("fseeko64", "[process=" + std::to_string(info.comm_size) +
-                          "]"
-                          "[operation=single_fseeko64]"
-                          "[repetition=1][file=1]") {
-  pretest();
-=======
 
 TEST_CASE("fseeko64", "[process=" + std::to_string(TESTER->comm_size_) +
     "]"
     "[operation=single_fseeko64]"
     "[repetition=1][file=1]") {
   TESTER->Pretest();
->>>>>>> upstream/master:test/unit/hermes_adapters/stdio/stdio_adapter_func_test.cc
   SECTION("test all seek modes") {
     FILE* fh = fopen(TESTER->existing_file_.hermes_.c_str(), "r");
     REQUIRE(fh != nullptr);
@@ -543,7 +534,6 @@ TEST_CASE("fseeko64", "[process=" + std::to_string(TESTER->comm_size_) +
   }
   TESTER->Posttest(false);
 }
-#endif
 
 TEST_CASE("rewind", "[process=" + std::to_string(TESTER->comm_size_) +
     "]"
@@ -574,21 +564,12 @@ TEST_CASE("rewind", "[process=" + std::to_string(TESTER->comm_size_) +
   }
   TESTER->Posttest(false);
 }
-<<<<<<< HEAD:adapter/test/stdio/stdio_adapter_func_test.cpp
-#ifndef __APPLE__
-TEST_CASE("fsetpos", "[process=" + std::to_string(info.comm_size) +
-                         "]"
-                         "[operation=single_fsetpos]"
-                         "[repetition=1][file=1]") {
-  pretest();
-=======
 
 TEST_CASE("fsetpos", "[process=" + std::to_string(TESTER->comm_size_) +
     "]"
     "[operation=single_fsetpos]"
     "[repetition=1][file=1]") {
   TESTER->Pretest();
->>>>>>> upstream/master:test/unit/hermes_adapters/stdio/stdio_adapter_func_test.cc
   SECTION("test all seek modes") {
     FILE* fh = fopen(TESTER->existing_file_.hermes_.c_str(), "r");
     REQUIRE(fh != nullptr);
@@ -788,7 +769,6 @@ TEST_CASE("Freopen64", "[process=" + std::to_string(TESTER->comm_size_) +
   }
   TESTER->Posttest(false);
 }
-#endif
 
 TEST_CASE("MultiOpen", "[process=" + std::to_string(TESTER->comm_size_) +
     "]"
