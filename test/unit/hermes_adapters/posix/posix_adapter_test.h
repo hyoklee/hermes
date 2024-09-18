@@ -16,7 +16,7 @@
 #include "binary_file_tests.h"
 
 namespace hermes::adapter::test {
-template<bool WITH_MPI>
+template <bool WITH_MPI>
 class PosixTest : public BinaryFileTests {
  public:
   FileInfo new_file_;
@@ -47,7 +47,7 @@ class PosixTest : public BinaryFileTests {
   void RegisterFiles() override {
     RegisterPath("new", 0, new_file_);
     RegisterPath("ext", TEST_DO_CREATE, existing_file_);
-    if constexpr(WITH_MPI) {
+    if constexpr (WITH_MPI) {
       RegisterPath("shared_new", TEST_FILE_SHARED, shared_new_file_);
       RegisterPath("shared_ext", TEST_DO_CREATE | TEST_FILE_SHARED,
                    shared_existing_file_);
@@ -55,7 +55,7 @@ class PosixTest : public BinaryFileTests {
     RegisterTmpPath(tmp_file_);
   }
 
-  void test_open(FileInfo &info, int flags, ...) {
+  void test_open(FileInfo& info, int flags, ...) {
     int mode = 0;
     if (flags & O_CREAT || flags & O_TMPFILE) {
       va_list arg;
@@ -118,9 +118,9 @@ class PosixTest : public BinaryFileTests {
 }  // namespace hermes::adapter::test
 
 #if defined(HERMES_MPI_TESTS)
-#define TESTER \
+#define TESTER         \
   hshm::EasySingleton< \
-    hermes::adapter::test::PosixTest<HERMES_MPI_TESTS>>::GetInstance()
+      hermes::adapter::test::PosixTest<HERMES_MPI_TESTS>>::GetInstance()
 #else
 #define TESTER \
   hshm::EasySingleton<hermes::adapter::test::PosixTest<false>>::GetInstance()

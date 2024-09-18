@@ -13,9 +13,9 @@
 #ifndef HRUN_TASKS_HERMES_INCLUDE_HERMES_HERMES_TYPES_H_
 #define HRUN_TASKS_HERMES_INCLUDE_HERMES_HERMES_TYPES_H_
 
+#include "hrun/api/hrun_client.h"
 #include "hrun/hrun_types.h"
 #include "hrun/task_registry/task_registry.h"
-#include "hrun/api/hrun_client.h"
 #include "status.h"
 #include "statuses.h"
 
@@ -23,14 +23,14 @@ namespace hapi = hermes;
 
 namespace hermes {
 
-using hrun::TaskLib;
-using hrun::TaskMethod;
-using hrun::UniqueId;
-using hrun::TaskStateId;
 using hrun::DomainId;
 using hrun::Task;
 using hrun::TaskId;
+using hrun::TaskLib;
+using hrun::TaskMethod;
 using hrun::TaskNode;
+using hrun::TaskStateId;
+using hrun::UniqueId;
 using hshm::bitfield32_t;
 
 /** Queue id */
@@ -55,10 +55,7 @@ typedef TaskStateId TargetId;
 typedef TaskStateId TraitId;
 
 /** Different categories of traits */
-enum class TraitType {
-  kStagingTrait,
-  kProducerOpTrait
-};
+enum class TraitType { kStagingTrait, kProducerOpTrait };
 
 /** Represents a blob  */
 typedef hshm::charbuf Blob;
@@ -128,10 +125,7 @@ struct Context {
   /** The node id the blob will be accessed from */
   u32 node_id_;
 
-  Context()
-  : dpe_(PlacementPolicy::kNone),
-    blob_score_(1),
-    node_id_(0) {}
+  Context() : dpe_(PlacementPolicy::kNone), blob_score_(1), node_id_(0) {}
 };
 
 /**
@@ -139,8 +133,8 @@ struct Context {
  * on a particular target during data placement
  * */
 struct SubPlacement {
-  size_t size_;   /**< Size (bytes) */
-  TargetId tid_;  /**< Index in the target vector */
+  size_t size_;  /**< Size (bytes) */
+  TargetId tid_; /**< Index in the target vector */
 
   SubPlacement() = default;
 
@@ -159,9 +153,7 @@ struct PlacementSchema {
     plcmnts_.emplace_back(size, tid);
   }
 
-  void Clear() {
-    plcmnts_.clear();
-  }
+  void Clear() { plcmnts_.clear(); }
 };
 
 /** The types of topologies */
@@ -174,10 +166,7 @@ enum class TopologyType {
 };
 
 /** The flushing mode */
-enum class FlushingMode {
-  kSync,
-  kAsync
-};
+enum class FlushingMode { kSync, kAsync };
 
 /** Convert flushing modes to strings */
 class FlushingModeConv {
@@ -198,19 +187,19 @@ class FlushingModeConv {
 class Constant {
  public:
   /** Hermes server environment variable */
-  CONST_T char* kHermesServerConf = "HERMES_CONF";
+  CONST_T char *kHermesServerConf = "HERMES_CONF";
 
   /** Hermes client environment variable */
-  CONST_T char* kHermesClientConf = "HERMES_CLIENT_CONF";
+  CONST_T char *kHermesClientConf = "HERMES_CLIENT_CONF";
 
   /** Hermes adapter mode environment variable */
-  CONST_T char* kHermesAdapterMode = "HERMES_ADAPTER_MODE";
+  CONST_T char *kHermesAdapterMode = "HERMES_ADAPTER_MODE";
 
   /** Filesystem page size environment variable */
-  CONST_T char* kHermesPageSize = "HERMES_PAGE_SIZE";
+  CONST_T char *kHermesPageSize = "HERMES_PAGE_SIZE";
 
   /** Stop daemon environment variable */
-  CONST_T char* kHermesStopDaemon = "HERMES_STOP_DAEMON";
+  CONST_T char *kHermesStopDaemon = "HERMES_STOP_DAEMON";
 
   /** Maximum path length environment variable */
   CONST_T size_t kMaxPathLength = 4096;
@@ -218,13 +207,13 @@ class Constant {
 
 /** Represents an allocated fraction of a target */
 struct BufferInfo {
-  TargetId tid_;        /**< The destination target */
-  size_t t_slab_;       /**< The index of the slab in the target */
-  size_t t_off_;        /**< Offset in the target */
-  size_t t_size_;       /**< Size in the target */
+  TargetId tid_;  /**< The destination target */
+  size_t t_slab_; /**< The index of the slab in the target */
+  size_t t_off_;  /**< Offset in the target */
+  size_t t_size_; /**< Size in the target */
 
   /** Serialization */
-  template<typename Ar>
+  template <typename Ar>
   void serialize(Ar &ar) {
     ar(tid_, t_slab_, t_off_, t_size_);
   }
@@ -233,28 +222,24 @@ struct BufferInfo {
   BufferInfo() = default;
 
   /** Primary constructor */
-  BufferInfo(TaskStateId tid, size_t t_off, size_t t_size,
-             size_t blob_off, size_t blob_size)
+  BufferInfo(TaskStateId tid, size_t t_off, size_t t_size, size_t blob_off,
+             size_t blob_size)
       : tid_(tid), t_off_(t_off), t_size_(t_size) {}
 
   /** Copy constructor */
-  BufferInfo(const BufferInfo &other) {
-    Copy(other);
-  }
+  BufferInfo(const BufferInfo &other) { Copy(other); }
 
   /** Move constructor */
-  BufferInfo(BufferInfo &&other) {
-    Copy(other);
-  }
+  BufferInfo(BufferInfo &&other) { Copy(other); }
 
   /** Copy assignment */
-  BufferInfo& operator=(const BufferInfo &other) {
+  BufferInfo &operator=(const BufferInfo &other) {
     Copy(other);
     return *this;
   }
 
   /** Move assignment */
-  BufferInfo& operator=(BufferInfo &&other) {
+  BufferInfo &operator=(BufferInfo &&other) {
     Copy(other);
     return *this;
   }
@@ -270,23 +255,23 @@ struct BufferInfo {
 
 /** Data structure used to store Blob information */
 struct BlobInfo {
-  TagId tag_id_;    /**< Tag the blob is on */
-  BlobId blob_id_;  /**< Unique ID of the blob */
-  hshm::charbuf name_;  /**< Name of the blob */
-  std::vector<BufferInfo> buffers_;  /**< Set of buffers */
-  std::vector<TagId> tags_;  /**< Set of tags */
-  size_t blob_size_;      /**< The overall size of the blob */
-  size_t max_blob_size_;  /**< The amount of space current buffers support */
-  float score_;  /**< The priority of this blob */
-  float user_score_;  /**< The user-defined priority of this blob */
+  TagId tag_id_;                    /**< Tag the blob is on */
+  BlobId blob_id_;                  /**< Unique ID of the blob */
+  hshm::charbuf name_;              /**< Name of the blob */
+  std::vector<BufferInfo> buffers_; /**< Set of buffers */
+  std::vector<TagId> tags_;         /**< Set of tags */
+  size_t blob_size_;                /**< The overall size of the blob */
+  size_t max_blob_size_; /**< The amount of space current buffers support */
+  float score_;          /**< The priority of this blob */
+  float user_score_;     /**< The user-defined priority of this blob */
   std::atomic<u32> access_freq_;  /**< Number of times blob accessed in epoch */
-  hshm::Timepoint last_access_;  /**< Last time blob accessed */
-  std::atomic<size_t> mod_count_;   /**< The number of times blob modified */
-  std::atomic<size_t> last_flush_;  /**< The last mod that was flushed */
-  bitfield32_t flags_;  /**< Flags */
+  hshm::Timepoint last_access_;   /**< Last time blob accessed */
+  std::atomic<size_t> mod_count_; /**< The number of times blob modified */
+  std::atomic<size_t> last_flush_; /**< The last mod that was flushed */
+  bitfield32_t flags_;             /**< Flags */
 
   /** Serialization */
-  template<typename Ar>
+  template <typename Ar>
   void serialize(Ar &ar) {
     ar(tag_id_, blob_id_, name_, buffers_, tags_, blob_size_, max_blob_size_,
        score_, access_freq_, mod_count_, last_flush_);
@@ -337,14 +322,14 @@ struct TagInfo {
   TagId tag_id_;
   hshm::charbuf name_;
   std::list<BlobId> blobs_;
-  std::list<Task*> traits_;
+  std::list<Task *> traits_;
   size_t internal_size_;
   size_t page_size_;
   bitfield32_t flags_;
   bool owner_;
 
   /** Serialization */
-  template<typename Ar>
+  template <typename Ar>
   void serialize(Ar &ar) {
     ar(tag_id_, name_, internal_size_, page_size_, owner_, flags_);
   }
@@ -358,11 +343,7 @@ struct TagInfo {
 };
 
 /** The types of I/O that can be performed (for IoCall RPC) */
-enum class IoType {
-  kRead,
-  kWrite,
-  kNone
-};
+enum class IoType { kRead, kWrite, kNone };
 
 /** Indicates a PUT or GET for a particular blob */
 struct IoStat {
@@ -376,12 +357,10 @@ struct IoStat {
   IoStat() = default;
 
   /** Copy constructor */
-  IoStat(const IoStat &other) {
-    Copy(other);
-  }
+  IoStat(const IoStat &other) { Copy(other); }
 
   /** Copy assignment */
-  IoStat& operator=(const IoStat &other) {
+  IoStat &operator=(const IoStat &other) {
     if (this != &other) {
       Copy(other);
     }
@@ -389,12 +368,10 @@ struct IoStat {
   }
 
   /** Move constructor */
-  IoStat(IoStat &&other) {
-    Copy(other);
-  }
+  IoStat(IoStat &&other) { Copy(other); }
 
   /** Move assignment */
-  IoStat& operator=(IoStat &&other) {
+  IoStat &operator=(IoStat &&other) {
     if (this != &other) {
       Copy(other);
     }
@@ -411,7 +388,7 @@ struct IoStat {
   }
 
   /** Serialize */
-  template<class Archive>
+  template <class Archive>
   void save(Archive &ar) const {
     int type = static_cast<int>(type_);
     u64 ids[2] = {blob_id_.unique_, tag_id_.unique_};
@@ -420,16 +397,11 @@ struct IoStat {
   }
 
   /** Deserialize */
-  template<class Archive>
+  template <class Archive>
   void load(Archive &ar) {
     int type;
-    ar(type,
-       blob_id_.unique_,
-       blob_id_.node_id_,
-       tag_id_.unique_,
-       tag_id_.node_id_,
-       blob_size_,
-       rank_);
+    ar(type, blob_id_.unique_, blob_id_.node_id_, tag_id_.unique_,
+       tag_id_.node_id_, blob_size_, rank_);
     type_ = static_cast<IoType>(type);
   }
 };
@@ -482,7 +454,6 @@ enum LockOwners {
   kMDM_AddIoStat = 46,
   kMDM_ClearIoStats = 47
 };
-
 
 }  // namespace hermes
 

@@ -41,11 +41,9 @@ class Client : public TaskLibClient {
         task_node, domain_id, state_name, id_, queue_info);
   }
   HRUN_TASK_NODE_ROOT(AsyncCreate);
-  template<typename ...Args>
-  HSHM_ALWAYS_INLINE
-  void CreateRoot(Args&& ...args) {
-    LPointer<ConstructTask> task =
-        AsyncCreateRoot(std::forward<Args>(args)...);
+  template <typename... Args>
+  HSHM_ALWAYS_INLINE void CreateRoot(Args &&...args) {
+    LPointer<ConstructTask> task = AsyncCreateRoot(std::forward<Args>(args)...);
     task->Wait();
     Init(id_, HRUN_ADMIN->queue_id_);
     HRUN_CLIENT->DelTask(task);
@@ -58,21 +56,16 @@ class Client : public TaskLibClient {
   }
 
   /** Call a custom method */
-  template<typename TaskT>
-  HSHM_ALWAYS_INLINE
-  void AsyncPushConstruct(hrunpq::TypedPushTask<TaskT> *task,
-                          const TaskNode &task_node,
-                          const DomainId &domain_id,
-                          const hipc::LPointer<TaskT> &subtask) {
-    HRUN_CLIENT->ConstructTask(
-        task, task_node, domain_id, id_, subtask);
+  template <typename TaskT>
+  HSHM_ALWAYS_INLINE void AsyncPushConstruct(
+      hrunpq::TypedPushTask<TaskT> *task, const TaskNode &task_node,
+      const DomainId &domain_id, const hipc::LPointer<TaskT> &subtask) {
+    HRUN_CLIENT->ConstructTask(task, task_node, domain_id, id_, subtask);
   }
-  template<typename TaskT>
-  HSHM_ALWAYS_INLINE
-  LPointer<hrunpq::TypedPushTask<TaskT>>
-  AsyncPush(const TaskNode &task_node,
-            const DomainId &domain_id,
-            const hipc::LPointer<TaskT> &subtask) {
+  template <typename TaskT>
+  HSHM_ALWAYS_INLINE LPointer<hrunpq::TypedPushTask<TaskT>> AsyncPush(
+      const TaskNode &task_node, const DomainId &domain_id,
+      const hipc::LPointer<TaskT> &subtask) {
     LPointer<hrunpq::TypedPushTask<TaskT>> push_task =
         HRUN_CLIENT->AllocateTask<hrunpq::TypedPushTask<TaskT>>();
     AsyncPushConstruct(push_task.ptr_, task_node, domain_id, subtask);
@@ -83,7 +76,7 @@ class Client : public TaskLibClient {
   HRUN_TASK_NODE_ROOT(AsyncPush);
 };
 
-}  // namespace hrun
+}  // namespace hrun::proc_queue
 
 #define HRUN_PROCESS_QUEUE \
   hshm::EasySingleton<hrun::proc_queue::Client>::GetInstance()

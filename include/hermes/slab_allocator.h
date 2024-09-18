@@ -13,8 +13,8 @@
 #ifndef HRUN_TASKS_HERMES_INCLUDE_HERMES_SLAB_ALLOCATOR_H_
 #define HRUN_TASKS_HERMES_INCLUDE_HERMES_SLAB_ALLOCATOR_H_
 
-#include "hrun/hrun_types.h"
 #include "hermes/hermes_types.h"
+#include "hrun/hrun_types.h"
 
 namespace hermes {
 
@@ -45,8 +45,7 @@ class SlabAllocator {
   ~SlabAllocator() = default;
 
   /** Initialize slab allocator */
-  void Init(TargetId target_id,
-            size_t dev_size,
+  void Init(TargetId target_id, size_t dev_size,
             std::vector<size_t> &slab_sizes) {
     heap_ = 0;
     dev_size_ = dev_size;
@@ -67,8 +66,7 @@ class SlabAllocator {
    * @param[OUT] buffers the buffers allocated
    * @return the amount of space actually allocated. Maximum value is size.
    * */
-  void Allocate(size_t size,
-                std::vector<BufferInfo> &buffers,
+  void Allocate(size_t size, std::vector<BufferInfo> &buffers,
                 size_t &total_size) {
     u32 buffer_count = 0;
     std::vector<SlabCount> coins = CoinSelect(size, buffer_count);
@@ -76,10 +74,7 @@ class SlabAllocator {
     total_size = 0;
     int slab_idx = 0;
     for (auto &coin : coins) {
-      AllocateSlabs(coin.slab_size_,
-                    slab_idx,
-                    coin.count_,
-                    buffers,
+      AllocateSlabs(coin.slab_size_, slab_idx, coin.count_, buffers,
                     total_size);
       ++slab_idx;
     }
@@ -100,7 +95,9 @@ class SlabAllocator {
         }
         ++i;
       }
-      if (i == slab_lists_.size()) { i -= 1; }
+      if (i == slab_lists_.size()) {
+        i -= 1;
+      }
       slab_size = slab_lists_[i].slab_size_;
 
       // Divide rem_size into slabs
@@ -121,8 +118,7 @@ class SlabAllocator {
 
   /** Allocate slabs of a certain size */
   void AllocateSlabs(size_t slab_size, int slab_idx, size_t count,
-                     std::vector<BufferInfo> &buffers,
-                     size_t &total_size) {
+                     std::vector<BufferInfo> &buffers, size_t &total_size) {
     auto &slab = slab_lists_[slab_idx];
     for (size_t i = 0; i < count; ++i) {
       if (slab.buffers_.size() > 0) {

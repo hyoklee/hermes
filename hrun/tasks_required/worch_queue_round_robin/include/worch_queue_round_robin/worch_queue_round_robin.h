@@ -11,7 +11,6 @@ namespace hrun::worch_queue_round_robin {
 
 /** Create admin requests */
 class Client : public TaskLibClient {
-
  public:
   /** Default constructor */
   Client() = default;
@@ -21,12 +20,11 @@ class Client : public TaskLibClient {
 
   /** Create a worch_queue_round_robin */
   HSHM_ALWAYS_INLINE
-  void CreateRoot(const DomainId &domain_id,
-                  const std::string &state_name) {
+  void CreateRoot(const DomainId &domain_id, const std::string &state_name) {
     id_ = TaskStateId::GetNull();
     std::vector<PriorityInfo> queue_info;
-    id_ = HRUN_ADMIN->CreateTaskStateRoot<ConstructTask>(
-        domain_id, state_name, id_, queue_info);
+    id_ = HRUN_ADMIN->CreateTaskStateRoot<ConstructTask>(domain_id, state_name,
+                                                         id_, queue_info);
     Init(id_, HRUN_ADMIN->queue_id_);
   }
 
@@ -37,6 +35,6 @@ class Client : public TaskLibClient {
   }
 };
 
-}  // namespace hrun
+}  // namespace hrun::worch_queue_round_robin
 
 #endif  // HRUN_worch_queue_round_robin_H_

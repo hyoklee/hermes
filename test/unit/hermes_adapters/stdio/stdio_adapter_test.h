@@ -16,7 +16,7 @@
 #include "binary_file_tests.h"
 
 namespace hermes::adapter::test {
-template<bool WITH_MPI>
+template <bool WITH_MPI>
 class StdioTest : public BinaryFileTests {
  public:
   FileInfo new_file_;
@@ -46,7 +46,7 @@ class StdioTest : public BinaryFileTests {
   void RegisterFiles() override {
     RegisterPath("new", 0, new_file_);
     RegisterPath("ext", TEST_DO_CREATE, existing_file_);
-    if constexpr(WITH_MPI) {
+    if constexpr (WITH_MPI) {
       RegisterPath("shared_new", TEST_FILE_SHARED, shared_new_file_);
       RegisterPath("shared_ext", TEST_DO_CREATE | TEST_FILE_SHARED,
                    shared_existing_file_);
@@ -54,11 +54,11 @@ class StdioTest : public BinaryFileTests {
     RegisterTmpPath(tmp_file_);
   }
 
-  void test_fopen(FileInfo &info, const char* mode) {
+  void test_fopen(FileInfo& info, const char* mode) {
     fh_orig_ = fopen(info.hermes_.c_str(), mode);
     fh_cmp_ = fopen(info.cmp_.c_str(), mode);
     bool is_same = (fh_cmp_ != nullptr && fh_orig_ != nullptr) ||
-        (fh_cmp_ == nullptr && fh_orig_ == nullptr);
+                   (fh_cmp_ == nullptr && fh_orig_ == nullptr);
     REQUIRE(is_same);
   }
   void test_fclose() {
@@ -97,9 +97,9 @@ class StdioTest : public BinaryFileTests {
 }  // namespace hermes::adapter::test
 
 #if defined(HERMES_MPI_TESTS)
-#define TESTER \
+#define TESTER         \
   hshm::EasySingleton< \
-    hermes::adapter::test::StdioTest<HERMES_MPI_TESTS>>::GetInstance()
+      hermes::adapter::test::StdioTest<HERMES_MPI_TESTS>>::GetInstance()
 #else
 #define TESTER \
   hshm::EasySingleton<hermes::adapter::test::StdioTest<false>>::GetInstance()

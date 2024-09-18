@@ -31,24 +31,27 @@ void Monitor(u32 mode, Task *task, RunContext &rctx) override {
 void Del(u32 method, Task *task) override {
   switch (method) {
     case Method::kConstruct: {
-      HRUN_CLIENT->DelTask<ConstructTask>(reinterpret_cast<ConstructTask *>(task));
+      HRUN_CLIENT->DelTask<ConstructTask>(
+          reinterpret_cast<ConstructTask *>(task));
       break;
     }
     case Method::kDestruct: {
-      HRUN_CLIENT->DelTask<DestructTask>(reinterpret_cast<DestructTask *>(task));
+      HRUN_CLIENT->DelTask<DestructTask>(
+          reinterpret_cast<DestructTask *>(task));
       break;
     }
   }
 }
 /** Duplicate a task */
-void Dup(u32 method, Task *orig_task, std::vector<LPointer<Task>> &dups) override {
+void Dup(u32 method, Task *orig_task,
+         std::vector<LPointer<Task>> &dups) override {
   switch (method) {
     case Method::kConstruct: {
-      hrun::CALL_DUPLICATE(reinterpret_cast<ConstructTask*>(orig_task), dups);
+      hrun::CALL_DUPLICATE(reinterpret_cast<ConstructTask *>(orig_task), dups);
       break;
     }
     case Method::kDestruct: {
-      hrun::CALL_DUPLICATE(reinterpret_cast<DestructTask*>(orig_task), dups);
+      hrun::CALL_DUPLICATE(reinterpret_cast<DestructTask *>(orig_task), dups);
       break;
     }
   }
@@ -57,11 +60,15 @@ void Dup(u32 method, Task *orig_task, std::vector<LPointer<Task>> &dups) overrid
 void DupEnd(u32 method, u32 replica, Task *orig_task, Task *dup_task) override {
   switch (method) {
     case Method::kConstruct: {
-      hrun::CALL_DUPLICATE_END(replica, reinterpret_cast<ConstructTask*>(orig_task), reinterpret_cast<ConstructTask*>(dup_task));
+      hrun::CALL_DUPLICATE_END(replica,
+                               reinterpret_cast<ConstructTask *>(orig_task),
+                               reinterpret_cast<ConstructTask *>(dup_task));
       break;
     }
     case Method::kDestruct: {
-      hrun::CALL_DUPLICATE_END(replica, reinterpret_cast<DestructTask*>(orig_task), reinterpret_cast<DestructTask*>(dup_task));
+      hrun::CALL_DUPLICATE_END(replica,
+                               reinterpret_cast<DestructTask *>(orig_task),
+                               reinterpret_cast<DestructTask *>(dup_task));
       break;
     }
   }
@@ -70,11 +77,11 @@ void DupEnd(u32 method, u32 replica, Task *orig_task, Task *dup_task) override {
 void ReplicateStart(u32 method, u32 count, Task *task) override {
   switch (method) {
     case Method::kConstruct: {
-      hrun::CALL_REPLICA_START(count, reinterpret_cast<ConstructTask*>(task));
+      hrun::CALL_REPLICA_START(count, reinterpret_cast<ConstructTask *>(task));
       break;
     }
     case Method::kDestruct: {
-      hrun::CALL_REPLICA_START(count, reinterpret_cast<DestructTask*>(task));
+      hrun::CALL_REPLICA_START(count, reinterpret_cast<DestructTask *>(task));
       break;
     }
   }
@@ -83,24 +90,25 @@ void ReplicateStart(u32 method, u32 count, Task *task) override {
 void ReplicateEnd(u32 method, Task *task) override {
   switch (method) {
     case Method::kConstruct: {
-      hrun::CALL_REPLICA_END(reinterpret_cast<ConstructTask*>(task));
+      hrun::CALL_REPLICA_END(reinterpret_cast<ConstructTask *>(task));
       break;
     }
     case Method::kDestruct: {
-      hrun::CALL_REPLICA_END(reinterpret_cast<DestructTask*>(task));
+      hrun::CALL_REPLICA_END(reinterpret_cast<DestructTask *>(task));
       break;
     }
   }
 }
 /** Serialize a task when initially pushing into remote */
-std::vector<DataTransfer> SaveStart(u32 method, BinaryOutputArchive<true> &ar, Task *task) override {
+std::vector<DataTransfer> SaveStart(u32 method, BinaryOutputArchive<true> &ar,
+                                    Task *task) override {
   switch (method) {
     case Method::kConstruct: {
-      ar << *reinterpret_cast<ConstructTask*>(task);
+      ar << *reinterpret_cast<ConstructTask *>(task);
       break;
     }
     case Method::kDestruct: {
-      ar << *reinterpret_cast<DestructTask*>(task);
+      ar << *reinterpret_cast<DestructTask *>(task);
       break;
     }
   }
@@ -112,40 +120,42 @@ TaskPointer LoadStart(u32 method, BinaryInputArchive<true> &ar) override {
   switch (method) {
     case Method::kConstruct: {
       task_ptr.ptr_ = HRUN_CLIENT->NewEmptyTask<ConstructTask>(task_ptr.shm_);
-      ar >> *reinterpret_cast<ConstructTask*>(task_ptr.ptr_);
+      ar >> *reinterpret_cast<ConstructTask *>(task_ptr.ptr_);
       break;
     }
     case Method::kDestruct: {
       task_ptr.ptr_ = HRUN_CLIENT->NewEmptyTask<DestructTask>(task_ptr.shm_);
-      ar >> *reinterpret_cast<DestructTask*>(task_ptr.ptr_);
+      ar >> *reinterpret_cast<DestructTask *>(task_ptr.ptr_);
       break;
     }
   }
   return task_ptr;
 }
 /** Serialize a task when returning from remote queue */
-std::vector<DataTransfer> SaveEnd(u32 method, BinaryOutputArchive<false> &ar, Task *task) override {
+std::vector<DataTransfer> SaveEnd(u32 method, BinaryOutputArchive<false> &ar,
+                                  Task *task) override {
   switch (method) {
     case Method::kConstruct: {
-      ar << *reinterpret_cast<ConstructTask*>(task);
+      ar << *reinterpret_cast<ConstructTask *>(task);
       break;
     }
     case Method::kDestruct: {
-      ar << *reinterpret_cast<DestructTask*>(task);
+      ar << *reinterpret_cast<DestructTask *>(task);
       break;
     }
   }
   return ar.Get();
 }
 /** Deserialize a task when returning from remote queue */
-void LoadEnd(u32 replica, u32 method, BinaryInputArchive<false> &ar, Task *task) override {
+void LoadEnd(u32 replica, u32 method, BinaryInputArchive<false> &ar,
+             Task *task) override {
   switch (method) {
     case Method::kConstruct: {
-      ar.Deserialize(replica, *reinterpret_cast<ConstructTask*>(task));
+      ar.Deserialize(replica, *reinterpret_cast<ConstructTask *>(task));
       break;
     }
     case Method::kDestruct: {
-      ar.Deserialize(replica, *reinterpret_cast<DestructTask*>(task));
+      ar.Deserialize(replica, *reinterpret_cast<DestructTask *>(task));
       break;
     }
   }
@@ -154,10 +164,10 @@ void LoadEnd(u32 replica, u32 method, BinaryInputArchive<false> &ar, Task *task)
 u32 GetGroup(u32 method, Task *task, hshm::charbuf &group) override {
   switch (method) {
     case Method::kConstruct: {
-      return reinterpret_cast<ConstructTask*>(task)->GetGroup(group);
+      return reinterpret_cast<ConstructTask *>(task)->GetGroup(group);
     }
     case Method::kDestruct: {
-      return reinterpret_cast<DestructTask*>(task)->GetGroup(group);
+      return reinterpret_cast<DestructTask *>(task)->GetGroup(group);
     }
   }
   return -1;

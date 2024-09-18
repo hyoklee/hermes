@@ -14,6 +14,7 @@
 #define HRUN_SRC_CONFIG_CLIENT_H_
 
 #include <filesystem>
+
 #include "config.h"
 
 namespace stdfs = std::filesystem;

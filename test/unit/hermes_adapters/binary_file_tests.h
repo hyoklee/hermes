@@ -23,8 +23,7 @@ class BinaryFileTests : public FilesystemTests<char> {
     return GenRandom(total_size_, 200);
   }
 
-  void CreateFile(const std::string &path,
-                  std::vector<char> &data) override {
+  void CreateFile(const std::string &path, std::vector<char> &data) override {
     int fd = open(path.c_str(), O_CREAT | O_TRUNC | O_RDWR, 0666);
     if (fd == -1) {
       HELOG(kFatal, "Failed to open file: {}", path);
@@ -51,7 +50,7 @@ class BinaryFileTests : public FilesystemTests<char> {
 
  private:
   void LoadFile(const std::string &path, std::vector<char> &data) {
-    FILE* fh = fopen(path.c_str(), "r");
+    FILE *fh = fopen(path.c_str(), "r");
     if (fh == nullptr) {
       HELOG(kFatal, "Failed to open file: {}", path);
     }

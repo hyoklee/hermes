@@ -27,15 +27,15 @@ struct ScheduleTask : public Task, TaskFlags<TF_LOCAL> {
   OUT hipc::pod_array<int, 1> ret_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ScheduleTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit ScheduleTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ScheduleTask(hipc::Allocator *alloc,
-               const TaskNode &task_node,
-               const DomainId &domain_id,
-               TaskStateId &state_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit ScheduleTask(hipc::Allocator *alloc,
+                                           const TaskNode &task_node,
+                                           const DomainId &domain_id,
+                                           TaskStateId &state_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -52,9 +52,7 @@ struct ScheduleTask : public Task, TaskFlags<TF_LOCAL> {
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 }  // namespace hrun

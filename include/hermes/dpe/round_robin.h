@@ -28,8 +28,7 @@ class RoundRobin : public Dpe {
   RoundRobin() : counter_(0) {}
 
   Status Placement(const std::vector<size_t> &blob_sizes,
-                   std::vector<TargetInfo> &targets,
-                   Context &ctx,
+                   std::vector<TargetInfo> &targets, Context &ctx,
                    std::vector<PlacementSchema> &output) {
     for (size_t blob_size : blob_sizes) {
       // Initialize blob's size, score, and schema
@@ -52,8 +51,7 @@ class RoundRobin : public Dpe {
         }
 
         // Place the blob on this target
-        blob_schema.plcmnts_.emplace_back(rem_blob_size,
-                                          target.id_);
+        blob_schema.plcmnts_.emplace_back(rem_blob_size, target.id_);
         rem_blob_size = 0;
         break;
       }

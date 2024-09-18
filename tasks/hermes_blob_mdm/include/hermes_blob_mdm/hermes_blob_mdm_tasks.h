@@ -5,13 +5,12 @@
 #ifndef HRUN_TASKS_HERMES_BLOB_MDM_INCLUDE_HERMES_BLOB_MDM_HERMES_BLOB_MDM_TASKS_H_
 #define HRUN_TASKS_HERMES_BLOB_MDM_INCLUDE_HERMES_BLOB_MDM_HERMES_BLOB_MDM_TASKS_H_
 
+#include "bdev/bdev.h"
+#include "hermes/hermes_types.h"
 #include "hrun/api/hrun_client.h"
+#include "hrun/queue_manager/queue_manager_client.h"
 #include "hrun/task_registry/task_lib.h"
 #include "hrun_admin/hrun_admin.h"
-#include "hrun/queue_manager/queue_manager_client.h"
-#include "hermes/hermes_types.h"
-#include "bdev/bdev.h"
-#include "hrun/api/hrun_client.h"
 #include "proc_queue/proc_queue.h"
 
 namespace hermes::blob_mdm {
@@ -19,11 +18,12 @@ namespace hermes::blob_mdm {
 #include "hermes_blob_mdm_methods.h"
 #include "hrun/hrun_namespace.h"
 
+using hrun::DataTransfer;
 using hrun::Task;
 using hrun::TaskFlags;
-using hrun::DataTransfer;
 
-static inline u32 HashBlobName(const TagId &tag_id, const hshm::charbuf &blob_name) {
+static inline u32 HashBlobName(const TagId &tag_id,
+                               const hshm::charbuf &blob_name) {
   u32 h2 = std::hash<TagId>{}(tag_id);
   u32 h1 = std::hash<hshm::charbuf>{}(blob_name);
   return std::hash<u32>{}(h1 ^ h2);
@@ -43,42 +43,35 @@ class ConstructTaskPhase : public CreateTaskStatePhase {
 using hrun::Admin::CreateTaskStateTask;
 struct ConstructTask : public CreateTaskStateTask {
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ConstructTask(hipc::Allocator *alloc) : CreateTaskStateTask(alloc) {}
+  HSHM_ALWAYS_INLINE explicit ConstructTask(hipc::Allocator *alloc)
+      : CreateTaskStateTask(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ConstructTask(hipc::Allocator *alloc,
-                const TaskNode &task_node,
-                const DomainId &domain_id,
-                const std::string &state_name,
-                const TaskStateId &id,
-                const std::vector<PriorityInfo> &queue_info)
+  HSHM_ALWAYS_INLINE explicit ConstructTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const std::string &state_name,
+      const TaskStateId &id, const std::vector<PriorityInfo> &queue_info)
       : CreateTaskStateTask(alloc, task_node, domain_id, state_name,
-                            "hermes_blob_mdm", id, queue_info) {
-  }
+                            "hermes_blob_mdm", id, queue_info) {}
 };
 
 /** A task to destroy hermes_mdm */
 using hrun::Admin::DestroyTaskStateTask;
 struct DestructTask : public DestroyTaskStateTask {
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestructTask(hipc::Allocator *alloc) : DestroyTaskStateTask(alloc) {}
+  HSHM_ALWAYS_INLINE explicit DestructTask(hipc::Allocator *alloc)
+      : DestroyTaskStateTask(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestructTask(hipc::Allocator *alloc,
-               const TaskNode &task_node,
-               const DomainId &domain_id,
-               const TaskStateId &state_id)
-  : DestroyTaskStateTask(alloc, task_node, domain_id, state_id) {}
+  HSHM_ALWAYS_INLINE explicit DestructTask(hipc::Allocator *alloc,
+                                           const TaskNode &task_node,
+                                           const DomainId &domain_id,
+                                           const TaskStateId &state_id)
+      : DestroyTaskStateTask(alloc, task_node, domain_id, state_id) {}
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** Set the BUCKET MDM ID */
@@ -88,18 +81,18 @@ struct SetBucketMdmTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   IN TaskStateId op_mdm_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  SetBucketMdmTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit SetBucketMdmTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  SetBucketMdmTask(hipc::Allocator *alloc,
-                   const TaskNode &task_node,
-                   const DomainId &domain_id,
-                   const TaskStateId &state_id,
-                   const TaskStateId &bkt_mdm,
-                   const TaskStateId &stager_mdm,
-                   const TaskStateId &op_mdm) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit SetBucketMdmTask(hipc::Allocator *alloc,
+                                               const TaskNode &task_node,
+                                               const DomainId &domain_id,
+                                               const TaskStateId &state_id,
+                                               const TaskStateId &bkt_mdm,
+                                               const TaskStateId &stager_mdm,
+                                               const TaskStateId &op_mdm)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -119,31 +112,25 @@ struct SetBucketMdmTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   ~SetBucketMdmTask() {}
 
   /** Duplicate message */
-  void Dup(hipc::Allocator *alloc, SetBucketMdmTask &other) {
-    task_dup(other);
-  }
+  void Dup(hipc::Allocator *alloc, SetBucketMdmTask &other) { task_dup(other); }
 
   /** Process duplicate message output */
-  void DupEnd(u32 replica, SetBucketMdmTask &dup_task) {
-  }
+  void DupEnd(u32 replica, SetBucketMdmTask &dup_task) {}
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(bkt_mdm_, stager_mdm_, op_mdm_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 
   /** Begin replication */
   void ReplicateStart(u32 count) {}
@@ -165,17 +152,15 @@ struct GetOrCreateBlobIdTask : public Task, TaskFlags<TF_SRL_SYM> {
   OUT BlobId blob_id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetOrCreateBlobIdTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetOrCreateBlobIdTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetOrCreateBlobIdTask(hipc::Allocator *alloc,
-                        const TaskNode &task_node,
-                        const DomainId &domain_id,
-                        const TaskStateId &state_id,
-                        const TagId &tag_id,
-                        const hshm::charbuf &blob_name) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetOrCreateBlobIdTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &state_id,
+      const TagId &tag_id, const hshm::charbuf &blob_name)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = HashBlobName(tag_id, blob_name);
@@ -191,28 +176,24 @@ struct GetOrCreateBlobIdTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** Destructor */
-  ~GetOrCreateBlobIdTask() {
-    HSHM_DESTROY_AR(blob_name_)
-  }
+  ~GetOrCreateBlobIdTask() { HSHM_DESTROY_AR(blob_name_) }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_name_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(blob_id_);
   }
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** Phases for the put task */
@@ -237,7 +218,8 @@ class PutBlobPhase {
 #define HERMES_USER_SCORE_STATIONARY BIT_OPT(u32, 9)
 
 /** A task to put data in a blob */
-struct PutBlobTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> {
+struct PutBlobTask : public Task,
+                     TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> {
   IN TagId tag_id_;
   IN hipc::ShmArchive<hipc::charbuf> blob_name_;
   IN size_t blob_off_;
@@ -248,25 +230,18 @@ struct PutBlobTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> 
   IN BlobId blob_id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  PutBlobTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit PutBlobTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  PutBlobTask(hipc::Allocator *alloc,
-              const TaskNode &task_node,
-              const DomainId &domain_id,
-              const TaskStateId &state_id,
-              const TagId &tag_id,
-              const hshm::charbuf &blob_name,
-              const BlobId &blob_id,
-              size_t blob_off,
-              size_t data_size,
-              const hipc::Pointer &data,
-              float score,
-              u32 flags,
-              const Context &ctx,
-              u32 task_flags) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit PutBlobTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &state_id,
+      const TagId &tag_id, const hshm::charbuf &blob_name,
+      const BlobId &blob_id, size_t blob_off, size_t data_size,
+      const hipc::Pointer &data, float score, u32 flags, const Context &ctx,
+      u32 task_flags)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     prio_ = TaskPrio::kLowLatency;
@@ -298,41 +273,42 @@ struct PutBlobTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> 
   ~PutBlobTask() {
     HSHM_DESTROY_AR(blob_name_);
     if (IsDataOwner()) {
-      // HILOG(kInfo, "Actually freeing PUT {} of size {}", task_node_, data_size_);
+      // HILOG(kInfo, "Actually freeing PUT {} of size {}", task_node_,
+      // data_size_);
       HRUN_CLIENT->FreeBuffer(data_);
     }
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SaveStart(Ar &ar) {
     DataTransfer xfer(DT_RECEIVER_READ,
-                      HERMES_MEMORY_MANAGER->Convert<char>(data_),
-                      data_size_, domain_id_);
+                      HERMES_MEMORY_MANAGER->Convert<char>(data_), data_size_,
+                      domain_id_);
     task_serialize<Ar>(ar);
-    ar & xfer;
+    ar &xfer;
     ar(tag_id_, blob_name_, blob_id_, blob_off_, data_size_, score_, flags_);
   }
 
   /** Deserialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void LoadStart(Ar &ar) {
     DataTransfer xfer;
     task_serialize<Ar>(ar);
-    ar & xfer;
+    ar &xfer;
     data_ = HERMES_MEMORY_MANAGER->Convert<void, hipc::Pointer>(xfer.data_);
     ar(tag_id_, blob_name_, blob_id_, blob_off_, data_size_, score_, flags_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     if (flags_.Any(HERMES_GET_BLOB_ID)) {
       ar(blob_id_);
     }
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -350,7 +326,8 @@ class GetBlobPhase {
 };
 
 /** A task to get data from a blob */
-struct GetBlobTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> {
+struct GetBlobTask : public Task,
+                     TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> {
   IN TagId tag_id_;
   IN hipc::ShmArchive<hipc::charbuf> blob_name_;
   INOUT BlobId blob_id_;
@@ -360,23 +337,17 @@ struct GetBlobTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> 
   IN bitfield32_t flags_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetBlobTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobTask(hipc::Allocator *alloc,
-              const TaskNode &task_node,
-              const DomainId &domain_id,
-              const TaskStateId &state_id,
-              const TagId &tag_id,
-              const hshm::charbuf &blob_name,
-              const BlobId &blob_id,
-              size_t off,
-              size_t data_size,
-              hipc::Pointer &data,
-              const Context &ctx,
-              u32 flags) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetBlobTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &state_id,
+      const TagId &tag_id, const hshm::charbuf &blob_name,
+      const BlobId &blob_id, size_t off, size_t data_size, hipc::Pointer &data,
+      const Context &ctx, u32 flags)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     prio_ = TaskPrio::kLowLatency;
@@ -402,9 +373,8 @@ struct GetBlobTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> 
   }
 
   /** Convert data to a data structure */
-  template<typename T>
-  HSHM_ALWAYS_INLINE
-  void Get(T &obj) {
+  template <typename T>
+  HSHM_ALWAYS_INLINE void Get(T &obj) {
     char *data = HRUN_CLIENT->GetDataPointer(data_);
     std::stringstream ss(std::string(data, data_size_));
     cereal::BinaryInputArchive ar(ss);
@@ -412,41 +382,38 @@ struct GetBlobTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> 
   }
 
   /** Convert data to a data structure */
-  template<typename T>
-  HSHM_ALWAYS_INLINE
-  T Get() {
+  template <typename T>
+  HSHM_ALWAYS_INLINE T Get() {
     T obj;
     return Get(obj);
   }
 
   /** Destructor */
-  ~GetBlobTask() {
-    HSHM_DESTROY_AR(blob_name_);
-  }
+  ~GetBlobTask() { HSHM_DESTROY_AR(blob_name_); }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SaveStart(Ar &ar) {
     DataTransfer xfer(DT_RECEIVER_WRITE,
-                      HERMES_MEMORY_MANAGER->Convert<char>(data_),
-                      data_size_, domain_id_);
+                      HERMES_MEMORY_MANAGER->Convert<char>(data_), data_size_,
+                      domain_id_);
     task_serialize<Ar>(ar);
-    ar & xfer;
+    ar &xfer;
     ar(tag_id_, blob_name_, blob_id_, blob_off_, data_size_, flags_);
   }
 
   /** Deserialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void LoadStart(Ar &ar) {
     DataTransfer xfer;
     task_serialize<Ar>(ar);
-    ar & xfer;
+    ar &xfer;
     data_ = HERMES_MEMORY_MANAGER->Convert<void, hipc::Pointer>(xfer.data_);
     ar(tag_id_, blob_name_, blob_id_, blob_off_, data_size_, flags_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     if (flags_.Any(HERMES_GET_BLOB_ID)) {
       ar(blob_id_);
@@ -454,7 +421,7 @@ struct GetBlobTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> 
     ar(data_size_);
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -471,18 +438,15 @@ struct TagBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   IN TagId tag_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  TagBlobTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit TagBlobTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  TagBlobTask(hipc::Allocator *alloc,
-              const TaskNode &task_node,
-              const DomainId &domain_id,
-              const TaskStateId &state_id,
-              const TagId &tag_id,
-              const BlobId &blob_id,
-              const TagId &tag) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit TagBlobTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &state_id,
+      const TagId &tag_id, const BlobId &blob_id, const TagId &tag)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = blob_id.hash_;
@@ -499,18 +463,17 @@ struct TagBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(blob_id_, tag_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -530,18 +493,15 @@ struct BlobHasTagTask : public Task, TaskFlags<TF_SRL_SYM> {
   OUT bool has_tag_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  BlobHasTagTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit BlobHasTagTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  BlobHasTagTask(hipc::Allocator *alloc,
-                 const TaskNode &task_node,
-                 const DomainId &domain_id,
-                 const TaskStateId &state_id,
-                 const TagId &tag_id,
-                 const BlobId &blob_id,
-                 const TagId &tag) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit BlobHasTagTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &state_id,
+      const TagId &tag_id, const BlobId &blob_id, const TagId &tag)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     task_node_ = task_node;
@@ -559,19 +519,19 @@ struct BlobHasTagTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_id_, tag_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(has_tag_);
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -590,17 +550,17 @@ struct GetBlobIdTask : public Task, TaskFlags<TF_SRL_SYM> {
   OUT BlobId blob_id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobIdTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetBlobIdTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobIdTask(hipc::Allocator *alloc,
-                const TaskNode &task_node,
-                const DomainId &domain_id,
-                const TaskStateId &state_id,
-                const TagId &tag_id,
-                const hshm::charbuf &blob_name) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetBlobIdTask(hipc::Allocator *alloc,
+                                            const TaskNode &task_node,
+                                            const DomainId &domain_id,
+                                            const TaskStateId &state_id,
+                                            const TagId &tag_id,
+                                            const hshm::charbuf &blob_name)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = HashBlobName(tag_id, blob_name);
@@ -616,24 +576,22 @@ struct GetBlobIdTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** Destructor */
-  ~GetBlobIdTask() {
-    HSHM_DESTROY_AR(blob_name_)
-  }
+  ~GetBlobIdTask() { HSHM_DESTROY_AR(blob_name_) }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_name_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(blob_id_);
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -652,17 +610,17 @@ struct GetBlobNameTask : public Task, TaskFlags<TF_SRL_SYM> {
   OUT hipc::ShmArchive<hipc::string> blob_name_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobNameTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetBlobNameTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobNameTask(hipc::Allocator *alloc,
-                  const TaskNode &task_node,
-                  const DomainId &domain_id,
-                  const TaskStateId &state_id,
-                  const TagId &tag_id,
-                  const BlobId &blob_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetBlobNameTask(hipc::Allocator *alloc,
+                                              const TaskNode &task_node,
+                                              const DomainId &domain_id,
+                                              const TaskStateId &state_id,
+                                              const TagId &tag_id,
+                                              const BlobId &blob_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = blob_id.hash_;
@@ -679,24 +637,22 @@ struct GetBlobNameTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** Destructor */
-  ~GetBlobNameTask() {
-    HSHM_DESTROY_AR(blob_name_)
-  };
+  ~GetBlobNameTask(){HSHM_DESTROY_AR(blob_name_)};
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_id_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(blob_name_);
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -714,18 +670,18 @@ struct GetBlobSizeTask : public Task, TaskFlags<TF_SRL_SYM> {
   OUT size_t size_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobSizeTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetBlobSizeTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobSizeTask(hipc::Allocator *alloc,
-                  const TaskNode &task_node,
-                  const DomainId &domain_id,
-                  const TaskStateId &state_id,
-                  const TagId &tag_id,
-                  const hshm::charbuf &blob_name,
-                  const BlobId &blob_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetBlobSizeTask(hipc::Allocator *alloc,
+                                              const TaskNode &task_node,
+                                              const DomainId &domain_id,
+                                              const TaskStateId &state_id,
+                                              const TagId &tag_id,
+                                              const hshm::charbuf &blob_name,
+                                              const BlobId &blob_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     prio_ = TaskPrio::kLowLatency;
@@ -747,24 +703,22 @@ struct GetBlobSizeTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** Destructor */
-  ~GetBlobSizeTask() {
-    HSHM_DESTROY_AR(blob_name_)
-  }
+  ~GetBlobSizeTask() { HSHM_DESTROY_AR(blob_name_) }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_name_, blob_id_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(size_);
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -781,17 +735,17 @@ struct GetBlobScoreTask : public Task, TaskFlags<TF_SRL_SYM> {
   OUT float score_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobScoreTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetBlobScoreTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobScoreTask(hipc::Allocator *alloc,
-                   const TaskNode &task_node,
-                   const DomainId &domain_id,
-                   const TaskStateId &state_id,
-                   const TagId &tag_id,
-                   const BlobId &blob_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetBlobScoreTask(hipc::Allocator *alloc,
+                                               const TaskNode &task_node,
+                                               const DomainId &domain_id,
+                                               const TaskStateId &state_id,
+                                               const TagId &tag_id,
+                                               const BlobId &blob_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = blob_id.hash_;
@@ -807,19 +761,19 @@ struct GetBlobScoreTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_id_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(score_);
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -836,17 +790,17 @@ struct GetBlobBuffersTask : public Task, TaskFlags<TF_SRL_SYM> {
   OUT hipc::ShmArchive<hipc::vector<BufferInfo>> buffers_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobBuffersTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetBlobBuffersTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetBlobBuffersTask(hipc::Allocator *alloc,
-                     const TaskNode &task_node,
-                     const DomainId &domain_id,
-                     const TaskStateId &state_id,
-                     const TagId &tag_id,
-                     const BlobId &blob_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetBlobBuffersTask(hipc::Allocator *alloc,
+                                                 const TaskNode &task_node,
+                                                 const DomainId &domain_id,
+                                                 const TaskStateId &state_id,
+                                                 const TagId &tag_id,
+                                                 const BlobId &blob_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = blob_id.hash_;
@@ -863,24 +817,22 @@ struct GetBlobBuffersTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** Destructor */
-  ~GetBlobBuffersTask() {
-    HSHM_DESTROY_AR(buffers_)
-  }
+  ~GetBlobBuffersTask() { HSHM_DESTROY_AR(buffers_) }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_id_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(buffers_);
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -900,18 +852,18 @@ struct RenameBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   IN hipc::ShmArchive<hipc::charbuf> new_blob_name_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  RenameBlobTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit RenameBlobTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  RenameBlobTask(hipc::Allocator *alloc,
-                 const TaskNode &task_node,
-                 const DomainId &domain_id,
-                 const TaskStateId &state_id,
-                 const TagId &tag_id,
-                 const BlobId &blob_id,
-                 const hshm::charbuf &new_blob_name) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit RenameBlobTask(hipc::Allocator *alloc,
+                                             const TaskNode &task_node,
+                                             const DomainId &domain_id,
+                                             const TaskStateId &state_id,
+                                             const TagId &tag_id,
+                                             const BlobId &blob_id,
+                                             const hshm::charbuf &new_blob_name)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = blob_id.hash_;
@@ -928,24 +880,22 @@ struct RenameBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** Destructor */
-  ~RenameBlobTask() {
-    HSHM_DESTROY_AR(new_blob_name_)
-  }
+  ~RenameBlobTask() { HSHM_DESTROY_AR(new_blob_name_) }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_id_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(new_blob_name_);
   }
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -962,18 +912,17 @@ struct TruncateBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   IN u64 size_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  TruncateBlobTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit TruncateBlobTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  TruncateBlobTask(hipc::Allocator *alloc,
-                   const TaskNode &task_node,
-                   const DomainId &domain_id,
-                   const TaskStateId &state_id,
-                   const TagId &tag_id,
-                   const BlobId &blob_id,
-                   u64 size) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit TruncateBlobTask(hipc::Allocator *alloc,
+                                               const TaskNode &task_node,
+                                               const DomainId &domain_id,
+                                               const TaskStateId &state_id,
+                                               const TagId &tag_id,
+                                               const BlobId &blob_id, u64 size)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = blob_id.hash_;
@@ -990,18 +939,17 @@ struct TruncateBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_id_, size_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -1026,18 +974,15 @@ struct DestroyBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   TEMP hipc::ShmArchive<std::vector<bdev::FreeTask *>> free_tasks_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestroyBlobTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit DestroyBlobTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestroyBlobTask(hipc::Allocator *alloc,
-                  const TaskNode &task_node,
-                  const DomainId &domain_id,
-                  const TaskStateId &state_id,
-                  const TagId &tag_id,
-                  const BlobId &blob_id,
-                  bool update_size = true) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit DestroyBlobTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &state_id,
+      const TagId &tag_id, const BlobId &blob_id, bool update_size = true)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = blob_id.hash_;
@@ -1054,18 +999,17 @@ struct DestroyBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_id_, update_size_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -1097,22 +1041,18 @@ struct ReorganizeBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   TEMP TagId tag_id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ReorganizeBlobTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit ReorganizeBlobTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ReorganizeBlobTask(hipc::Allocator *alloc,
-                     const TaskNode &task_node,
-                     const DomainId &domain_id,
-                     const TaskStateId &state_id,
-                     const TagId &tag_id,
-                     const hshm::charbuf &blob_name,
-                     const BlobId &blob_id,
-                     float score,
-                     bool is_user_score,
-                     const Context &ctx,
-                     u32 task_flags = TASK_LOW_LATENCY | TASK_FIRE_AND_FORGET) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit ReorganizeBlobTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &state_id,
+      const TagId &tag_id, const hshm::charbuf &blob_name,
+      const BlobId &blob_id, float score, bool is_user_score,
+      const Context &ctx,
+      u32 task_flags = TASK_LOW_LATENCY | TASK_FIRE_AND_FORGET)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = blob_id.hash_;
@@ -1132,23 +1072,20 @@ struct ReorganizeBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** Destructor */
-  ~ReorganizeBlobTask() {
-    HSHM_DESTROY_AR(blob_name_)
-  }
+  ~ReorganizeBlobTask() { HSHM_DESTROY_AR(blob_name_) }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(tag_id_, blob_name_, blob_id_, score_, node_id_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
-   /** Create group */
+  /** Create group */
   HSHM_ALWAYS_INLINE
   u32 GetGroup(hshm::charbuf &group) {
     hrun::LocalSerialize srl(group);
@@ -1161,50 +1098,43 @@ struct ReorganizeBlobTask : public Task, TaskFlags<TF_SRL_SYM> {
 /** A task to reorganize a blob's composition in the hierarchy */
 struct FlushDataTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  FlushDataTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit FlushDataTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  FlushDataTask(hipc::Allocator *alloc,
-                const TaskNode &task_node,
-                const TaskStateId &state_id,
-                size_t period_ms) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit FlushDataTask(hipc::Allocator *alloc,
+                                            const TaskNode &task_node,
+                                            const TaskStateId &state_id,
+                                            size_t period_ms)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
     prio_ = TaskPrio::kLongRunningTether;
     task_state_ = state_id;
     method_ = Method::kFlushData;
-    task_flags_.SetBits(
-        TASK_LANE_ALL |
-        TASK_FIRE_AND_FORGET |
-        TASK_LONG_RUNNING |
-        TASK_COROUTINE |
-        TASK_REMOTE_DEBUG_MARK);
+    task_flags_.SetBits(TASK_LANE_ALL | TASK_FIRE_AND_FORGET |
+                        TASK_LONG_RUNNING | TASK_COROUTINE |
+                        TASK_REMOTE_DEBUG_MARK);
     SetPeriodMs((double)period_ms);
     domain_id_ = DomainId::GetLocal();
   }
 
   /** Duplicate message */
-  void Dup(hipc::Allocator *alloc, FlushDataTask &other) {
-    task_dup(other);
-  }
+  void Dup(hipc::Allocator *alloc, FlushDataTask &other) { task_dup(other); }
 
   /** Process duplicate message output */
-  void DupEnd(u32 replica, FlushDataTask &dup_task) {
-  }
+  void DupEnd(u32 replica, FlushDataTask &dup_task) {}
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
   /** Begin replication */
   void ReplicateStart(u32 count) {}
@@ -1214,27 +1144,25 @@ struct FlushDataTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** A task to collect blob metadata */
-struct PollBlobMetadataTask : public Task, TaskFlags<TF_SRL_SYM_START | TF_SRL_ASYM_END | TF_REPLICA> {
+struct PollBlobMetadataTask
+    : public Task,
+      TaskFlags<TF_SRL_SYM_START | TF_SRL_ASYM_END | TF_REPLICA> {
   TEMP hipc::ShmArchive<hipc::string> my_blob_mdm_;
   TEMP hipc::ShmArchive<hipc::vector<hipc::string>> blob_mdms_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  PollBlobMetadataTask(hipc::Allocator *alloc) : Task(alloc) {
-    HSHM_MAKE_AR0(blob_mdms_, alloc)
-  }
+  HSHM_ALWAYS_INLINE explicit PollBlobMetadataTask(hipc::Allocator *alloc)
+      : Task(alloc){HSHM_MAKE_AR0(blob_mdms_, alloc)}
 
-  /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  PollBlobMetadataTask(hipc::Allocator *alloc,
-                       const TaskNode &task_node,
-                       const TaskStateId &state_id) : Task(alloc) {
+        /** Emplace constructor */
+        HSHM_ALWAYS_INLINE explicit PollBlobMetadataTask(
+            hipc::Allocator * alloc, const TaskNode &task_node,
+            const TaskStateId &state_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -1258,7 +1186,8 @@ struct PollBlobMetadataTask : public Task, TaskFlags<TF_SRL_SYM_START | TF_SRL_A
   }
 
   /** Deserialize blob info */
-  void DeserializeBlobMetadata(const std::string &srl, std::vector<BlobInfo> &blob_mdms) {
+  void DeserializeBlobMetadata(const std::string &srl,
+                               std::vector<BlobInfo> &blob_mdms) {
     std::vector<BlobInfo> tmp_blob_mdms;
     std::stringstream ss(srl);
     cereal::BinaryInputArchive ar(ss);
@@ -1303,29 +1232,27 @@ struct PollBlobMetadataTask : public Task, TaskFlags<TF_SRL_SYM_START | TF_SRL_A
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(my_blob_mdm_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SaveEnd(Ar &ar) {
     ar(my_blob_mdm_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void LoadEnd(u32 replica, Ar &ar) {
     ar(my_blob_mdm_);
     DupEnd(replica, *this);
   }
 
   /** Begin replication */
-  void ReplicateStart(u32 count) {
-    blob_mdms_->resize(count);
-  }
+  void ReplicateStart(u32 count) { blob_mdms_->resize(count); }
 
   /** Finalize replication */
   void ReplicateEnd() {
@@ -1335,27 +1262,25 @@ struct PollBlobMetadataTask : public Task, TaskFlags<TF_SRL_SYM_START | TF_SRL_A
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** A task to collect blob metadata */
-struct PollTargetMetadataTask : public Task, TaskFlags<TF_SRL_SYM_START | TF_SRL_ASYM_START | TF_REPLICA> {
+struct PollTargetMetadataTask
+    : public Task,
+      TaskFlags<TF_SRL_SYM_START | TF_SRL_ASYM_START | TF_REPLICA> {
   OUT hipc::ShmArchive<hipc::string> my_target_mdms_;
   TEMP hipc::ShmArchive<hipc::vector<hipc::string>> target_mdms_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  PollTargetMetadataTask(hipc::Allocator *alloc) : Task(alloc) {
-    HSHM_MAKE_AR0(target_mdms_, alloc)
-  }
+  HSHM_ALWAYS_INLINE explicit PollTargetMetadataTask(hipc::Allocator *alloc)
+      : Task(alloc){HSHM_MAKE_AR0(target_mdms_, alloc)}
 
-  /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  PollTargetMetadataTask(hipc::Allocator *alloc,
-                         const TaskNode &task_node,
-                         const TaskStateId &state_id) : Task(alloc) {
+        /** Emplace constructor */
+        HSHM_ALWAYS_INLINE explicit PollTargetMetadataTask(
+            hipc::Allocator * alloc, const TaskNode &task_node,
+            const TaskStateId &state_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -1379,7 +1304,8 @@ struct PollTargetMetadataTask : public Task, TaskFlags<TF_SRL_SYM_START | TF_SRL
   }
 
   /** Deserialize target info */
-  void DeserializeTargetMetadata(const std::string &srl, std::vector<TargetStats> &target_mdms) {
+  void DeserializeTargetMetadata(const std::string &srl,
+                                 std::vector<TargetStats> &target_mdms) {
     std::vector<TargetStats> tmp_target_mdms;
     std::stringstream ss(srl);
     cereal::BinaryInputArchive ar(ss);
@@ -1420,29 +1346,27 @@ struct PollTargetMetadataTask : public Task, TaskFlags<TF_SRL_SYM_START | TF_SRL
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(my_target_mdms_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SaveEnd(Ar &ar) {
     ar(my_target_mdms_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void LoadEnd(u32 replica, Ar &ar) {
     ar(my_target_mdms_);
     DupEnd(replica, *this);
   }
 
   /** Begin replication */
-  void ReplicateStart(u32 count) {
-    target_mdms_->resize(count);
-  }
+  void ReplicateStart(u32 count) { target_mdms_->resize(count); }
 
   /** Finalize replication */
   void ReplicateEnd() {
@@ -1452,11 +1376,9 @@ struct PollTargetMetadataTask : public Task, TaskFlags<TF_SRL_SYM_START | TF_SRL
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 }  // namespace hermes::blob_mdm
 
-#endif //HRUN_TASKS_HERMES_BLOB_MDM_INCLUDE_HERMES_BLOB_MDM_HERMES_BLOB_MDM_TASKS_H_
+#endif  // HRUN_TASKS_HERMES_BLOB_MDM_INCLUDE_HERMES_BLOB_MDM_HERMES_BLOB_MDM_TASKS_H_

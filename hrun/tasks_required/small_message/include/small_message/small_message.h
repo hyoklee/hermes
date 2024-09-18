@@ -11,7 +11,6 @@ namespace hrun::small_message {
 
 /** Create admin requests */
 class Client : public TaskLibClient {
-
  public:
   /** Default constructor */
   Client() = default;
@@ -21,13 +20,12 @@ class Client : public TaskLibClient {
 
   /** Create a small_message */
   HSHM_ALWAYS_INLINE
-  void CreateRoot(const DomainId &domain_id,
-                  const std::string &state_name) {
+  void CreateRoot(const DomainId &domain_id, const std::string &state_name) {
     id_ = TaskStateId::GetNull();
     QueueManagerInfo &qm = HRUN_CLIENT->server_config_.queue_manager_;
     std::vector<PriorityInfo> queue_info;
-    id_ = HRUN_ADMIN->CreateTaskStateRoot<ConstructTask>(
-        domain_id, state_name, id_, queue_info);
+    id_ = HRUN_ADMIN->CreateTaskStateRoot<ConstructTask>(domain_id, state_name,
+                                                         id_, queue_info);
     Init(id_, HRUN_ADMIN->queue_id_);
   }
 
@@ -41,8 +39,7 @@ class Client : public TaskLibClient {
   LPointer<MdTask> AsyncMd(const TaskNode &task_node,
                            const DomainId &domain_id) {
     MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);
-    auto task = HRUN_CLIENT->NewTask<MdTask>(
-        task_node, domain_id, id_);
+    auto task = HRUN_CLIENT->NewTask<MdTask>(task_node, domain_id, id_);
     queue->Emplace(TaskPrio::kLowLatency, 3, task.shm_);
     return task;
   }
@@ -56,11 +53,9 @@ class Client : public TaskLibClient {
   }
 
   /** Metadata PUSH task */
-  void AsyncMdPushConstruct(MdPushTask *task,
-                            const TaskNode &task_node,
+  void AsyncMdPushConstruct(MdPushTask *task, const TaskNode &task_node,
                             const DomainId &domain_id) {
-    HRUN_CLIENT->ConstructTask<MdPushTask>(
-        task, task_node, domain_id, id_);
+    HRUN_CLIENT->ConstructTask<MdPushTask>(task, task_node, domain_id, id_);
   }
   int MdPushRoot(const DomainId &domain_id) {
     LPointer<hrunpq::TypedPushTask<MdPushTask>> push_task =
@@ -76,8 +71,7 @@ class Client : public TaskLibClient {
   /** Io task */
   void AsyncIoConstruct(IoTask *task, const TaskNode &task_node,
                         const DomainId &domain_id) {
-    HRUN_CLIENT->ConstructTask<IoTask>(
-        task, task_node, domain_id, id_);
+    HRUN_CLIENT->ConstructTask<IoTask>(task, task_node, domain_id, id_);
   }
   int IoRoot(const DomainId &domain_id) {
     LPointer<hrunpq::TypedPushTask<IoTask>> push_task = AsyncIoRoot(domain_id);
@@ -90,6 +84,6 @@ class Client : public TaskLibClient {
   HRUN_TASK_NODE_PUSH_ROOT(Io)
 };
 
-}  // namespace hrun
+}  // namespace hrun::small_message
 
 #endif  // HRUN_small_message_H_

@@ -14,12 +14,13 @@
 #define HRUN_INCLUDE_HRUN_CLIENT_HRUN_CLIENT_H_
 
 #include <string>
-#include "manager.h"
+
 #include "hrun/queue_manager/queue_manager_client.h"
+#include "manager.h"
 
 // Singleton macros
 #define HRUN_CLIENT hshm::Singleton<hrun::Client>::GetInstance()
-#define HRUN_CLIENT_T hrun::Client*
+#define HRUN_CLIENT_T hrun::Client *
 
 namespace hrun {
 
@@ -35,17 +36,15 @@ class Client : public ConfigurationManager {
   Client() {}
 
   /** Initialize the client */
-  Client* Create(std::string server_config_path = "",
-                 std::string client_config_path = "",
-                 bool server = false) {
+  Client *Create(std::string server_config_path = "",
+                 std::string client_config_path = "", bool server = false) {
     hshm::ScopedMutex lock(lock_, 1);
     if (is_initialized_) {
       return this;
     }
     mode_ = HrunMode::kClient;
     is_being_initialized_ = true;
-    ClientInit(std::move(server_config_path),
-               std::move(client_config_path),
+    ClientInit(std::move(server_config_path), std::move(client_config_path),
                server);
     is_initialized_ = true;
     is_being_initialized_ = false;
@@ -55,13 +54,11 @@ class Client : public ConfigurationManager {
  private:
   /** Initialize client */
   void ClientInit(std::string server_config_path,
-                  std::string client_config_path,
-                  bool server) {
+                  std::string client_config_path, bool server) {
     LoadServerConfig(server_config_path);
     LoadClientConfig(client_config_path);
     LoadSharedMemory(server);
-    queue_manager_.ClientInit(main_alloc_,
-                              header_->queue_manager_,
+    queue_manager_.ClientInit(main_alloc_, header_->queue_manager_,
                               header_->node_id_);
     if (!server) {
       HERMES_THREAD_MODEL->SetThreadModel(hshm::ThreadType::kPthread);
@@ -93,7 +90,8 @@ class Client : public ConfigurationManager {
 
   /** Create task node id */
   TaskNode MakeTaskNodeId() {
-    return TaskId(header_->node_id_, unique_->fetch_add(1));;
+    return TaskId(header_->node_id_, unique_->fetch_add(1));
+    ;
   }
 
   /** Create a unique ID */
@@ -102,9 +100,8 @@ class Client : public ConfigurationManager {
   }
 
   /** Create a default-constructed task */
-  template<typename TaskT, typename ...Args>
-  HSHM_ALWAYS_INLINE
-  TaskT* NewEmptyTask(hipc::Pointer &p) {
+  template <typename TaskT, typename... Args>
+  HSHM_ALWAYS_INLINE TaskT *NewEmptyTask(hipc::Pointer &p) {
     TaskT *task = main_alloc_->NewObj<TaskT>(p, main_alloc_);
     if (task == nullptr) {
       // throw std::runtime_error("Could not allocate buffer");
@@ -114,9 +111,8 @@ class Client : public ConfigurationManager {
   }
 
   /** Create a default-constructed task */
-  template<typename TaskT, typename ...Args>
-  HSHM_ALWAYS_INLINE
-  LPointer<TaskT> NewEmptyTask() {
+  template <typename TaskT, typename... Args>
+  HSHM_ALWAYS_INLINE LPointer<TaskT> NewEmptyTask() {
     LPointer<TaskT> task = main_alloc_->NewObjLocal<TaskT>(main_alloc_);
     if (task.shm_.IsNull()) {
       // throw std::runtime_error("Could not allocate buffer");
@@ -126,10 +122,10 @@ class Client : public ConfigurationManager {
   }
 
   /** Allocate task */
-  template<typename TaskT, typename ...Args>
-  HSHM_ALWAYS_INLINE
-  hipc::LPointer<TaskT> AllocateTask() {
-    hipc::LPointer<TaskT> task = main_alloc_->AllocateLocalPtr<TaskT>(sizeof(TaskT));
+  template <typename TaskT, typename... Args>
+  HSHM_ALWAYS_INLINE hipc::LPointer<TaskT> AllocateTask() {
+    hipc::LPointer<TaskT> task =
+        main_alloc_->AllocateLocalPtr<TaskT>(sizeof(TaskT));
     if (task.shm_.IsNull()) {
       // throw std::runtime_error("Could not allocate buffer");
       HELOG(kFatal, "Could not allocate buffer (3)");
@@ -138,17 +134,16 @@ class Client : public ConfigurationManager {
   }
 
   /** Construct task */
-  template<typename TaskT, typename ...Args>
-  HSHM_ALWAYS_INLINE
-  void ConstructTask(TaskT *task, Args&& ...args) {
-    return hipc::Allocator::ConstructObj<TaskT>(
-        *task, main_alloc_, std::forward<Args>(args)...);
+  template <typename TaskT, typename... Args>
+  HSHM_ALWAYS_INLINE void ConstructTask(TaskT *task, Args &&...args) {
+    return hipc::Allocator::ConstructObj<TaskT>(*task, main_alloc_,
+                                                std::forward<Args>(args)...);
   }
 
   /** Create a task */
-  template<typename TaskT, typename ...Args>
-  HSHM_ALWAYS_INLINE
-  LPointer<TaskT> NewTask(const TaskNode &task_node, Args&& ...args) {
+  template <typename TaskT, typename... Args>
+  HSHM_ALWAYS_INLINE LPointer<TaskT> NewTask(const TaskNode &task_node,
+                                             Args &&...args) {
     LPointer<TaskT> ptr = main_alloc_->NewObjLocal<TaskT>(
         main_alloc_, task_node, std::forward<Args>(args)...);
     if (ptr.shm_.IsNull()) {
@@ -159,9 +154,8 @@ class Client : public ConfigurationManager {
   }
 
   /** Create a root task */
-  template<typename TaskT, typename ...Args>
-  HSHM_ALWAYS_INLINE
-  LPointer<TaskT> NewTaskRoot(Args&& ...args) {
+  template <typename TaskT, typename... Args>
+  HSHM_ALWAYS_INLINE LPointer<TaskT> NewTaskRoot(Args &&...args) {
     TaskNode task_node = MakeTaskNodeId();
     LPointer<TaskT> ptr = main_alloc_->NewObjLocal<TaskT>(
         main_alloc_, task_node, std::forward<Args>(args)...);
@@ -173,59 +167,55 @@ class Client : public ConfigurationManager {
   }
 
   /** Destroy a task */
-  template<typename TaskT>
-  HSHM_ALWAYS_INLINE
-  void DelTask(TaskT *task) {
+  template <typename TaskT>
+  HSHM_ALWAYS_INLINE void DelTask(TaskT *task) {
     // TODO(llogan): verify leak
 #ifdef TASK_DEBUG
     task->delcnt_++;
     if (task->delcnt_ != 1) {
       HELOG(kFatal, "Freed task {} times: node={}, state={}. method={}",
-            task->delcnt_.load(), task->task_node_, task->task_state_, task->method_)
+            task->delcnt_.load(), task->task_node_, task->task_state_,
+            task->method_)
     }
 #endif
     main_alloc_->DelObj<TaskT>(task);
   }
 
   /** Destroy a task */
-  template<typename TaskT>
-  HSHM_ALWAYS_INLINE
-  void DelTask(LPointer<TaskT> &task) {
+  template <typename TaskT>
+  HSHM_ALWAYS_INLINE void DelTask(LPointer<TaskT> &task) {
 #ifdef TASK_DEBUG
     task->delcnt_++;
     if (task->delcnt_ != 1) {
       HELOG(kFatal, "Freed task {} times: node={}, state={}. method={}",
-            task->delcnt_.load(), task->task_node_, task->task_state_, task->method_)
+            task->delcnt_.load(), task->task_node_, task->task_state_,
+            task->method_)
     }
 #endif
     main_alloc_->DelObjLocal<TaskT>(task);
   }
 
   /** Destroy a task */
-  template<typename TaskStateT, typename TaskT>
-  HSHM_ALWAYS_INLINE
-  void DelTask(TaskStateT *exec, TaskT *task) {
+  template <typename TaskStateT, typename TaskT>
+  HSHM_ALWAYS_INLINE void DelTask(TaskStateT *exec, TaskT *task) {
     exec->Del(task->method_, task);
   }
 
   /** Destroy a task */
-  template<typename TaskStateT, typename TaskT>
-  HSHM_ALWAYS_INLINE
-  void DelTask(TaskStateT *exec, LPointer<TaskT> &task) {
+  template <typename TaskStateT, typename TaskT>
+  HSHM_ALWAYS_INLINE void DelTask(TaskStateT *exec, LPointer<TaskT> &task) {
     exec->Del(task->method_, task);
   }
 
   /** Convert pointer to char* */
-  template<typename T = char>
-  HSHM_ALWAYS_INLINE
-  T* GetMainPointer(const hipc::Pointer &p) {
+  template <typename T = char>
+  HSHM_ALWAYS_INLINE T *GetMainPointer(const hipc::Pointer &p) {
     return main_alloc_->Convert<T, hipc::Pointer>(p);
   }
 
   /** Agnostic yield function */
-  template<int THREAD_MODEL>
-  HSHM_ALWAYS_INLINE
-  void Yield() {
+  template <int THREAD_MODEL>
+  HSHM_ALWAYS_INLINE void Yield() {
     if constexpr (THREAD_MODEL == TASK_YIELD_STD) {
       HERMES_THREAD_MODEL->Yield();
     } else if constexpr (THREAD_MODEL == TASK_YIELD_ABT) {
@@ -234,9 +224,8 @@ class Client : public ConfigurationManager {
   }
 
   /** Contextual yield function */
-  template<int THREAD_MODEL>
-  HSHM_ALWAYS_INLINE
-  void Yield(Task *yield_task) {
+  template <int THREAD_MODEL>
+  HSHM_ALWAYS_INLINE void Yield(Task *yield_task) {
     yield_task->Yield<THREAD_MODEL>();
   }
 
@@ -247,29 +236,25 @@ class Client : public ConfigurationManager {
   }
 
   /** Allocate a buffer */
-  template<int THREAD_MODEL>
-  HSHM_ALWAYS_INLINE
-  LPointer<char> AllocateBufferServer(size_t size) {
+  template <int THREAD_MODEL>
+  HSHM_ALWAYS_INLINE LPointer<char> AllocateBufferServer(size_t size) {
     return AllocateBufferSafe<THREAD_MODEL>(rdata_alloc_, size);
   }
 
   /** Allocate a buffer */
-  template<int THREAD_MODEL>
-  HSHM_ALWAYS_INLINE
-  LPointer<char> AllocateBufferServer(size_t size, Task *yield_task) {
-    return AllocateBufferSafe<THREAD_MODEL>(rdata_alloc_, size,
-                                            yield_task);
+  template <int THREAD_MODEL>
+  HSHM_ALWAYS_INLINE LPointer<char> AllocateBufferServer(size_t size,
+                                                         Task *yield_task) {
+    return AllocateBufferSafe<THREAD_MODEL>(rdata_alloc_, size, yield_task);
   }
 
  private:
   /** Allocate a buffer */
-  template<int THREAD_MODEL>
-  HSHM_ALWAYS_INLINE
-  LPointer<char> AllocateBufferSafe(Allocator *alloc, size_t size) {
-    HILOG(kDebug, "Heap size for {}/{}: {}",
-          alloc->GetId().bits_.major_,
-          alloc->GetId().bits_.minor_,
-          alloc->GetCurrentlyAllocatedSize());
+  template <int THREAD_MODEL>
+  HSHM_ALWAYS_INLINE LPointer<char> AllocateBufferSafe(Allocator *alloc,
+                                                       size_t size) {
+    HILOG(kDebug, "Heap size for {}/{}: {}", alloc->GetId().bits_.major_,
+          alloc->GetId().bits_.minor_, alloc->GetCurrentlyAllocatedSize());
     LPointer<char> p;
     while (true) {
       try {
@@ -288,14 +273,12 @@ class Client : public ConfigurationManager {
   }
 
   /** Allocate a buffer */
-  template<int THREAD_MODEL>
-  HSHM_ALWAYS_INLINE
-  LPointer<char> AllocateBufferSafe(Allocator *alloc, size_t size,
-                                    Task *yield_task) {
-    HILOG(kDebug, "Heap size for {}/{}: {}",
-          alloc->GetId().bits_.major_,
-          alloc->GetId().bits_.minor_,
-          alloc->GetCurrentlyAllocatedSize());
+  template <int THREAD_MODEL>
+  HSHM_ALWAYS_INLINE LPointer<char> AllocateBufferSafe(Allocator *alloc,
+                                                       size_t size,
+                                                       Task *yield_task) {
+    HILOG(kDebug, "Heap size for {}/{}: {}", alloc->GetId().bits_.major_,
+          alloc->GetId().bits_.minor_, alloc->GetCurrentlyAllocatedSize());
     LPointer<char> p;
     while (true) {
       try {
@@ -319,10 +302,8 @@ class Client : public ConfigurationManager {
   void FreeBuffer(hipc::Pointer &p) {
     auto alloc = HERMES_MEMORY_MANAGER->GetAllocator(p.allocator_id_);
     alloc->Free(p);
-    HILOG(kDebug, "Heap size for {}/{}: {}",
-          alloc->GetId().bits_.major_,
-          alloc->GetId().bits_.minor_,
-          alloc->GetCurrentlyAllocatedSize());
+    HILOG(kDebug, "Heap size for {}/{}: {}", alloc->GetId().bits_.major_,
+          alloc->GetId().bits_.minor_, alloc->GetCurrentlyAllocatedSize());
   }
 
   /** Free a buffer */
@@ -330,16 +311,13 @@ class Client : public ConfigurationManager {
   void FreeBuffer(LPointer<char> &p) {
     auto alloc = HERMES_MEMORY_MANAGER->GetAllocator(p.shm_.allocator_id_);
     alloc->FreeLocalPtr(p);
-    HILOG(kDebug, "Heap size for {}/{}: {}",
-          alloc->GetId().bits_.major_,
-          alloc->GetId().bits_.minor_,
-          alloc->GetCurrentlyAllocatedSize());
+    HILOG(kDebug, "Heap size for {}/{}: {}", alloc->GetId().bits_.major_,
+          alloc->GetId().bits_.minor_, alloc->GetCurrentlyAllocatedSize());
   }
 
   /** Convert pointer to char* */
-  template<typename T = char>
-  HSHM_ALWAYS_INLINE
-  T* GetDataPointer(const hipc::Pointer &p) {
+  template <typename T = char>
+  HSHM_ALWAYS_INLINE T *GetDataPointer(const hipc::Pointer &p) {
     auto alloc = HERMES_MEMORY_MANAGER->GetAllocator(p.allocator_id_);
     return alloc->Convert<T, hipc::Pointer>(p);
   }
@@ -356,7 +334,7 @@ class Client : public ConfigurationManager {
 
   /** Get a queue by its ID */
   HSHM_ALWAYS_INLINE
-  MultiQueue* GetQueue(const QueueId &queue_id) {
+  MultiQueue *GetQueue(const QueueId &queue_id) {
     QueueId real_id = GetQueueId(queue_id);
     return queue_manager_.GetQueue(real_id);
   }
@@ -375,85 +353,94 @@ class Client : public ConfigurationManager {
 };
 
 /** A function which creates a new TaskNode value */
-#define HRUN_TASK_NODE_ROOT(CUSTOM)\
-  template<typename ...Args>\
-  auto CUSTOM##Root(Args&& ...args) {\
-    TaskNode task_node = HRUN_CLIENT->MakeTaskNodeId();\
-    return CUSTOM(task_node, std::forward<Args>(args)...);\
+#define HRUN_TASK_NODE_ROOT(CUSTOM)                        \
+  template <typename... Args>                              \
+  auto CUSTOM##Root(Args &&...args) {                      \
+    TaskNode task_node = HRUN_CLIENT->MakeTaskNodeId();    \
+    return CUSTOM(task_node, std::forward<Args>(args)...); \
   }
 
 /** Fill in common default parameters for task client wrapper function */
-#define HRUN_TASK_NODE_ADMIN_ROOT(CUSTOM)\
-  template<typename ...Args>\
-  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Alloc(const TaskNode &task_node,\
-                                                    Args&& ...args) {\
-    hipc::LPointer<CUSTOM##Task> task = HRUN_CLIENT->AllocateTask<CUSTOM##Task>();\
-    Async##CUSTOM##Construct(task.ptr_, task_node, std::forward<Args>(args)...);\
-    return task;\
-  }\
-  template<typename ...Args>\
-  hipc::LPointer<CUSTOM##Task> Async##CUSTOM(const TaskNode &task_node, \
-                                             Args&& ...args) {\
-    hipc::LPointer<CUSTOM##Task> task = Async##CUSTOM##Alloc(task_node, std::forward<Args>(args)...);\
-    MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);\
-    queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);\
-    return task;\
-  }\
-  template<typename ...Args>\
-  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Emplace(MultiQueue *queue,\
-                                                      const TaskNode &task_node,\
-                                                      Args&& ...args) {\
-    hipc::LPointer<CUSTOM##Task> task = Async##CUSTOM##Alloc(task_node, std::forward<Args>(args)...);\
-    queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);\
-    return task;\
-  }\
-  template<typename ...Args>\
-  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Root(Args&& ...args) {\
-    TaskNode task_node = HRUN_CLIENT->MakeTaskNodeId();\
-    hipc::LPointer<CUSTOM##Task> task = Async##CUSTOM(task_node + 1, std::forward<Args>(args)...);\
-    return task;\
+#define HRUN_TASK_NODE_ADMIN_ROOT(CUSTOM)                                      \
+  template <typename... Args>                                                  \
+  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Alloc(const TaskNode &task_node, \
+                                                    Args &&...args) {          \
+    hipc::LPointer<CUSTOM##Task> task =                                        \
+        HRUN_CLIENT->AllocateTask<CUSTOM##Task>();                             \
+    Async##CUSTOM##Construct(task.ptr_, task_node,                             \
+                             std::forward<Args>(args)...);                     \
+    return task;                                                               \
+  }                                                                            \
+  template <typename... Args>                                                  \
+  hipc::LPointer<CUSTOM##Task> Async##CUSTOM(const TaskNode &task_node,        \
+                                             Args &&...args) {                 \
+    hipc::LPointer<CUSTOM##Task> task =                                        \
+        Async##CUSTOM##Alloc(task_node, std::forward<Args>(args)...);          \
+    MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);                      \
+    queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);        \
+    return task;                                                               \
+  }                                                                            \
+  template <typename... Args>                                                  \
+  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Emplace(                         \
+      MultiQueue *queue, const TaskNode &task_node, Args &&...args) {          \
+    hipc::LPointer<CUSTOM##Task> task =                                        \
+        Async##CUSTOM##Alloc(task_node, std::forward<Args>(args)...);          \
+    queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);        \
+    return task;                                                               \
+  }                                                                            \
+  template <typename... Args>                                                  \
+  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Root(Args &&...args) {           \
+    TaskNode task_node = HRUN_CLIENT->MakeTaskNodeId();                        \
+    hipc::LPointer<CUSTOM##Task> task =                                        \
+        Async##CUSTOM(task_node + 1, std::forward<Args>(args)...);             \
+    return task;                                                               \
   }
 
 /** The default asynchronous method behavior */
-#define HRUN_TASK_NODE_PUSH_ROOT(CUSTOM)\
-  template<typename ...Args>\
-  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Alloc(const TaskNode &task_node,\
-                                                    Args&& ...args) {\
-    hipc::LPointer<CUSTOM##Task> task = HRUN_CLIENT->AllocateTask<CUSTOM##Task>();\
-    Async##CUSTOM##Construct(task.ptr_, task_node, std::forward<Args>(args)...);\
-    return task;\
-  }\
-  template<typename ...Args>\
-  hipc::LPointer<CUSTOM##Task> Async##CUSTOM(const TaskNode &task_node, \
-                                             Args&& ...args) {\
-    hipc::LPointer<CUSTOM##Task> task = Async##CUSTOM##Alloc(task_node, std::forward<Args>(args)...);\
-    MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);\
-    queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);\
-    return task;\
-  }\
-  template<typename ...Args>\
-  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Emplace(MultiQueue *queue,\
-                                                      const TaskNode &task_node,\
-                                                      Args&& ...args) {\
-    hipc::LPointer<CUSTOM##Task> task = Async##CUSTOM##Alloc(task_node, std::forward<Args>(args)...);\
-    queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);\
-    return task;\
-  }\
-  template<typename ...Args>\
-  hipc::LPointer<hrunpq::TypedPushTask<CUSTOM##Task>> Async##CUSTOM##Root(Args&& ...args) {\
-    TaskNode task_node = HRUN_CLIENT->MakeTaskNodeId();\
-    hipc::LPointer<CUSTOM##Task> task = Async##CUSTOM##Alloc(task_node + 1, std::forward<Args>(args)...);\
-    hipc::LPointer<hrunpq::TypedPushTask<CUSTOM##Task>> push_task =\
-      HRUN_PROCESS_QUEUE->AsyncPush<CUSTOM##Task>(task_node,\
-                                                     DomainId::GetLocal(),\
-                                                     task);\
-      return push_task;\
+#define HRUN_TASK_NODE_PUSH_ROOT(CUSTOM)                                       \
+  template <typename... Args>                                                  \
+  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Alloc(const TaskNode &task_node, \
+                                                    Args &&...args) {          \
+    hipc::LPointer<CUSTOM##Task> task =                                        \
+        HRUN_CLIENT->AllocateTask<CUSTOM##Task>();                             \
+    Async##CUSTOM##Construct(task.ptr_, task_node,                             \
+                             std::forward<Args>(args)...);                     \
+    return task;                                                               \
+  }                                                                            \
+  template <typename... Args>                                                  \
+  hipc::LPointer<CUSTOM##Task> Async##CUSTOM(const TaskNode &task_node,        \
+                                             Args &&...args) {                 \
+    hipc::LPointer<CUSTOM##Task> task =                                        \
+        Async##CUSTOM##Alloc(task_node, std::forward<Args>(args)...);          \
+    MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);                      \
+    queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);        \
+    return task;                                                               \
+  }                                                                            \
+  template <typename... Args>                                                  \
+  hipc::LPointer<CUSTOM##Task> Async##CUSTOM##Emplace(                         \
+      MultiQueue *queue, const TaskNode &task_node, Args &&...args) {          \
+    hipc::LPointer<CUSTOM##Task> task =                                        \
+        Async##CUSTOM##Alloc(task_node, std::forward<Args>(args)...);          \
+    queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);        \
+    return task;                                                               \
+  }                                                                            \
+  template <typename... Args>                                                  \
+  hipc::LPointer<hrunpq::TypedPushTask<CUSTOM##Task>> Async##CUSTOM##Root(     \
+      Args &&...args) {                                                        \
+    TaskNode task_node = HRUN_CLIENT->MakeTaskNodeId();                        \
+    hipc::LPointer<CUSTOM##Task> task =                                        \
+        Async##CUSTOM##Alloc(task_node + 1, std::forward<Args>(args)...);      \
+    hipc::LPointer<hrunpq::TypedPushTask<CUSTOM##Task>> push_task =            \
+        HRUN_PROCESS_QUEUE->AsyncPush<CUSTOM##Task>(                           \
+            task_node, DomainId::GetLocal(), task);                            \
+    return push_task;                                                          \
   }
 
 /** Call duplicate if applicable */
-template<typename TaskT>
-constexpr inline void CALL_DUPLICATE(TaskT *orig_task, std::vector<LPointer<Task>> &dups) {
-  if constexpr(TaskT::REPLICA) {
+template <typename TaskT>
+constexpr inline void CALL_DUPLICATE(TaskT *orig_task,
+                                     std::vector<LPointer<Task>> &dups) {
+  if constexpr (TaskT::REPLICA) {
     for (LPointer<Task> &dup : dups) {
       LPointer<TaskT> task = HRUN_CLIENT->NewEmptyTask<TaskT>();
       task.ptr_->Dup(HRUN_CLIENT->main_alloc_, *orig_task);
@@ -463,23 +450,24 @@ constexpr inline void CALL_DUPLICATE(TaskT *orig_task, std::vector<LPointer<Task
   }
 }
 /** Call duplicate if applicable */
-template<typename TaskT>
-constexpr inline void CALL_DUPLICATE_END(u32 replica, TaskT *orig_task, TaskT *dup_task) {
-  if constexpr(TaskT::REPLICA) {
+template <typename TaskT>
+constexpr inline void CALL_DUPLICATE_END(u32 replica, TaskT *orig_task,
+                                         TaskT *dup_task) {
+  if constexpr (TaskT::REPLICA) {
     orig_task->DupEnd(replica, *dup_task);
   }
 }
 /** Call replica start if applicable */
-template<typename TaskT>
+template <typename TaskT>
 constexpr inline void CALL_REPLICA_START(u32 count, TaskT *task) {
-  if constexpr(TaskT::REPLICA) {
+  if constexpr (TaskT::REPLICA) {
     task->ReplicateStart(count);
   }
 }
 /** Call replica end if applicable */
-template<typename TaskT>
+template <typename TaskT>
 constexpr inline void CALL_REPLICA_END(TaskT *task) {
-  if constexpr(TaskT::REPLICA) {
+  if constexpr (TaskT::REPLICA) {
     task->ReplicateEnd();
   }
 }
@@ -487,8 +475,7 @@ constexpr inline void CALL_REPLICA_END(TaskT *task) {
 }  // namespace hrun
 
 static inline bool TRANSPARENT_HRUN() {
-  if (!HRUN_CLIENT->IsInitialized() &&
-      !HRUN_CLIENT->IsBeingInitialized() &&
+  if (!HRUN_CLIENT->IsInitialized() && !HRUN_CLIENT->IsBeingInitialized() &&
       !HRUN_CLIENT->IsTerminated()) {
     HRUN_CLIENT->Create();
     HRUN_CLIENT->is_transparent_ = true;

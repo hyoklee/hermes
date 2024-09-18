@@ -21,9 +21,9 @@ class Client : public TaskLibClient {
   double bandwidth_;    /**< the bandwidth of the device */
   double latency_;      /**< the latency of the device */
   float score_;         /**< Relative importance of this tier */
-  float bw_score_;       /**< Relative importance of this tier */
-  f32 borg_min_thresh_;  /**< Capacity percentage too low */
-  f32 borg_max_thresh_;  /**< Capacity percentage too high */
+  float bw_score_;      /**< Relative importance of this tier */
+  f32 borg_min_thresh_; /**< Capacity percentage too low */
+  f32 borg_max_thresh_; /**< Capacity percentage too high */
 
  public:
   Client() : score_(0) {}
@@ -51,8 +51,7 @@ class Client : public TaskLibClient {
     QueueManagerInfo &qm = HRUN_CLIENT->server_config_.queue_manager_;
     std::vector<PriorityInfo> queue_info;
     return HRUN_ADMIN->AsyncCreateTaskState<ConstructTask>(
-        task_node, domain_id, state_name, lib_name, id_,
-        queue_info, dev_info);
+        task_node, domain_id, state_name, lib_name, id_, queue_info, dev_info);
   }
   void AsyncCreateComplete(ConstructTask *task) {
     if (task->IsModuleComplete()) {
@@ -63,11 +62,9 @@ class Client : public TaskLibClient {
     }
   }
   HRUN_TASK_NODE_ROOT(AsyncCreateTaskState);
-  template<typename ...Args>
-  HSHM_ALWAYS_INLINE
-  void CreateRoot(Args&& ...args) {
-    LPointer<ConstructTask> task =
-        AsyncCreateRoot(std::forward<Args>(args)...);
+  template <typename... Args>
+  HSHM_ALWAYS_INLINE void CreateRoot(Args &&...args) {
+    LPointer<ConstructTask> task = AsyncCreateRoot(std::forward<Args>(args)...);
     task->Wait();
     AsyncCreateComplete(task.ptr_);
   }
@@ -81,80 +78,70 @@ class Client : public TaskLibClient {
 
   /** BDEV monitoring task */
   HSHM_ALWAYS_INLINE
-  void AsyncStatBdevConstruct(StatBdevTask *task,
-                             const TaskNode &task_node,
-                             size_t freq_ms) {
-    HRUN_CLIENT->ConstructTask<StatBdevTask>(
-        task, task_node, domain_id_, id_, freq_ms, max_cap_);
+  void AsyncStatBdevConstruct(StatBdevTask *task, const TaskNode &task_node,
+                              size_t freq_ms) {
+    HRUN_CLIENT->ConstructTask<StatBdevTask>(task, task_node, domain_id_, id_,
+                                             freq_ms, max_cap_);
   }
   HRUN_TASK_NODE_PUSH_ROOT(StatBdev);
 
   /** Get bdev remaining capacity */
   HSHM_ALWAYS_INLINE
-  size_t GetRemCap() const {
-    return monitor_task_->rem_cap_;
-  }
+  size_t GetRemCap() const { return monitor_task_->rem_cap_; }
 
   /** Allocate buffers from the bdev */
   HSHM_ALWAYS_INLINE
-  void AsyncAllocateConstruct(AllocateTask *task,
-                              const TaskNode &task_node,
-                              size_t size,
-                              float score,
+  void AsyncAllocateConstruct(AllocateTask *task, const TaskNode &task_node,
+                              size_t size, float score,
                               std::vector<BufferInfo> &buffers) {
-    HRUN_CLIENT->ConstructTask<AllocateTask>(
-        task, task_node, domain_id_, id_, score, size, &buffers);
+    HRUN_CLIENT->ConstructTask<AllocateTask>(task, task_node, domain_id_, id_,
+                                             score, size, &buffers);
   }
   HRUN_TASK_NODE_PUSH_ROOT(Allocate);
 
   /** Free data */
   HSHM_ALWAYS_INLINE
-  void AsyncFreeConstruct(FreeTask *task,
-                          const TaskNode &task_node,
-                          float score,
-                          const std::vector<BufferInfo> &buffers,
+  void AsyncFreeConstruct(FreeTask *task, const TaskNode &task_node,
+                          float score, const std::vector<BufferInfo> &buffers,
                           bool fire_and_forget) {
-    HRUN_CLIENT->ConstructTask<FreeTask>(
-        task, task_node, domain_id_, id_, score, buffers, fire_and_forget);
+    HRUN_CLIENT->ConstructTask<FreeTask>(task, task_node, domain_id_, id_,
+                                         score, buffers, fire_and_forget);
   }
   HRUN_TASK_NODE_PUSH_ROOT(Free);
 
   /** Allocate buffers from the bdev */
   HSHM_ALWAYS_INLINE
-  void AsyncWriteConstruct(WriteTask *task,
-                           const TaskNode &task_node,
+  void AsyncWriteConstruct(WriteTask *task, const TaskNode &task_node,
                            const char *data, size_t off, size_t size) {
-    HRUN_CLIENT->ConstructTask<WriteTask>(
-        task, task_node, domain_id_, id_, data, off, size);
+    HRUN_CLIENT->ConstructTask<WriteTask>(task, task_node, domain_id_, id_,
+                                          data, off, size);
   }
   HRUN_TASK_NODE_PUSH_ROOT(Write);
 
   /** Allocate buffers from the bdev */
   HSHM_ALWAYS_INLINE
-  void AsyncReadConstruct(ReadTask *task,
-                          const TaskNode &task_node,
-                          char *data, size_t off, size_t size) {
-    HRUN_CLIENT->ConstructTask<ReadTask>(
-        task, task_node, domain_id_, id_, data, off, size);
+  void AsyncReadConstruct(ReadTask *task, const TaskNode &task_node, char *data,
+                          size_t off, size_t size) {
+    HRUN_CLIENT->ConstructTask<ReadTask>(task, task_node, domain_id_, id_, data,
+                                         off, size);
   }
   HRUN_TASK_NODE_PUSH_ROOT(Read);
 
   /** Update blob scores */
   HSHM_ALWAYS_INLINE
   void AsyncUpdateScoreConstruct(UpdateScoreTask *task,
-                                 const TaskNode &task_node,
-                                 float old_score, float new_score) {
-    HRUN_CLIENT->ConstructTask<UpdateScoreTask>(
-        task, task_node, domain_id_, id_,
-        old_score, new_score);
+                                 const TaskNode &task_node, float old_score,
+                                 float new_score) {
+    HRUN_CLIENT->ConstructTask<UpdateScoreTask>(task, task_node, domain_id_,
+                                                id_, old_score, new_score);
   }
   HRUN_TASK_NODE_PUSH_ROOT(UpdateScore);
 };
 
 class Server {
  public:
-  ssize_t rem_cap_;       /**< Remaining capacity */
-  Histogram score_hist_;  /**< Score distribution */
+  ssize_t rem_cap_;      /**< Remaining capacity */
+  Histogram score_hist_; /**< Score distribution */
 
  public:
   /** Update the blob score in this tier */
@@ -164,16 +151,14 @@ class Server {
     }
     score_hist_.Increment(task->new_score_);
   }
-  void MonitorUpdateScore(u32 mode, UpdateScoreTask *task, RunContext &ctx) {
-  }
+  void MonitorUpdateScore(u32 mode, UpdateScoreTask *task, RunContext &ctx) {}
 
   /** Stat capacity and scores */
   void StatBdev(StatBdevTask *task, RunContext &ctx) {
     task->rem_cap_ = rem_cap_;
     task->score_hist_ = score_hist_;
   }
-  void MonitorStatBdev(u32 mode, StatBdevTask *task, RunContext &ctx) {
-  }
+  void MonitorStatBdev(u32 mode, StatBdevTask *task, RunContext &ctx) {}
 };
 
 }  // namespace hermes::bdev
@@ -185,18 +170,17 @@ struct TargetStats {
  public:
   TargetId tgt_id_;
   u32 node_id_;
-  size_t rem_cap_;      /**< Current remaining capacity */
-  size_t max_cap_;      /**< maximum capacity of the target */
-  double bandwidth_;    /**< the bandwidth of the device */
-  double latency_;      /**< the latency of the device */
-  float score_;         /**< Relative importance of this tier */
+  size_t rem_cap_;   /**< Current remaining capacity */
+  size_t max_cap_;   /**< maximum capacity of the target */
+  double bandwidth_; /**< the bandwidth of the device */
+  double latency_;   /**< the latency of the device */
+  float score_;      /**< Relative importance of this tier */
 
  public:
   /** Serialize */
-  template<typename Ar>
+  template <typename Ar>
   void serialize(Ar &ar) {
-    ar(tgt_id_, node_id_, max_cap_, bandwidth_,
-       latency_, score_, rem_cap_);
+    ar(tgt_id_, node_id_, max_cap_, bandwidth_, latency_, score_, rem_cap_);
   }
 };
 }  // namespace hermes

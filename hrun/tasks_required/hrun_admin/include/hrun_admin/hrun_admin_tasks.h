@@ -1,38 +1,36 @@
 #ifndef HRUN_TASKS_HRUN_ADMIN_INCLUDE_HRUN_ADMIN_HRUN_ADMIN_TASKS_H_
 #define HRUN_TASKS_HRUN_ADMIN_INCLUDE_HRUN_ADMIN_HRUN_ADMIN_TASKS_H_
 
-#include "hrun/work_orchestrator/scheduler.h"
 #include "hrun/api/hrun_client.h"
-#include "hrun/queue_manager/queue_manager_client.h"
 #include "hrun/hrun_namespace.h"
+#include "hrun/queue_manager/queue_manager_client.h"
+#include "hrun/work_orchestrator/scheduler.h"
 
 namespace hrun::Admin {
 
 #include "hrun_admin_methods.h"
 
 /** A template to register or destroy a task library */
-template<int method>
+template <int method>
 struct RegisterTaskLibTaskTempl : public Task, TaskFlags<TF_SRL_SYM> {
   IN hipc::ShmArchive<hipc::string> lib_name_;
   OUT TaskStateId id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  RegisterTaskLibTaskTempl(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit RegisterTaskLibTaskTempl(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  RegisterTaskLibTaskTempl(hipc::Allocator *alloc,
-                           const TaskNode &task_node,
-                           const DomainId &domain_id,
-                           const std::string &lib_name) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit RegisterTaskLibTaskTempl(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const std::string &lib_name)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
     prio_ = TaskPrio::kAdmin;
     task_state_ = HRUN_QM_CLIENT->admin_task_state_;
-    if constexpr(method == 0)
-    {
+    if constexpr (method == 0) {
       method_ = Method::kRegisterTaskLib;
     } else {
       method_ = Method::kDestroyTaskLib;
@@ -45,28 +43,24 @@ struct RegisterTaskLibTaskTempl : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** Destructor */
-  ~RegisterTaskLibTaskTempl() {
-    HSHM_DESTROY_AR(lib_name_);
-  }
+  ~RegisterTaskLibTaskTempl() { HSHM_DESTROY_AR(lib_name_); }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(lib_name_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(id_);
   }
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** A task to register a Task Library */
@@ -91,15 +85,14 @@ struct GetOrCreateTaskStateIdTask : public Task, TaskFlags<TF_SRL_SYM> {
   OUT TaskStateId id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetOrCreateTaskStateIdTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetOrCreateTaskStateIdTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetOrCreateTaskStateIdTask(hipc::Allocator *alloc,
-                             const TaskNode &task_node,
-                             const DomainId &domain_id,
-                             const std::string &state_name) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetOrCreateTaskStateIdTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const std::string &state_name)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -113,28 +106,24 @@ struct GetOrCreateTaskStateIdTask : public Task, TaskFlags<TF_SRL_SYM> {
     HSHM_MAKE_AR(state_name_, alloc, state_name);
   }
 
-  ~GetOrCreateTaskStateIdTask() {
-    HSHM_DESTROY_AR(state_name_);
-  }
+  ~GetOrCreateTaskStateIdTask() { HSHM_DESTROY_AR(state_name_); }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(state_name_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(id_);
   }
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** A task to register a Task state + Create a queue */
@@ -146,18 +135,16 @@ struct CreateTaskStateTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   IN hipc::ShmArchive<hipc::string> custom_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  CreateTaskStateTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit CreateTaskStateTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  CreateTaskStateTask(hipc::Allocator *alloc,
-                      const TaskNode &task_node,
-                      const DomainId &domain_id,
-                      const std::string &state_name,
-                      const std::string &lib_name,
-                      const TaskStateId &id,
-                      const std::vector<PriorityInfo> &queue_info) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit CreateTaskStateTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const std::string &state_name,
+      const std::string &lib_name, const TaskStateId &id,
+      const std::vector<PriorityInfo> &queue_info)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -184,33 +171,30 @@ struct CreateTaskStateTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   }
 
   /** Duplicate message */
-  template<typename TaskT>
+  template <typename TaskT>
   void Dup(hipc::Allocator *alloc, TaskT &other) {
     task_dup(other);
   }
 
   /** Process duplicate message output */
-  template<typename TaskT>
-  void DupEnd(u32 replica, TaskT &dup_task) {
-  }
+  template <typename TaskT>
+  void DupEnd(u32 replica, TaskT &dup_task) {}
 
   /** Replication (does nothing) */
-  void ReplicateStart(u32 count) {
-  }
+  void ReplicateStart(u32 count) {}
 
   /** Replicate end (does nothing) */
-  void ReplicateEnd() {
-  }
+  void ReplicateEnd() {}
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(lib_name_, state_name_, id_, queue_info_, custom_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(id_);
   }
@@ -226,21 +210,19 @@ struct CreateTaskStateTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
 
 /** A task to retrieve the ID of a task */
 struct GetTaskStateIdTask : public Task, TaskFlags<TF_SRL_SYM> {
-  IN hipc::ShmArchive<hipc::string>
-      state_name_;
-  OUT TaskStateId
-      id_;
+  IN hipc::ShmArchive<hipc::string> state_name_;
+  OUT TaskStateId id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetTaskStateIdTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit GetTaskStateIdTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  GetTaskStateIdTask(hipc::Allocator *alloc,
-                     const TaskNode &task_node,
-                     const DomainId &domain_id,
-                     const std::string &state_name) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit GetTaskStateIdTask(hipc::Allocator *alloc,
+                                                 const TaskNode &task_node,
+                                                 const DomainId &domain_id,
+                                                 const std::string &state_name)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -254,28 +236,24 @@ struct GetTaskStateIdTask : public Task, TaskFlags<TF_SRL_SYM> {
     HSHM_MAKE_AR(state_name_, alloc, state_name);
   }
 
-  ~GetTaskStateIdTask() {
-    HSHM_DESTROY_AR(state_name_);
-  }
+  ~GetTaskStateIdTask() { HSHM_DESTROY_AR(state_name_); }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(state_name_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(id_);
   }
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** A task to destroy a Task state */
@@ -283,15 +261,15 @@ struct DestroyTaskStateTask : public Task, TaskFlags<TF_SRL_SYM> {
   IN TaskStateId id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestroyTaskStateTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit DestroyTaskStateTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestroyTaskStateTask(hipc::Allocator *alloc,
-                       const TaskNode &task_node,
-                       const DomainId &domain_id,
-                       const TaskStateId &id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit DestroyTaskStateTask(hipc::Allocator *alloc,
+                                                   const TaskNode &task_node,
+                                                   const DomainId &domain_id,
+                                                   const TaskStateId &id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -306,22 +284,19 @@ struct DestroyTaskStateTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
-    ar & id_;
+    ar &id_;
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** A task to destroy a Task state */
@@ -330,10 +305,10 @@ struct StopRuntimeTask : public Task, TaskFlags<TF_SRL_SYM> {
   StopRuntimeTask(hipc::Allocator *alloc) : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  StopRuntimeTask(hipc::Allocator *alloc,
-                  const TaskNode &task_node,
-                  const DomainId &domain_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit StopRuntimeTask(hipc::Allocator *alloc,
+                                              const TaskNode &task_node,
+                                              const DomainId &domain_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -345,44 +320,41 @@ struct StopRuntimeTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** A task to destroy a Task state */
-template<int method>
+template <int method>
 struct SetWorkOrchestratorPolicyTask : public Task, TaskFlags<TF_SRL_SYM> {
   IN TaskStateId policy_id_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  SetWorkOrchestratorPolicyTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit SetWorkOrchestratorPolicyTask(
+      hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  SetWorkOrchestratorPolicyTask(hipc::Allocator *alloc,
-                                const TaskNode &task_node,
-                                const DomainId &domain_id,
-                                const TaskStateId &policy_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit SetWorkOrchestratorPolicyTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &policy_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
     prio_ = TaskPrio::kAdmin;
     task_state_ = HRUN_QM_CLIENT->admin_task_state_;
-    if constexpr(method == 0) {
+    if constexpr (method == 0) {
       method_ = Method::kSetWorkOrchQueuePolicy;
     } else {
       method_ = Method::kSetWorkOrchProcPolicy;
@@ -395,22 +367,19 @@ struct SetWorkOrchestratorPolicyTask : public Task, TaskFlags<TF_SRL_SYM> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
     ar(policy_id_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
-  void SerializeEnd(u32 replica, Ar &ar) {
-  }
+  template <typename Ar>
+  void SerializeEnd(u32 replica, Ar &ar) {}
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 using SetWorkOrchQueuePolicyTask = SetWorkOrchestratorPolicyTask<0>;
 using SetWorkOrchProcPolicyTask = SetWorkOrchestratorPolicyTask<1>;
@@ -421,10 +390,10 @@ struct FlushTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   FlushTask(hipc::Allocator *alloc) : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  FlushTask(hipc::Allocator *alloc,
-            const TaskNode &task_node,
-            const DomainId &domain_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit FlushTask(hipc::Allocator *alloc,
+                                        const TaskNode &task_node,
+                                        const DomainId &domain_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -436,23 +405,23 @@ struct FlushTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   }
 
   /** Duplicate message */
-  template<typename TaskT>
+  template <typename TaskT>
   void Dup(hipc::Allocator *alloc, TaskT &other) {
     task_dup(other);
   }
 
   /** Process duplicate message output */
-  template<typename TaskT>
+  template <typename TaskT>
   void DupEnd(u32 replica, TaskT &dup_task) {}
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {}
 
   /** Begin replication */
@@ -469,7 +438,6 @@ struct FlushTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
     return 0;
   }
 };
-
 
 }  // namespace hrun::Admin
 

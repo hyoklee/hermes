@@ -33,6 +33,6 @@ class StagerFactory {
   }
 };
 
-}  // namespace hermes
+}  // namespace hermes::data_stager
 
 #endif  // HERMES_TASKS_DATA_STAGER_SRC_STAGER_FACTORY_H_

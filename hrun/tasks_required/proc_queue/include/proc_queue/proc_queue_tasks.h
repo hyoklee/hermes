@@ -14,9 +14,9 @@
 #define HRUN_TASKS_TASK_TEMPL_INCLUDE_proc_queue_proc_queue_TASKS_H_
 
 #include "hrun/api/hrun_client.h"
+#include "hrun/queue_manager/queue_manager_client.h"
 #include "hrun/task_registry/task_lib.h"
 #include "hrun_admin/hrun_admin.h"
-#include "hrun/queue_manager/queue_manager_client.h"
 
 namespace hrun::proc_queue {
 
@@ -29,18 +29,14 @@ namespace hrun::proc_queue {
 using hrun::Admin::CreateTaskStateTask;
 struct ConstructTask : public CreateTaskStateTask {
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ConstructTask(hipc::Allocator *alloc)
-  : CreateTaskStateTask(alloc) {}
+  HSHM_ALWAYS_INLINE explicit ConstructTask(hipc::Allocator *alloc)
+      : CreateTaskStateTask(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ConstructTask(hipc::Allocator *alloc,
-                const TaskNode &task_node,
-                const DomainId &domain_id,
-                const std::string &state_name,
-                const TaskStateId &id,
-                const std::vector<PriorityInfo> &queue_info)
+  HSHM_ALWAYS_INLINE explicit ConstructTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const std::string &state_name,
+      const TaskStateId &id, const std::vector<PriorityInfo> &queue_info)
       : CreateTaskStateTask(alloc, task_node, domain_id, state_name,
                             "proc_queue", id, queue_info) {
     // Custom params
@@ -56,23 +52,19 @@ struct ConstructTask : public CreateTaskStateTask {
 using hrun::Admin::DestroyTaskStateTask;
 struct DestructTask : public DestroyTaskStateTask {
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestructTask(hipc::Allocator *alloc)
-  : DestroyTaskStateTask(alloc) {}
+  HSHM_ALWAYS_INLINE explicit DestructTask(hipc::Allocator *alloc)
+      : DestroyTaskStateTask(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestructTask(hipc::Allocator *alloc,
-               const TaskNode &task_node,
-               const DomainId &domain_id,
-               TaskStateId &state_id)
-  : DestroyTaskStateTask(alloc, task_node, domain_id, state_id) {}
+  HSHM_ALWAYS_INLINE explicit DestructTask(hipc::Allocator *alloc,
+                                           const TaskNode &task_node,
+                                           const DomainId &domain_id,
+                                           TaskStateId &state_id)
+      : DestroyTaskStateTask(alloc, task_node, domain_id, state_id) {}
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 class PushTaskPhase {
@@ -87,31 +79,31 @@ class PushTaskPhase {
 /**
  * Push a task into the per-process queue
  * */
-template<typename TaskT>
+template <typename TaskT>
 struct TypedPushTask : public Task, TaskFlags<TF_LOCAL> {
-  IN LPointer<TaskT> sub_cli_;  /**< Pointer to the subtask (client + SHM) */
-  TEMP LPointer<TaskT> sub_run_;  /**< Pointer to the subtask (runtime) */
+  IN LPointer<TaskT> sub_cli_;   /**< Pointer to the subtask (client + SHM) */
+  TEMP LPointer<TaskT> sub_run_; /**< Pointer to the subtask (runtime) */
   TEMP int phase_ = PushTaskPhase::kSchedule;
   TEMP bool is_fire_forget_ = false;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  TypedPushTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit TypedPushTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  TypedPushTask(hipc::Allocator *alloc,
-                const TaskNode &task_node,
-                const DomainId &domain_id,
-                const TaskStateId &state_id,
-                const hipc::LPointer<TaskT> &subtask) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit TypedPushTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const TaskStateId &state_id,
+      const hipc::LPointer<TaskT> &subtask)
+      : Task(alloc) {
     // Initialize task
     hshm::NodeThreadId tid;
     task_node_ = task_node;
     lane_hash_ = tid.bits_.tid_ + tid.bits_.pid_;
     task_state_ = state_id;
     method_ = Method::kPush;
-    task_flags_.SetBits(TASK_DATA_OWNER | TASK_LOW_LATENCY | TASK_REMOTE_DEBUG_MARK);
+    task_flags_.SetBits(TASK_DATA_OWNER | TASK_LOW_LATENCY |
+                        TASK_REMOTE_DEBUG_MARK);
     domain_id_ = domain_id;
     if (subtask->IsFlush()) {
       task_flags_.SetBits(TASK_FLUSH);
@@ -144,9 +136,7 @@ struct TypedPushTask : public Task, TaskFlags<TF_LOCAL> {
 
   /** Get the task address */
   HSHM_ALWAYS_INLINE
-  TaskT* get() {
-    return sub_cli_.ptr_;
-  }
+  TaskT *get() { return sub_cli_.ptr_; }
 };
 
 using PushTask = hrun::proc_queue::TypedPushTask<Task>;

@@ -13,38 +13,37 @@
 #ifndef HRUN_INCLUDE_HRUN_HRUN_TYPES_H_
 #define HRUN_INCLUDE_HRUN_HRUN_TYPES_H_
 
-#include <cereal/archives/binary.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/string.hpp>
-#include <cereal/types/list.hpp>
-#include <cereal/types/unordered_map.hpp>
-#include <cereal/types/unordered_set.hpp>
-#include <cereal/types/atomic.hpp>
-
-#include <hermes_shm/data_structures/ipc/unordered_map.h>
-#include <hermes_shm/data_structures/ipc/pod_array.h>
-#include <hermes_shm/data_structures/ipc/vector.h>
-#include <hermes_shm/data_structures/ipc/list.h>
-#include <hermes_shm/data_structures/ipc/slist.h>
-#include <hermes_shm/data_structures/data_structure.h>
-#include <hermes_shm/data_structures/ipc/string.h>
-#include <hermes_shm/data_structures/ipc/mpsc_queue.h>
-#include <hermes_shm/data_structures/ipc/mpsc_ptr_queue.h>
-#include <hermes_shm/data_structures/ipc/ticket_queue.h>
-#include <hermes_shm/data_structures/containers/converters.h>
 #include <hermes_shm/data_structures/containers/charbuf.h>
-#include <hermes_shm/data_structures/containers/spsc_queue.h>
-#include <hermes_shm/data_structures/containers/split_ticket_queue.h>
 #include <hermes_shm/data_structures/containers/converters.h>
-#include "hermes_shm/data_structures/serialization/shm_serialize.h"
-#include <hermes_shm/util/auto_trace.h>
+#include <hermes_shm/data_structures/containers/split_ticket_queue.h>
+#include <hermes_shm/data_structures/containers/spsc_queue.h>
+#include <hermes_shm/data_structures/data_structure.h>
+#include <hermes_shm/data_structures/ipc/list.h>
+#include <hermes_shm/data_structures/ipc/mpsc_ptr_queue.h>
+#include <hermes_shm/data_structures/ipc/mpsc_queue.h>
+#include <hermes_shm/data_structures/ipc/pod_array.h>
+#include <hermes_shm/data_structures/ipc/slist.h>
+#include <hermes_shm/data_structures/ipc/string.h>
+#include <hermes_shm/data_structures/ipc/ticket_queue.h>
+#include <hermes_shm/data_structures/ipc/unordered_map.h>
+#include <hermes_shm/data_structures/ipc/vector.h>
 #include <hermes_shm/thread/lock.h>
 #include <hermes_shm/thread/thread_model_manager.h>
 #include <hermes_shm/types/atomic.h>
-#include "hermes_shm/util/singleton.h"
-#include "hermes_shm/constants/macros.h"
+#include <hermes_shm/util/auto_trace.h>
 
 #include <boost/context/fiber_fcontext.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/types/atomic.hpp>
+#include <cereal/types/list.hpp>
+#include <cereal/types/string.hpp>
+#include <cereal/types/unordered_map.hpp>
+#include <cereal/types/unordered_set.hpp>
+#include <cereal/types/vector.hpp>
+
+#include "hermes_shm/constants/macros.h"
+#include "hermes_shm/data_structures/serialization/shm_serialize.h"
+#include "hermes_shm/util/singleton.h"
 
 namespace bctx = boost::context::detail;
 
@@ -61,21 +60,17 @@ typedef double f64;   /**< 64-bit float */
 
 namespace hrun {
 
-using hshm::RwLock;
-using hshm::Mutex;
 using hshm::bitfield;
 using hshm::bitfield32_t;
+using hshm::Mutex;
+using hshm::RwLock;
 typedef hshm::bitfield<uint64_t> bitfield64_t;
+using hipc::LPointer;
 using hshm::ScopedRwReadLock;
 using hshm::ScopedRwWriteLock;
-using hipc::LPointer;
 
 /** Determine the mode that HRUN is initialized for */
-enum class HrunMode {
-  kNone,
-  kClient,
-  kServer
-};
+enum class HrunMode { kNone, kClient, kServer };
 
 #define DOMAIN_FLAG_T static inline const int
 
@@ -88,21 +83,20 @@ enum class HrunMode {
  * 4. A specific domain + node, temporarily includes this node in a domain
  * */
 struct DomainId {
-  bitfield32_t flags_;  /**< Flags indicating how to interpret id */
-  u32 id_;              /**< The domain id, 0 is NULL */
+  bitfield32_t flags_; /**< Flags indicating how to interpret id */
+  u32 id_;             /**< The domain id, 0 is NULL */
   DOMAIN_FLAG_T kLocal =
-      BIT_OPT(u32, 0);   /**< Use local node in scheduling decision */
+      BIT_OPT(u32, 0); /**< Use local node in scheduling decision */
   DOMAIN_FLAG_T kGlobal =
-      BIT_OPT(u32, 1);  /**< Use all nodes in scheduling decision */
+      BIT_OPT(u32, 1); /**< Use all nodes in scheduling decision */
   DOMAIN_FLAG_T kNoLocal =
-      BIT_OPT(u32, 4);    /**< Don't use local node in scheduling decision */
+      BIT_OPT(u32, 4); /**< Don't use local node in scheduling decision */
   DOMAIN_FLAG_T kSet =
-      BIT_OPT(u32, 2);     /**< ID represents node set ID, not a single node */
-  DOMAIN_FLAG_T kNode =
-      BIT_OPT(u32, 3);    /**< ID represents a specific node */
+      BIT_OPT(u32, 2); /**< ID represents node set ID, not a single node */
+  DOMAIN_FLAG_T kNode = BIT_OPT(u32, 3); /**< ID represents a specific node */
 
   /** Serialize domain id */
-  template<typename Ar>
+  template <typename Ar>
   void serialize(Ar &ar) {
     ar(flags_, id_);
   }
@@ -117,32 +111,27 @@ struct DomainId {
     if (num_hosts == 1 && !flags_.Any(kNoLocal)) {
       return false;
     } else {
-      return
-      (flags_.Any(kGlobal | kSet | kNoLocal) ||
-      (flags_.Any(kNode) && id_ != this_node));
+      return (flags_.Any(kGlobal | kSet | kNoLocal) ||
+              (flags_.Any(kNode) && id_ != this_node));
     }
   }
 
   /** DomainId representing the local node */
   HSHM_ALWAYS_INLINE
   static DomainId GetLocal() {
-      DomainId id;
-      id.id_ = 0;
-      id.flags_.SetBits(kLocal);
-      return id;
+    DomainId id;
+    id.id_ = 0;
+    id.flags_.SetBits(kLocal);
+    return id;
   }
 
   /** Get the ID */
   HSHM_ALWAYS_INLINE
-  u32 GetId() const {
-    return id_;
-  }
+  u32 GetId() const { return id_; }
 
   /** Domain is a specific node */
   HSHM_ALWAYS_INLINE
-  bool IsNode() const {
-    return flags_.Any(kNode);
-  }
+  bool IsNode() const { return flags_.Any(kNode); }
 
   /** DomainId representing a specific node */
   HSHM_ALWAYS_INLINE
@@ -164,23 +153,19 @@ struct DomainId {
 
   /** Domain represents all nodes */
   HSHM_ALWAYS_INLINE
-  bool IsGlobal() const {
-    return flags_.Any(kGlobal);
-  }
+  bool IsGlobal() const { return flags_.Any(kGlobal); }
 
   /** DomainId representing all nodes */
   HSHM_ALWAYS_INLINE
   static DomainId GetGlobal() {
-      DomainId id;
-      id.id_ = 0;
-      id.flags_.SetBits(kGlobal);
-      return id;
+    DomainId id;
+    id.id_ = 0;
+    id.flags_.SetBits(kGlobal);
+    return id;
   }
 
   /** Domain doesn't include this node */
-  bool IsNoLocal() const {
-    return flags_.Any(kNoLocal);
-  }
+  bool IsNoLocal() const { return flags_.Any(kNoLocal); }
 
   /** DomainId representing all nodes, except this one */
   HSHM_ALWAYS_INLINE
@@ -193,9 +178,7 @@ struct DomainId {
 
   /** DomainId represents a named node set */
   HSHM_ALWAYS_INLINE
-  bool IsSet() const {
-    return flags_.Any(kSet);
-  }
+  bool IsSet() const { return flags_.Any(kSet); }
 
   /** DomainId representing a named node set */
   HSHM_ALWAYS_INLINE
@@ -224,7 +207,7 @@ struct DomainId {
 
   /** Copy operator */
   HSHM_ALWAYS_INLINE
-  DomainId& operator=(const DomainId &other) {
+  DomainId &operator=(const DomainId &other) {
     if (this != &other) {
       id_ = other.id_;
       flags_ = other.flags_;
@@ -241,7 +224,7 @@ struct DomainId {
 
   /** Move operator */
   HSHM_ALWAYS_INLINE
-  DomainId& operator=(DomainId &&other) noexcept {
+  DomainId &operator=(DomainId &&other) noexcept {
     if (this != &other) {
       id_ = other.id_;
       flags_ = other.flags_;
@@ -263,18 +246,18 @@ struct DomainId {
 };
 
 /** Represents unique ID for states + queues */
-template<int TYPE>
+template <int TYPE>
 struct UniqueId {
-  u32 node_id_;  /**< The node the content is on */
-  u32 hash_;     /**< The hash of the content the ID represents */
-  u64 unique_;   /**< A unique id for the blob */
+  u32 node_id_; /**< The node the content is on */
+  u32 hash_;    /**< The hash of the content the ID represents */
+  u64 unique_;  /**< A unique id for the blob */
 
   /** Serialization */
-  template<typename Ar>
+  template <typename Ar>
   void serialize(Ar &ar) {
-    ar & node_id_;
-    ar & hash_;
-    ar & unique_;
+    ar &node_id_;
+    ar &hash_;
+    ar &unique_;
   }
 
   /** Default constructor */
@@ -282,14 +265,12 @@ struct UniqueId {
   UniqueId() = default;
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  UniqueId(u32 node_id, u64 unique)
-  : node_id_(node_id), hash_(0), unique_(unique) {}
+  HSHM_ALWAYS_INLINE explicit UniqueId(u32 node_id, u64 unique)
+      : node_id_(node_id), hash_(0), unique_(unique) {}
 
   /** Emplace constructor (+hash) */
-  HSHM_ALWAYS_INLINE explicit
-  UniqueId(u32 node_id, u32 hash, u64 unique)
-  : node_id_(node_id), hash_(hash), unique_(unique) {}
+  HSHM_ALWAYS_INLINE explicit UniqueId(u32 node_id, u32 hash, u64 unique)
+      : node_id_(node_id), hash_(hash), unique_(unique) {}
 
   /** Copy constructor */
   HSHM_ALWAYS_INLINE
@@ -300,9 +281,8 @@ struct UniqueId {
   }
 
   /** Copy constructor */
-  template<int OTHER_TYPE=TYPE>
-  HSHM_ALWAYS_INLINE
-  UniqueId(const UniqueId<OTHER_TYPE> &other) {
+  template <int OTHER_TYPE = TYPE>
+  HSHM_ALWAYS_INLINE UniqueId(const UniqueId<OTHER_TYPE> &other) {
     node_id_ = other.node_id_;
     hash_ = other.hash_;
     unique_ = other.unique_;
@@ -310,7 +290,7 @@ struct UniqueId {
 
   /** Copy assignment */
   HSHM_ALWAYS_INLINE
-  UniqueId& operator=(const UniqueId &other) {
+  UniqueId &operator=(const UniqueId &other) {
     if (this != &other) {
       node_id_ = other.node_id_;
       hash_ = other.hash_;
@@ -329,7 +309,7 @@ struct UniqueId {
 
   /** Move assignment */
   HSHM_ALWAYS_INLINE
-  UniqueId& operator=(UniqueId &&other) noexcept {
+  UniqueId &operator=(UniqueId &&other) noexcept {
     if (this != &other) {
       node_id_ = other.node_id_;
       hash_ = other.hash_;
@@ -339,10 +319,7 @@ struct UniqueId {
   }
 
   /** Check if null */
-  [[nodiscard]]
-  HSHM_ALWAYS_INLINE bool IsNull() const {
-    return node_id_ == 0;
-  }
+  [[nodiscard]] HSHM_ALWAYS_INLINE bool IsNull() const { return node_id_ == 0; }
 
   /** Get null id */
   HSHM_ALWAYS_INLINE
@@ -360,9 +337,7 @@ struct UniqueId {
   }
 
   /** Get id of node from this id */
-  [[nodiscard]]
-  HSHM_ALWAYS_INLINE
-  u32 GetNodeId() const { return node_id_; }
+  [[nodiscard]] HSHM_ALWAYS_INLINE u32 GetNodeId() const { return node_id_; }
 
   /** Compare two ids for equality */
   HSHM_ALWAYS_INLINE
@@ -385,18 +360,14 @@ using QueueId = UniqueId<2>;
 using TaskId = UniqueId<3>;
 
 /** Allow unique ids to be printed as strings */
-template<int num>
+template <int num>
 std::ostream &operator<<(std::ostream &os, UniqueId<num> const &obj) {
-  return os << (std::to_string(obj.node_id_) + "."
-      + std::to_string(obj.unique_));
+  return os << (std::to_string(obj.node_id_) + "." +
+                std::to_string(obj.unique_));
 }
 
 /** The types of I/O that can be performed (for IoCall RPC) */
-enum class IoType {
-  kRead,
-  kWrite,
-  kNone
-};
+enum class IoType { kRead, kWrite, kNone };
 
 }  // namespace hrun
 
@@ -407,20 +378,16 @@ template <int TYPE>
 struct hash<hrun::UniqueId<TYPE>> {
   HSHM_ALWAYS_INLINE
   std::size_t operator()(const hrun::UniqueId<TYPE> &key) const {
-    return
-      std::hash<u64>{}(key.unique_) +
-      std::hash<u32>{}(key.node_id_);
+    return std::hash<u64>{}(key.unique_) + std::hash<u32>{}(key.node_id_);
   }
 };
 
 /** Hash function for DomainId */
-template<>
+template <>
 struct hash<hrun::DomainId> {
   HSHM_ALWAYS_INLINE
   std::size_t operator()(const hrun::DomainId &key) const {
-    return
-        std::hash<u32>{}(key.id_) +
-        std::hash<u32>{}(key.flags_.bits_);
+    return std::hash<u32>{}(key.id_) + std::hash<u32>{}(key.flags_.bits_);
   }
 };
 

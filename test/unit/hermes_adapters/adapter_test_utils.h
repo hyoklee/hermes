@@ -12,10 +12,11 @@
 
 #ifndef HERMES_ADAPTER_TEST_UTILS_H
 #define HERMES_ADAPTER_TEST_UTILS_H
+#include <basic_test.h>
+
 #include <cmath>
 #include <cstdio>
 #include <string>
-#include <basic_test.h>
 
 #define CATCH_CONFIG_RUNNER
 #include <catch2/catch_all.hpp>
@@ -25,6 +26,6 @@
 
 =======
 >>>>>>> upstream/master:test/unit/hermes_adapters/adapter_test_utils.h
-namespace cl = Catch::Clara;
+    namespace cl = Catch::Clara;
 
 #endif  // HERMES_ADAPTER_TEST_UTILS_H

@@ -12,8 +12,8 @@ namespace hrun {
 
 /** The data stored in a lane */
 struct LaneData {
-  hipc::Pointer p_;  /**< Pointer to SHM request */
-  bool complete_;    /**< Whether request is complete */
+  hipc::Pointer p_; /**< Pointer to SHM request */
+  bool complete_;   /**< Whether request is complete */
 
   LaneData() = default;
 
@@ -28,10 +28,11 @@ typedef hrun::mpsc_queue<LaneData> Lane;
 
 /** Prioritization of different lanes in the queue */
 struct LaneGroup : public PriorityInfo {
-  u32 prio_;            /**< The priority of the lane group */
-  u32 num_scheduled_;   /**< The number of lanes currently scheduled on workers */
-  hipc::ShmArchive<hipc::vector<Lane>> lanes_;  /**< The lanes of the queue */
-  u32 tether_;       /**< Lanes should be pinned to the same workers as the tether's prio group */
+  u32 prio_;          /**< The priority of the lane group */
+  u32 num_scheduled_; /**< The number of lanes currently scheduled on workers */
+  hipc::ShmArchive<hipc::vector<Lane>> lanes_; /**< The lanes of the queue */
+  u32 tether_; /**< Lanes should be pinned to the same workers as the tether's
+                  prio group */
 
   /** Default constructor */
   HSHM_ALWAYS_INLINE
@@ -75,26 +76,18 @@ struct LaneGroup : public PriorityInfo {
 
   /** Check if this group is tethered */
   HSHM_ALWAYS_INLINE
-  bool IsTethered() {
-    return flags_.Any(QUEUE_TETHERED);
-  }
+  bool IsTethered() { return flags_.Any(QUEUE_TETHERED); }
 
   /** Check if this group is long-running or ADMIN */
   HSHM_ALWAYS_INLINE
-  bool IsLowPriority() {
-    return flags_.Any(QUEUE_LONG_RUNNING) || prio_ == 0;
-  }
+  bool IsLowPriority() { return flags_.Any(QUEUE_LONG_RUNNING) || prio_ == 0; }
 
   /** Check if this group is long-running or ADMIN */
   HSHM_ALWAYS_INLINE
-  bool IsLowLatency() {
-    return flags_.Any(QUEUE_LOW_LATENCY);
-  }
+  bool IsLowLatency() { return flags_.Any(QUEUE_LOW_LATENCY); }
 
   /** Get lane */
-  Lane& GetLane(u32 lane_id) {
-    return (*lanes_)[lane_id];
-  }
+  Lane &GetLane(u32 lane_id) { return (*lanes_)[lane_id]; }
 };
 
 /** Represents the HSHM queue type */
@@ -103,12 +96,13 @@ class Hshm {};
 /**
  * The shared-memory representation of a Queue
  * */
-template<>
+template <>
 struct MultiQueueT<Hshm> : public hipc::ShmContainer {
   SHM_CONTAINER_TEMPLATE((MultiQueueT), (MultiQueueT))
-  QueueId id_;          /**< Globally unique ID of this queue */
-  hipc::ShmArchive<hipc::vector<LaneGroup>> groups_;  /**< Divide the lanes into groups */
-  bitfield32_t flags_;  /**< Flags for the queue */
+  QueueId id_; /**< Globally unique ID of this queue */
+  hipc::ShmArchive<hipc::vector<LaneGroup>>
+      groups_;         /**< Divide the lanes into groups */
+  bitfield32_t flags_; /**< Flags for the queue */
 
  public:
   /**====================================
@@ -154,7 +148,7 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
   }
 
   /** SHM copy assignment operator */
-  MultiQueueT& operator=(const MultiQueueT &other) {
+  MultiQueueT &operator=(const MultiQueueT &other) {
     if (this != &other) {
       shm_destroy();
       shm_strong_copy_construct_and_op(other);
@@ -172,8 +166,7 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
    * ===================================*/
 
   /** SHM move constructor. */
-  MultiQueueT(hipc::Allocator *alloc,
-              MultiQueueT &&other) noexcept {
+  MultiQueueT(hipc::Allocator *alloc, MultiQueueT &&other) noexcept {
     shm_init_container(alloc);
     if (GetAllocator() == other.GetAllocator()) {
       (*groups_) = std::move(*other.groups_);
@@ -185,7 +178,7 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
   }
 
   /** SHM move assignment operator. */
-  MultiQueueT& operator=(MultiQueueT &&other) noexcept {
+  MultiQueueT &operator=(MultiQueueT &&other) noexcept {
     if (this != &other) {
       shm_destroy();
       if (GetAllocator() == other.GetAllocator()) {
@@ -204,15 +197,11 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
    * ===================================*/
 
   /** SHM destructor.  */
-  void shm_destroy_main() {
-    (*groups_).shm_destroy();
-  }
+  void shm_destroy_main() { (*groups_).shm_destroy(); }
 
   /** Check if the list is empty */
   HSHM_ALWAYS_INLINE
-  bool IsNull() const {
-    return (*groups_).IsNull();
-  }
+  bool IsNull() const { return (*groups_).IsNull(); }
 
   /** Sets this list as empty */
   HSHM_ALWAYS_INLINE
@@ -223,24 +212,22 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
    * ===================================*/
 
   /** Get the priority struct */
-  HSHM_ALWAYS_INLINE LaneGroup& GetGroup(u32 prio) {
-    return (*groups_)[prio];
-  }
+  HSHM_ALWAYS_INLINE LaneGroup &GetGroup(u32 prio) { return (*groups_)[prio]; }
 
   /** Get a lane of the queue */
-  HSHM_ALWAYS_INLINE Lane& GetLane(u32 prio, u32 lane_id) {
+  HSHM_ALWAYS_INLINE Lane &GetLane(u32 prio, u32 lane_id) {
     return (*(*groups_)[prio].lanes_)[lane_id];
   }
 
   /** Get a lane of the queue */
-  HSHM_ALWAYS_INLINE Lane& GetLane(LaneGroup &lane_group, u32 lane_id) {
+  HSHM_ALWAYS_INLINE Lane &GetLane(LaneGroup &lane_group, u32 lane_id) {
     return (*lane_group.lanes_)[lane_id];
   }
 
   /** Emplace a SHM pointer to a task */
   HSHM_ALWAYS_INLINE
-  bool Emplace(u32 prio, u32 lane_hash,
-               hipc::Pointer &p, bool complete = false) {
+  bool Emplace(u32 prio, u32 lane_hash, hipc::Pointer &p,
+               bool complete = false) {
     return Emplace(prio, lane_hash, LaneData(p, complete));
   }
 
@@ -248,8 +235,8 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
    * Emplace a SHM pointer to a task if the queue utilization is less than 50%
    * */
   HSHM_ALWAYS_INLINE
-  bool EmplaceFrac(u32 prio, u32 lane_hash,
-                   hipc::Pointer &p, bool complete = false) {
+  bool EmplaceFrac(u32 prio, u32 lane_hash, hipc::Pointer &p,
+                   bool complete = false) {
     return EmplaceFrac(prio, lane_hash, LaneData(p, complete));
   }
 
@@ -286,18 +273,13 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
    * Change the number of active lanes
    * This assumes that PlugForResize and UnplugForResize are called externally.
    * */
-  void Resize(u32 num_lanes) {
-  }
+  void Resize(u32 num_lanes) {}
 
   /** Begin plugging the queue for resize */
-  HSHM_ALWAYS_INLINE bool PlugForResize() {
-    return true;
-  }
+  HSHM_ALWAYS_INLINE bool PlugForResize() { return true; }
 
   /** Begin plugging the queue for update tasks */
-  HSHM_ALWAYS_INLINE bool PlugForUpdateTask() {
-    return true;
-  }
+  HSHM_ALWAYS_INLINE bool PlugForUpdateTask() { return true; }
 
   /** Check if emplace operations are plugged */
   HSHM_ALWAYS_INLINE bool IsEmplacePlugged() {
@@ -318,9 +300,7 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
   }
 
   /** Enable emplace & pop */
-  HSHM_ALWAYS_INLINE void UnplugForResize() {
-    flags_.UnsetBits(QUEUE_RESIZE);
-  }
+  HSHM_ALWAYS_INLINE void UnplugForResize() { flags_.UnsetBits(QUEUE_RESIZE); }
 
   /** Enable pop */
   HSHM_ALWAYS_INLINE void UnplugForUpdateTask() {
@@ -329,6 +309,5 @@ struct MultiQueueT<Hshm> : public hipc::ShmContainer {
 };
 
 }  // namespace hrun
-
 
 #endif  // HRUN_INCLUDE_HRUN_QUEUE_MANAGER_HSHM_QUEUE_H_

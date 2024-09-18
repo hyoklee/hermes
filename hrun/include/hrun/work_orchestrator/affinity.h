@@ -13,12 +13,12 @@
 #ifndef HRUN_INCLUDE_HRUN_WORK_ORCHESTRATOR_AFFINITY_H_
 #define HRUN_INCLUDE_HRUN_WORK_ORCHESTRATOR_AFFINITY_H_
 
-#include <sched.h>
-#include <vector>
 #include <dirent.h>
-#include <sys/sysinfo.h>
 #include <sched.h>
+#include <sys/sysinfo.h>
+
 #include <string>
+#include <vector>
 
 class ProcessAffiner {
  public:
@@ -48,17 +48,11 @@ class ProcessAffiner {
     Clear();
   }
 
-  inline bool isdigit(char digit) {
-    return ('0' <= digit && digit <= '9');
-  }
+  inline bool isdigit(char digit) { return ('0' <= digit && digit <= '9'); }
 
-  inline int GetNumCPU() {
-    return n_cpu_;
-  }
+  inline int GetNumCPU() { return n_cpu_; }
 
-  inline void SetCpu(int cpu) {
-    CPU_SET(cpu, cpus_.data());
-  }
+  inline void SetCpu(int cpu) { CPU_SET(cpu, cpus_.data()); }
 
   inline void SetCpus(int off, int len) {
     for (int i = 0; i < len; ++i) {
@@ -72,13 +66,9 @@ class ProcessAffiner {
     }
   }
 
-  inline void ClearCpu(int cpu) {
-    CPU_CLR(cpu, cpus_.data());
-  }
+  inline void ClearCpu(int cpu) { CPU_CLR(cpu, cpus_.data()); }
 
-  void IgnorePids(const std::vector<int> &pids) {
-    ignore_pids_ = pids;
-  }
+  void IgnorePids(const std::vector<int> &pids) { ignore_pids_ = pids; }
 
   inline void ClearCpus(int off, int len) {
     for (int i = 0; i < len; ++i) {
@@ -122,9 +112,7 @@ class ProcessAffiner {
     closedir(procdir);
     return count;
   }
-  int Affine(std::vector<pid_t> &&pids) {
-    return Affine(pids);
-  }
+  int Affine(std::vector<pid_t> &&pids) { return Affine(pids); }
   int Affine(std::vector<pid_t> &pids) {
     // Set the affinity of all running process to this mask
     size_t count = 0;
@@ -133,13 +121,9 @@ class ProcessAffiner {
     }
     return count;
   }
-  int Affine(int pid) {
-    return SetAffinitySafe(pid, n_cpu_, cpus_.data());
-  }
+  int Affine(int pid) { return SetAffinitySafe(pid, n_cpu_, cpus_.data()); }
 
-  void PrintAffinity(int pid) {
-    PrintAffinity("", pid);
-  }
+  void PrintAffinity(int pid) { PrintAffinity("", pid); }
   void PrintAffinity(std::string prefix, int pid) {
     std::vector<cpu_set_t> cpus(n_cpu_);
     sched_getaffinity(pid, n_cpu_, cpus.data());
@@ -153,8 +137,8 @@ class ProcessAffiner {
         affinity += std::to_string(i) + ", ";
       }
     }
-    printf("%s: CPU affinity[pid=%d]: %s\n", prefix.c_str(),
-           pid, affinity.c_str());
+    printf("%s: CPU affinity[pid=%d]: %s\n", prefix.c_str(), pid,
+           affinity.c_str());
   }
 
  private:
@@ -170,8 +154,7 @@ class ProcessAffiner {
   int is_pid_folder(const struct dirent *entry) {
     const char *p;
     for (p = entry->d_name; *p; p++) {
-      if (!isdigit(*p))
-        return false;
+      if (!isdigit(*p)) return false;
     }
     return true;
   }

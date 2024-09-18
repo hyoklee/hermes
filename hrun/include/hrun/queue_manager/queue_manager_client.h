@@ -17,8 +17,7 @@
 
 namespace hrun {
 
-#define HRUN_QM_CLIENT \
-  (&HRUN_CLIENT->queue_manager_)
+#define HRUN_QM_CLIENT (&HRUN_CLIENT->queue_manager_)
 
 /** Enable client programs to access queues */
 class QueueManagerClient : public QueueManager {

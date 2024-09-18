@@ -10,7 +10,6 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 #ifndef HRUN_TEST_UNIT_IPC_TEST_INIT_H_
 #define HRUN_TEST_UNIT_IPC_TEST_INIT_H_
 

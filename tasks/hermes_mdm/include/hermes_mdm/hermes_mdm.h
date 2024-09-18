@@ -20,12 +20,11 @@ class Client : public TaskLibClient {
 
   /** Create a hermes_mdm */
   HSHM_ALWAYS_INLINE
-  void CreateRoot(const DomainId &domain_id,
-                  const std::string &state_name) {
+  void CreateRoot(const DomainId &domain_id, const std::string &state_name) {
     id_ = TaskStateId::GetNull();
     std::vector<PriorityInfo> queue_info;
-    id_ = HRUN_ADMIN->CreateTaskStateRoot<ConstructTask>(
-        domain_id, state_name, id_, queue_info);
+    id_ = HRUN_ADMIN->CreateTaskStateRoot<ConstructTask>(domain_id, state_name,
+                                                         id_, queue_info);
     Init(id_, HRUN_ADMIN->queue_id_);
   }
 
@@ -36,6 +35,6 @@ class Client : public TaskLibClient {
   }
 };
 
-}  // namespace hrun
+}  // namespace hermes::mdm
 
 #endif  // HRUN_hermes_mdm_H_

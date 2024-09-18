@@ -23,10 +23,7 @@ struct DeviceInfo; /** Forward declaration of DeviceInfo */
 /**
  * The type of interface the device exposes
  * */
-enum class IoInterface {
-  kRam,
-  kPosix
-};
+enum class IoInterface { kRam, kPosix };
 
 /**
  * DeviceInfo shared-memory representation
@@ -173,13 +170,11 @@ class ServerConfig : public BaseConfig {
   ServerConfig() = default;
 
   /** Load the default configuration */
-  void LoadDefault() {
-    LoadText(kHermesServerDefaultConfigStr, false);
-  }
+  void LoadDefault() { LoadText(kHermesServerDefaultConfigStr, false); }
 
  private:
   /** parse the YAML node */
-  void ParseYAML(YAML::Node &yaml_conf)  {
+  void ParseYAML(YAML::Node &yaml_conf) {
     if (yaml_conf["devices"]) {
       ParseDeviceInfo(yaml_conf["devices"]);
     }
@@ -207,7 +202,6 @@ class ServerConfig : public BaseConfig {
     }
   }
 
-
   /** parse device information from YAML config */
   void ParseDeviceInfo(YAML::Node yaml_conf) {
     devices_.clear();
@@ -218,31 +212,23 @@ class ServerConfig : public BaseConfig {
       dev.dev_name_ = device.first.as<std::string>();
       dev.mount_dir_ = hshm::ConfigParse::ExpandPath(
           dev_info["mount_point"].as<std::string>());
-      dev.borg_min_thresh_ =
-          dev_info["borg_capacity_thresh"][0].as<float>();
-      dev.borg_max_thresh_ =
-          dev_info["borg_capacity_thresh"][1].as<float>();
-      dev.is_shared_ =
-          dev_info["is_shared_device"].as<bool>();
-      dev.block_size_ =
-          hshm::ConfigParse::ParseSize(
-              dev_info["block_size"].as<std::string>());
+      dev.borg_min_thresh_ = dev_info["borg_capacity_thresh"][0].as<float>();
+      dev.borg_max_thresh_ = dev_info["borg_capacity_thresh"][1].as<float>();
+      dev.is_shared_ = dev_info["is_shared_device"].as<bool>();
+      dev.block_size_ = hshm::ConfigParse::ParseSize(
+          dev_info["block_size"].as<std::string>());
       dev.capacity_ =
-          hshm::ConfigParse::ParseSize(
-              dev_info["capacity"].as<std::string>());
+          hshm::ConfigParse::ParseSize(dev_info["capacity"].as<std::string>());
       dev.bandwidth_ =
-          hshm::ConfigParse::ParseSize(
-              dev_info["bandwidth"].as<std::string>());
-      dev.latency_ =
-          hshm::ConfigParse::ParseLatency(
-              dev_info["latency"].as<std::string>());
+          hshm::ConfigParse::ParseSize(dev_info["bandwidth"].as<std::string>());
+      dev.latency_ = hshm::ConfigParse::ParseLatency(
+          dev_info["latency"].as<std::string>());
       std::vector<std::string> size_vec;
-      ParseVector<std::string, std::vector<std::string>>(
-          dev_info["slab_sizes"], size_vec);
+      ParseVector<std::string, std::vector<std::string>>(dev_info["slab_sizes"],
+                                                         size_vec);
       dev.slab_sizes_.reserve(size_vec.size());
       for (const std::string &size_str : size_vec) {
-        dev.slab_sizes_.emplace_back(
-            hshm::ConfigParse::ParseSize(size_str));
+        dev.slab_sizes_.emplace_back(hshm::ConfigParse::ParseSize(size_str));
       }
     }
   }
@@ -287,8 +273,8 @@ class ServerConfig : public BaseConfig {
       tracing_.enabled_ = yaml_conf["enabled"].as<bool>();
     }
     if (yaml_conf["output"]) {
-      tracing_.output_ = hshm::ConfigParse::ExpandPath(
-          yaml_conf["output"].as<std::string>());
+      tracing_.output_ =
+          hshm::ConfigParse::ExpandPath(yaml_conf["output"].as<std::string>());
     }
   }
 
@@ -316,13 +302,11 @@ class ServerConfig : public BaseConfig {
   /** parse prefetch information from YAML config */
   void ParseTraitInfo(YAML::Node yaml_conf) {
     std::vector<std::string> trait_names;
-    ParseVector<std::string, std::vector<std::string>>(
-        yaml_conf, trait_names);
+    ParseVector<std::string, std::vector<std::string>>(yaml_conf, trait_names);
     trait_paths_.reserve(trait_names.size());
     for (auto &name : trait_names) {
       name = hshm::ConfigParse::ExpandPath(name);
-      trait_paths_.emplace_back(
-          hshm::Formatter::format("lib{}.so", name));
+      trait_paths_.emplace_back(hshm::Formatter::format("lib{}.so", name));
     }
   }
 
@@ -337,8 +321,8 @@ class ServerConfig : public BaseConfig {
 }  // namespace hermes::config
 
 namespace hermes {
-using config::ServerConfig;
 using config::DeviceInfo;
+using config::ServerConfig;
 }  // namespace hermes
 
 #endif  // HERMES_SRC_CONFIG_SERVER_H_

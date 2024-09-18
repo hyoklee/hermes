@@ -16,7 +16,6 @@ namespace hrun::remote_queue {
  * should never be called in client programs!!!
  * */
 class Client : public TaskLibClient {
-
  public:
   /** Default constructor */
   Client() = default;
@@ -37,11 +36,9 @@ class Client : public TaskLibClient {
         task_node, domain_id, state_name, id_, queue_info);
   }
   HRUN_TASK_NODE_ROOT(AsyncCreate);
-  template<typename ...Args>
-  HSHM_ALWAYS_INLINE
-  void CreateRoot(Args&& ...args) {
-    LPointer<ConstructTask> task =
-        AsyncCreateRoot(std::forward<Args>(args)...);
+  template <typename... Args>
+  HSHM_ALWAYS_INLINE void CreateRoot(Args &&...args) {
+    LPointer<ConstructTask> task = AsyncCreateRoot(std::forward<Args>(args)...);
     task->Wait();
     Init(id_, HRUN_ADMIN->queue_id_);
     HRUN_CLIENT->DelTask(task);
@@ -55,8 +52,7 @@ class Client : public TaskLibClient {
 
   /** Disperse a task among a domain of nodes */
   HSHM_ALWAYS_INLINE
-  void Disperse(Task *orig_task,
-                TaskState *exec,
+  void Disperse(Task *orig_task, TaskState *exec,
                 std::vector<DomainId> &domain_ids) {
     if (domain_ids.size() == 0) {
       orig_task->SetModuleComplete();
@@ -72,16 +68,16 @@ class Client : public TaskLibClient {
     // Create subtasks
     exec->ReplicateStart(orig_task->method_, domain_ids.size(), orig_task);
     LPointer<PushTask> push_task = HRUN_CLIENT->NewTask<PushTask>(
-        orig_task->task_node_ + 1, DomainId::GetLocal(), id_,
-        domain_ids, orig_task, exec, orig_task->method_, xfer);
+        orig_task->task_node_ + 1, DomainId::GetLocal(), id_, domain_ids,
+        orig_task, exec, orig_task->method_, xfer);
     MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);
     queue->Emplace(push_task->prio_, 0, push_task.shm_);
   }
 
   /** Disperse a task among each lane of this node */
   HSHM_ALWAYS_INLINE
-  void DisperseLocal(Task *orig_task, TaskState *exec,
-                     MultiQueue *orig_queue, LaneGroup *lane_group) {
+  void DisperseLocal(Task *orig_task, TaskState *exec, MultiQueue *orig_queue,
+                     LaneGroup *lane_group) {
     // Duplicate task
     std::vector<LPointer<Task>> dups(lane_group->num_lanes_);
     exec->Dup(orig_task->method_, orig_task, dups);
@@ -95,25 +91,25 @@ class Client : public TaskLibClient {
 
     // Create duplicate task
     exec->ReplicateStart(orig_task->method_, lane_group->num_lanes_, orig_task);
-    LPointer<DupTask> dup_task = HRUN_CLIENT->NewTask<DupTask>(
-        orig_task->task_node_ + 1, id_,
-        orig_task, exec, orig_task->method_, dups);
+    LPointer<DupTask> dup_task =
+        HRUN_CLIENT->NewTask<DupTask>(orig_task->task_node_ + 1, id_, orig_task,
+                                      exec, orig_task->method_, dups);
     MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);
     queue->Emplace(dup_task->prio_, 0, dup_task.shm_);
   }
 
   /** Spawn task to accept new connections */
-//  HSHM_ALWAYS_INLINE
-//  AcceptTask* AsyncAcceptThread() {
-//    hipc::Pointer p;
-//    MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);
-//    auto *task = HRUN_CLIENT->NewTask<AcceptTask>(
-//        p, TaskNode::GetNull(), DomainId::GetLocal(), id_);
-//    queue->Emplace(0, 0, p);
-//    return task;
-//  }
+  //  HSHM_ALWAYS_INLINE
+  //  AcceptTask* AsyncAcceptThread() {
+  //    hipc::Pointer p;
+  //    MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);
+  //    auto *task = HRUN_CLIENT->NewTask<AcceptTask>(
+  //        p, TaskNode::GetNull(), DomainId::GetLocal(), id_);
+  //    queue->Emplace(0, 0, p);
+  //    return task;
+  //  }
 };
 
-}  // namespace hrun
+}  // namespace hrun::remote_queue
 
 #endif  // HRUN_remote_queue_H_

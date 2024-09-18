@@ -19,7 +19,6 @@ namespace hrun::TASK_NAME {
 
 /** Create TASK_NAME requests */
 class Client : public TaskLibClient {
-
  public:
   /** Default constructor */
   Client() = default;
@@ -39,11 +38,9 @@ class Client : public TaskLibClient {
         task_node, domain_id, state_name, id_, queue_info);
   }
   HRUN_TASK_NODE_ROOT(AsyncCreate)
-  template<typename ...Args>
-  HSHM_ALWAYS_INLINE
-  void CreateRoot(Args&& ...args) {
-    LPointer<ConstructTask> task =
-        AsyncCreateRoot(std::forward<Args>(args)...);
+  template <typename... Args>
+  HSHM_ALWAYS_INLINE void CreateRoot(Args &&...args) {
+    LPointer<ConstructTask> task = AsyncCreateRoot(std::forward<Args>(args)...);
     task->Wait();
     Init(task->id_, HRUN_ADMIN->queue_id_);
     HRUN_CLIENT->DelTask(task);
@@ -57,20 +54,19 @@ class Client : public TaskLibClient {
 
   /** Call a custom method */
   HSHM_ALWAYS_INLINE
-  void AsyncCustomConstruct(CustomTask *task,
-                            const TaskNode &task_node,
+  void AsyncCustomConstruct(CustomTask *task, const TaskNode &task_node,
                             const DomainId &domain_id) {
-    HRUN_CLIENT->ConstructTask<CustomTask>(
-        task, task_node, domain_id, id_);
+    HRUN_CLIENT->ConstructTask<CustomTask>(task, task_node, domain_id, id_);
   }
   HSHM_ALWAYS_INLINE
   void CustomRoot(const DomainId &domain_id) {
-    LPointer<hrunpq::TypedPushTask<CustomTask>> task = AsyncCustomRoot(domain_id);
+    LPointer<hrunpq::TypedPushTask<CustomTask>> task =
+        AsyncCustomRoot(domain_id);
     task.ptr_->Wait();
   }
   HRUN_TASK_NODE_PUSH_ROOT(Custom);
 };
 
-}  // namespace hrun
+}  // namespace hrun::TASK_NAME
 
 #endif  // HRUN_TASK_NAME_H_

@@ -13,9 +13,10 @@
 #ifndef HERMES_INCLUDE_HERMES_SCORE_HISTOGRAM_H_
 #define HERMES_INCLUDE_HERMES_SCORE_HISTOGRAM_H_
 
-#include <vector>
-#include <atomic>
 #include <hermes_shm/types/atomic.h>
+
+#include <atomic>
+#include <vector>
 
 namespace hermes {
 
@@ -46,9 +47,7 @@ struct HistEntry {
     return *this;
   }
 
-  void increment() {
-    x_.fetch_add(1);
-  }
+  void increment() { x_.fetch_add(1); }
 };
 
 class Histogram {
@@ -61,8 +60,8 @@ class Histogram {
   Histogram() : histogram_(), count_(0) {}
 
   /** Copy constructor */
-  Histogram(const Histogram &other) : histogram_(other.histogram_),
-                                      count_(other.count_.load()) {}
+  Histogram(const Histogram &other)
+      : histogram_(other.histogram_), count_(other.count_.load()) {}
 
   /** Copy operator */
   Histogram &operator=(const Histogram &other) {
@@ -72,8 +71,8 @@ class Histogram {
   }
 
   /** Move constructor */
-  Histogram(Histogram &&other) noexcept : histogram_(other.histogram_),
-                                          count_(other.count_.load()) {}
+  Histogram(Histogram &&other) noexcept
+      : histogram_(other.histogram_), count_(other.count_.load()) {}
 
   /** Move operator */
   Histogram &operator=(Histogram &&other) noexcept {
@@ -83,9 +82,7 @@ class Histogram {
   }
 
   /** Resize the histogram */
-  void Resize(int num_bins) {
-    histogram_.resize(num_bins);
-  }
+  void Resize(int num_bins) { histogram_.resize(num_bins); }
 
   /** Get the bin score belongs to */
   u32 GetBin(float score) {
@@ -117,7 +114,7 @@ class Histogram {
    * @input score a number between 0 and 1
    * @return Percentile (a number between 0 and 100)
    * */
-  template<bool LESS_THAN_EQUAL>
+  template <bool LESS_THAN_EQUAL>
   u32 GetPercentileBase(float score) {
     if (score == 0) {
       return 0;
@@ -138,12 +135,8 @@ class Histogram {
     }
     return count * 100 / count_;
   }
-  u32 GetPercentile(float score) {
-    return GetPercentileBase<true>(score);
-  }
-  u32 GetPercentileLT(float score) {
-    return GetPercentileBase<false>(score);
-  }
+  u32 GetPercentile(float score) { return GetPercentileBase<true>(score); }
+  u32 GetPercentileLT(float score) { return GetPercentileBase<false>(score); }
 
   /**
    * Get quantile.

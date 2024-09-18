@@ -1,29 +1,29 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* Distributed under BSD 3-Clause license.                                   *
-* Copyright by The HDF Group.                                               *
-* Copyright by the Illinois Institute of Technology.                        *
-* All rights reserved.                                                      *
-*                                                                           *
-* This file is part of Hermes. The full Hermes copyright notice, including  *
-* terms governing use, modification, and redistribution, is contained in    *
-* the COPYING file, which can be found at the top directory. If you do not  *
-* have access to the file, you may request a copy from help@hdfgroup.org.   *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ * Distributed under BSD 3-Clause license.                                   *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Illinois Institute of Technology.                        *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of Hermes. The full Hermes copyright notice, including  *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the COPYING file, which can be found at the top directory. If you do not  *
+ * have access to the file, you may request a copy from help@hdfgroup.org.   *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef HRUN_INCLUDE_HRUN_DATA_STRUCTURES_IPC_mpsc_queue_H_
 #define HRUN_INCLUDE_HRUN_DATA_STRUCTURES_IPC_mpsc_queue_H_
 
 #include "hermes_shm/data_structures/ipc/internal/shm_internal.h"
-#include "hermes_shm/thread/lock.h"
-#include "hermes_shm/data_structures/ipc/vector.h"
 #include "hermes_shm/data_structures/ipc/pair.h"
+#include "hermes_shm/data_structures/ipc/vector.h"
+#include "hermes_shm/thread/lock.h"
 #include "hermes_shm/types/qtok.h"
 #include "hrun/hrun_types.h"
 
 namespace hrun {
 
 /** Forward declaration of mpsc_queue */
-template<typename T>
+template <typename T>
 class mpsc_queue;
 
 /**
@@ -34,21 +34,21 @@ class mpsc_queue;
 #define TYPED_CLASS mpsc_queue<T>
 #define TYPED_HEADER ShmHeader<mpsc_queue<T>>
 
-using hipc::ShmContainer;
-using hipc::pair;
-using hshm::_qtok_t;
-using hshm::qtok_t;
-using hipc::vector;
-using hipc::ShmArchive;
 using hipc::Allocator;
+using hipc::pair;
+using hipc::ShmArchive;
+using hipc::ShmContainer;
+using hipc::vector;
+using hshm::_qtok_t;
 using hshm::bitfield32_t;
 using hshm::make_argpack;
+using hshm::qtok_t;
 
 /**
  * A queue optimized for multiple producers (emplace) with a single
  * consumer (pop).
  * */
-template<typename T>
+template <typename T>
 class mpsc_queue : public ShmContainer {
  public:
   SHM_CONTAINER_TEMPLATE((CLASS_NAME), (TYPED_CLASS))
@@ -65,8 +65,7 @@ class mpsc_queue : public ShmContainer {
    * ===================================*/
 
   /** SHM constructor. Default. */
-  explicit mpsc_queue(Allocator *alloc,
-                      size_t depth = 1024,
+  explicit mpsc_queue(Allocator *alloc, size_t depth = 1024,
                       QueueId id = QueueId::GetNull()) {
     shm_init_container(alloc);
     HSHM_MAKE_AR(queue_, GetAllocator(), depth);
@@ -80,15 +79,14 @@ class mpsc_queue : public ShmContainer {
    * ===================================*/
 
   /** SHM copy constructor */
-  explicit mpsc_queue(Allocator *alloc,
-                      const mpsc_queue &other) {
+  explicit mpsc_queue(Allocator *alloc, const mpsc_queue &other) {
     shm_init_container(alloc);
     SetNull();
     shm_strong_copy_construct_and_op(other);
   }
 
   /** SHM copy assignment operator */
-  mpsc_queue& operator=(const mpsc_queue &other) {
+  mpsc_queue &operator=(const mpsc_queue &other) {
     if (this != &other) {
       shm_destroy();
       shm_strong_copy_construct_and_op(other);
@@ -108,8 +106,7 @@ class mpsc_queue : public ShmContainer {
    * ===================================*/
 
   /** SHM move constructor. */
-  mpsc_queue(Allocator *alloc,
-             mpsc_queue &&other) noexcept {
+  mpsc_queue(Allocator *alloc, mpsc_queue &&other) noexcept {
     shm_init_container(alloc);
     if (GetAllocator() == other.GetAllocator()) {
       head_ = other.head_.load();
@@ -123,7 +120,7 @@ class mpsc_queue : public ShmContainer {
   }
 
   /** SHM move assignment operator. */
-  mpsc_queue& operator=(mpsc_queue &&other) noexcept {
+  mpsc_queue &operator=(mpsc_queue &&other) noexcept {
     if (this != &other) {
       shm_destroy();
       if (GetAllocator() == other.GetAllocator()) {
@@ -144,14 +141,10 @@ class mpsc_queue : public ShmContainer {
    * ===================================*/
 
   /** SHM destructor.  */
-  void shm_destroy_main() {
-    (*queue_).shm_destroy();
-  }
+  void shm_destroy_main() { (*queue_).shm_destroy(); }
 
   /** Check if the list is empty */
-  bool IsNull() const {
-    return (*queue_).IsNull();
-  }
+  bool IsNull() const { return (*queue_).IsNull(); }
 
   /** Sets this list as empty */
   void SetNull() {
@@ -164,8 +157,8 @@ class mpsc_queue : public ShmContainer {
    * ===================================*/
 
   /** Construct an element at \a pos position in the list */
-  template<typename ...Args>
-  qtok_t emplace(Args&&... args) {
+  template <typename... Args>
+  qtok_t emplace(Args &&...args) {
     // Allocate a slot in the queue
     // The slot is marked NULL, so pop won't do anything if context switch
     _qtok_t head = head_.load();
@@ -175,8 +168,8 @@ class mpsc_queue : public ShmContainer {
 
     // Check if there's space in the queue.
     if (size > queue.size()) {
-      HILOG(kDebug, "Queue {}/{} is full, waiting for space",
-            id_, queue_->size());
+      HILOG(kDebug, "Queue {}/{} is full, waiting for space", id_,
+            queue_->size());
       while (true) {
         head = head_.load();
         size = tail - head + 1;
@@ -191,10 +184,8 @@ class mpsc_queue : public ShmContainer {
     // Emplace into queue at our slot
     uint32_t idx = tail % queue.size();
     auto iter = queue.begin() + idx;
-    queue.replace(iter,
-                      hshm::PiecewiseConstruct(),
-                      make_argpack(),
-                      make_argpack(std::forward<Args>(args)...));
+    queue.replace(iter, hshm::PiecewiseConstruct(), make_argpack(),
+                  make_argpack(std::forward<Args>(args)...));
 
     // Let pop know that the data is fully prepared
     pair<bitfield32_t, T> &entry = (*iter);
@@ -298,12 +289,10 @@ class mpsc_queue : public ShmContainer {
   }
 
   /** Max depth of queue */
-  size_t GetDepth() {
-    return (*queue_).size();
-  }
+  size_t GetDepth() { return (*queue_).size(); }
 };
 
-}  // namespace hshm::ipc
+}  // namespace hrun
 
 #undef CLASS_NAME
 #undef TYPED_CLASS

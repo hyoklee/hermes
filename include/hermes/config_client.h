@@ -14,18 +14,19 @@
 #define HERMES_SRC_CONFIG_CLIENT_H_
 
 #include <filesystem>
+
 #include "config.h"
-#include "hermes_adapters/adapter_types.h"
 #include "config_client_default.h"
+#include "hermes_adapters/adapter_types.h"
 
 namespace stdfs = std::filesystem;
 
 namespace hermes::config {
 
-using hermes::adapter::AdapterType;
 using hermes::adapter::AdapterMode;
 using hermes::adapter::AdapterModeConv;
 using hermes::adapter::AdapterObjectConfig;
+using hermes::adapter::AdapterType;
 
 /**< A path is included */
 static inline const bool do_include = true;
@@ -34,10 +35,10 @@ static inline const bool do_exclude = false;
 
 /** Stores information about path inclusions and exclusions */
 struct UserPathInfo {
-  std::regex regex_;   /**< The regex to match the path */
-  std::string path_;   /**< The path the user specified */
-  bool include_;       /**< Whether to track path. */
-  bool is_directory_;  /**< Whether the path is a file or directory */
+  std::regex regex_;  /**< The regex to match the path */
+  std::string path_;  /**< The path the user specified */
+  bool include_;      /**< Whether to track path. */
+  bool is_directory_; /**< Whether the path is a file or directory */
 
   /** Default constructor */
   UserPathInfo() = default;
@@ -60,7 +61,7 @@ struct UserPathInfo {
 
   /** Emplace Constructor */
   UserPathInfo(const std::string &path, bool include, bool is_directory)
-  : path_(path), include_(include), is_directory_(is_directory) {
+      : path_(path), include_(include), is_directory_(is_directory) {
     std::string regex_pattern = ToRegex(path);
     if (is_directory) {
       regex_pattern += ".*";
@@ -101,11 +102,9 @@ class ClientConfig : public BaseConfig {
     base_adapter_config_.mode_ = mode;
   }
 
-  AdapterMode GetBaseAdapterMode() {
-    return base_adapter_config_.mode_;
-  }
+  AdapterMode GetBaseAdapterMode() { return base_adapter_config_.mode_; }
 
-  AdapterObjectConfig& GetAdapterConfig(const std::string &path) {
+  AdapterObjectConfig &GetAdapterConfig(const std::string &path) {
     auto iter = adapter_config_.find(path);
     if (iter == adapter_config_.end()) {
       return base_adapter_config_;
@@ -120,12 +119,9 @@ class ClientConfig : public BaseConfig {
   void CreateAdapterPathTracking(const std::string &path, bool include) {
     try {
       bool is_dir = stdfs::is_directory(path);
-      path_list_.emplace_back(
-          stdfs::absolute(path).string(), include, is_dir);
-      std::sort(path_list_.begin(),
-                path_list_.end(),
-                [](const UserPathInfo &a,
-                   const UserPathInfo &b) {
+      path_list_.emplace_back(stdfs::absolute(path).string(), include, is_dir);
+      std::sort(path_list_.begin(), path_list_.end(),
+                [](const UserPathInfo &a, const UserPathInfo &b) {
                   return a.path_.size() > b.path_.size();
                 });
     } catch (const std::exception &e) {
@@ -175,9 +171,8 @@ class ClientConfig : public BaseConfig {
     if (yaml_conf["file_page_size"]) {
       std::string page_size_env = GetEnvSafe(Constant::kHermesPageSize);
       if (page_size_env.size() == 0) {
-        base_adapter_config_.page_size_ =
-            hshm::ConfigParse::ParseSize(
-                yaml_conf["file_page_size"].as<std::string>());
+        base_adapter_config_.page_size_ = hshm::ConfigParse::ParseSize(
+            yaml_conf["file_page_size"].as<std::string>());
       } else {
         base_adapter_config_.page_size_ =
             hshm::ConfigParse::ParseSize(page_size_env);
@@ -200,9 +195,8 @@ class ClientConfig : public BaseConfig {
       }
     }
     if (yaml_conf["flushing_mode"]) {
-      flushing_mode_ =
-          FlushingModeConv::GetEnum(
-              yaml_conf["flushing_mode"].as<std::string>());
+      flushing_mode_ = FlushingModeConv::GetEnum(
+          yaml_conf["flushing_mode"].as<std::string>());
       auto flush_mode_env = getenv("HERMES_FLUSH_MODE");
       if (flush_mode_env) {
         flushing_mode_ = FlushingModeConv::GetEnum(flush_mode_env);
@@ -216,15 +210,14 @@ class ClientConfig : public BaseConfig {
     }
   }
 
-  void ParseAdapterConfig(YAML::Node &yaml_conf,
-                          AdapterObjectConfig &conf) {
+  void ParseAdapterConfig(YAML::Node &yaml_conf, AdapterObjectConfig &conf) {
     try {
       std::string path = yaml_conf["path"].as<std::string>();
       path = hshm::ConfigParse::ExpandPath(path);
       path = stdfs::absolute(path).string();
       if (yaml_conf["mode"]) {
-        conf.mode_ = AdapterModeConv::to_enum(
-            yaml_conf["mode"].as<std::string>());
+        conf.mode_ =
+            AdapterModeConv::to_enum(yaml_conf["mode"].as<std::string>());
       }
       if (yaml_conf["page_size"]) {
         conf.page_size_ = hshm::ConfigParse::ParseSize(

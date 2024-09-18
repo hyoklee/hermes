@@ -21,9 +21,7 @@ namespace hermes::adapter {
  * Define different types of mappers supported by POSIX Adapter.
  * Also define its construction in the MapperFactory.
  */
-enum class MapperType {
-  kBalancedMapper
-};
+enum class MapperType { kBalancedMapper };
 
 /**
  A structure to represent BLOB placement
@@ -51,7 +49,7 @@ struct BlobPlacement {
   }
 
   /** decode \a blob_name BLOB name to index.  */
-  template<typename StringT>
+  template <typename StringT>
   void DecodeBlobName(const StringT &blob_name, size_t page_size) {
     hrun::LocalDeserialize srl(blob_name);
     srl >> page_;

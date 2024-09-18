@@ -18,30 +18,27 @@
 namespace hrun {
 
 /** A class for serializing simple objects into private memory */
-template<typename DataT = hshm::charbuf>
+template <typename DataT = hshm::charbuf>
 class LocalSerialize {
  public:
   DataT &data_;
+
  public:
-  LocalSerialize(DataT &data) : data_(data) {
-    data_.resize(0);
-  }
+  LocalSerialize(DataT &data) : data_(data) { data_.resize(0); }
   LocalSerialize(DataT &data, bool) : data_(data) {}
 
   /** left shift operator */
-  template<int T>
-  HSHM_ALWAYS_INLINE
-  LocalSerialize& operator<<(const UniqueId<T> &obj) {
+  template <int T>
+  HSHM_ALWAYS_INLINE LocalSerialize &operator<<(const UniqueId<T> &obj) {
     (*this) << obj.unique_;
     (*this) << obj.node_id_;
     return *this;
   }
 
   /** left shift operator */
-  template<typename T>
-  HSHM_ALWAYS_INLINE
-  LocalSerialize& operator<<(const T &obj) {
-    if constexpr(std::is_arithmetic<T>::value) {
+  template <typename T>
+  HSHM_ALWAYS_INLINE LocalSerialize &operator<<(const T &obj) {
+    if constexpr (std::is_arithmetic<T>::value) {
       size_t size = sizeof(T);
       size_t off = data_.size();
       data_.resize(off + size);
@@ -62,35 +59,33 @@ class LocalSerialize {
 };
 
 /** A class for serializing simple objects into private memory */
-template<typename DataT = hshm::charbuf>
+template <typename DataT = hshm::charbuf>
 class LocalDeserialize {
  public:
   const DataT &data_;
   size_t cur_off_ = 0;
+
  public:
-  LocalDeserialize(const DataT &data) : data_(data) {
-    cur_off_ = 0;
-  }
+  LocalDeserialize(const DataT &data) : data_(data) { cur_off_ = 0; }
 
   /** right shift operator */
-  template<int T>
-  HSHM_ALWAYS_INLINE
-  LocalDeserialize& operator<<(const UniqueId<T> &obj) {
+  template <int T>
+  HSHM_ALWAYS_INLINE LocalDeserialize &operator<<(const UniqueId<T> &obj) {
     (*this) >> obj.unique_;
     (*this) >> obj.node_id_;
     return *this;
   }
 
   /** right shift operator */
-  template<typename T>
-  HSHM_ALWAYS_INLINE
-  LocalDeserialize& operator>>(T &obj) {
+  template <typename T>
+  HSHM_ALWAYS_INLINE LocalDeserialize &operator>>(T &obj) {
     size_t size;
     size_t off = cur_off_;
-    if constexpr(std::is_arithmetic<T>::value) {
+    if constexpr (std::is_arithmetic<T>::value) {
       size = sizeof(T);
       memcpy(&obj, data_.data() + off, size);
-    } else if constexpr (std::is_same<T, std::string>::value || std::is_same<T, hshm::charbuf>::value) {
+    } else if constexpr (std::is_same<T, std::string>::value ||
+                         std::is_same<T, hshm::charbuf>::value) {
       memcpy(&size, data_.data() + off, sizeof(size_t));
       size_t str_size = size - sizeof(size_t);
       off += sizeof(size_t);

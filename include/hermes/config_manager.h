@@ -13,15 +13,15 @@
 #ifndef HRUN_TASKS_HERMES_INCLUDE_hermes_H_
 #define HRUN_TASKS_HERMES_INCLUDE_hermes_H_
 
-#include "hermes/hermes_types.h"
-#include "hrun_admin/hrun_admin.h"
-#include "hermes_mdm/hermes_mdm.h"
-#include "hermes_bucket_mdm/hermes_bucket_mdm.h"
-#include "hermes_blob_mdm/hermes_blob_mdm.h"
-#include "hermes_data_op/hermes_data_op.h"
+#include "data_stager/data_stager.h"
 #include "hermes/config_client.h"
 #include "hermes/config_server.h"
-#include "data_stager/data_stager.h"
+#include "hermes/hermes_types.h"
+#include "hermes_blob_mdm/hermes_blob_mdm.h"
+#include "hermes_bucket_mdm/hermes_bucket_mdm.h"
+#include "hermes_data_op/hermes_data_op.h"
+#include "hermes_mdm/hermes_mdm.h"
+#include "hrun_admin/hrun_admin.h"
 
 namespace hermes {
 
@@ -50,23 +50,18 @@ class ConfigurationManager {
     mdm_.CreateRoot(DomainId::GetGlobal(), "hermes_mdm");
     blob_mdm_.CreateRoot(DomainId::GetGlobal(), "hermes_blob_mdm");
     bkt_mdm_.CreateRoot(DomainId::GetGlobal(), "hermes_bkt_mdm");
-    op_mdm_.CreateRoot(DomainId::GetGlobal(), "hermes_op_mdm",
-                       bkt_mdm_.id_, blob_mdm_.id_);
-    stager_mdm_.CreateRoot(DomainId::GetGlobal(),
-                           "hermes_stager_mdm",
-                           blob_mdm_.id_,
-                           bkt_mdm_.id_);
-    blob_mdm_.SetBucketMdmRoot(DomainId::GetGlobal(),
-                               bkt_mdm_.id_,
+    op_mdm_.CreateRoot(DomainId::GetGlobal(), "hermes_op_mdm", bkt_mdm_.id_,
+                       blob_mdm_.id_);
+    stager_mdm_.CreateRoot(DomainId::GetGlobal(), "hermes_stager_mdm",
+                           blob_mdm_.id_, bkt_mdm_.id_);
+    blob_mdm_.SetBucketMdmRoot(DomainId::GetGlobal(), bkt_mdm_.id_,
                                stager_mdm_.id_, op_mdm_.id_);
-    bkt_mdm_.SetBlobMdmRoot(DomainId::GetGlobal(),
-                            blob_mdm_.id_, stager_mdm_.id_);
+    bkt_mdm_.SetBlobMdmRoot(DomainId::GetGlobal(), blob_mdm_.id_,
+                            stager_mdm_.id_);
     is_initialized_ = true;
   }
 
-  void ServerInit() {
-    ClientInit();
-  }
+  void ServerInit() { ClientInit(); }
 
   void LoadClientConfig(std::string config_path) {
     // Load hermes config
@@ -90,11 +85,9 @@ class ConfigurationManager {
 }  // namespace hermes
 
 #define HERMES_CONF \
-hshm::Singleton<::hermes::ConfigurationManager>::GetInstance()
-#define HERMES_CLIENT_CONF \
-HERMES_CONF->client_config_
-#define HERMES_SERVER_CONF \
-HERMES_CONF->server_config_
+  hshm::Singleton<::hermes::ConfigurationManager>::GetInstance()
+#define HERMES_CLIENT_CONF HERMES_CONF->client_config_
+#define HERMES_SERVER_CONF HERMES_CONF->server_config_
 
 /** Initialize client-side Hermes transparently */
 static inline bool TRANSPARENT_HERMES() {

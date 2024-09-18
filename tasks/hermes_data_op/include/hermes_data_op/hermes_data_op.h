@@ -11,7 +11,6 @@ namespace hermes::data_op {
 
 /** Create hermes_data_op requests */
 class Client : public TaskLibClient {
-
  public:
   /** Default constructor */
   Client() = default;
@@ -30,15 +29,13 @@ class Client : public TaskLibClient {
     QueueManagerInfo &qm = HRUN_CLIENT->server_config_.queue_manager_;
     std::vector<PriorityInfo> queue_info;
     return HRUN_ADMIN->AsyncCreateTaskState<ConstructTask>(
-        task_node, domain_id, state_name, id_, queue_info,
-        bkt_mdm_id, blob_mdm_id);
+        task_node, domain_id, state_name, id_, queue_info, bkt_mdm_id,
+        blob_mdm_id);
   }
   HRUN_TASK_NODE_ROOT(AsyncCreate)
-  template<typename ...Args>
-  HSHM_ALWAYS_INLINE
-  void CreateRoot(Args&& ...args) {
-    LPointer<ConstructTask> task =
-        AsyncCreateRoot(std::forward<Args>(args)...);
+  template <typename... Args>
+  HSHM_ALWAYS_INLINE void CreateRoot(Args &&...args) {
+    LPointer<ConstructTask> task = AsyncCreateRoot(std::forward<Args>(args)...);
     task->Wait();
     id_ = task->id_;
     Init(id_, HRUN_ADMIN->queue_id_);
@@ -53,8 +50,7 @@ class Client : public TaskLibClient {
 
   /** Register the OpGraph to perform on data */
   HSHM_ALWAYS_INLINE
-  void AsyncRegisterOpConstruct(RegisterOpTask *task,
-                                const TaskNode &task_node,
+  void AsyncRegisterOpConstruct(RegisterOpTask *task, const TaskNode &task_node,
                                 const OpGraph &op_graph) {
     HRUN_CLIENT->ConstructTask<RegisterOpTask>(
         task, task_node, DomainId::GetGlobal(), id_, op_graph);
@@ -73,25 +69,21 @@ class Client : public TaskLibClient {
                                   const TaskNode &task_node,
                                   const BucketId &bkt_id,
                                   const std::string &blob_name,
-                                  const BlobId &blob_id,
-                                  size_t off,
+                                  const BlobId &blob_id, size_t off,
                                   size_t size) {
-    HRUN_CLIENT->ConstructTask<RegisterDataTask>(
-        task, task_node, id_, bkt_id,
-        blob_name, blob_id, off, size);
+    HRUN_CLIENT->ConstructTask<RegisterDataTask>(task, task_node, id_, bkt_id,
+                                                 blob_name, blob_id, off, size);
   }
   HRUN_TASK_NODE_PUSH_ROOT(RegisterData);
 
   /** Async task to run operators */
   HSHM_ALWAYS_INLINE
-  void AsyncRunOpConstruct(RunOpTask *task,
-                           const TaskNode &task_node) {
-    HRUN_CLIENT->ConstructTask<RunOpTask>(
-        task, task_node, id_);
+  void AsyncRunOpConstruct(RunOpTask *task, const TaskNode &task_node) {
+    HRUN_CLIENT->ConstructTask<RunOpTask>(task, task_node, id_);
   }
   HRUN_TASK_NODE_PUSH_ROOT(RunOp);
 };
 
-}  // namespace hrun
+}  // namespace hermes::data_op
 
 #endif  // HRUN_hermes_data_op_H_

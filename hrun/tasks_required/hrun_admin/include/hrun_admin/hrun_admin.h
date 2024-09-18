@@ -23,13 +23,14 @@ class Client : public TaskLibClient {
                                      const TaskNode &task_node,
                                      const DomainId &domain_id,
                                      const std::string &lib_name) {
-    HRUN_CLIENT->ConstructTask<RegisterTaskLibTask>(
-        task, task_node, domain_id, lib_name);
+    HRUN_CLIENT->ConstructTask<RegisterTaskLibTask>(task, task_node, domain_id,
+                                                    lib_name);
   }
   HSHM_ALWAYS_INLINE
   void RegisterTaskLibRoot(const DomainId &domain_id,
                            const std::string &lib_name) {
-    LPointer<RegisterTaskLibTask> task = AsyncRegisterTaskLibRoot(domain_id, lib_name);
+    LPointer<RegisterTaskLibTask> task =
+        AsyncRegisterTaskLibRoot(domain_id, lib_name);
     task->Wait();
     HRUN_CLIENT->DelTask(task);
   }
@@ -41,13 +42,12 @@ class Client : public TaskLibClient {
                                     const TaskNode &task_node,
                                     const DomainId &domain_id,
                                     const std::string &lib_name) {
-    HRUN_CLIENT->ConstructTask<DestroyTaskLibTask>(
-        task, task_node, domain_id, lib_name);
+    HRUN_CLIENT->ConstructTask<DestroyTaskLibTask>(task, task_node, domain_id,
+                                                   lib_name);
   }
   HSHM_ALWAYS_INLINE
-  void DestroyTaskLibRoot(const TaskNode &task_node,
-                              const DomainId &domain_id,
-                              const std::string &lib_name) {
+  void DestroyTaskLibRoot(const TaskNode &task_node, const DomainId &domain_id,
+                          const std::string &lib_name) {
     LPointer<DestroyTaskLibTask> task =
         AsyncDestroyTaskLibRoot(domain_id, lib_name);
     task->Wait();
@@ -56,19 +56,16 @@ class Client : public TaskLibClient {
   HRUN_TASK_NODE_ADMIN_ROOT(DestroyTaskLib)
 
   /** Spawn a task state */
-  template<typename CreateTaskT, typename ...Args>
-  HSHM_ALWAYS_INLINE
-  void AsyncCreateTaskStateConstruct(CreateTaskT *task,
-                                     const TaskNode &task_node,
-                                     const DomainId &domain_id,
-                                     Args&& ...args) {
-    HRUN_CLIENT->ConstructTask<CreateTaskT>(
-        task, task_node, domain_id, std::forward<Args>(args)...);
+  template <typename CreateTaskT, typename... Args>
+  HSHM_ALWAYS_INLINE void AsyncCreateTaskStateConstruct(
+      CreateTaskT *task, const TaskNode &task_node, const DomainId &domain_id,
+      Args &&...args) {
+    HRUN_CLIENT->ConstructTask<CreateTaskT>(task, task_node, domain_id,
+                                            std::forward<Args>(args)...);
   }
-  template<typename CreateTaskT, typename ...Args>
-  HSHM_ALWAYS_INLINE
-  TaskStateId CreateTaskStateRoot(const DomainId &domain_id,
-                                  Args&& ...args) {
+  template <typename CreateTaskT, typename... Args>
+  HSHM_ALWAYS_INLINE TaskStateId CreateTaskStateRoot(const DomainId &domain_id,
+                                                     Args &&...args) {
     LPointer<CreateTaskT> task = AsyncCreateTaskStateRoot<CreateTaskT>(
         domain_id, std::forward<Args>(args)...);
     task->Wait();
@@ -79,36 +76,36 @@ class Client : public TaskLibClient {
     }
     return new_id;
   }
-  template<typename CreateTaskT, typename ...Args>
-  hipc::LPointer<CreateTaskT> AsyncCreateTaskStateAlloc(const TaskNode &task_node,
-                                                        Args&& ...args) {
+  template <typename CreateTaskT, typename... Args>
+  hipc::LPointer<CreateTaskT> AsyncCreateTaskStateAlloc(
+      const TaskNode &task_node, Args &&...args) {
     hipc::LPointer<CreateTaskT> task = HRUN_CLIENT->AllocateTask<CreateTaskT>();
-    AsyncCreateTaskStateConstruct<CreateTaskT>(task.ptr_, task_node, std::forward<Args>(args)...);
+    AsyncCreateTaskStateConstruct<CreateTaskT>(task.ptr_, task_node,
+                                               std::forward<Args>(args)...);
     return task;
   }
-  template<typename CreateTaskT, typename ...Args>
+  template <typename CreateTaskT, typename... Args>
   hipc::LPointer<CreateTaskT> AsyncCreateTaskState(const TaskNode &task_node,
-                                                   Args&& ...args) {
-    hipc::LPointer<CreateTaskT> task =
-        AsyncCreateTaskStateAlloc<CreateTaskT>(task_node, std::forward<Args>(args)...);
+                                                   Args &&...args) {
+    hipc::LPointer<CreateTaskT> task = AsyncCreateTaskStateAlloc<CreateTaskT>(
+        task_node, std::forward<Args>(args)...);
     MultiQueue *queue = HRUN_CLIENT->GetQueue(queue_id_);
     queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);
     return task;
   }
-  template<typename CreateTaskT, typename ...Args>
-  hipc::LPointer<CreateTaskT> AsyncCreateTaskStateEmplace(MultiQueue *queue,
-                                                      const TaskNode &task_node,
-                                                      Args&& ...args) {
-    hipc::LPointer<CreateTaskT> task =
-        AsyncCreateTaskStateAllocCreateTaskT(task_node, std::forward<Args>(args)...);
+  template <typename CreateTaskT, typename... Args>
+  hipc::LPointer<CreateTaskT> AsyncCreateTaskStateEmplace(
+      MultiQueue *queue, const TaskNode &task_node, Args &&...args) {
+    hipc::LPointer<CreateTaskT> task = AsyncCreateTaskStateAllocCreateTaskT(
+        task_node, std::forward<Args>(args)...);
     queue->Emplace(task.ptr_->prio_, task.ptr_->lane_hash_, task.shm_);
     return task;
   }
-  template<typename CreateTaskT, typename ...Args>
-  hipc::LPointer<CreateTaskT> AsyncCreateTaskStateRoot(Args&& ...args) {
+  template <typename CreateTaskT, typename... Args>
+  hipc::LPointer<CreateTaskT> AsyncCreateTaskStateRoot(Args &&...args) {
     TaskNode task_node = HRUN_CLIENT->MakeTaskNodeId();
-    hipc::LPointer<CreateTaskT> task =
-        AsyncCreateTaskState<CreateTaskT>(task_node, std::forward<Args>(args)...);
+    hipc::LPointer<CreateTaskT> task = AsyncCreateTaskState<CreateTaskT>(
+        task_node, std::forward<Args>(args)...);
     return task;
   }
 
@@ -136,8 +133,8 @@ class Client : public TaskLibClient {
                                     const TaskNode &task_node,
                                     const DomainId &domain_id,
                                     const std::string &state_name) {
-    HRUN_CLIENT->ConstructTask<GetTaskStateIdTask>(
-        task, task_node, domain_id, state_name);
+    HRUN_CLIENT->ConstructTask<GetTaskStateIdTask>(task, task_node, domain_id,
+                                                   state_name);
   }
   TaskStateId GetTaskStateIdRoot(const DomainId &domain_id,
                                  const std::string &state_name) {
@@ -156,12 +153,11 @@ class Client : public TaskLibClient {
                                       const TaskNode &task_node,
                                       const DomainId &domain_id,
                                       const TaskStateId &id) {
-    HRUN_CLIENT->ConstructTask<DestroyTaskStateTask>(
-        task, task_node, domain_id, id);
+    HRUN_CLIENT->ConstructTask<DestroyTaskStateTask>(task, task_node, domain_id,
+                                                     id);
   }
   HSHM_ALWAYS_INLINE
-  void DestroyTaskStateRoot(const DomainId &domain_id,
-                            const TaskStateId &id) {
+  void DestroyTaskStateRoot(const DomainId &domain_id, const TaskStateId &id) {
     LPointer<DestroyTaskStateTask> task =
         AsyncDestroyTaskStateRoot(domain_id, id);
     task->Wait();
@@ -173,14 +169,14 @@ class Client : public TaskLibClient {
   void AsyncStopRuntimeConstruct(StopRuntimeTask *task,
                                  const TaskNode &task_node,
                                  const DomainId &domain_id) {
-    HRUN_CLIENT->ConstructTask<StopRuntimeTask>(
-        task, task_node, domain_id);
+    HRUN_CLIENT->ConstructTask<StopRuntimeTask>(task, task_node, domain_id);
   }
   HRUN_TASK_NODE_ADMIN_ROOT(StopRuntime);
   void StopRuntimeRoot() {
-    HILOG(kInfo, "Beginning to flush the runtime.\n"
-                 "If you did async I/O, this may take some time.\n"
-                 "All unflushed data will be written to the PFS.")
+    HILOG(kInfo,
+          "Beginning to flush the runtime.\n"
+          "If you did async I/O, this may take some time.\n"
+          "All unflushed data will be written to the PFS.")
     FlushRoot(DomainId::GetGlobal());
     HILOG(kInfo, "Stopping the runtime")
     AsyncStopRuntimeRoot(DomainId::GetGlobalMinusLocal());
@@ -193,8 +189,8 @@ class Client : public TaskLibClient {
                                             const TaskNode &task_node,
                                             const DomainId &domain_id,
                                             const TaskStateId &policy) {
-    HRUN_CLIENT->ConstructTask<SetWorkOrchQueuePolicyTask>(
-        task, task_node, domain_id, policy);
+    HRUN_CLIENT->ConstructTask<SetWorkOrchQueuePolicyTask>(task, task_node,
+                                                           domain_id, policy);
   }
   void SetWorkOrchQueuePolicyRoot(const DomainId &domain_id,
                                   const TaskStateId &policy) {
@@ -210,8 +206,8 @@ class Client : public TaskLibClient {
                                            const TaskNode &task_node,
                                            const DomainId &domain_id,
                                            const TaskStateId &policy) {
-    HRUN_CLIENT->ConstructTask<SetWorkOrchProcPolicyTask>(
-        task, task_node, domain_id, policy);
+    HRUN_CLIENT->ConstructTask<SetWorkOrchProcPolicyTask>(task, task_node,
+                                                          domain_id, policy);
   }
   void SetWorkOrchProcPolicyRoot(const DomainId &domain_id,
                                  const TaskStateId &policy) {
@@ -223,15 +219,12 @@ class Client : public TaskLibClient {
   HRUN_TASK_NODE_ADMIN_ROOT(SetWorkOrchProcPolicy);
 
   /** Flush the runtime */
-  void AsyncFlushConstruct(FlushTask *task,
-                           const TaskNode &task_node,
+  void AsyncFlushConstruct(FlushTask *task, const TaskNode &task_node,
                            const DomainId &domain_id) {
-    HRUN_CLIENT->ConstructTask<FlushTask>(
-        task, task_node, domain_id);
+    HRUN_CLIENT->ConstructTask<FlushTask>(task, task_node, domain_id);
   }
   void FlushRoot(const DomainId &domain_id) {
-    LPointer<FlushTask> task =
-        AsyncFlushRoot(domain_id);
+    LPointer<FlushTask> task = AsyncFlushRoot(domain_id);
     task->Wait();
     HRUN_CLIENT->DelTask(task);
   }
@@ -240,7 +233,6 @@ class Client : public TaskLibClient {
 
 }  // namespace hrun::Admin
 
-#define HRUN_ADMIN \
-  hshm::EasySingleton<hrun::Admin::Client>::GetInstance()
+#define HRUN_ADMIN hshm::EasySingleton<hrun::Admin::Client>::GetInstance()
 
 #endif  // HRUN_TASKS_HRUN_ADMIN_HRUN_ADMIN_H_

@@ -16,7 +16,7 @@
 #include "binary_file_tests.h"
 
 namespace hermes::adapter::test {
-template<bool WITH_MPI>
+template <bool WITH_MPI>
 class MpiioTest : public BinaryFileTests {
  public:
   FileInfo new_file_;
@@ -46,7 +46,7 @@ class MpiioTest : public BinaryFileTests {
   void RegisterFiles() override {
     RegisterPath("new", 0, new_file_);
     RegisterPath("ext", TEST_DO_CREATE, existing_file_);
-    if constexpr(WITH_MPI) {
+    if constexpr (WITH_MPI) {
       RegisterPath("shared_new", TEST_FILE_SHARED, shared_new_file_);
       RegisterPath("shared_ext", TEST_DO_CREATE | TEST_FILE_SHARED,
                    shared_existing_file_);
@@ -68,13 +68,13 @@ class MpiioTest : public BinaryFileTests {
     }
   }
 
-  void test_open(FileInfo &info, int mode, MPI_Comm comm) {
-    status_orig_ = MPI_File_open(comm, info.hermes_.c_str(),
-                                 mode, MPI_INFO_NULL, &fh_orig_);
+  void test_open(FileInfo& info, int mode, MPI_Comm comm) {
+    status_orig_ = MPI_File_open(comm, info.hermes_.c_str(), mode,
+                                 MPI_INFO_NULL, &fh_orig_);
     auto status_cmp =
         MPI_File_open(comm, info.cmp_.c_str(), mode, MPI_INFO_NULL, &fh_cmp_);
     bool is_same = (status_orig_ != MPI_SUCCESS && status_cmp != MPI_SUCCESS) ||
-        (status_orig_ == MPI_SUCCESS && status_cmp == MPI_SUCCESS);
+                   (status_orig_ == MPI_SUCCESS && status_cmp == MPI_SUCCESS);
     REQUIRE(is_same);
   }
   void test_close() {
@@ -103,11 +103,10 @@ class MpiioTest : public BinaryFileTests {
   void test_iwrite(const void* ptr, size_t count, MPI_Datatype datatype) {
     MPI_Status stat[2];
     MPI_Request request[2];
-    auto ret_orig = MPI_File_iwrite(fh_orig_, ptr, count,
-                                    datatype, &request[0]);
+    auto ret_orig =
+        MPI_File_iwrite(fh_orig_, ptr, count, datatype, &request[0]);
     int size_written;
-    auto ret_cmp = MPI_File_iwrite(fh_cmp_, ptr, count,
-                                   datatype, &request[1]);
+    auto ret_cmp = MPI_File_iwrite(fh_cmp_, ptr, count, datatype, &request[1]);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Waitall(2, request, stat);
     MPI_Get_count(&stat[0], datatype, &size_written_orig_);
@@ -115,14 +114,13 @@ class MpiioTest : public BinaryFileTests {
     REQUIRE(size_written == size_written_orig_);
   }
 
-  void test_write_shared(const void* ptr, size_t count,
-                         MPI_Datatype datatype) {
+  void test_write_shared(const void* ptr, size_t count, MPI_Datatype datatype) {
     MPI_Status stat_orig, stat_cmp;
     auto ret_orig =
         MPI_File_write_shared(fh_orig_, ptr, count, datatype, &stat_orig);
     int size_written;
-    auto ret_cmp = MPI_File_write_shared(fh_cmp_, ptr, count,
-                                         datatype, &stat_cmp);
+    auto ret_cmp =
+        MPI_File_write_shared(fh_cmp_, ptr, count, datatype, &stat_cmp);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Get_count(&stat_orig, datatype, &size_written_orig_);
     MPI_Get_count(&stat_cmp, datatype, &size_written);
@@ -147,11 +145,10 @@ class MpiioTest : public BinaryFileTests {
 
   void test_write_all(const void* ptr, size_t count, MPI_Datatype datatype) {
     MPI_Status stat_orig, stat_cmp;
-    auto ret_orig = MPI_File_write_all(fh_orig_, ptr, count,
-                                       datatype, &stat_orig);
+    auto ret_orig =
+        MPI_File_write_all(fh_orig_, ptr, count, datatype, &stat_orig);
     int size_written;
-    auto ret_cmp = MPI_File_write_all(fh_cmp_, ptr, count,
-                                      datatype, &stat_cmp);
+    auto ret_cmp = MPI_File_write_all(fh_cmp_, ptr, count, datatype, &stat_cmp);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Get_count(&stat_orig, datatype, &size_written_orig_);
     MPI_Get_count(&stat_cmp, datatype, &size_written);
@@ -164,8 +161,8 @@ class MpiioTest : public BinaryFileTests {
     auto ret_orig =
         MPI_File_iwrite_all(fh_orig_, ptr, count, datatype, &request[0]);
     int size_written;
-    auto ret_cmp = MPI_File_iwrite_all(fh_cmp_, ptr, count,
-                                       datatype, &request[1]);
+    auto ret_cmp =
+        MPI_File_iwrite_all(fh_cmp_, ptr, count, datatype, &request[1]);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Waitall(2, request, stat);
     MPI_Get_count(&stat[0], datatype, &size_written_orig_);
@@ -203,35 +200,29 @@ class MpiioTest : public BinaryFileTests {
     REQUIRE(size_written == size_written_orig_);
   }
 
-  void test_write_at_all(const void* ptr, size_t count,
-                         MPI_Datatype datatype,
+  void test_write_at_all(const void* ptr, size_t count, MPI_Datatype datatype,
                          MPI_Offset offset) {
     MPI_Status stat_orig, stat_cmp;
-    auto ret_orig =
-        MPI_File_write_at_all(fh_orig_, offset, ptr, count,
-                              datatype, &stat_orig);
+    auto ret_orig = MPI_File_write_at_all(fh_orig_, offset, ptr, count,
+                                          datatype, &stat_orig);
     int size_written;
     auto ret_cmp =
-        MPI_File_write_at_all(fh_cmp_, offset, ptr, count,
-                              datatype, &stat_cmp);
+        MPI_File_write_at_all(fh_cmp_, offset, ptr, count, datatype, &stat_cmp);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Get_count(&stat_orig, datatype, &size_written_orig_);
     MPI_Get_count(&stat_cmp, datatype, &size_written);
     REQUIRE(size_written == size_written_orig_);
   }
 
-  void test_iwrite_at_all(const void* ptr, size_t count,
-                          MPI_Datatype datatype,
+  void test_iwrite_at_all(const void* ptr, size_t count, MPI_Datatype datatype,
                           MPI_Offset offset) {
     MPI_Status stat[2];
     MPI_Request request[2];
-    auto ret_orig = MPI_File_iwrite_at_all(fh_orig_, offset, ptr,
-                                           count, datatype,
-                                           &request[0]);
+    auto ret_orig = MPI_File_iwrite_at_all(fh_orig_, offset, ptr, count,
+                                           datatype, &request[0]);
     int size_written;
-    auto ret_cmp =
-        MPI_File_iwrite_at_all(fh_cmp_, offset, ptr, count,
-                               datatype, &request[1]);
+    auto ret_cmp = MPI_File_iwrite_at_all(fh_cmp_, offset, ptr, count, datatype,
+                                          &request[1]);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Waitall(2, request, stat);
     MPI_Get_count(&stat[0], datatype, &size_written_orig_);
@@ -255,15 +246,13 @@ class MpiioTest : public BinaryFileTests {
 
   void test_read(char* ptr, size_t count, MPI_Datatype datatype) {
     MPI_Status stat_orig, stat_cmp;
-    auto ret_orig = MPI_File_read(fh_orig_, ptr, count,
-                                  datatype, &stat_orig);
+    auto ret_orig = MPI_File_read(fh_orig_, ptr, count, datatype, &stat_orig);
     int type_size;
     MPI_Type_size(datatype, &type_size);
     std::vector<unsigned char> read_data(count * type_size, 'r');
     int size_read;
     auto ret_cmp =
-        MPI_File_read(fh_cmp_, read_data.data(), count,
-                      datatype, &stat_cmp);
+        MPI_File_read(fh_cmp_, read_data.data(), count, datatype, &stat_cmp);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Get_count(&stat_orig, datatype, &size_read_orig_);
     MPI_Get_count(&stat_cmp, datatype, &size_read);
@@ -275,15 +264,13 @@ class MpiioTest : public BinaryFileTests {
   void test_iread(char* ptr, size_t count, MPI_Datatype datatype) {
     MPI_Status stat[2];
     MPI_Request request[2];
-    auto ret_orig = MPI_File_iread(fh_orig_, ptr, count,
-                                   datatype, &request[0]);
+    auto ret_orig = MPI_File_iread(fh_orig_, ptr, count, datatype, &request[0]);
     int type_size;
     MPI_Type_size(datatype, &type_size);
     std::vector<unsigned char> read_data(count * type_size, 'r');
     int size_read;
     auto ret_cmp =
-        MPI_File_iread(fh_cmp_, read_data.data(), count,
-                       datatype, &request[1]);
+        MPI_File_iread(fh_cmp_, read_data.data(), count, datatype, &request[1]);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Waitall(2, request, stat);
     MPI_Get_count(&stat[0], datatype, &size_read_orig_);
@@ -301,9 +288,8 @@ class MpiioTest : public BinaryFileTests {
     MPI_Type_size(datatype, &type_size);
     std::vector<unsigned char> read_data(count * type_size, 'r');
     int size_read;
-    auto ret_cmp = MPI_File_read_shared(fh_cmp_, read_data.data(),
-                                        count, datatype,
-                                        &stat_cmp);
+    auto ret_cmp = MPI_File_read_shared(fh_cmp_, read_data.data(), count,
+                                        datatype, &stat_cmp);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Get_count(&stat_orig, datatype, &size_read_orig_);
     MPI_Get_count(&stat_cmp, datatype, &size_read);
@@ -321,8 +307,7 @@ class MpiioTest : public BinaryFileTests {
     MPI_Type_size(datatype, &type_size);
     std::vector<unsigned char> read_data(count * type_size, 'r');
     int size_read;
-    auto ret_cmp = MPI_File_iread_shared(fh_cmp_,
-                                         read_data.data(), count,
+    auto ret_cmp = MPI_File_iread_shared(fh_cmp_, read_data.data(), count,
                                          datatype, &request[1]);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Waitall(2, request, stat);
@@ -335,15 +320,14 @@ class MpiioTest : public BinaryFileTests {
 
   void test_read_all(char* ptr, size_t count, MPI_Datatype datatype) {
     MPI_Status stat_orig, stat_cmp;
-    auto ret_orig = MPI_File_read_all(fh_orig_, ptr, count,
-                                      datatype, &stat_orig);
+    auto ret_orig =
+        MPI_File_read_all(fh_orig_, ptr, count, datatype, &stat_orig);
     int type_size;
     MPI_Type_size(datatype, &type_size);
     std::vector<unsigned char> read_data(count * type_size, 'r');
     int size_read;
-    auto ret_cmp =
-        MPI_File_read_all(fh_cmp_, read_data.data(), count,
-                          datatype, &stat_cmp);
+    auto ret_cmp = MPI_File_read_all(fh_cmp_, read_data.data(), count, datatype,
+                                     &stat_cmp);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Get_count(&stat_orig, datatype, &size_read_orig_);
     MPI_Get_count(&stat_cmp, datatype, &size_read);
@@ -361,9 +345,8 @@ class MpiioTest : public BinaryFileTests {
     MPI_Type_size(datatype, &type_size);
     std::vector<unsigned char> read_data(count * type_size, 'r');
     int size_read;
-    auto ret_cmp = MPI_File_iread_all(fh_cmp_, read_data.data(),
-                                      count, datatype,
-                                      &request[1]);
+    auto ret_cmp = MPI_File_iread_all(fh_cmp_, read_data.data(), count,
+                                      datatype, &request[1]);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Waitall(2, request, stat);
     MPI_Get_count(&stat[0], datatype, &size_read_orig_);
@@ -434,16 +417,14 @@ class MpiioTest : public BinaryFileTests {
   void test_read_at_all(char* ptr, size_t count, MPI_Datatype datatype,
                         MPI_Offset offset) {
     MPI_Status stat_orig, stat_cmp;
-    auto ret_orig =
-        MPI_File_read_at_all(fh_orig_, offset, ptr, count,
-                             datatype, &stat_orig);
+    auto ret_orig = MPI_File_read_at_all(fh_orig_, offset, ptr, count, datatype,
+                                         &stat_orig);
     int type_size;
     MPI_Type_size(datatype, &type_size);
     std::vector<unsigned char> read_data(count * type_size, 'r');
     int size_read;
-    auto ret_cmp = MPI_File_read_at_all(fh_cmp_, offset,
-                                        read_data.data(), count,
-                                        datatype, &stat_cmp);
+    auto ret_cmp = MPI_File_read_at_all(fh_cmp_, offset, read_data.data(),
+                                        count, datatype, &stat_cmp);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Get_count(&stat_orig, datatype, &size_read_orig_);
     MPI_Get_count(&stat_cmp, datatype, &size_read);
@@ -456,16 +437,14 @@ class MpiioTest : public BinaryFileTests {
                          MPI_Offset offset) {
     MPI_Status stat[2];
     MPI_Request request[2];
-    auto ret_orig =
-        MPI_File_iread_at_all(fh_orig_, offset, ptr, count,
-                              datatype, &request[0]);
+    auto ret_orig = MPI_File_iread_at_all(fh_orig_, offset, ptr, count,
+                                          datatype, &request[0]);
     int type_size;
     MPI_Type_size(datatype, &type_size);
     std::vector<unsigned char> read_data(count * type_size, 'r');
     int size_read;
-    auto ret_cmp = MPI_File_iread_at_all(fh_cmp_, offset,
-                                         read_data.data(), count,
-                                         datatype, &request[1]);
+    auto ret_cmp = MPI_File_iread_at_all(fh_cmp_, offset, read_data.data(),
+                                         count, datatype, &request[1]);
     REQUIRE(ret_orig == ret_cmp);
     MPI_Waitall(2, request, stat);
     MPI_Get_count(&stat[0], datatype, &size_read_orig_);

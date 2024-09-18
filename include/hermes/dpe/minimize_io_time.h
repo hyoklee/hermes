@@ -24,8 +24,7 @@ class MinimizeIoTime : public Dpe {
   MinimizeIoTime() = default;
   ~MinimizeIoTime() = default;
   Status Placement(const std::vector<size_t> &blob_sizes,
-                   std::vector<TargetInfo> &targets,
-                   Context &ctx,
+                   std::vector<TargetInfo> &targets, Context &ctx,
                    std::vector<PlacementSchema> &output) {
     for (size_t blob_size : blob_sizes) {
       // Initialize blob's size, score, and schema
@@ -44,7 +43,7 @@ class MinimizeIoTime : public Dpe {
         size_t rem_cap = target.GetRemCap();
         // TODO(llogan): add back
         if (target.score_ > score || rem_cap < blob_size) {
-        // if (rem_cap < blob_size) {
+          // if (rem_cap < blob_size) {
           // TODO(llogan): add other considerations of this Dpe
           continue;
         }
@@ -54,15 +53,13 @@ class MinimizeIoTime : public Dpe {
 
         // NOTE(llogan): we assume the TargetInfo list is sorted
         if (rem_cap >= rem_blob_size) {
-          blob_schema.plcmnts_.emplace_back(rem_blob_size,
-                                            target.id_);
+          blob_schema.plcmnts_.emplace_back(rem_blob_size, target.id_);
           rem_cap -= rem_blob_size;
           rem_blob_size = 0;
         } else {
           // NOTE(llogan): this code technically never gets called,
           // but it might in the future
-          blob_schema.plcmnts_.emplace_back(rem_cap,
-                                            target.id_);
+          blob_schema.plcmnts_.emplace_back(rem_cap, target.id_);
           rem_blob_size -= rem_cap;
           rem_cap = 0;
         }

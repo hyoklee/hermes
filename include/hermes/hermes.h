@@ -26,19 +26,13 @@ struct MetadataTable {
 class Hermes {
  public:
   /** Init hermes client */
-  void ClientInit() {
-    HERMES_CONF->ClientInit();
-  }
+  void ClientInit() { HERMES_CONF->ClientInit(); }
 
   /** Init hermes server */
-  void ServerInit() {
-    HERMES_CONF->ServerInit();
-  }
+  void ServerInit() { HERMES_CONF->ServerInit(); }
 
   /** Check if initialized */
-  bool IsInitialized() {
-    return HERMES_CONF->is_initialized_;
-  }
+  bool IsInitialized() { return HERMES_CONF->is_initialized_; }
 
   /** Get tag ID */
   TagId GetTagId(const std::string &tag_name) {
@@ -55,10 +49,8 @@ class Hermes {
   }
 
   /** Get or create a bucket */
-  hermes::Bucket GetBucket(const std::string &path,
-                           Context ctx = Context(),
-                           size_t backend_size = 0,
-                           u32 flags = 0) {
+  hermes::Bucket GetBucket(const std::string &path, Context ctx = Context(),
+                           size_t backend_size = 0, u32 flags = 0) {
     return hermes::Bucket(path, ctx, backend_size, flags);
   }
 

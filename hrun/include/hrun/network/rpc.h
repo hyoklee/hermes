@@ -14,52 +14,48 @@
 #define HRUN_RPC_H_
 
 #include <arpa/inet.h>
+#include <ifaddrs.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
-#include <ifaddrs.h>
 
+#include <fstream>
 #include <functional>
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <vector>
 
-#include "hrun/hrun_types.h"
 #include "hrun/config/config_server.h"
+#include "hrun/hrun_types.h"
 
 namespace hrun {
 
 /** RPC types */
-enum class RpcType {
-  kThallium
-};
+enum class RpcType { kThallium };
 
 /** Uniquely identify a host machine */
 struct HostInfo {
-  u32 node_id_;           /**< Hermes-assigned node id */
-  std::string hostname_;  /**< Host name */
-  std::string ip_addr_;   /**< Host IP address */
+  u32 node_id_;          /**< Hermes-assigned node id */
+  std::string hostname_; /**< Host name */
+  std::string ip_addr_;  /**< Host IP address */
 
   HostInfo() = default;
-  explicit HostInfo(const std::string &hostname,
-                    const std::string &ip_addr,
+  explicit HostInfo(const std::string &hostname, const std::string &ip_addr,
                     u32 node_id)
       : hostname_(hostname), ip_addr_(ip_addr), node_id_(node_id) {}
 };
 
 /** Fabric protocols */
 
-
 /** A structure to represent RPC context. */
 class RpcContext {
  public:
   ServerConfig *config_;
-  int port_;  /**< port number */
-  std::string protocol_;  /**< Libfabric provider */
-  std::string domain_;    /**< Libfabric domain */
-  u32 node_id_;           /**< the ID of this node */
-  int num_threads_;       /**< Number of RPC threads */
+  int port_;                    /**< port number */
+  std::string protocol_;        /**< Libfabric provider */
+  std::string domain_;          /**< Libfabric domain */
+  u32 node_id_;                 /**< the ID of this node */
+  int num_threads_;             /**< Number of RPC threads */
   std::vector<HostInfo> hosts_; /**< Hostname and ip addr per-node */
 
  public:
@@ -68,9 +64,7 @@ class RpcContext {
 
   /** Get the nubmer of hosts */
   HSHM_ALWAYS_INLINE
-  size_t GetNumHosts() {
-    return hosts_.size();
-  }
+  size_t GetNumHosts() { return hosts_.size(); }
 
   /** initialize host info list */
   void ServerInit(ServerConfig *config) {
@@ -79,14 +73,16 @@ class RpcContext {
     protocol_ = config_->rpc_.protocol_;
     domain_ = config_->rpc_.domain_;
     num_threads_ = config_->rpc_.num_threads_;
-    if (hosts_.size()) { return; }
+    if (hosts_.size()) {
+      return;
+    }
     // Uses hosts produced by host_names
     auto &hosts = config_->rpc_.host_names_;
 
     // Get all host info
     hosts_.reserve(hosts.size());
     u32 node_id = 1;
-    for (const auto& name : hosts) {
+    for (const auto &name : hosts) {
       hosts_.emplace_back(name, _GetIpAddress(name), node_id++);
     }
 
@@ -118,29 +114,31 @@ class RpcContext {
     // NOTE(llogan): node_id 0 is reserved as the NULL node
     u32 node_id = domain_id.id_;
     if (node_id <= 0 || node_id > (i32)hosts_.size()) {
-      HELOG(kFatal, "Attempted to get from node {}, which is out of "
-                    "the range 1-{}", node_id, hosts_.size() + 1)
+      HELOG(kFatal,
+            "Attempted to get from node {}, which is out of "
+            "the range 1-{}",
+            node_id, hosts_.size() + 1)
     }
     u32 index = node_id - 1;
     return hosts_[index].hostname_;
   }
 
   /** get host name from node ID */
-  std::string GetIpAddressFromNodeId(const DomainId &domain_id){
+  std::string GetIpAddressFromNodeId(const DomainId &domain_id) {
     // NOTE(llogan): node_id 0 is reserved as the NULL node
     u32 node_id = domain_id.id_;
     if (node_id <= 0 || node_id > (u32)hosts_.size()) {
-      HELOG(kFatal, "Attempted to get from node {}, which is out of "
-                    "the range 1-{}", node_id, hosts_.size() + 1)
+      HELOG(kFatal,
+            "Attempted to get from node {}, which is out of "
+            "the range 1-{}",
+            node_id, hosts_.size() + 1)
     }
     u32 index = node_id - 1;
     return hosts_[index].ip_addr_;
   }
 
   /** Get RPC protocol */
-  std::string GetProtocol() {
-    return config_->rpc_.protocol_;
-  }
+  std::string GetProtocol() { return config_->rpc_.protocol_; }
 
  private:
   /** Get the node ID of this machine according to hostfile */
@@ -158,7 +156,7 @@ class RpcContext {
 
   /** Check if an IP address is local */
   bool _IsAddressLocal(const std::string &addr) {
-    struct ifaddrs* ifAddrList = nullptr;
+    struct ifaddrs *ifAddrList = nullptr;
     bool found = false;
 
     if (getifaddrs(&ifAddrList) == -1) {
@@ -166,15 +164,15 @@ class RpcContext {
       return false;
     }
 
-    for (struct ifaddrs* ifAddr = ifAddrList;
-         ifAddr != nullptr; ifAddr = ifAddr->ifa_next) {
+    for (struct ifaddrs *ifAddr = ifAddrList; ifAddr != nullptr;
+         ifAddr = ifAddr->ifa_next) {
       if (ifAddr->ifa_addr == nullptr ||
           ifAddr->ifa_addr->sa_family != AF_INET) {
         continue;
       }
 
-      struct sockaddr_in* sin =
-          reinterpret_cast<struct sockaddr_in*>(ifAddr->ifa_addr);
+      struct sockaddr_in *sin =
+          reinterpret_cast<struct sockaddr_in *>(ifAddr->ifa_addr);
       char ipAddress[INET_ADDRSTRLEN] = {0};
       inet_ntop(AF_INET, &(sin->sin_addr), ipAddress, INET_ADDRSTRLEN);
 
@@ -196,7 +194,7 @@ class RpcContext {
     char hostname_buffer[4096] = {};
 #ifdef __APPLE__
     hostname_result = gethostbyname(host_name.c_str());
-  in_addr **addr_list = (struct in_addr **)hostname_result->h_addr_list;
+    in_addr **addr_list = (struct in_addr **)hostname_result->h_addr_list;
 #else
     int gethostbyname_result =
         gethostbyname_r(host_name.c_str(), &hostname_info, hostname_buffer,
@@ -221,6 +219,6 @@ class RpcContext {
   }
 };
 
-}  // namespace hermes
+}  // namespace hrun
 
 #endif  // HRUN_RPC_H_

@@ -13,9 +13,10 @@
 #ifndef HRUN_INCLUDE_HRUN_QUEUE_MANAGER_REQUEST_H_
 #define HRUN_INCLUDE_HRUN_QUEUE_MANAGER_REQUEST_H_
 
+#include <thallium.hpp>
+
 #include "hrun/hrun_types.h"
 #include "hrun/network/local_serialize.h"
-#include <thallium.hpp>
 
 namespace hrun {
 
@@ -76,21 +77,22 @@ class TaskLib;
 struct TaskMethod {
   TASK_METHOD_T kConstruct = 0; /**< The constructor of the task */
   TASK_METHOD_T kDestruct = 1;  /**< The destructor of the task */
-  TASK_METHOD_T kLast = 2;    /**< Where the next method should take place */
+  TASK_METHOD_T kLast = 2;      /**< Where the next method should take place */
 };
 
 /**
  * Let's say we have an I/O request to a device
  * I/O requests + MD operations need to be controlled for correctness
- * Is there a case where root tasks from different TaskStates need to be ordered? No.
- * Tasks spawned from the same root task need to be keyed to the same worker stack
- * Tasks apart of the same task group need to be ordered
+ * Is there a case where root tasks from different TaskStates need to be
+ * ordered? No. Tasks spawned from the same root task need to be keyed to the
+ * same worker stack Tasks apart of the same task group need to be ordered
  * */
 
-/** An identifier used for representing the location of a task in a task graph */
+/** An identifier used for representing the location of a task in a task graph
+ */
 struct TaskNode {
-  TaskId root_;         /**< The id of the root task */
-  u32 node_depth_;      /**< The depth of the task in the task graph */
+  TaskId root_;    /**< The id of the root task */
+  u32 node_depth_; /**< The depth of the task in the task graph */
 
   /** Default constructor */
   HSHM_ALWAYS_INLINE
@@ -112,7 +114,7 @@ struct TaskNode {
 
   /** Copy assignment operator */
   HSHM_ALWAYS_INLINE
-  TaskNode& operator=(const TaskNode &other) {
+  TaskNode &operator=(const TaskNode &other) {
     root_ = other.root_;
     node_depth_ = other.node_depth_;
     return *this;
@@ -127,7 +129,7 @@ struct TaskNode {
 
   /** Move assignment operator */
   HSHM_ALWAYS_INLINE
-  TaskNode& operator=(TaskNode &&other) noexcept {
+  TaskNode &operator=(TaskNode &&other) noexcept {
     root_ = other.root_;
     node_depth_ = other.node_depth_;
     return *this;
@@ -153,18 +155,14 @@ struct TaskNode {
 
   /** Check if null */
   HSHM_ALWAYS_INLINE
-  bool IsNull() const {
-    return root_.IsNull();
-  }
+  bool IsNull() const { return root_.IsNull(); }
 
   /** Check if the root task */
   HSHM_ALWAYS_INLINE
-  bool IsRoot() const {
-    return node_depth_ == 0;
-  }
+  bool IsRoot() const { return node_depth_ == 0; }
 
   /** Serialization*/
-  template<typename Ar>
+  template <typename Ar>
   void serialize(Ar &ar) {
     ar(root_, node_depth_);
   }
@@ -199,20 +197,16 @@ class IsTask {};
 /** The type of a compile-time task flag */
 #define TASK_FLAG_T constexpr inline static bool
 /** Determine this is a task */
-#define IS_TASK(T) \
-  std::is_base_of_v<hrun::IsTask, T>
+#define IS_TASK(T) std::is_base_of_v<hrun::IsTask, T>
 /** Determine this task supports serialization */
-#define IS_SRL(T) \
-  T::SUPPORTS_SRL
+#define IS_SRL(T) T::SUPPORTS_SRL
 /** Determine this task uses SerializeStart */
-#define USES_SRL_START(T) \
-  T::SRL_SYM_START
+#define USES_SRL_START(T) T::SRL_SYM_START
 /** Determine this task uses SerializeEnd */
-#define USES_SRL_END(T) \
-  T::SRL_SYM_END
+#define USES_SRL_END(T) T::SRL_SYM_END
 
 /** Compile-time flags indicating task methods and operation support */
-template<u32 FLAGS>
+template <u32 FLAGS>
 struct TaskFlags : public IsTask {
  public:
   TASK_FLAG_T IS_LOCAL = FLAGS & TF_LOCAL;
@@ -229,11 +223,11 @@ struct TaskFlags : public IsTask {
 /** Prioritization of tasks */
 class TaskPrio {
  public:
-  TASK_PRIO_T kAdmin = 0;              /**< Admin task lane */
-  TASK_PRIO_T kLongRunning = 1;        /**< Long-running task lane */
-  TASK_PRIO_T kLowLatency = 2;         /**< Low latency task lane */
-  TASK_PRIO_T kLongRunningTether = 3;  /**< Tethered to low latency workers */
-  TASK_PRIO_T kHighLatency = 4;        /**< High latency task lane */
+  TASK_PRIO_T kAdmin = 0;             /**< Admin task lane */
+  TASK_PRIO_T kLongRunning = 1;       /**< Long-running task lane */
+  TASK_PRIO_T kLowLatency = 2;        /**< Low latency task lane */
+  TASK_PRIO_T kLongRunningTether = 3; /**< Tethered to low latency workers */
+  TASK_PRIO_T kHighLatency = 4;       /**< High latency task lane */
 };
 
 /** Used to indicate the amount of work remaining to do when flushing */
@@ -242,19 +236,18 @@ struct WorkPending {
   std::atomic<int> count_;
 
   /** Default constructor */
-  WorkPending()
-  : flushing_(false), count_(0) {}
+  WorkPending() : flushing_(false), count_(0) {}
 
   /** Copy constructor */
   WorkPending(const WorkPending &other)
-  : flushing_(other.flushing_), count_(other.count_.load()) {}
+      : flushing_(other.flushing_), count_(other.count_.load()) {}
 };
 
 /** Context passed to the Run method of a task */
 struct RunContext {
-  u32 lane_id_;           /**< The lane id of the task */
-  bctx::transfer_t jmp_;  /**< Current execution state of the task (runtime) */
-  void *stack_ptr_;   /**< The pointer to the stack (runtime) */
+  u32 lane_id_;          /**< The lane id of the task */
+  bctx::transfer_t jmp_; /**< Current execution state of the task (runtime) */
+  void *stack_ptr_;      /**< The pointer to the stack (runtime) */
   TaskLib *exec_;
   WorkPending *flush_;
 
@@ -267,20 +260,20 @@ struct RunContext {
 
 /** A generic task base class */
 struct Task : public hipc::ShmContainer {
- SHM_CONTAINER_TEMPLATE((Task), (Task))
+  SHM_CONTAINER_TEMPLATE((Task), (Task))
  public:
-  TaskStateId task_state_;     /**< The unique name of a task state */
-  TaskNode task_node_;         /**< The unique ID of this task in the graph */
-  DomainId domain_id_;         /**< The nodes that the task should run on */
-  u32 prio_;                   /**< An indication of the priority of the request */
-  u32 lane_hash_;              /**< Determine the lane a task is keyed to */
-  u32 method_;                 /**< The method to call in the state */
-  bitfield32_t task_flags_;    /**< Properties of the task */
-  double period_ns_;           /**< The period of the task */
-  hshm::Timepoint start_;      /**< The time the task started */
+  TaskStateId task_state_;  /**< The unique name of a task state */
+  TaskNode task_node_;      /**< The unique ID of this task in the graph */
+  DomainId domain_id_;      /**< The nodes that the task should run on */
+  u32 prio_;                /**< An indication of the priority of the request */
+  u32 lane_hash_;           /**< Determine the lane a task is keyed to */
+  u32 method_;              /**< The method to call in the state */
+  bitfield32_t task_flags_; /**< Properties of the task */
+  double period_ns_;        /**< The period of the task */
+  hshm::Timepoint start_;   /**< The time the task started */
   RunContext ctx_;
 #ifdef TASK_DEBUG
-  std::atomic<int> delcnt_ = 0;    /**< # of times deltask called */
+  std::atomic<int> delcnt_ = 0; /**< # of times deltask called */
 #endif
 
   /**====================================
@@ -393,9 +386,7 @@ struct Task : public hipc::ShmContainer {
   }
 
   /** This task should be dispersed across all lanes */
-  HSHM_ALWAYS_INLINE bool IsLaneAll() {
-    return task_flags_.Any(TASK_LANE_ALL);
-  }
+  HSHM_ALWAYS_INLINE bool IsLaneAll() { return task_flags_.Any(TASK_LANE_ALL); }
 
   /** Unset this task as lane-dispersable */
   HSHM_ALWAYS_INLINE void UnsetLaneAll() {
@@ -403,19 +394,13 @@ struct Task : public hipc::ShmContainer {
   }
 
   /** Set period in nanoseconds */
-  HSHM_ALWAYS_INLINE void SetPeriodNs(double ns) {
-    period_ns_ = ns;
-  }
+  HSHM_ALWAYS_INLINE void SetPeriodNs(double ns) { period_ns_ = ns; }
 
   /** Set period in microseconds */
-  HSHM_ALWAYS_INLINE void SetPeriodUs(double us) {
-    period_ns_ = us * 1000;
-  }
+  HSHM_ALWAYS_INLINE void SetPeriodUs(double us) { period_ns_ = us * 1000; }
 
   /** Set period in milliseconds */
-  HSHM_ALWAYS_INLINE void SetPeriodMs(double ms) {
-    period_ns_ = ms * 1000000;
-  }
+  HSHM_ALWAYS_INLINE void SetPeriodMs(double ms) { period_ns_ = ms * 1000000; }
 
   /** Set period in seconds */
   HSHM_ALWAYS_INLINE void SetPeriodSec(double sec) {
@@ -428,9 +413,7 @@ struct Task : public hipc::ShmContainer {
   }
 
   /** This task flushes the runtime */
-  HSHM_ALWAYS_INLINE bool IsFlush() {
-    return task_flags_.Any(TASK_FLUSH);
-  }
+  HSHM_ALWAYS_INLINE bool IsFlush() { return task_flags_.Any(TASK_FLUSH); }
 
   /** Determine if time has elapsed */
   HSHM_ALWAYS_INLINE bool ShouldRun(hshm::Timepoint &cur_time, bool flushing) {
@@ -450,9 +433,8 @@ struct Task : public hipc::ShmContainer {
   }
 
   /** Yield the task */
-  template<int THREAD_MODEL = 0>
-  HSHM_ALWAYS_INLINE
-  void Yield() {
+  template <int THREAD_MODEL = 0>
+  HSHM_ALWAYS_INLINE void Yield() {
     if constexpr (THREAD_MODEL == TASK_YIELD_STD) {
       HERMES_THREAD_MODEL->Yield();
     } else if constexpr (THREAD_MODEL == TASK_YIELD_CO) {
@@ -463,27 +445,27 @@ struct Task : public hipc::ShmContainer {
   }
 
   /** Wait for task to complete */
-  template<int THREAD_MODEL = 0>
+  template <int THREAD_MODEL = 0>
   void Wait() {
     while (!IsComplete()) {
-//      for (int i = 0; i < 100000; ++i) {
-//        if (IsComplete()) {
-//          return;
-//        }
-//      }
+      //      for (int i = 0; i < 100000; ++i) {
+      //        if (IsComplete()) {
+      //          return;
+      //        }
+      //      }
       Yield<THREAD_MODEL>();
     }
   }
 
   /** Wait for task to complete */
-  template<int THREAD_MODEL = 0>
+  template <int THREAD_MODEL = 0>
   void Wait(Task *yield_task) {
     while (!IsComplete()) {
-//      for (int i = 0; i < 100000; ++i) {
-//        if (IsComplete()) {
-//          return;
-//        }
-//      }
+      //      for (int i = 0; i < 100000; ++i) {
+      //        if (IsComplete()) {
+      //          return;
+      //        }
+      //      }
       yield_task->Yield<THREAD_MODEL>();
     }
   }
@@ -493,28 +475,23 @@ struct Task : public hipc::ShmContainer {
    * ===================================*/
 
   /** Default SHM constructor */
-  HSHM_ALWAYS_INLINE explicit
-  Task(hipc::Allocator *alloc) {
+  HSHM_ALWAYS_INLINE explicit Task(hipc::Allocator *alloc) {
     shm_init_container(alloc);
   }
 
   /** SHM constructor */
-  HSHM_ALWAYS_INLINE explicit
-  Task(hipc::Allocator *alloc,
-       const TaskNode &task_node) {
+  HSHM_ALWAYS_INLINE explicit Task(hipc::Allocator *alloc,
+                                   const TaskNode &task_node) {
     shm_init_container(alloc);
     task_node_ = task_node;
   }
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  Task(hipc::Allocator *alloc,
-       const TaskNode &task_node,
-       const DomainId &domain_id,
-       const TaskStateId &task_state,
-       u32 lane_hash,
-       u32 method,
-       bitfield32_t task_flags) {
+  HSHM_ALWAYS_INLINE explicit Task(hipc::Allocator *alloc,
+                                   const TaskNode &task_node,
+                                   const DomainId &domain_id,
+                                   const TaskStateId &task_state, u32 lane_hash,
+                                   u32 method, bitfield32_t task_flags) {
     shm_init_container(alloc);
     task_node_ = task_node;
     lane_hash_ = lane_hash;
@@ -533,9 +510,7 @@ struct Task : public hipc::ShmContainer {
   HSHM_ALWAYS_INLINE explicit Task(hipc::Allocator *alloc, const Task &other) {}
 
   /** SHM copy assignment operator */
-  HSHM_ALWAYS_INLINE Task& operator=(const Task &other) {
-    return *this;
-  }
+  HSHM_ALWAYS_INLINE Task &operator=(const Task &other) { return *this; }
 
   /**====================================
    * Move Constructors
@@ -545,9 +520,7 @@ struct Task : public hipc::ShmContainer {
   HSHM_ALWAYS_INLINE Task(hipc::Allocator *alloc, Task &&other) noexcept {}
 
   /** SHM move assignment operator. */
-  HSHM_ALWAYS_INLINE Task& operator=(Task &&other) noexcept {
-    return *this;
-  }
+  HSHM_ALWAYS_INLINE Task &operator=(Task &&other) noexcept { return *this; }
 
   /**====================================
    * Destructor
@@ -565,14 +538,14 @@ struct Task : public hipc::ShmContainer {
   /**====================================
    * Serialization
    * ===================================*/
-  template<typename Ar>
+  template <typename Ar>
   void task_serialize(Ar &ar) {
     // NOTE(llogan): don't serialize start_ because of clock drift
     ar(task_state_, task_node_, domain_id_, lane_hash_, prio_, method_,
        task_flags_, period_ns_);
   }
 
-  template<typename TaskT>
+  template <typename TaskT>
   void task_dup(TaskT &other) {
     task_state_ = other.task_state_;
     task_node_ = other.task_node_;
@@ -591,9 +564,7 @@ struct Task : public hipc::ShmContainer {
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /** Decorator macros */

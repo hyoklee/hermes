@@ -13,9 +13,10 @@
 #ifndef HERMES_SRC_DPE_RANDOM_H_
 #define HERMES_SRC_DPE_RANDOM_H_
 
-#include "dpe.h"
 #include <cstdlib>
 #include <ctime>
+
+#include "dpe.h"
 
 namespace hermes {
 
@@ -30,8 +31,7 @@ class Random : public Dpe {
   }
   ~Random() = default;
   Status Placement(const std::vector<size_t> &blob_sizes,
-                   std::vector<TargetInfo> &targets,
-                   Context &ctx,
+                   std::vector<TargetInfo> &targets, Context &ctx,
                    std::vector<PlacementSchema> &output) override {
     for (size_t blob_size : blob_sizes) {
       // Initialize blob's size, score, and schema
@@ -54,8 +54,7 @@ class Random : public Dpe {
         }
 
         // Place the blob on this target
-        blob_schema.plcmnts_.emplace_back(rem_blob_size,
-                                          target.id_);
+        blob_schema.plcmnts_.emplace_back(rem_blob_size, target.id_);
         rem_blob_size = 0;
         break;
       }

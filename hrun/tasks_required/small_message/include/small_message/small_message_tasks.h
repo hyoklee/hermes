@@ -6,15 +6,15 @@
 #define HRUN_TASKS_SMALL_MESSAGE_INCLUDE_SMALL_MESSAGE_SMALL_MESSAGE_TASKS_H_
 
 #include "hrun/api/hrun_client.h"
+#include "hrun/queue_manager/queue_manager_client.h"
 #include "hrun/task_registry/task_lib.h"
 #include "hrun_admin/hrun_admin.h"
-#include "hrun/queue_manager/queue_manager_client.h"
 #include "proc_queue/proc_queue.h"
 
 namespace hrun::small_message {
 
-#include "small_message_methods.h"
 #include "hrun/hrun_namespace.h"
+#include "small_message_methods.h"
 
 /**
  * A task to create small_message
@@ -22,35 +22,29 @@ namespace hrun::small_message {
 using hrun::Admin::CreateTaskStateTask;
 struct ConstructTask : public CreateTaskStateTask {
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ConstructTask(hipc::Allocator *alloc) : CreateTaskStateTask(alloc) {}
+  HSHM_ALWAYS_INLINE explicit ConstructTask(hipc::Allocator *alloc)
+      : CreateTaskStateTask(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  ConstructTask(hipc::Allocator *alloc,
-                const TaskNode &task_node,
-                const DomainId &domain_id,
-                const std::string &state_name,
-                const TaskStateId &id,
-                const std::vector<PriorityInfo> &queue_info)
+  HSHM_ALWAYS_INLINE explicit ConstructTask(
+      hipc::Allocator *alloc, const TaskNode &task_node,
+      const DomainId &domain_id, const std::string &state_name,
+      const TaskStateId &id, const std::vector<PriorityInfo> &queue_info)
       : CreateTaskStateTask(alloc, task_node, domain_id, state_name,
-                            "small_message", id, queue_info) {
-  }
+                            "small_message", id, queue_info) {}
 };
 
 /** A task to destroy small_message */
 using hrun::Admin::DestroyTaskStateTask;
 struct DestructTask : public DestroyTaskStateTask {
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  DestructTask(hipc::Allocator *alloc) : DestroyTaskStateTask(alloc) {}
+  HSHM_ALWAYS_INLINE explicit DestructTask(hipc::Allocator *alloc)
+      : DestroyTaskStateTask(alloc) {}
 
   /** Emplace constructor */
   HSHM_ALWAYS_INLINE
-  DestructTask(hipc::Allocator *alloc,
-               const TaskNode &task_node,
-               const DomainId &domain_id,
-               TaskStateId &state_id)
+  DestructTask(hipc::Allocator *alloc, const TaskNode &task_node,
+               const DomainId &domain_id, TaskStateId &state_id)
       : DestroyTaskStateTask(alloc, task_node, domain_id, state_id) {}
 };
 
@@ -61,15 +55,14 @@ struct MdTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   OUT hipc::pod_array<int, 1> ret_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  MdTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit MdTask(hipc::Allocator *alloc) : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  MdTask(hipc::Allocator *alloc,
-         const TaskNode &task_node,
-         const DomainId &domain_id,
-         TaskStateId &state_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit MdTask(hipc::Allocator *alloc,
+                                     const TaskNode &task_node,
+                                     const DomainId &domain_id,
+                                     TaskStateId &state_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -84,39 +77,32 @@ struct MdTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   }
 
   /** Duplicate message */
-  void Dup(hipc::Allocator *alloc, MdTask &other) {
-    task_dup(other);
-  }
+  void Dup(hipc::Allocator *alloc, MdTask &other) { task_dup(other); }
 
   /** Process duplicate message output */
-  void DupEnd(u32 replica, MdTask &dup_task) {
-  }
+  void DupEnd(u32 replica, MdTask &dup_task) {}
 
   /** Begin replication */
-  void ReplicateStart(u32 count) {
-    ret_.resize(count);
-  }
+  void ReplicateStart(u32 count) { ret_.resize(count); }
 
   /** Finalize replication */
   void ReplicateEnd() {}
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(ret_[replica]);
   }
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /**
@@ -126,15 +112,15 @@ struct MdPushTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   OUT hipc::pod_array<int, 1> ret_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  MdPushTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit MdPushTask(hipc::Allocator *alloc)
+      : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  MdPushTask(hipc::Allocator *alloc,
-             const TaskNode &task_node,
-             const DomainId &domain_id,
-             TaskStateId &state_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit MdPushTask(hipc::Allocator *alloc,
+                                         const TaskNode &task_node,
+                                         const DomainId &domain_id,
+                                         TaskStateId &state_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 0;
@@ -149,39 +135,32 @@ struct MdPushTask : public Task, TaskFlags<TF_SRL_SYM | TF_REPLICA> {
   }
 
   /** Duplicate message */
-  void Dup(hipc::Allocator *alloc, MdPushTask &other) {
-    task_dup(other);
-  }
+  void Dup(hipc::Allocator *alloc, MdPushTask &other) { task_dup(other); }
 
   /** Process duplicate message output */
-  void DupEnd(u32 replica, MdPushTask &dup_task) {
-  }
+  void DupEnd(u32 replica, MdPushTask &dup_task) {}
 
   /** Begin replication */
-  void ReplicateStart(u32 count) {
-    ret_.resize(count);
-  }
+  void ReplicateStart(u32 count) { ret_.resize(count); }
 
   /** Finalize replication */
   void ReplicateEnd() {}
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeStart(Ar &ar) {
     task_serialize<Ar>(ar);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(ret_[replica]);
   }
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
 /**
@@ -193,15 +172,14 @@ struct IoTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> {
   OUT int ret_;
 
   /** SHM default constructor */
-  HSHM_ALWAYS_INLINE explicit
-  IoTask(hipc::Allocator *alloc) : Task(alloc) {}
+  HSHM_ALWAYS_INLINE explicit IoTask(hipc::Allocator *alloc) : Task(alloc) {}
 
   /** Emplace constructor */
-  HSHM_ALWAYS_INLINE explicit
-  IoTask(hipc::Allocator *alloc,
-         const TaskNode &task_node,
-         const DomainId &domain_id,
-         TaskStateId &state_id) : Task(alloc) {
+  HSHM_ALWAYS_INLINE explicit IoTask(hipc::Allocator *alloc,
+                                     const TaskNode &task_node,
+                                     const DomainId &domain_id,
+                                     TaskStateId &state_id)
+      : Task(alloc) {
     // Initialize task
     task_node_ = task_node;
     lane_hash_ = 3;
@@ -216,35 +194,33 @@ struct IoTask : public Task, TaskFlags<TF_SRL_ASYM_START | TF_SRL_SYM_END> {
   }
 
   /** (De)serialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void SaveStart(Ar &ar) {
     DataTransfer xfer(DT_RECEIVER_READ, data_, DATA_SIZE, domain_id_);
     task_serialize<Ar>(ar);
-    ar & xfer;
+    ar &xfer;
   }
 
   /** Deserialize message call */
-  template<typename Ar>
+  template <typename Ar>
   void LoadStart(Ar &ar) {
     DataTransfer xfer;
     task_serialize<Ar>(ar);
-    ar & xfer;
+    ar &xfer;
     memcpy(data_, xfer.data_, xfer.data_size_);
   }
 
   /** (De)serialize message return */
-  template<typename Ar>
+  template <typename Ar>
   void SerializeEnd(u32 replica, Ar &ar) {
     ar(ret_);
   }
 
   /** Create group */
   HSHM_ALWAYS_INLINE
-  u32 GetGroup(hshm::charbuf &group) {
-    return TASK_UNORDERED;
-  }
+  u32 GetGroup(hshm::charbuf &group) { return TASK_UNORDERED; }
 };
 
-}  // namespace hrun
+}  // namespace hrun::small_message
 
 #endif  // HRUN_TASKS_SMALL_MESSAGE_INCLUDE_SMALL_MESSAGE_SMALL_MESSAGE_TASKS_H_
