@@ -1,76 +1,67 @@
-FROM ubuntu:20.04
+# NOTE(llogan): This dockerfile assumes that
+# hermes github is the current working directory
 
-ENV USER=hermes
-RUN useradd -ms /bin/bash $USER
-RUN su - $USER -c "touch me"
+# Install ubuntu 22.04
+FROM ubuntu:22.04
+LABEL maintainer="llogan@hawk.iit.edu"
+LABEL version="0.0"
+LABEL description="Hermes Docker image with CI"
 
-RUN apt-get update -q --fix-missing && \
-    apt-get install -yq gcc g++
+# Disable Prompt During Packages Installation
+ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get install -y sudo
-RUN echo "${USER} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USER && \
-    chmod 0440 /etc/sudoers.d/$USER
+# Update ubuntu
+SHELL ["/bin/bash", "-c"]
+RUN apt update && apt install
 
-RUN cat /etc/sudoers.d/$USER
-
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
-    autoconf \
-    automake \
-    ca-certificates \
-    curl \
-    environment-modules \
-    git \
-    build-essential \
-    python \
-    python-dev \
-    python3-dev \
-    vim \
+# Install some basic packages
+RUN apt install -y \
+    openssh-server \
     sudo \
-    unzip \
-    cmake \
-    lcov \
-    zlib1g-dev \
-    libsdl2-dev \
-    gfortran \
-    graphviz \
-    doxygen
+    git \
+    gcc g++ gfortran make binutils gpg \
+    tar zip xz-utils bzip2 \
+    perl m4 libncurses5-dev libxml2-dev diffutils \
+    pkg-config cmake pkg-config \
+    python3 python3-pip python3 python3-distutils python3-venv\
+    doxygen lcov zlib1g-dev hdf5-tools \
+    build-essential ca-certificates \
+    coreutils curl environment-modules \
+    gfortran git gpg lsb-release \
+    unzip zip \
+    bash jq gdbserver gdb
 
-USER $USER
+# Setup basic environment
+ENV USER="root"
+ENV HOME="/root"
+ENV SPACK_DIR="${HOME}/spack"
+ENV SPACK_VERSION="v0.20.2"
+ENV HERMES_DEPS_DIR="${HOME}/hermes_deps"
+ENV HERMES_DIR="${HOME}/hermes"
+COPY ci/module_load.sh module_load.sh
 
-RUN sudo apt-get update -q
+# Install Spack
+RUN . /module_load.sh && \
+    git clone -b ${SPACK_VERSION} https://github.com/spack/spack ${SPACK_DIR} && \
+    . "${SPACK_DIR}/share/spack/setup-env.sh" && \
+    git clone -b dev https://github.com/lukemartinlogan/hermes.git ${HERMES_DEPS_DIR} && \
+    # git clone -b dev https://github.com/HDFGroup/hermes.git ${HERMES_DEPS_DIR} && \
+    spack repo add ${HERMES_DEPS_DIR}/ci/hermes && \
+    mkdir -p ${HERMES_DIR} && \
+    spack external find
 
-ENV HOME=/home/$USER
+# Install hermes_shm
+RUN . /module_load.sh && \
+    . "${SPACK_DIR}/share/spack/setup-env.sh" && \
+    spack external find && \
+    spack install hermes_shm@master+vfd+mpiio^mpich@3.3.2
 
-ENV PROJECT=$HOME/source
-ENV INSTALL_DIR=$HOME/install
-ENV SPACK_DIR=$HOME/spack
-ENV MOCHI_DIR=$HOME/mochi
+# Install jarvis-cd
+RUN git clone https://github.com/grc-iit/jarvis-cd.git && \
+    cd jarvis-cd && \
+    pip install -e . -r requirements.txt
 
-RUN echo $INSTALL_DIR && mkdir -p $INSTALL_DIR
-
-RUN git clone https://github.com/spack/spack ${SPACK_DIR}
-RUN git clone https://github.com/mochi-hpc/mochi-spack-packages.git ${MOCHI_DIR}
-RUN git clone https://github.com/HDFGroup/hermes ${PROJECT}
-
-ENV spack=${SPACK_DIR}/bin/spack
-
-RUN . ${SPACK_DIR}/share/spack/setup-env.sh
-
-RUN $spack repo add ${MOCHI_DIR}
-RUN $spack repo add $PROJECT/ci/hermes
-
-RUN $spack compiler find
-
-RUN $spack compiler list
-
-ENV HERMES_VERSION=master
-
-ENV HERMES_SPEC="hermes@${HERMES_VERSION}"
-RUN $spack install --only dependencies ${HERMES_SPEC}
-
-RUN echo "export PATH=${SPACK_DIR}/bin:$PATH" >> /home/$USER/.bashrc
-RUN echo ". ${SPACK_DIR}/share/spack/setup-env.sh" >> /home/$USER/.bashrc
-
-ENV PATH=${INSTALL_DIR}/bin:$PATH
-
-WORKDIR $HOME
+# Install scspkg
+RUN git clone https://github.com/grc-iit/scspkg.git && \
+    cd scspkg && \
+    pip install -e . -r requirements.txt

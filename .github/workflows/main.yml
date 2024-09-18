@@ -1,12 +1,13 @@
 # CodeCoverage result can be found at https://coveralls.io/github/HDFGroup/hermes
 
-name: ubuntu latest
+name: GitHub Actions
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
-    branches: [ master- ]
+  pull_request:
+    branches: [ master ]
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -22,13 +23,13 @@ env:
 jobs:
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Get Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Setup python
         uses: actions/setup-python@v4
@@ -51,41 +52,21 @@ jobs:
         with:
           path: |
             ~/build
-          key: ${{ runner.os }}-${{ hashFiles('wrapper', 'traits', 'test', 'src', 'hermes_shm', 'benchmarks', 'adapter') }}
+          key: ${{ runner.os }}-${{ hashFiles('wrapper', 'test', 'tasks', 'src', 'include', 'hrun', 'hermes_adapters', 'benchmark') }}
 
       - name: Install APT Dependencies
         run: |
           sudo apt update
-          sudo apt-get install -y autoconf
-          sudo apt-get install -y automake
-          sudo apt-get install -y libtool
-          sudo apt-get install -y libtool-bin
-          sudo apt-get install -y mpich
-          sudo apt-get install -y lcov
-          sudo apt-get install -y zlib1g-dev
-          sudo apt-get install -y libsdl2-dev
-<<<<<<< HEAD
-          sudo apt-get install -y diffutils
-          sudo apt-get install -y libdb-dev
-          sudo apt-get install -y libedit-dev
-          sudo apt-get install -y libncurses6
-          sudo apt-get install -y libsigsegv-dev
-          sudo apt-get install -y libxml2-dev
-          sudo apt-get install -y openssl
-          sudo apt-get install -y xz-utils
-          sudo apt-get install -y cmake
-=======
-          sudo apt-get install -y hdf5-tools
->>>>>>> upstream/master
+          sudo apt-get install -y docker
 
       - name: Build And Install Dependencies
-        # if: steps.spack-cache.outputs.cache-hit != 'true'
+#        if: steps.spack-cache.outputs.cache-hit != 'true'
         run: ci/install_deps.sh
 
-      - name: Build
-        if: steps.hermes-cache.outputs.cache-hit != 'true'
-        run: ci/build_hermes.sh
-#
+      - name: Build and Test
+#        if: steps.hermes-cache.outputs.cache-hit != 'true'
+        run: docker exec /hermes_deps_c bash hermes/ci/build_hermes.sh
+
 #      - name: Test
 #        run: bash ci/test_hermes.sh
 #
@@ -97,30 +78,11 @@ jobs:
 #      - name: Multi-node Test
 #        run: pushd ci/cluster && ./multi_node_ci_test.sh
 
-<<<<<<< HEAD
-      # - name: Generate coverage file
-      #   run: |
-      #     COVERAGE_DIR=${GITHUB_WORKSPACE}/coverage
-      #     mkdir -p ${COVERAGE_DIR}
-      #     pushd ${GITHUB_WORKSPACE}/build
-      #     lcov -c -d . -o "${COVERAGE_DIR}/tmp.info"
-      #     lcov --remove "${COVERAGE_DIR}/tmp.info"   \
-      #                   "/usr/include/*"             \
-      #                   "${HOME}/${LOCAL}/*"         \
-      #                   "*/stb_ds.h"                 \
-      #                   -o ${COVERAGE_DIR}/lcov.info
-
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-=======
-#      - name: Generate coverage file
-#        run: bash ci/coverage.sh
+      - name: Generate coverage file
+        run: docker exec /hermes_deps_c bash hermes/ci/coverage.sh "hermes/coverage" "hermes/build"
 
 #      - name: Coveralls
 #        uses: coverallsapp/github-action@master
 #        with:
 #          path-to-lcov: coverage/lcov.info
 #          github-token: ${{ secrets.GITHUB_TOKEN }}
->>>>>>> upstream/master
