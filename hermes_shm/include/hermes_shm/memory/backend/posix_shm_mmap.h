@@ -10,8 +10,8 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef HERMES_SHM_INCLUDE_MEMORY_BACKEND_POSIX_SHM_MMAP_H
-#define HERMES_SHM_INCLUDE_MEMORY_BACKEND_POSIX_SHM_MMAP_H
+#ifndef HERMES_INCLUDE_MEMORY_BACKEND_POSIX_SHM_MMAP_H
+#define HERMES_INCLUDE_MEMORY_BACKEND_POSIX_SHM_MMAP_H
 
 #include <fcntl.h>
 #include <hermes_shm/constants/macros.h>
@@ -29,7 +29,7 @@
 
 #include "memory_backend.h"
 
-namespace hermes_shm::ipc {
+namespace hshm::ipc {
 
 class PosixShmMmap : public MemoryBackend {
  private:
@@ -59,11 +59,11 @@ class PosixShmMmap : public MemoryBackend {
     if (fd_ < 0) {
       return false;
     }
-    _Reserve(size);
-    header_ = _Map<MemoryBackendHeader>(HERMES_SHM_SYSTEM_INFO->page_size_, 0);
+    _Reserve(size + HERMES_SYSTEM_INFO->page_size_);
+    header_ = _Map<MemoryBackendHeader>(HERMES_SYSTEM_INFO->page_size_, 0);
     header_->data_size_ = size;
     data_size_ = size;
-    data_ = _Map(size, HERMES_SHM_SYSTEM_INFO->page_size_);
+    data_ = _Map(size, HERMES_SYSTEM_INFO->page_size_);
     return true;
   }
 
@@ -76,9 +76,9 @@ class PosixShmMmap : public MemoryBackend {
     if (fd_ < 0) {
       return false;
     }
-    header_ = _Map<MemoryBackendHeader>(HERMES_SHM_SYSTEM_INFO->page_size_, 0);
+    header_ = _Map<MemoryBackendHeader>(HERMES_SYSTEM_INFO->page_size_, 0);
     data_size_ = header_->data_size_;
-    data_ = _Map(data_size_, HERMES_SHM_SYSTEM_INFO->page_size_);
+    data_ = _Map(data_size_, HERMES_SYSTEM_INFO->page_size_);
     return true;
   }
 
@@ -98,7 +98,7 @@ class PosixShmMmap : public MemoryBackend {
   }
 
   /** Map shared memory */
-  template <typename T = char>
+  template<typename T = char>
   T* _Map(size_t size, off64_t off) {
     T* ptr = reinterpret_cast<T*>(
         mmap64(nullptr, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd_, off));
@@ -114,7 +114,7 @@ class PosixShmMmap : public MemoryBackend {
       return;
     }
     munmap(data_, data_size_);
-    munmap(header_, HERMES_SHM_SYSTEM_INFO->page_size_);
+    munmap(header_, HERMES_SYSTEM_INFO->page_size_);
     close(fd_);
     UnsetInitialized();
   }
@@ -130,6 +130,6 @@ class PosixShmMmap : public MemoryBackend {
   }
 };
 
-}  // namespace hermes_shm::ipc
+}  // namespace hshm::ipc
 
-#endif  // HERMES_SHM_INCLUDE_MEMORY_BACKEND_POSIX_SHM_MMAP_H
+#endif  // HERMES_INCLUDE_MEMORY_BACKEND_POSIX_SHM_MMAP_H

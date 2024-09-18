@@ -10,8 +10,8 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_BACKEND_NULL_H_
-#define HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_BACKEND_NULL_H_
+#ifndef HERMES_INCLUDE_HERMES_MEMORY_BACKEND_NULL_H_
+#define HERMES_INCLUDE_HERMES_MEMORY_BACKEND_NULL_H_
 
 #include <fcntl.h>
 #include <hermes_shm/constants/macros.h>
@@ -29,7 +29,7 @@
 
 #include "memory_backend.h"
 
-namespace hermes_shm::ipc {
+namespace hshm::ipc {
 
 class NullBackend : public MemoryBackend {
  private:
@@ -68,6 +68,6 @@ class NullBackend : public MemoryBackend {
   void _Destroy() { free(header_); }
 };
 
-}  // namespace hermes_shm::ipc
+}  // namespace hshm::ipc
 
-#endif  // HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_BACKEND_NULL_H_
+#endif  // HERMES_INCLUDE_HERMES_MEMORY_BACKEND_NULL_H_

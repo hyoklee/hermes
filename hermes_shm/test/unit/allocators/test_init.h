@@ -10,20 +10,21 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef HERMES_SHM_TEST_UNIT_ALLOCATORS_TEST_INIT_H_
-#define HERMES_SHM_TEST_UNIT_ALLOCATORS_TEST_INIT_H_
+
+#ifndef HERMES_TEST_UNIT_ALLOCATORS_TEST_INIT_H_
+#define HERMES_TEST_UNIT_ALLOCATORS_TEST_INIT_H_
 
 #include "basic_test.h"
 #include "hermes_shm/memory/memory_manager.h"
 #include "omp.h"
 
-using hermes_shm::ipc::Allocator;
-using hermes_shm::ipc::allocator_id_t;
-using hermes_shm::ipc::AllocatorType;
-using hermes_shm::ipc::MemoryBackend;
-using hermes_shm::ipc::MemoryBackendType;
-using hermes_shm::ipc::MemoryManager;
-using hermes_shm::ipc::Pointer;
+using hshm::ipc::MemoryBackendType;
+using hshm::ipc::MemoryBackend;
+using hshm::ipc::allocator_id_t;
+using hshm::ipc::AllocatorType;
+using hshm::ipc::Allocator;
+using hshm::ipc::MemoryManager;
+using hshm::ipc::Pointer;
 
 #define HEADER_CHECKSUM 8482942
 
@@ -35,11 +36,11 @@ template <typename BackendT, typename AllocT>
 Allocator* Pretest() {
   std::string shm_url = "test_allocators";
   allocator_id_t alloc_id(0, 1);
-  auto mem_mngr = HERMES_SHM_MEMORY_MANAGER;
-  mem_mngr->CreateBackend<BackendT>(MemoryManager::kDefaultBackendSize,
-                                    shm_url);
-  mem_mngr->CreateAllocator<AllocT>(shm_url, alloc_id,
-                                    sizeof(SimpleAllocatorHeader));
+  auto mem_mngr = HERMES_MEMORY_MANAGER;
+  mem_mngr->CreateBackend<BackendT>(
+    MemoryManager::GetDefaultBackendSize(), shm_url);
+  mem_mngr->CreateAllocator<AllocT>(
+    shm_url, alloc_id, sizeof(SimpleAllocatorHeader));
   auto alloc = mem_mngr->GetAllocator(alloc_id);
   auto hdr = alloc->GetCustomHeader<SimpleAllocatorHeader>();
   hdr->checksum_ = HEADER_CHECKSUM;
@@ -47,6 +48,7 @@ Allocator* Pretest() {
 }
 
 void Posttest();
-void PageAllocationTest(Allocator* alloc);
+void PageAllocationTest(Allocator *alloc);
+void MultiPageAllocationTest(Allocator *alloc);
 
-#endif  // HERMES_SHM_TEST_UNIT_ALLOCATORS_TEST_INIT_H_
+#endif  // HERMES_TEST_UNIT_ALLOCATORS_TEST_INIT_H_

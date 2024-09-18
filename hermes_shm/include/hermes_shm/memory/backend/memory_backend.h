@@ -10,8 +10,8 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef HERMES_SHM_MEMORY_H
-#define HERMES_SHM_MEMORY_H
+#ifndef HERMES_MEMORY_H
+#define HERMES_MEMORY_H
 
 #include <hermes_shm/memory/memory.h>
 
@@ -22,7 +22,7 @@
 
 #include "hermes_shm/constants/macros.h"
 
-namespace hermes_shm::ipc {
+namespace hshm::ipc {
 
 struct MemoryBackendHeader {
   size_t data_size_;
@@ -54,7 +54,9 @@ class MemoryBackend {
   void SetInitialized() { flags_.SetBits(MEMORY_BACKEND_INITIALIZED); }
 
   /** Check if data is valid */
-  bool IsInitialized() { return flags_.OrBits(MEMORY_BACKEND_INITIALIZED); }
+  bool IsInitialized() {
+    return flags_.Any(MEMORY_BACKEND_INITIALIZED);
+  }
 
   /** Mark data as invalid */
   void UnsetInitialized() { flags_.UnsetBits(MEMORY_BACKEND_INITIALIZED); }
@@ -63,7 +65,9 @@ class MemoryBackend {
   void Own() { flags_.SetBits(MEMORY_BACKEND_OWNED); }
 
   /** This is owned */
-  bool IsOwned() { return flags_.OrBits(MEMORY_BACKEND_OWNED); }
+  bool IsOwned() {
+    return flags_.Any(MEMORY_BACKEND_OWNED);
+  }
 
   /** This is not the process which destroys the backend */
   void Disown() { flags_.UnsetBits(MEMORY_BACKEND_OWNED); }
@@ -75,6 +79,6 @@ class MemoryBackend {
   virtual void shm_destroy() = 0;
 };
 
-}  // namespace hermes_shm::ipc
+}  // namespace hshm::ipc
 
-#endif  // HERMES_SHM_MEMORY_H
+#endif  // HERMES_MEMORY_H

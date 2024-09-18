@@ -11,7 +11,6 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include <string>
-#include "posix/fs_api.h"
 #include "hermes_types.h"
 #include <hermes.h>
 #include "data_stager_factory.h"
@@ -29,23 +28,19 @@ int main(int argc, char **argv) {
     exit(1);
   }
   MPI_Init(&argc, &argv);
-  auto mdm = Singleton<hermes::adapter::fs::MetadataManager>::GetInstance();
-  setenv("HERMES_STOP_DAEMON", "0", true);
-  setenv("HERMES_ADAPTER_MODE", "WORKFLOW", true);
-  setenv("HERMES_CLIENT", "1", true);
-  mdm->InitializeHermes(true);
-  off_t off;
-  size_t size;
+  HERMES->Create(hermes::HermesType::kClient);
   std::string url = argv[1];
-  std::stringstream(argv[2]) >> off;
-  std::stringstream(argv[3]) >> size;
+  off_t off = (off_t) hshm::ConfigParse::ParseSize(argv[2]);
+  size_t size = hshm::ConfigParse::ParseSize(argv[3]);
   PlacementPolicy dpe = PlacementPolicyConv::to_enum(argv[4]);
   auto stager = DataStagerFactory::Get(url);
   if (size == 0) {
+    HILOG(kInfo, "Full stage-in")
     stager->StageIn(url, dpe);
   } else {
+    HILOG(kInfo, "Partial stage-in")
     stager->StageIn(url, off, size, dpe);
   }
-  mdm->FinalizeHermes();
+  HERMES->Finalize();
   MPI_Finalize();
 }

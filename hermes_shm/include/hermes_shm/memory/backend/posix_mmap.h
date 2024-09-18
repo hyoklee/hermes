@@ -10,8 +10,8 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef HERMES_SHM_INCLUDE_MEMORY_BACKEND_POSIX_MMAP_H
-#define HERMES_SHM_INCLUDE_MEMORY_BACKEND_POSIX_MMAP_H
+#ifndef HERMES_INCLUDE_MEMORY_BACKEND_POSIX_MMAP_H
+#define HERMES_INCLUDE_MEMORY_BACKEND_POSIX_MMAP_H
 
 #include <fcntl.h>
 #include <hermes_shm/constants/macros.h>
@@ -29,7 +29,7 @@
 
 #include "memory_backend.h"
 
-namespace hermes_shm::ipc {
+namespace hshm::ipc {
 
 class PosixMmap : public MemoryBackend {
  private:
@@ -75,11 +75,11 @@ class PosixMmap : public MemoryBackend {
 
  protected:
   /** Map shared memory */
-  template <typename T = char>
-  T *_Map(size_t size) {
-    T *ptr = reinterpret_cast<T *>(mmap64(nullptr, NextPageSizeMultiple(size),
-                                          PROT_READ | PROT_WRITE,
-                                          MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
+  template<typename T = char>
+  T* _Map(size_t size) {
+    T *ptr = reinterpret_cast<T*>(
+      mmap64(nullptr, NextPageSizeMultiple(size), PROT_READ | PROT_WRITE,
+             MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
     if (ptr == MAP_FAILED) {
       perror("map failed");
       throw SHMEM_CREATE_FAILED.format();
@@ -106,6 +106,6 @@ class PosixMmap : public MemoryBackend {
   }
 };
 
-}  // namespace hermes_shm::ipc
+}  // namespace hshm::ipc
 
-#endif  // HERMES_SHM_INCLUDE_MEMORY_BACKEND_POSIX_MMAP_H
+#endif  // HERMES_INCLUDE_MEMORY_BACKEND_POSIX_MMAP_H

@@ -10,16 +10,19 @@
  * have access to the file, you may request a copy from help@hdfgroup.org.   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_ALLOCATOR_MP_PAGE_H_
-#define HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_ALLOCATOR_MP_PAGE_H_
+#ifndef HERMES_INCLUDE_HERMES_MEMORY_ALLOCATOR_MP_PAGE_H_
+#define HERMES_INCLUDE_HERMES_MEMORY_ALLOCATOR_MP_PAGE_H_
 
-namespace hermes_shm::ipc {
+#include "hermes_shm/data_structures/ipc/iqueue.h"
+
+namespace hshm::ipc {
 
 struct MpPage {
-  int flags_;         /**< Page flags (e.g., is_allocated?) */
-  size_t page_size_;  /**< The size of the page allocated */
-  uint32_t off_;      /**< The offset within the page */
-  uint32_t page_idx_; /**< The id of the page in the mp free list */
+  iqueue_entry entry_;  /**< Position of page in free list */
+  size_t page_size_;    /**< The size of the page allocated */
+  int flags_;           /**< Page flags (e.g., is_allocated?) */
+  uint32_t off_;        /**< The offset within the page */
+  uint32_t cpu_;        /**< The CPU the page was alloc'd from */
 
   void SetAllocated() { flags_ = 0x1; }
 
@@ -28,6 +31,6 @@ struct MpPage {
   bool IsAllocated() const { return flags_ & 0x1; }
 };
 
-}  // namespace hermes_shm::ipc
+}  // namespace hshm::ipc
 
-#endif  // HERMES_SHM_INCLUDE_HERMES_SHM_MEMORY_ALLOCATOR_MP_PAGE_H_
+#endif  // HERMES_INCLUDE_HERMES_MEMORY_ALLOCATOR_MP_PAGE_H_

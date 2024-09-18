@@ -31,17 +31,27 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
 
       - name: Run cpplint
         run: pip install cpplint==1.5.4 && bash ci/lint.sh `pwd`
 
-      # - name: Cache Spack packages
-      #   uses: actions/cache@v2
-      #   id: spack-cache
-      #   with:
-      #     path: ~/${{ env.LOCAL }}
-      #     key: ${{ runner.os }}-${{ hashFiles('ci/**') }}
+      - name: Cache Spack packages
+        uses: actions/cache@v3
+        id: spack-cache
+        with:
+          path: |
+            ~/spack
+            ~/.spack
+          key: ${{ runner.os }}-${{ hashFiles('ci/install_deps.sh') }}
+
+      - name: Cache Hermes
+        uses: actions/cache@v3
+        id: hermes-cache
+        with:
+          path: |
+            ~/build
+          key: ${{ runner.os }}-${{ hashFiles('wrapper', 'traits', 'test', 'src', 'hermes_shm', 'benchmarks', 'adapter') }}
 
       - name: Install APT Dependencies
         run: |
@@ -54,6 +64,7 @@ jobs:
           sudo apt-get install -y lcov
           sudo apt-get install -y zlib1g-dev
           sudo apt-get install -y libsdl2-dev
+<<<<<<< HEAD
           sudo apt-get install -y diffutils
           sudo apt-get install -y libdb-dev
           sudo apt-get install -y libedit-dev
@@ -63,25 +74,30 @@ jobs:
           sudo apt-get install -y openssl
           sudo apt-get install -y xz-utils
           sudo apt-get install -y cmake
+=======
+          sudo apt-get install -y hdf5-tools
+>>>>>>> upstream/master
 
       - name: Build And Install Dependencies
         # if: steps.spack-cache.outputs.cache-hit != 'true'
         run: ci/install_deps.sh
 
-      - name: Build and Test
-        run: ci/install_hermes.sh
-
-      - name: Install
-        run: pushd build && make install && popd
-
+      - name: Build
+        if: steps.hermes-cache.outputs.cache-hit != 'true'
+        run: ci/build_hermes.sh
+#
+#      - name: Test
+#        run: bash ci/test_hermes.sh
+#
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled && (failure() || !failure()) }}
+#      - name: Setup tmate session
+#        uses: mxschmitt/action-tmate@v3
+#        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled && (failure() || !failure()) }}
 
-      - name: Multi-node Test
-        run: pushd ci/cluster && ./multi_node_ci_test.sh
+#      - name: Multi-node Test
+#        run: pushd ci/cluster && ./multi_node_ci_test.sh
 
+<<<<<<< HEAD
       # - name: Generate coverage file
       #   run: |
       #     COVERAGE_DIR=${GITHUB_WORKSPACE}/coverage
@@ -98,3 +114,13 @@ jobs:
       #   uses: coverallsapp/github-action@master
       #   with:
       #     github-token: ${{ secrets.GITHUB_TOKEN }}
+=======
+#      - name: Generate coverage file
+#        run: bash ci/coverage.sh
+
+#      - name: Coveralls
+#        uses: coverallsapp/github-action@master
+#        with:
+#          path-to-lcov: coverage/lcov.info
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+>>>>>>> upstream/master

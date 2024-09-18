@@ -8,16 +8,13 @@ Hermes is a heterogeneous-aware, multi-tiered, dynamic, and distributed I/O buff
 
 ## Dependencies
 
-*   A C++ compiler that supports C++ 17.
-*   [Thallium](https://mochi.readthedocs.io/en/latest/installing.html) - RPC library for HPC. Use a version greater than `0.5` for RoCE support.
-*   [GLOG](https://github.com/google/glog) - The Google logging library.
-*   [GLPK](https://www.gnu.org/software/glpk/) - GNU Linear Programming Kit
-*   [yaml-cpp](https://github.com/jbeder/yaml-cpp) - YAML file parser
-*   MPI (tested with MPICH `3.3.2` and OpenMPI `4.0.3`). Note: The MPI-IO adapter
+* A C++ compiler that supports C++ 17.
+* [Thallium](https://mochi.readthedocs.io/en/latest/installing.html) - RPC library for HPC. Use a version greater than `0.5` for RoCE support.
+* [yaml-cpp](https://github.com/jbeder/yaml-cpp) - YAML file parser
+* MPI (tested with MPICH `3.3.2` and OpenMPI `4.0.3`). Note: The MPI-IO adapter
       only supports MPICH. If you don't need the MPI-IO adapter you can use OpenMPI,
       but you must define the CMake variable `HERMES_ENABLE_MPIIO_ADAPTER=OFF`.
-*   The [Catch2](https://github.com/catchorg/Catch2) testing framework
-      (only required if built with `-DBUILD_TESTING=ON`; tested with 3.0.1)
+* HDF5 1.14.0 if compiling with VFD
 
 ## Building
 
@@ -75,6 +72,14 @@ After the makefile has been generated, you can type `make -j 4` or `cmake --buil
 After successfully building Hermes, it's a good idea to run the test suite via the command `ctest .`. This should be run from the build directory.
 
 Finally, install the library with `make install`. You can find a complete example build script [here](https://github.com/HDFGroup/hermes/blob/master/ci/install_hermes.sh).
+
+Before running ctests, you must install jarvis-util, which is used to execute
+the tests.
+```
+cd $HERMES_ROOT/ci/jarvis-util
+python3 -m pip install -r requirements.txt
+python3 -m pip install -e .
+```
 
 ## Contributing
 
