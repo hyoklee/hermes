@@ -15,11 +15,13 @@
 
 #include <string.h>
 #include <yaml-cpp/yaml.h>
+
 #include <iomanip>
-#include <ostream>
-#include <vector>
-#include <sstream>
 #include <limits>
+#include <ostream>
+#include <sstream>
+#include <vector>
+
 #include "hermes_shm/util/config_parse.h"
 
 namespace hrun::config {
@@ -65,7 +67,7 @@ class BaseConfig {
 
  public:
   /** parse \a list_node vector from configuration file in YAML */
-  template<typename T, typename VEC_TYPE = std::vector<T>>
+  template <typename T, typename VEC_TYPE = std::vector<T>>
   static void ParseVector(YAML::Node list_node, VEC_TYPE &list) {
     for (auto val_node : list_node) {
       list.emplace_back(val_node.as<T>());
