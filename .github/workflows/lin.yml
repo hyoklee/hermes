@@ -1,9 +1,5 @@
-# CodeCoverage result can be found at https://coveralls.io/github/HDFGroup/hermes
+name: ubuntu latest
 
-name: ubuntu 20.04
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ master ]
@@ -14,34 +10,18 @@ on:
         required: false
         default: false
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Debug
   LOCAL: local
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Get Sources
         uses: actions/checkout@v3
 
-      - name: Setup python
-        uses: actions/setup-python@v2
-
       - name: Run cpplint
         run: pip install cpplint==1.5.4 && bash ci/lint.sh `pwd`
-
-      # - name: Cache Spack packages
-      #   uses: actions/cache@v2
-      #   id: spack-cache
-      #   with:
-      #     path: ~/${{ env.LOCAL }}
-      #     key: ${{ runner.os }}-${{ hashFiles('ci/**') }}
 
       - name: Install APT Dependencies
         run: |
@@ -68,19 +48,11 @@ jobs:
           sudo apt-get install -y -q xz-utils
 
       - name: Build And Install Dependencies
-        # if: steps.spack-cache.outputs.cache-hit != 'true'
         run: ci/install_deps_u20.sh
 
       - name: Build and Test
-        run: ci/install_hermes.sh
+        run: ci/build_hermes.sh
 
       - name: Install
         run: pushd build && make install && popd
 
-      # Enable tmate debugging of manually-triggered workflows if the input option was provided
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled && (failure() || !failure()) }}
-
-      - name: Multi-node Test
-        run: pushd ci/cluster && ./multi_node_ci_test.sh
