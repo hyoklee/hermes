@@ -229,7 +229,7 @@ class MpiioApi : public RealApi {
     REQUIRE_API(MPI_File_sync)
   }
 };
-}  // namespace hermes::adapter::mpiio
+}  // namespace hermes::adapter
 
 #include "hermes_shm/util/singleton.h"
 
