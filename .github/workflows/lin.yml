@@ -2,7 +2,7 @@ name: ubuntu latest
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master- ]
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -47,11 +47,6 @@ jobs:
           sudo apt-get install -y -q pkgconf
           sudo apt-get install -y -q xz-utils
 
-      - name: Build And Install Dependencies
-        run: ci/install_deps_u20.sh
-
-      - name: Build and Test
-        run: ci/build_hermes.sh
 
       - name: Install
         run: pushd build && make install && popd

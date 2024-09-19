@@ -23,22 +23,19 @@ env:
 jobs:
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Get Sources
-        uses: actions/checkout@v2
-
-      - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/checkout@v4
 
       - name: Run cpplint
         run: pip install cpplint==1.5.4 && bash ci/lint.sh `pwd`
 
       - name: Cache Spack packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: spack-cache
         with:
           path: |
@@ -47,7 +44,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('ci/install_deps.sh') }}
 
       - name: Cache Hermes
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: hermes-cache
         with:
           path: |

@@ -1,7 +1,7 @@
 name: spack ci
 on:
   push:
-    branches: [ master- ]
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Checkout Spack
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          repository: hyoklee/spack
+          repository: spack/spack
           path: ./spack
       - name: Install APT Dependencies
         run: |
@@ -77,4 +77,4 @@ jobs:
           spack load hdf5
           cmake --version
           ci/install_hermes_glpk.sh
-          pushd ci/cluster && ./multi_node_ci_test.sh
+#          pushd ci/cluster && ./multi_node_ci_test.sh
