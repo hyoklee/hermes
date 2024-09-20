@@ -1,21 +1,26 @@
 name: spack ci
 on:
   push:
-    branches: [ master- ]
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Sources
+      - name: checkout
         uses: actions/checkout@v4
-      - name: Checkout Spack
+      - name: spack
         uses: actions/checkout@v4
         with:
           repository: spack/spack
           path: ./spack
-      - name: Install APT Dependencies
+      - name: jarvis
+        uses: actions/checkout@v4
+        with:
+          repository: grc-iit/jarvis-cd
+          path: ./jarvis-cd
+      - name: install
         run: |
           sudo apt update
           sudo apt-get install -y autoconf
@@ -35,16 +40,17 @@ jobs:
           sudo apt-get install -y openssl
           sudo apt-get install -y xz-utils
           sudo apt-get install -y zlib1g-dev          
-          
-      - name: Run Spack
+      - name: build
         run: |
           pip install clingo
           . ./spack/share/spack/setup-env.sh
+          spack repo add ci/hermes	  
           spack compiler find
           spack external find autoconf
           spack external find automake
           spack external find berkeley-db
           spack external find boost
+          spack external find cmake	  
           spack external find diffutils
           spack external find libedit
           spack external find libtool
@@ -61,20 +67,6 @@ jobs:
           spack external find zlib
           spack external find xz
           spack external find yaml-cpp
-          spack install yaml-cpp
-          spack load yaml-cpp
-          spack install glpk
-          spack load glpk
-          spack install glog
-          spack load glog
-          spack install catch2
-          spack load catch2
-          spack install mpi ^mpich
-          spack load mpi
-          spack install mochi-thallium@main~cereal
-          spack load mochi-thallium@main~cereal
-          spack install hdf5@develop ^mpi ^mpich
-          spack load hdf5
-          cmake --version
-          ci/install_hermes_glpk.sh
-#          pushd ci/cluster && ./multi_node_ci_test.sh
+          spack install hermes_shm@master+vfd+mpiio^mpich
+          spack load hermes@master+vfd+mpiio^mpich	  
+          ci/install_hermes.sh

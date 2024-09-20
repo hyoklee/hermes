@@ -2,13 +2,9 @@ name: ubuntu latest
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master- ]
   workflow_dispatch:
-    inputs:
-      debug_enabled:
-        description: 'Run the build with tmate debugging enabled'
-        required: false
-        default: false
+
 env:
   BUILD_TYPE: Debug
   LOCAL: local

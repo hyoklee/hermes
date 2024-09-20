@@ -22,8 +22,11 @@ cmake                                                      \
     -DCMAKE_CXX_COMPILER=`which mpicxx`                    \
     -DCMAKE_C_COMPILER=`which mpicc`                       \
     -DBUILD_SHARED_LIBS=ON                                 \
+    -DHERMES_ENABLE_MPIIO_ADAPTER=ON \
+    -DHERMES_MPICH=ON \
+    -DHERMES_ENABLE_STDIO_ADAPTER=ON \
+    -DHERMES_ENABLE_POSIX_ADAPTER=ON \    
     -DHERMES_ENABLE_COVERAGE=ON                            \
-    -DHERMES_ENABLE_VFD=OFF                                \
     -DBUILD_TESTING=ON                                     \
     ..
 
