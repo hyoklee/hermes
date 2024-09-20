@@ -63,12 +63,15 @@ cmake ../ \
 -DHERMES_MPICH=ON \
 -DHERMES_ENABLE_STDIO_ADAPTER=OFF \
 -DHERMES_ENABLE_POSIX_ADAPTER=ON \
--DHERMES_ENABLE_COVERAGE=ON
-make -j4
+-DHERMES_ENABLE_COVERAGE=ON \
+-DSITE=ubu \
+-DBUILDNAME="d-std"
+make -j
 make install
 
 # Test Hermes
-ctest -VV
+#ctest -VV
+ctest -D Experimental
 
 # Run make install unit test
 cd /hermes/test/unit/external
