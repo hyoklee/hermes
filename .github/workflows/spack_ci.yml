@@ -69,5 +69,5 @@ jobs:
           spack external find yaml-cpp
           spack external find python
           spack install hermes_shm@master+vfd+mpiio^mpich
-          spack load hermes@master+vfd+mpiio^mpich
+          spack load hermes_shm@master+vfd+mpiio^mpich
           ci/install_hermes.sh
