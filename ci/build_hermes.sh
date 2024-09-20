@@ -53,6 +53,7 @@ git config --global --add safe.directory '*'
 git submodule update --init
 
 # Build Hermes
+export CXXFLAGS=-Wall -std=c++17
 mkdir -p build
 cd build
 cmake ../ \
@@ -67,7 +68,6 @@ make -j4
 make install
 
 # Test Hermes
-export CXXFLAGS=-Wall
 ctest -VV
 
 # Run make install unit test
