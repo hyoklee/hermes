@@ -34,23 +34,23 @@ jobs:
           sudo apt-get install -y libsdl2-dev
           sudo apt-get install -y libtool
           sudo apt-get install -y libtool-bin
-          sudo apt-get install -y libyaml-cpp-dev          
-          sudo apt-get install -y lcov          
+          sudo apt-get install -y libyaml-cpp-dev
+          sudo apt-get install -y lcov
           sudo apt-get install -y mpich
           sudo apt-get install -y openssl
           sudo apt-get install -y xz-utils
-          sudo apt-get install -y zlib1g-dev          
+          sudo apt-get install -y zlib1g-dev
       - name: build
         run: |
           pip install clingo
           . ./spack/share/spack/setup-env.sh
-          spack repo add ci/hermes	  
+          spack repo add ci/hermes
           spack compiler find
           spack external find autoconf
           spack external find automake
           spack external find berkeley-db
           spack external find boost
-          spack external find cmake	  
+          spack external find cmake
           spack external find diffutils
           spack external find libedit
           spack external find libtool
@@ -67,7 +67,7 @@ jobs:
           spack external find zlib
           spack external find xz
           spack external find yaml-cpp
-	  spack external find python
+          spack external find python
           spack install hermes_shm@master+vfd+mpiio^mpich
-          spack load hermes@master+vfd+mpiio^mpich	  
+          spack load hermes@master+vfd+mpiio^mpich
           ci/install_hermes.sh
