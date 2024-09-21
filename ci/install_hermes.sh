@@ -27,10 +27,8 @@ cmake                                                      \
     -DHERMES_ENABLE_STDIO_ADAPTER=ON \
     -DHERMES_ENABLE_POSIX_ADAPTER=ON \
     -DHERMES_ENABLE_COVERAGE=ON                            \
-    -DBUILD_TESTING=ON                                     \
+    -DSITE=ubu \
+    -DBUILDNAME="mpich" \    
     ..
-
-cmake --build . -- -j4
-ctest -VV
-
+ctest -D Experimental
 popd
