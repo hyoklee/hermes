@@ -70,4 +70,5 @@ jobs:
           spack external find python
           spack install hermes_shm@master+vfd+mpiio^mpich
           spack load hermes_shm@master+vfd+mpiio^mpich
+          ci/install_jarvis.sh	  
           ci/install_hermes.sh
