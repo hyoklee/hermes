@@ -25,7 +25,7 @@ cmake                                                      \
     -DHERMES_ENABLE_MPIIO_ADAPTER=ON \
     -DHERMES_MPICH=ON \
     -DHERMES_ENABLE_STDIO_ADAPTER=ON \
-    -DHERMES_ENABLE_POSIX_ADAPTER=ON \    
+    -DHERMES_ENABLE_POSIX_ADAPTER=ON \
     -DHERMES_ENABLE_COVERAGE=ON                            \
     -DBUILD_TESTING=ON                                     \
     ..
