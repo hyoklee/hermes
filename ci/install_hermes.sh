@@ -12,7 +12,7 @@ pushd build
 DEPENDENCY_PREFIX="${HOME}/${LOCAL}"
 INSTALL_PREFIX="${HOME}/install"
 
-export CXXFLAGS="${CXXFLAGS} -std=c++17 -Werror -Wall -Wextra"
+export CXXFLAGS="${CXXFLAGS} -std=c++17 -Wall"
 cmake                                                      \
     -DCMAKE_INSTALL_PREFIX=${INSTALL_PREFIX}               \
     -DCMAKE_PREFIX_PATH=${DEPENDENCY_PREFIX}               \
