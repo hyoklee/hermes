@@ -1,7 +1,7 @@
 name: spack ci
 on:
   push:
-    branches: [ master ]
+    branches: [ master- ]
   workflow_dispatch:
 
 jobs:
