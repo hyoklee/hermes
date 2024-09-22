@@ -30,5 +30,5 @@ cmake                                                      \
     -DSITE=ubu \
     -DBUILDNAME="mpich" \
     ..
-ctest -D Experimental
+sudo ctest -D Experimental
 popd
