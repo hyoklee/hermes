@@ -31,7 +31,7 @@ cmake                                                      \
     -DBUILDNAME="mpich" \
     ..
 sudo mkdir /hdd /ssd /nvme
-sudo chomod go+rw /hdd /ssd /nvme
+sudo chmod go+rw /hdd /ssd /nvme
 ctest -D Experimental
 
 popd
