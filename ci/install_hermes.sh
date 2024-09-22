@@ -30,5 +30,8 @@ cmake                                                      \
     -DSITE=ubu \
     -DBUILDNAME="mpich" \
     ..
-sudo ctest -D Experimental
+sudo mkdir /hdd /ssd /nvme
+sudo chomod go+rw /hdd /ssd /nvme
+ctest -D Experimental
+
 popd
