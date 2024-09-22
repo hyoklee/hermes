@@ -28,7 +28,7 @@ cmake                                                      \
     -DHERMES_ENABLE_POSIX_ADAPTER=ON \
     -DHERMES_ENABLE_COVERAGE=ON                            \
     -DSITE=ubu \
-    -DBUILDNAME="mpich" \    
+    -DBUILDNAME="mpich" \
     ..
 ctest -D Experimental
 popd
