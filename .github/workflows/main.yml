@@ -6,9 +6,9 @@ name: GitHub Actions
 # events but only for the master branch
 on:
   push:
-    branches: [ master- ]  
+    branches: [ master ]  
   pull_request:
-    branches: [ master- ]
+    branches: [ master ]
   workflow_dispatch:
     inputs:
       debug_enabled:
